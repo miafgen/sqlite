@@ -1,0 +1,98 @@
+<?xml version="1.0"?>
+<project name="SQLite Windows Installer" default="build">
+	<property file="build.properties" />
+	<property name="fetch.folder" value="temp" />
+	<property name="install.folder" value="install_modules_dynamic" />
+	<property name="compile.folder" value="dist" />
+		
+	<target name="clean" depends="clean-fetch, clean-install, clean-compile, clean-readme" />
+	<target name="build" depends="clean, fetch, install, compile, readme" />
+	
+	<target name="clean-fetch">
+		<delete dir="${fetch.folder}" />		
+	</target>
+
+	<target name="clean-install">		
+		<delete dir="${install.folder}" />
+	</target>
+
+	<target name="clean-compile">		
+		<delete dir="${compile.folder}" />
+	</target>
+
+	<target name="clean-readme">				
+		<delete file="README.md" />
+	</target>
+		
+	<target name="fetch" depends="clean-fetch">
+		<mkdir dir="${fetch.folder}" />
+		
+		<!-- ==== Downloading stuff from sqlite.org ==== -->
+		<!-- Sources -->
+		<mkdir dir="${fetch.folder}/sources" />				
+		<get src="https://www.sqlite.org/${sqliteorg.year}/sqlite-amalgamation-${sqliteorg.version}.zip" dest="${fetch.folder}/sources/sqlite-amalgamation.zip" />
+		<get src="https://www.sqlite.org/${sqliteorg.year}/sqlite-autoconf-${sqliteorg.version}.tar.gz" dest="${fetch.folder}/sources/sqlite-autoconf.tar.gz" />		
+
+		<!-- Documentation -->
+		<mkdir dir="${fetch.folder}/documentation" />
+		<get src="https://www.sqlite.org/${sqliteorg.year}/sqlite-doc-${sqliteorg.version}.zip" dest="${fetch.folder}/documentation/documentation.zip" />
+		<unzip src="${fetch.folder}/documentation/documentation.zip" dest="${fetch.folder}/documentation" />
+		<move todir="${fetch.folder}/documentation">
+			<fileset dir="${fetch.folder}/documentation/sqlite-doc-${sqliteorg.version}"/>
+		</move>		
+		
+		<delete file="${fetch.folder}/documentation/documentation.zip" />
+		<delete dir="${fetch.folder}/documentation/sqlite-doc-${sqliteorg.version}" />
+		
+		<!-- DLLs (32bit) -->
+		<mkdir dir="${fetch.folder}/dll-win32" />		
+		<get src="https://www.sqlite.org/${sqliteorg.year}/sqlite-dll-win32-x86-${sqliteorg.version}.zip" dest="${fetch.folder}/dll-win32/dll-win32.zip" />
+				
+		<!-- DLLs (64bit) -->
+		<mkdir dir="${fetch.folder}/dll-win64" />		
+		<get src="https://www.sqlite.org/${sqliteorg.year}/sqlite-dll-win64-x64-${sqliteorg.version}.zip" dest="${fetch.folder}/dll-win64/dll-win64.zip" />
+		
+		<!-- Tools (32bit) -->
+		<mkdir dir="${fetch.folder}/tools-win32" />		
+		<get src="https://www.sqlite.org/${sqliteorg.year}/sqlite-tools-win32-x86-${sqliteorg.version}.zip" dest="${fetch.folder}/tools-win32/tools-win32.zip" />		
+		<unzip src="${fetch.folder}/tools-win32/tools-win32.zip" dest="${fetch.folder}/tools-win32" />
+		<move todir="${fetch.folder}/tools-win32">
+			<fileset dir="${fetch.folder}/tools-win32/sqlite-tools-win32-x86-${sqliteorg.version}"/>
+		</move>
+		<delete file="${fetch.folder}/tools-win32/tools-win32.zip" />
+		<delete dir="${fetch.folder}/tools-win32/sqlite-tools-win32-x86-${sqliteorg.version}" />
+		
+		<!-- ==== Downloading stuff from github.com/nalgeon ==== -->
+		<!-- Tools (32bit) -->
+		<mkdir dir="${fetch.folder}/tools-win64" />
+		<get src="https://github.com/nalgeon/sqlite/releases/download/${nalgeon.version}/sqlite3.exe" dest="${fetch.folder}/tools-win64/sqlite3_64bit.exe" />
+		
+		<!-- ==== Downloading stuff from github.com/xerial ==== -->
+		<!-- JDBC driver -->
+		<mkdir dir="${fetch.folder}/jdbc" />
+		<get src="https://github.com/xerial/sqlite-jdbc/releases/download/${xerial.version}/sqlite-jdbc-${xerial.version}.jar" dest="${fetch.folder}/jdbc/sqlite-jdbc.jar" />
+	</target>
+	
+	<target name="install" depends="clean-install">		
+		<mkdir dir="${install.folder}" />
+		
+		<copy todir="${install.folder}">
+			<fileset dir="${fetch.folder}"/>
+		</copy>
+	</target>
+	
+	<target name="compile" depends="clean-compile">
+		<mkdir dir="${compile.folder}" />
+		
+		<exec executable="makensis.exe">
+			<arg value="/DVERSION=${buildversion}"/>			
+			<arg value="resources\\sqlite.nsi"/>
+		</exec>		
+	</target>
+
+	<target name="readme" depends="clean-readme">		
+		<copy file="resources/README.md.template" tofile="README.md"/>		
+		<replace file="README.md" token="{{version}}" value="${buildversion}" />		
+	</target>
+	
+</project>

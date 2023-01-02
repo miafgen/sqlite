@@ -1,4 +1,4 @@
-# SQLite Windows Installer
+# Windows Installer for SQLite 3.40.0.0
 One stop shop installer for installing SQLite artefacts on Windows. 
 
 Following components can be installed using this installer:

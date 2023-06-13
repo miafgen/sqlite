@@ -162,7 +162,7 @@ mk.innerHTML = "&#x25ba;";
 <p>
 SQLite stores integer values in the 64-bit 
 <a href="https://en.wikipedia.org/wiki/Two%27s_complement">twos-complement</a>
-format.
+format&sup1.
 This gives a storage range of -9223372036854775808 to +9223372036854775807,
 inclusive.  Integers within this range are exact.
 
@@ -170,7 +170,7 @@ inclusive.  Integers within this range are exact.
 So-called "REAL" or floating point values are stored in the
 <a href="https://en.wikipedia.org/wiki/IEEE_754">IEEE 754</a>
 <a href="https://en.wikipedia.org/wiki/Double-precision_floating-point_format">Binary-64</a>
-format.
+format&sup1.
 This gives a range of positive values between approximately
 1.7976931348623157e+308 and 4.9406564584124654e-324 with an equivalent
 range of negative values.  A binary64 can also be 0.0 (and -0.0), positive
@@ -187,6 +187,10 @@ Floating point values are approximate.
 If you need an exact answer, you should not use binary64 floating-point
 values, in SQLite or in any other product.  This is not an SQLite limitation.
 It is a mathematical limitation inherent in the design of floating-point numbers.
+
+</p><p>&mdash;<br>&sup1;
+Exception:  The <a href="rtree.html">R-Tree extension</a> stores information as 32-bit floating
+point or integer values.
 
 </p><h2 id="floating_point_accuracy"><span>1.1. </span>Floating-Point Accuracy</h2>
 
@@ -477,5 +481,5 @@ WITH c(n) AS (VALUES(47.49))
 SELECT decimal_mul(ieee754_mantissa(c.n),pow2.v)
   FROM pow2, c WHERE pow2.x=ieee754_exponent(c.n);
 </pre></div>
-<p align="center"><small><i>This page last modified on  <a href="https://sqlite.org/docsrc/honeypot" id="mtimelink"  data-href="https://sqlite.org/docsrc/finfo/pages/floatingpoint.in?m=a48f34f7d5de29c71">2020-10-02 15:51:14</a> UTC </small></i></p>
+<p align="center"><small><i>This page last modified on  <a href="https://sqlite.org/docsrc/honeypot" id="mtimelink"  data-href="https://sqlite.org/docsrc/finfo/pages/floatingpoint.in?m=d4e94d1f66">2022-11-21 14:37:06</a> UTC </small></i></p>
 

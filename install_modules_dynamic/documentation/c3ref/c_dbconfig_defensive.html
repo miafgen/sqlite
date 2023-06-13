@@ -115,9 +115,9 @@ antiRobotGo();
 }
 antiRobotDefense();
 </script>
-<!-- keywords: SQLITE_DBCONFIG_DEFENSIVE SQLITE_DBCONFIG_DQS_DDL SQLITE_DBCONFIG_DQS_DML SQLITE_DBCONFIG_ENABLE_FKEY SQLITE_DBCONFIG_ENABLE_FTS3_TOKENIZER SQLITE_DBCONFIG_ENABLE_LOAD_EXTENSION SQLITE_DBCONFIG_ENABLE_QPSG SQLITE_DBCONFIG_ENABLE_TRIGGER SQLITE_DBCONFIG_ENABLE_VIEW SQLITE_DBCONFIG_LEGACY_ALTER_TABLE SQLITE_DBCONFIG_LEGACY_FILE_FORMAT SQLITE_DBCONFIG_LOOKASIDE SQLITE_DBCONFIG_MAINDBNAME SQLITE_DBCONFIG_MAX SQLITE_DBCONFIG_NO_CKPT_ON_CLOSE SQLITE_DBCONFIG_RESET_DATABASE SQLITE_DBCONFIG_TRIGGER_EQP SQLITE_DBCONFIG_TRUSTED_SCHEMA SQLITE_DBCONFIG_WRITABLE_SCHEMA -->
+<!-- keywords: SQLITE_DBCONFIG_DEFENSIVE SQLITE_DBCONFIG_DQS_DDL SQLITE_DBCONFIG_DQS_DML SQLITE_DBCONFIG_ENABLE_FKEY SQLITE_DBCONFIG_ENABLE_FTS3_TOKENIZER SQLITE_DBCONFIG_ENABLE_LOAD_EXTENSION SQLITE_DBCONFIG_ENABLE_QPSG SQLITE_DBCONFIG_ENABLE_TRIGGER SQLITE_DBCONFIG_ENABLE_VIEW SQLITE_DBCONFIG_LEGACY_ALTER_TABLE SQLITE_DBCONFIG_LEGACY_FILE_FORMAT SQLITE_DBCONFIG_LOOKASIDE SQLITE_DBCONFIG_MAINDBNAME SQLITE_DBCONFIG_MAX SQLITE_DBCONFIG_NO_CKPT_ON_CLOSE SQLITE_DBCONFIG_RESET_DATABASE SQLITE_DBCONFIG_REVERSE_SCANORDER SQLITE_DBCONFIG_STMT_SCANSTATUS SQLITE_DBCONFIG_TRIGGER_EQP SQLITE_DBCONFIG_TRUSTED_SCHEMA SQLITE_DBCONFIG_WRITABLE_SCHEMA -->
 <div class=nosearch>
-<a href="intro.html"><h2>SQLite C Interface</h2></a>
+<a href="../c3ref/intro.html"><h2>SQLite C Interface</h2></a>
 <h2>Database Connection Configuration Options</h2>
 </div>
 <blockquote><pre>
@@ -139,7 +139,9 @@ antiRobotDefense();
 #define SQLITE_DBCONFIG_ENABLE_VIEW           1015 /* int int* */
 #define SQLITE_DBCONFIG_LEGACY_FILE_FORMAT    1016 /* int int* */
 #define SQLITE_DBCONFIG_TRUSTED_SCHEMA        1017 /* int int* */
-#define SQLITE_DBCONFIG_MAX                   1017 /* Largest DBCONFIG */
+#define SQLITE_DBCONFIG_STMT_SCANSTATUS       1018 /* int int* */
+#define SQLITE_DBCONFIG_REVERSE_SCANORDER     1019 /* int int* */
+#define SQLITE_DBCONFIG_MAX                   1019 /* Largest DBCONFIG */
 </pre></blockquote>
 <p>
 These constants are the available integer configuration options that
@@ -172,7 +174,7 @@ rounded down to the next smaller multiple of 8.  The lookaside memory
 configuration for a database connection can only be changed when that
 connection is not currently using lookaside memory, or in other words
 when the "current value" returned by
-<a href="../c3ref/db_status.html">sqlite3_db_status</a>(D,<a href="../c3ref/c_config_covering_index_scan.html#sqliteconfiglookaside">SQLITE_CONFIG_LOOKASIDE</a>,...) is zero.
+<a href="../c3ref/db_status.html">sqlite3_db_status</a>(D,<a href="../c3ref/c_dbstatus_options.html#sqlitedbstatuslookasideused">SQLITE_DBSTATUS_LOOKASIDE_USED</a>,...) is zero.
 Any attempt to change the lookaside memory configuration when lookaside
 memory is in use leaves the configuration unchanged and returns
 <a href="../rescode.html#busy">SQLITE_BUSY</a>.</dd></p>
@@ -332,8 +334,12 @@ the reset.
 <li> sqlite3_db_config(db, SQLITE_DBCONFIG_RESET_DATABASE, 0, 0);
 </ol>
 Because resetting a database is destructive and irreversible, the
-process requires the use of this obscure API and multiple steps to help
-ensure that it does not happen by accident.</p>
+process requires the use of this obscure API and multiple steps to
+help ensure that it does not happen by accident. Because this
+feature must be capable of resetting corrupt databases, and
+shutting down virtual tables may require access to that corrupt
+storage, the library must abandon any installed virtual tables
+without calling their xDestroy() methods.</p>
 
 <p><a name="sqlitedbconfigdefensive"></a>
  <dt>SQLITE_DBCONFIG_DEFENSIVE</dt>
@@ -376,7 +382,7 @@ using the <a href="../pragma.html#pragma_legacy_alter_table">PRAGMA legacy_alter
 
 <p><a name="sqlitedbconfigdqsdml"></a>
 
-<dt>SQLITE_DBCONFIG_DQS_DML</td>
+<dt>SQLITE_DBCONFIG_DQS_DML</dt>
 <dd>The SQLITE_DBCONFIG_DQS_DML option activates or deactivates
 the legacy <a href="../quirks.html#dblquote">double-quoted string literal</a> misfeature for DML statements
 only, that is DELETE, INSERT, SELECT, and UPDATE statements. The
@@ -386,7 +392,7 @@ compile-time option.
 
 <p><a name="sqlitedbconfigdqsddl"></a>
 
-<dt>SQLITE_DBCONFIG_DQS_DDL</td>
+<dt>SQLITE_DBCONFIG_DQS_DDL</dt>
 <dd>The SQLITE_DBCONFIG_DQS option activates or deactivates
 the legacy <a href="../quirks.html#dblquote">double-quoted string literal</a> misfeature for DDL statements,
 such as CREATE TABLE and CREATE INDEX. The
@@ -396,7 +402,7 @@ compile-time option.
 
 <p><a name="sqlitedbconfigtrustedschema"></a>
 
-<dt>SQLITE_DBCONFIG_TRUSTED_SCHEMA</td>
+<dt>SQLITE_DBCONFIG_TRUSTED_SCHEMA</dt>
 <dd>The SQLITE_DBCONFIG_TRUSTED_SCHEMA option tells SQLite to
 assume that database schemas are untainted by malicious content.
 When the SQLITE_DBCONFIG_TRUSTED_SCHEMA option is disabled, SQLite
@@ -417,7 +423,7 @@ can also be controlled using the <a href="../pragma.html#pragma_trusted_schema">
 
 <p><a name="sqlitedbconfiglegacyfileformat"></a>
 
-<dt>SQLITE_DBCONFIG_LEGACY_FILE_FORMAT</td>
+<dt>SQLITE_DBCONFIG_LEGACY_FILE_FORMAT</dt>
 <dd>The SQLITE_DBCONFIG_LEGACY_FILE_FORMAT option activates or deactivates
 the legacy file format flag.  When activated, this flag causes all newly
 created database file to have a schema format version number (the 4-byte
@@ -426,7 +432,7 @@ means that the resulting database file will be readable and writable by
 any SQLite version back to 3.0.0 (2004-06-18).  Without this setting,
 newly created databases are generally not understandable by SQLite versions
 prior to 3.3.0 (2006-01-11).  As these words are written, there
-is now scarcely any need to generated database files that are compatible
+is now scarcely any need to generate database files that are compatible
 all the way back to version 3.0.0, and so this setting is of little
 practical use, but is provided so that SQLite can continue to claim the
 ability to generate new database files that are compatible with  version
@@ -436,10 +442,44 @@ the <a href="../lang_vacuum.html">VACUUM</a> command will fail with an obscure e
 process a table with generated columns and a descending index.  This is
 not considered a bug since SQLite versions 3.3.0 and earlier do not support
 either generated columns or decending indexes.
-</dd>
-</dl>
+</dd></p>
+
+<p><a name="sqlitedbconfigstmtscanstatus"></a>
+
+<dt>SQLITE_DBCONFIG_STMT_SCANSTATUS</dt>
+<dd>The SQLITE_DBCONFIG_STMT_SCANSTATUS option is only useful in
+SQLITE_ENABLE_STMT_SCANSTATUS builds. In this case, it sets or clears
+a flag that enables collection of the sqlite3_stmt_scanstatus_v2()
+statistics. For statistics to be collected, the flag must be set on
+the database handle both when the SQL statement is prepared and when it
+is stepped. The flag is set (collection of statistics is enabled)
+by default.  This option takes two arguments: an integer and a pointer to
+an integer..  The first argument is 1, 0, or -1 to enable, disable, or
+leave unchanged the statement scanstatus option.  If the second argument
+is not NULL, then the value of the statement scanstatus setting after
+processing the first argument is written into the integer that the second
+argument points to.
+</dd></p>
+
+<p><a name="sqlitedbconfigreversescanorder"></a>
+
+<dt>SQLITE_DBCONFIG_REVERSE_SCANORDER</dt>
+<dd>The SQLITE_DBCONFIG_REVERSE_SCANORDER option changes the default order
+in which tables and indexes are scanned so that the scans start at the end
+and work toward the beginning rather than starting at the beginning and
+working toward the end. Setting SQLITE_DBCONFIG_REVERSE_SCANORDER is the
+same as setting <a href="../pragma.html#pragma_reverse_unordered_selects">PRAGMA reverse_unordered_selects</a>.  This option takes
+two arguments which are an integer and a pointer to an integer.  The first
+argument is 1, 0, or -1 to enable, disable, or leave unchanged the
+reverse scan order flag, respectively.  If the second argument is not NULL,
+then 0 or 1 is written into the integer that the second argument points to
+depending on if the reverse scan order flag is set after processing the
+first argument.
+</dd></p>
+
+<p></dl>
 </p><p>See also lists of
-  <a href="objlist.html">Objects</a>,
-  <a href="constlist.html">Constants</a>, and
-  <a href="funclist.html">Functions</a>.</p>
+  <a href="../c3ref/objlist.html">Objects</a>,
+  <a href="../c3ref/constlist.html">Constants</a>, and
+  <a href="../c3ref/funclist.html">Functions</a>.</p>
 

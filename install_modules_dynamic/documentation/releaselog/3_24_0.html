@@ -133,7 +133,7 @@ antiRobotDefense();
 <li> Added the <a href="../c3ref/c_dbconfig_defensive.html#sqlitedbconfigresetdatabase">SQLITE_DBCONFIG_RESET_DATABASE</a> option to the
      <a href="../c3ref/db_config.html">sqlite3_db_config()</a> API.
 <p><b><a href="../cli.html">CLI</a> Enhancements:</b>
-<li> Automatically intercepts the raw <a href="../eqp.html">EXPLAIN QUERY PLAN</a> 
+<li> Automatically intercepts the raw <a href="../eqp.html">EXPLAIN QUERY PLAN</a>
      output and reformats it into an ASCII-art graph.
 <li> Lines that begin with "#" and that are not in the middle of an
      SQL statement are interpreted as comments.
@@ -142,8 +142,8 @@ antiRobotDefense();
 <p><b>Performance:</b>
 <li> <a href="../lang_update.html">UPDATE</a> avoids unnecessary low-level disk writes when the contents
      of the database file do not actually change.
-     For example, "UPDATE t1 SET x=25 WHERE y=?" generates no extra 
-     disk I/O if the value in column x is already 25.  Similarly, 
+     For example, "UPDATE t1 SET x=25 WHERE y=?" generates no extra
+     disk I/O if the value in column x is already 25.  Similarly,
      when doing <a href="../lang_update.html">UPDATE</a> on records that span multiple pages, only
      the subset of pages that actually change are written to disk.
      This is a low-level performance optimization only and does not
@@ -155,7 +155,7 @@ antiRobotDefense();
      LIMIT is small relative to the number of unrestricted output rows.
 <li> The <a href="../optoverview.html#or_opt">OR optimization</a> is allowed to proceed
      even if the OR expression has also been converted into an IN
-     expression.  Uses of the OR optimization are now also 
+     expression.  Uses of the OR optimization are now also
      <a href="../eqp.html#or-opt">more clearly shown</a> in the <a href="../eqp.html">EXPLAIN QUERY PLAN</a> output.
 <li> The query planner is more aggressive about using
      <a href="../optoverview.html#autoindex">automatic indexes</a> for views and subqueries for which it is
@@ -188,7 +188,7 @@ antiRobotDefense();
 </ol></p>
 
       <p>A <a href="../changes.html">complete list of SQLite releases</a>
-      in a single page and a <a href="../chronology.html">chronology</a> are both also available.  
+      in a single page and a <a href="../chronology.html">chronology</a> are both also available.
       A detailed history of every
       check-in is available at
       <a href="http://www.sqlite.org/src/timeline">

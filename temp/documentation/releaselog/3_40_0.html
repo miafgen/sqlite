@@ -141,7 +141,7 @@ antiRobotDefense();
      modified to use the new typedef instead of "char*".  This interface
      change should be fully backwards compatible, though it might cause
      (harmless) compiler warnings when rebuilding some legacy applications.
-<li> Add the <a href="../c3ref/value_blob.html">sqlite3_value_encoding()</a> interface.
+<li> Add the <a href="../c3ref/value_encoding.html">sqlite3_value_encoding()</a> interface.
 <li> Security enhancement: <a href="../c3ref/c_dbconfig_defensive.html#sqlitedbconfigdefensive">SQLITE_DBCONFIG_DEFENSIVE</a> is augmented to prohibit
      changing the <a href="../pragma.html#pragma_schema_version">schema_version</a>.  The schema_version
      becomes read-only in defensive mode.
@@ -152,7 +152,7 @@ antiRobotDefense();
           contain TEXT values that could be converted into numbers.
      <li> Verify that the rows of a <a href="../withoutrowid.html">WITHOUT ROWID</a> table are in the correct order.
      </ol>
-<li> Enhance the <a href="../lang_vacuum.html#vacuuminto">VACUUM INTO</a> statement so that it honors they
+<li> Enhance the <a href="../lang_vacuum.html#vacuuminto">VACUUM INTO</a> statement so that it honors the
      <a href="../pragma.html#pragma_synchronous">PRAGMA synchronous</a> setting.
 <li> Enhance the <a href="../c3ref/strglob.html">sqlite3_strglob()</a> and <a href="../c3ref/strlike.html">sqlite3_strlike()</a> APIs so that they are able
      to accept NULL pointers for their string parameters and still generate a sensible
@@ -172,7 +172,7 @@ antiRobotDefense();
 </ol></p>
 
       <p>A <a href="../changes.html">complete list of SQLite releases</a>
-      in a single page and a <a href="../chronology.html">chronology</a> are both also available.  
+      in a single page and a <a href="../chronology.html">chronology</a> are both also available.
       A detailed history of every
       check-in is available at
       <a href="http://www.sqlite.org/src/timeline">

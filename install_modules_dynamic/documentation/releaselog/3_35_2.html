@@ -115,7 +115,7 @@ antiRobotGo();
 }
 antiRobotDefense();
 </script>
-<h2>SQLite Release 3.35.2 On 2021-03-17</h2><p><b>Changes in version 3.35.0 (2021-03-12):</b></p>
+<h2>SQLite Release 3.35.2 On 2021-03-17</h2><p><b>Prior changes from version 3.35.0 (2021-03-12):</b></p>
 <p><ol class='lessindent'>
 <li value='1'> Added <a href="../lang_mathfunc.html">built-in SQL math functions()</a>. (Requires the
      <a href="../compile.html#enable_math_functions">-DSQLITE_ENABLE_MATH_FUNCTIONS</a> compile-time option.)
@@ -142,7 +142,7 @@ antiRobotDefense();
 <li> Query planner/optimizer improvements:
      <ol type="a">
      <li> Enhancements to the <a href="../optoverview.html#minmax">min/max optimization</a> so that it works better
-          with the IN operator and the OP_SeekScan optimization of the 
+          with the IN operator and the OP_SeekScan optimization of the
           previous release.
      <li> Attempt to process EXISTS operators in the WHERE clause as if
           they were IN operators, in cases where this is a valid transformation
@@ -181,17 +181,17 @@ antiRobotDefense();
           is an "ESCAPE '_'" clause.
      </ol>
 </ol>
-<p><b>Additional changes in version 3.35.1 (2021-03-15):</b></p>
+<p><b>Prior changes from version 3.35.1 (2021-03-15):</b></p>
 <p><ol class='lessindent'>
 <li value='11'> Fix <a href="https://www.sqlite.org/src/info/1c24a659e6d7f3a1">a bug</a> in the new DROP COLUMN
      feature when used on columns that are indexed and that are quoted in the index
      definition.
 <li> Improve the built-in documentation for the <a href="../cli.html#dump">.dump</a> command in the <a href="../cli.html">CLI</a>.
 </ol>
-<p><b>Additional changes in version 3.35.2 (2021-03-17):</b></p>
+<p><b>Changes in this specific patch release, version 3.35.2 (2021-03-17):</b></p>
 <p><ol class='lessindent'>
-<li value='13'> Fix a problem in the 
-     <a href="http://www.sqlite.org/src/file/ext/misc/appendvfs.c">appendvfs.c</a>
+<li value='13'> Fix a problem in the
+     <a href="https://www.sqlite.org/src/file/ext/misc/appendvfs.c">appendvfs.c</a>
      extension that was introduced into version 3.35.0.
 <li> Ensure that date/time functions with no arguments (which generate
      responses that depend on the current time) are treated as
@@ -210,7 +210,7 @@ antiRobotDefense();
 </ol></p>
 
       <p>A <a href="../changes.html">complete list of SQLite releases</a>
-      in a single page and a <a href="../chronology.html">chronology</a> are both also available.  
+      in a single page and a <a href="../chronology.html">chronology</a> are both also available.
       A detailed history of every
       check-in is available at
       <a href="http://www.sqlite.org/src/timeline">

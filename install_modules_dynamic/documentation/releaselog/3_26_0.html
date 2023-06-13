@@ -122,7 +122,7 @@ antiRobotDefense();
 <li>Allow the <a href="../vtab.html#xbestindex">xBestIndex()</a> method of <a href="../vtab.html">virtual table</a> implementations to return
     <a href="../rescode.html#constraint">SQLITE_CONSTRAINT</a> to indicate that the proposed query plan is unusable and
     should not be given further consideration.
-<li>Added the <a href="../c3ref/c_dbconfig_defensive.html#sqlitedbconfigdefensive">SQLITE_DBCONFIG_DEFENSIVE</a> option which disables the ability to 
+<li>Added the <a href="../c3ref/c_dbconfig_defensive.html#sqlitedbconfigdefensive">SQLITE_DBCONFIG_DEFENSIVE</a> option which disables the ability to
     create corrupt database files using ordinary SQL.
 <li>Added support for read-only <a href="../vtab.html#xshadowname">shadow tables</a> when the <a href="../c3ref/c_dbconfig_defensive.html#sqlitedbconfigdefensive">SQLITE_DBCONFIG_DEFENSIVE</a>
     option is enabled.
@@ -158,10 +158,10 @@ antiRobotDefense();
 </ol>
 <li>Enhancements to the <a href="../sessionintro.html">session</a> extension:
 <ol type="a">
-  <li>Added the <a href="../session/c_changesetapply_invert.html">SQLITE_CHANGESETAPPLY_INVERT</a> flag
+  <li>Added the <a href="../session/c_changesetapply_ignorenoop.html">SQLITE_CHANGESETAPPLY_INVERT</a> flag
   <li>Added the <a href="../session/sqlite3changeset_start.html">sqlite3changeset_start_v2()</a> interface and the
       <a href="../session/c_changesetstart_invert.html">SQLITE_CHANGESETSTART_INVERT</a> flag.
-  <li>Added the 
+  <li>Added the
       <a href="https://sqlite.org/src/file/ext/session/changesetfuzz.c">changesetfuzz.c</a>
       test-case generator utility.
 </ol>
@@ -172,7 +172,7 @@ antiRobotDefense();
 </ol></p>
 
       <p>A <a href="../changes.html">complete list of SQLite releases</a>
-      in a single page and a <a href="../chronology.html">chronology</a> are both also available.  
+      in a single page and a <a href="../chronology.html">chronology</a> are both also available.
       A detailed history of every
       check-in is available at
       <a href="http://www.sqlite.org/src/timeline">

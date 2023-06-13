@@ -217,8 +217,8 @@ output from SQLite, you should reference the version of this document
 that corresponds to the version of SQLite that ran the <a href="lang_explain.html">EXPLAIN</a>.
 Otherwise, the description of the opcodes may not be accurate.
 This document is derived from SQLite
- version 3.40.0 check-in
-<a href='https://www.sqlite.org/src/timeline?c=89c459e766ea7'>89c459e766ea7</a> dated 2022-11-16.
+ version 3.42.0 check-in
+<a href='https://www.sqlite.org/src/timeline?c=831d0fb2836b7'>831d0fb2836b7</a> dated 2023-05-16.
 
 
 
@@ -446,15 +446,15 @@ opcodes defined by the virtual machine.
 All currently defined opcodes are described in the table below.
 This table was generated automatically by scanning the source code
 from the file
-<a href="http://www.sqlite.org/src/artifact/0c7cb1b934ad8611e14e7efaf2c3a95df7dd3f7964d63ea07fef42a23df86131">vdbe.c</a>.
+<a href="http://www.sqlite.org/src/artifact/fedd2dfa5165256c8e372f2ae9454c4a82cf60ce79a04dff80a86ab2116ea15a">vdbe.c</a>.
 
 
 </p><p>Remember: The VDBE opcodes are <u>not</u> part of the interface 
 definition for SQLite.  The number of opcodes and their names and meanings
 change from one release of SQLite to the next.
 The opcodes shown in the table below are valid for SQLite
- version 3.40.0 check-in
-<a href='https://www.sqlite.org/src/timeline?c=89c459e766ea7'>89c459e766ea7</a> dated 2022-11-16.
+ version 3.42.0 check-in
+<a href='https://www.sqlite.org/src/timeline?c=831d0fb2836b7'>831d0fb2836b7</a> dated 2023-05-16.
 
 <a name="codes"></a>
 
@@ -1359,6 +1359,12 @@ from the value in that register.</p>
 (0x01) bit. SQLITE_FLOAT is the 0x02 bit. SQLITE_TEXT is 0x04.
 SQLITE_BLOB is 0x08.  SQLITE_NULL is 0x10.</p>
 
+<p>WARNING: This opcode does not reliably distinguish between NULL and REAL
+when P1&gt;=0.  If the database contains a NaN value, this opcode will think
+that the datatype is REAL when it should be NULL.  When P1&lt;0 and the value
+is already stored in register P3, then this opcode does reliably
+distinguish between NULL and REAL.  The problem only arises then P1&gt;=0.</p>
+
 <p>Take the jump to address P2 if and only if the datatype of the
 value determined by P1 and P3 corresponds to one of the bits in the
 P5 bitmask.</p></td></tr>
@@ -1375,7 +1381,7 @@ operation. No IO is required.</p>
 <tr><td valign="top" align="center">
 <a name="Jump"></a>Jump
 <td>Jump to the instruction at address P1, P2, or P3 depending on whether
-in the most recent <a href="opcode.html#Compare">Compare</a> instruction the P1 vector was less than
+in the most recent <a href="opcode.html#Compare">Compare</a> instruction the P1 vector was less than,
 equal to, or greater than the P2 vector, respectively.</p>
 
 <p>This opcode must immediately follow an <a href="opcode.html#Compare">Compare</a> opcode.</td></tr>
@@ -1996,6 +2002,9 @@ will refer to the first entry in the database table or index.
 If the table or index is empty, jump immediately to P2.
 If the table or index is not empty, fall through to the following
 instruction.</p>
+
+<p>If P2 is zero, that is an assertion that the P1 table is never
+empty and hence the jump will never be taken.</p>
 
 <p>This opcode leaves the cursor configured to move in forward order,
 from the beginning toward the end.  In other words, the cursor is
@@ -2619,5 +2628,5 @@ a NULL in register P2.</td></tr>
   </table></blockquote>
   </div>
 
-</p><p align="center"><small><i>This page last modified on  <a href="https://sqlite.org/docsrc/honeypot" id="mtimelink"  data-href="https://sqlite.org/docsrc/finfo/pages/opcode.in?m=c96f076c3fd941bcc">2022-08-10 18:45:48</a> UTC </small></i></p>
+</p><p align="center"><small><i>This page last modified on  <a href="https://sqlite.org/docsrc/honeypot" id="mtimelink"  data-href="https://sqlite.org/docsrc/finfo/pages/opcode.in?m=c96f076c3f">2022-08-10 18:45:48</a> UTC </small></i></p>
 

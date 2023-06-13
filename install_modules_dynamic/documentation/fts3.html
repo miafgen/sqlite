@@ -196,33 +196,33 @@ mk.innerHTML = "&#x25ba;";
 <h2 id="overview" style="margin-left:1.0em" notoc="1"> Overview</h2>
 
 <p>
-  FTS3 and FTS4 are SQLite virtual table modules that allows users to perform 
-  full-text searches on a set of documents. The most common (and effective) 
+  FTS3 and FTS4 are SQLite virtual table modules that allows users to perform
+  full-text searches on a set of documents. The most common (and effective)
   way to describe full-text searches is "what Google, Yahoo, and Bing do
-  with documents placed on the World Wide Web". Users input a term, or series 
-  of terms, perhaps connected by a binary operator or grouped together into a 
-  phrase, and the full-text query system finds the set of documents that best 
-  matches those terms considering the operators and groupings the user has 
+  with documents placed on the World Wide Web". Users input a term, or series
+  of terms, perhaps connected by a binary operator or grouped together into a
+  phrase, and the full-text query system finds the set of documents that best
+  matches those terms considering the operators and groupings the user has
   specified. This article describes the deployment and usage of FTS3 and FTS4.
 
 </p><p>
   FTS1 and FTS2 are obsolete full-text search modules for SQLite.  There are known
   issues with these older modules and their use should be avoided.
-  Portions of the original FTS3 code were contributed to the SQLite project 
-  by Scott Hess of <a href="http://www.google.com">Google</a>. It is now 
+  Portions of the original FTS3 code were contributed to the SQLite project
+  by Scott Hess of <a href="http://www.google.com">Google</a>. It is now
   developed and maintained as part of SQLite.
 
 </p><h1 id="introduction_to_fts3_and_fts4"><span>1. </span>Introduction to FTS3 and FTS4</h1>
 
 <p>
-  The FTS3 and FTS4 extension modules allows users to create special tables with a 
+  The FTS3 and FTS4 extension modules allows users to create special tables with a
   built-in full-text index (hereafter "FTS tables"). The full-text index
   allows the user to efficiently query the database for all rows that contain
   one or more words (hereafter "tokens"), even if the table
   contains many large documents.
 
 </p><p>
-  For example, if each of the 517430 documents in the 
+  For example, if each of the 517430 documents in the
   "<a href="http://www.cs.cmu.edu/~enron/">Enron E-Mail Dataset</a>"
   is inserted into both an FTS table and an ordinary SQLite table
   created using the following SQL script:
@@ -246,7 +246,7 @@ SELECT count(*) FROM enrondata2 WHERE content LIKE '%linux%'; /* 22.5 seconds */
   the LIKE query matches rows that contain terms such as "linuxophobe"
   or "EnterpriseLinux" (as it happens, the Enron E-Mail Dataset does not
   actually contain any such terms), whereas the MATCH query on the FTS3 table
-  selects only those rows that contain "linux" as a discrete token. Both 
+  selects only those rows that contain "linux" as a discrete token. Both
   searches are case-insensitive. The FTS3 table consumes around 2006 MB on
   disk compared to just 1453 MB for the ordinary table. Using the same
   hardware configuration used to perform the SELECT queries above, the FTS3
@@ -267,9 +267,9 @@ SELECT count(*) FROM enrondata2 WHERE content LIKE '%linux%'; /* 22.5 seconds */
        very common (present in a large percentage of table rows).
 
   </p></li><li> <p>FTS4 supports some additional options that may used with the <a href="fts3.html#matchinfo">matchinfo()</a>
-       function. 
+       function.
 
-  </p></li><li> <p>Because it stores extra information on disk in two new 
+  </p></li><li> <p>Because it stores extra information on disk in two new
        <a href="fts3.html#*shadowtab">shadow tables</a> in order to support the performance
        optimizations and extra matchinfo() options, FTS4 tables may consume more
        disk space than the equivalent table created using FTS3. Usually the overhead
@@ -279,13 +279,13 @@ SELECT count(*) FROM enrondata2 WHERE content LIKE '%linux%'; /* 22.5 seconds */
        declaration, but this comes at the expense of sacrificing some of the
        extra supported matchinfo() options.
 
-  </p></li><li> <p>FTS4 provides hooks (the compress and uncompress 
-       <a href="fts3.html#fts4_options">options</a>) allowing data to be stored in a compressed 
+  </p></li><li> <p>FTS4 provides hooks (the compress and uncompress
+       <a href="fts3.html#fts4_options">options</a>) allowing data to be stored in a compressed
        form, reducing disk usage and IO.
 </p></li></ul>
 
 <p>
-  FTS4 is an enhancement to FTS3. 
+  FTS4 is an enhancement to FTS3.
   FTS3 has been available since SQLite <a href="releaselog/3_5_0.html">version 3.5.0</a> (2007-09-04)
   The enhancements for FTS4 were added with SQLite <a href="releaselog/3_7_4.html">version 3.7.4</a>
   (2010-12-07).
@@ -300,22 +300,22 @@ SELECT count(*) FROM enrondata2 WHERE content LIKE '%linux%'; /* 22.5 seconds */
   more disk space than FTS3, though only a percent of two in most cases.
 
 </p><p>
-  For newer applications, FTS4 is recommended; though if compatibility with older 
-  versions of SQLite is important, then FTS3 will usually serve just as well.  
+  For newer applications, FTS4 is recommended; though if compatibility with older
+  versions of SQLite is important, then FTS3 will usually serve just as well.
 
 </p><h2 id="creating_and_destroying_fts_tables"><span>1.2. </span>Creating and Destroying FTS Tables</h2>
 
 <p>
-  Like other virtual table types, new FTS tables are created using a 
+  Like other virtual table types, new FTS tables are created using a
   <a href="lang_createvtab.html">CREATE VIRTUAL TABLE</a> statement. The module name, which follows
   the USING keyword, is either "fts3" or "fts4". The virtual table module arguments may
-  be left empty, in which case an FTS table with a single user-defined 
+  be left empty, in which case an FTS table with a single user-defined
   column named "content" is created. Alternatively, the module arguments
-  may be passed a list of comma separated column names. 
+  may be passed a list of comma separated column names.
 
 </p><p>
   If column names are explicitly provided for the FTS table as part of
-  the CREATE VIRTUAL TABLE statement, then a datatype name may be optionally 
+  the CREATE VIRTUAL TABLE statement, then a datatype name may be optionally
   specified for each column. This is pure syntactic sugar, the
   supplied typenames are not used by FTS or the SQLite core for any
   purpose. The same applies to any constraints specified along with an
@@ -346,7 +346,7 @@ CREATE VIRTUAL TABLE mail USING fts3(
   &lt;tokenizer args&gt; is an optional list of whitespace separated qualifiers
   to pass to the tokenizer implementation. A tokenizer specification may be
   placed anywhere in the column list, but at most one tokenizer declaration is
-  allowed for each CREATE VIRTUAL TABLE statement. <a href="fts3.html#tokenizer">See below</a> for a 
+  allowed for each CREATE VIRTUAL TABLE statement. <a href="fts3.html#tokenizer">See below</a> for a
   detailed description of using (and, if necessary, implementing) a tokenizer.
 
 </p><div class="codeblock"><pre><i>-- Create an FTS table named "papers" with two columns that uses</i>
@@ -379,20 +379,20 @@ DROP TABLE data;
 
   </p><p>
     As well as the columns named by the user (or the "content" column if no
-    module arguments were specified as part of the <a href="lang_createvtab.html">CREATE VIRTUAL TABLE</a> 
+    module arguments were specified as part of the <a href="lang_createvtab.html">CREATE VIRTUAL TABLE</a>
     statement), each FTS table has a "rowid" column. The rowid of an FTS
-    table behaves in the same way as the rowid column of an ordinary SQLite 
-    table, except that the values stored in the rowid column of an FTS table 
-    remain unchanged if the database is rebuilt using the <a href="lang_vacuum.html">VACUUM</a> command. 
+    table behaves in the same way as the rowid column of an ordinary SQLite
+    table, except that the values stored in the rowid column of an FTS table
+    remain unchanged if the database is rebuilt using the <a href="lang_vacuum.html">VACUUM</a> command.
     For FTS tables, "docid" is allowed as an alias along with the usual "rowid",
-    "oid" and "_oid_" identifiers. Attempting to insert or update a row with a 
-    docid value that already exists in the table is an error, just as it would 
+    "oid" and "_oid_" identifiers. Attempting to insert or update a row with a
+    docid value that already exists in the table is an error, just as it would
     be with an ordinary SQLite table.
 
   </p><p>
     There is one other subtle difference between "docid" and the normal SQLite
-    aliases for the rowid column. Normally, if an INSERT or UPDATE statement 
-    assigns discrete values to two or more aliases of the rowid column, SQLite 
+    aliases for the rowid column. Normally, if an INSERT or UPDATE statement
+    assigns discrete values to two or more aliases of the rowid column, SQLite
     writes the rightmost of such values specified in the INSERT or UPDATE
     statement to the database. However, assigning a non-NULL value to both
     the "docid" and one or more of the SQLite rowid aliases when inserting or
@@ -423,19 +423,19 @@ INSERT INTO pages(rowid, docid, title, body) VALUES(1, 2, 'A title', 'A document
   <p>
     To support full-text queries, FTS maintains an inverted index that maps
     from each unique term or word that appears in the dataset to the locations
-    in which it appears within the table contents. For the curious, a 
+    in which it appears within the table contents. For the curious, a
     complete description of the <a href="fts3.html#data_structures">data structure</a> used to store
     this index within the database file appears below. A feature of
     this data structure is that at any time the database may contain not
     one index b-tree, but several different b-trees that are incrementally
-    merged as rows are inserted, updated and deleted. This technique improves 
+    merged as rows are inserted, updated and deleted. This technique improves
     performance when writing to an FTS table, but causes some overhead for
-    full-text queries that use the index. Evaluating the special <a href="fts3.html#*fts4optcmd">"optimize" command</a>, 
+    full-text queries that use the index. Evaluating the special <a href="fts3.html#*fts4optcmd">"optimize" command</a>,
     an SQL statement of the
     form "INSERT INTO &lt;fts-table&gt;(&lt;fts-table&gt;) VALUES('optimize')",
     causes FTS to merge all existing index b-trees into a single large
     b-tree containing the entire index. This can be an expensive operation,
-    but may speed up future queries. 
+    but may speed up future queries.
 
   </p><p>
     For example, to optimize the full-text index for an FTS table named
@@ -450,7 +450,7 @@ INSERT INTO docs(docs) VALUES('optimize');
     the section describing the <a href="fts3.html#simple_fts_queries">simple fts queries</a> for an explanation.
 
   </p><p>
-    There is another, deprecated, method for invoking the optimize 
+    There is another, deprecated, method for invoking the optimize
     operation using a SELECT statement. New code should use statements
     similar to the INSERT above to optimize FTS structures.
 
@@ -469,13 +469,13 @@ INSERT INTO docs(docs) VALUES('optimize');
   <li><p>
     <b>Query by rowid</b>. If the WHERE clause of the SELECT statement
     contains a sub-clause of the form "rowid = ?", where ? is an SQL expression,
-    FTS is able to retrieve the requested row directly using the equivalent 
+    FTS is able to retrieve the requested row directly using the equivalent
     of an SQLite <a href="lang_createtable.html#rowid">INTEGER PRIMARY KEY</a> index.
 
   </p></li><li><p>
     <b>Full-text query</b>. If the WHERE clause of the SELECT statement contains
-    a sub-clause of the form "&lt;column&gt; MATCH ?", FTS is able to use 
-    the built-in full-text index to restrict the search to those documents 
+    a sub-clause of the form "&lt;column&gt; MATCH ?", FTS is able to use
+    the built-in full-text index to restrict the search to those documents
     that match the full-text query string specified as the right-hand operand
     of the MATCH clause.
 </p></li></ul>
@@ -483,7 +483,7 @@ INSERT INTO docs(docs) VALUES('optimize');
 <p>
   If neither of these two query strategies can be used, all
   queries on FTS tables are implemented using a linear scan of the entire
-  table. If the table contains large amounts of data, this may be an 
+  table. If the table contains large amounts of data, this may be an
   impractical approach (the first example on this page shows that a linear
   scan of 1.5 GB of data takes around 30 seconds using a modern PC).
 
@@ -501,12 +501,12 @@ SELECT * FROM mail WHERE subject MATCH 'database';  <i>-- Fast. Full-text query.
 <p>
   In all of the full-text queries above, the right-hand operand of the MATCH
   operator is a string consisting of a single term. In this case, the MATCH
-  expression evaluates to true for all documents that contain one or more 
-  instances of the specified word ("sqlite", "search" or "database", depending 
+  expression evaluates to true for all documents that contain one or more
+  instances of the specified word ("sqlite", "search" or "database", depending
   on which example you look at). Specifying a single term as the right-hand
-  operand of the MATCH operator results in the simplest and most common type 
+  operand of the MATCH operator results in the simplest and most common type
   of full-text query possible. However more complicated queries are possible,
-  including phrase searches, term-prefix searches and searches for documents 
+  including phrase searches, term-prefix searches and searches for documents
   containing combinations of terms occurring within a defined proximity of each
   other. The various ways in which the full-text index may be queried are
   <a href="fts3.html#full_text_index_queries">described below</a>.
@@ -519,7 +519,7 @@ SELECT * FROM mail WHERE subject MATCH 'database';  <i>-- Fast. Full-text query.
 </p><p>
   The paragraph above notes that a MATCH operator with a simple term as the
   right-hand operand evaluates to true for all documents that contain the
-  specified term. In this context, the "document" may refer to either the 
+  specified term. In this context, the "document" may refer to either the
   data stored in a single column of a row of an FTS table, or to the contents
   of all columns in a single row, depending on the identifier used as the
   left-hand operand to the MATCH operator. If the identifier specified as
@@ -527,7 +527,7 @@ SELECT * FROM mail WHERE subject MATCH 'database';  <i>-- Fast. Full-text query.
   then the document that the search term must be contained in is the value
   stored in the specified column. However, if the identifier is the name
   of the FTS <i>table</i> itself, then the MATCH operator evaluates to true
-  for each row of the FTS table for which any column contains the search 
+  for each row of the FTS table for which any column contains the search
   term. The following example demonstrates this:
 
 </p><div class="codeblock"><pre><i>-- Example schema</i>
@@ -544,21 +544,21 @@ SELECT * FROM mail WHERE body    MATCH 'feedback';    <i>-- Selects row 2</i>
 SELECT * FROM mail WHERE mail    MATCH 'software';    <i>-- Selects rows 1, 2 and 3</i>
 SELECT * FROM mail WHERE mail    MATCH 'slow';        <i>-- Selects rows 1 and 3</i>
 </pre></div>
-  
+
 <p>
   At first glance, the final two full-text queries in the example above seem
   to be syntactically incorrect, as there is a table name ("mail") used as
   an SQL expression. The reason this is acceptable is that each FTS table
   actually has a <a href="c3ref/declare_vtab.html">HIDDEN</a> column with the same name
   as the table itself (in this case, "mail"). The value stored in this
-  column is not meaningful to the application, but can be used as the 
+  column is not meaningful to the application, but can be used as the
   left-hand operand to a MATCH operator. This special column may also be
   passed as an argument to the <a href="fts3.html#snippet">FTS auxiliary functions</a>.
 
 </p><p>
-  The following example illustrates the above. The expressions "docs", 
-  "docs.docs" and "main.docs.docs" all refer to column "docs". However, the 
-  expression "main.docs" does not refer to any column. It could be used to 
+  The following example illustrates the above. The expressions "docs",
+  "docs.docs" and "main.docs.docs" all refer to column "docs". However, the
+  expression "main.docs" does not refer to any column. It could be used to
   refer to a table, but a table name is not allowed in the context in which
   it is used below.
 
@@ -571,52 +571,52 @@ SELECT * FROM docs WHERE docs.docs MATCH 'sqlite';         <i>-- OK.</i>
 SELECT * FROM docs WHERE main.docs.docs MATCH 'sqlite';    <i>-- OK.</i>
 SELECT * FROM docs WHERE main.docs MATCH 'sqlite';         <i>-- Error.</i>
 </pre></div>
- 
+
 <h2 id="summary"><span>1.5. </span>Summary</h2>
 
 <p>
   From the users point of view, FTS tables are similar to ordinary SQLite
-  tables in many ways. Data may be added to, modified within and removed 
-  from FTS tables using the INSERT, UPDATE and DELETE commands just as 
-  it may be with ordinary tables. Similarly, the SELECT command may be used 
+  tables in many ways. Data may be added to, modified within and removed
+  from FTS tables using the INSERT, UPDATE and DELETE commands just as
+  it may be with ordinary tables. Similarly, the SELECT command may be used
   to query data. The following list summarizes the differences between FTS
   and ordinary tables:
 
 </p><ol>
-  <li><p> 
+  <li><p>
     As with all virtual table types, it is not possible to create indices or
     triggers attached to FTS tables. Nor is it possible to use the ALTER TABLE
     command to add extra columns to FTS tables (although it is possible to use
     ALTER TABLE to rename an FTS table).
 
-  </p></li><li><p> 
+  </p></li><li><p>
     Data-types specified as part of the "CREATE VIRTUAL TABLE" statement
     used to create an FTS table are ignored completely. Instead of the
     normal rules for applying type <a href="datatype3.html#affinity">affinity</a> to inserted values, all
     values inserted into FTS table columns (except the special rowid
     column) are converted to type TEXT before being stored.
 
-  </p></li><li><p> 
+  </p></li><li><p>
     FTS tables permit the special alias "docid" to be used to refer to the
     rowid column supported by all <a href="vtab.html">virtual tables</a>.
 
-  </p></li><li><p> 
+  </p></li><li><p>
     The <a href="fts3.html#full_text_index_queries">FTS MATCH</a> operator is supported for queries based on the built-in
-    full-text index. 
+    full-text index.
 
-  </p></li><li><p> 
-    The <a href="fts3.html#snippet">FTS auxiliary functions</a>, <a href="fts3.html#snippet">snippet()</a>, <a href="fts3.html#offsets">offsets()</a>, and <a href="fts3.html#matchinfo">matchinfo()</a> are 
+  </p></li><li><p>
+    The <a href="fts3.html#snippet">FTS auxiliary functions</a>, <a href="fts3.html#snippet">snippet()</a>, <a href="fts3.html#offsets">offsets()</a>, and <a href="fts3.html#matchinfo">matchinfo()</a> are
     available to support full-text queries.
 
   </p></li><li><p>
     <a name="hiddencol"></a>
 
-    Every FTS table has a <a href="vtab.html#hiddencol">hidden column</a> with the 
+    Every FTS table has a <a href="vtab.html#hiddencol">hidden column</a> with the
     same name as the table itself. The value contained in each row for the
     hidden column is a blob that is only useful as the left operand of a
     <a href="fts3.html#full_text_index_queries">MATCH</a> operator, or as the left-most argument to one
     of the <a href="fts3.html#snippet">FTS auxiliary functions</a>.
-    
+
 
 </p></li></ol>
 
@@ -629,7 +629,7 @@ SELECT * FROM docs WHERE main.docs MATCH 'sqlite';         <i>-- Error.</i>
   enabled by default. To build SQLite with FTS functionality enabled, define
   the preprocessor macro <a href="compile.html#enable_fts3">SQLITE_ENABLE_FTS3</a> when compiling. New applications
   should also define the <a href="compile.html#enable_fts3_parenthesis">SQLITE_ENABLE_FTS3_PARENTHESIS</a> macro to enable the
-  <a href="fts3.html#_set_operations_using_the_enhanced_query_syntax">enhanced query syntax</a> (see below). Usually, this is done by adding the 
+  <a href="fts3.html#_set_operations_using_the_enhanced_query_syntax">enhanced query syntax</a> (see below). Usually, this is done by adding the
   following two switches to the compiler command line:
 
 </p><div class="codeblock"><pre>-DSQLITE_ENABLE_FTS3
@@ -659,12 +659,12 @@ SELECT * FROM docs WHERE main.docs MATCH 'sqlite';         <i>-- Error.</i>
 
 </p><p>
   If a build of SQLite does not include the FTS modules, then any attempt to prepare an
-  SQL statement to create an FTS3 or FTS4 table or to drop or access an existing 
-  FTS table in any way will fail. The error message returned will be similar 
+  SQL statement to create an FTS3 or FTS4 table or to drop or access an existing
+  FTS table in any way will fail. The error message returned will be similar
   to "no such module: ftsN" (where N is either 3 or 4).
 
 </p><p>
-  If the C version of the <a href="http://site.icu-project.org/">ICU library</a>
+  If the C version of the <a href="https://icu.unicode.org">ICU library</a>
   is available, then FTS may also be compiled with the SQLITE_ENABLE_ICU
   pre-processor macro defined. Compiling with this macro enables an FTS
   <a href="fts3.html#tokenizer">tokenizer</a> that uses the ICU library to split a document into terms
@@ -672,21 +672,21 @@ SELECT * FROM docs WHERE main.docs MATCH 'sqlite';         <i>-- Error.</i>
 
 </p><div class="codeblock"><pre>-DSQLITE_ENABLE_ICU
 </pre></div>
-  
+
 
 <a name="full_text_index_queries"></a>
 <h1 tags="FTS MATCH" id="full_text_index_queries"><span>3. </span>Full-text Index Queries</h1>
 
 <p>
-  The most useful thing about FTS tables is the queries that may be 
-  performed using the built-in full-text index. Full-text queries are 
-  performed by specifying a clause of the form 
-  "&lt;column&gt; MATCH &lt;full-text query expression&gt;" as part of the WHERE 
-  clause of a SELECT statement that reads data from an FTS table. 
-  <a href="fts3.html#simple_fts_queries">Simple FTS queries</a> that return all documents that 
+  The most useful thing about FTS tables is the queries that may be
+  performed using the built-in full-text index. Full-text queries are
+  performed by specifying a clause of the form
+  "&lt;column&gt; MATCH &lt;full-text query expression&gt;" as part of the WHERE
+  clause of a SELECT statement that reads data from an FTS table.
+  <a href="fts3.html#simple_fts_queries">Simple FTS queries</a> that return all documents that
   contain a given term are described above. In that discussion the right-hand
   operand of the MATCH operator was assumed to be a string consisting of a
-  single term. This section describes the more complex query types supported 
+  single term. This section describes the more complex query types supported
   by FTS tables, and how they may be utilized by specifying a more
   complex query expression as the right-hand operand of a MATCH operator.
 
@@ -696,7 +696,7 @@ SELECT * FROM docs WHERE main.docs MATCH 'sqlite';         <i>-- Error.</i>
 </p><ul>
   <a name="termprefix"></a>
 
-  <li><p><b>Token or token prefix queries</b>. 
+  <li><p><b>Token or token prefix queries</b>.
     An FTS table may be queried for all documents that contain a specified
     term (the <a href="fts3.html#simple_fts_queries">simple case</a> described above), or for
     all documents that contain a term with a specified prefix. As we have
@@ -719,7 +719,7 @@ SELECT * FROM docs WHERE docs MATCH 'lin*';
 
 <ul>
   <li style="list-style:none"><p>
-    Normally, a token or token prefix query is matched against the FTS table 
+    Normally, a token or token prefix query is matched against the FTS table
     column specified as the left-hand side of the MATCH operator. Or, if the
     special column with the same name as the FTS table itself is specified,
     against all columns. This may be overridden by specifying a column-name
@@ -727,7 +727,7 @@ SELECT * FROM docs WHERE docs MATCH 'lin*';
     between the ":" and the term to query for, but not between the column-name
     and the ":" character. For example:
 </p></li></ul>
-   
+
 <div class="codeblock"><pre><i>-- Query the database for documents for which the term "linux" appears in</i>
 <i>-- the document title, and the term "problems" appears in either the title</i>
 <i>-- or body of the document.</i>
@@ -778,11 +778,11 @@ SELECT * FROM docs WHERE docs MATCH '"lin* app*"';
 <a name="near"></a>
 
 <ul>
-  <li><p><b>NEAR queries</b>. 
+  <li><p><b>NEAR queries</b>.
     A NEAR query is a query that returns documents that contain a two or
-    more nominated terms or phrases within a specified proximity of each 
-    other (by default with 10 or less intervening terms). A NEAR query is 
-    specified by putting the keyword "NEAR" between two phrase, token or 
+    more nominated terms or phrases within a specified proximity of each
+    other (by default with 10 or less intervening terms). A NEAR query is
+    specified by putting the keyword "NEAR" between two phrase, token or
     token prefix queries. To specify a proximity other than the default,
     an operator of the form "NEAR/<i>&lt;N&gt;</i>" may be used, where
     <i>&lt;N&gt;</i> is the maximum number of intervening terms allowed.
@@ -797,7 +797,7 @@ INSERT INTO docs VALUES('SQLite is an ACID compliant embedded relational databas
 
 <i>-- Search for a document that contains the terms "sqlite" and "database" with</i>
 <i>-- not more than 10 intervening terms. This matches the only document in</i>
-<i>-- table docs (since there are only six terms between "SQLite" and "database"</i> 
+<i>-- table docs (since there are only six terms between "SQLite" and "database"</i>
 <i>-- in the document)</i>.
 SELECT * FROM docs WHERE docs MATCH 'sqlite NEAR database';
 
@@ -830,8 +830,7 @@ SELECT * FROM docs WHERE docs MATCH '"ACID compliant" NEAR/2 sqlite';
     data as in the block of examples above:
 </p></li></ul>
 
-<div class="codeblock"><pre>
-<i>-- The following query selects documents that contains an instance of the term </i>
+<div class="codeblock"><pre><i>-- The following query selects documents that contains an instance of the term </i>
 <i>-- "sqlite" separated by two or fewer terms from an instance of the term "acid",</i>
 <i>-- which is in turn separated by two or fewer terms from an instance of the term</i>
 <i>-- "relational".</i>
@@ -849,8 +848,8 @@ SELECT * FROM docs WHERE docs MATCH 'acid NEAR/2 sqlite NEAR/2 relational';
 </p><p>
   The three basic query types described above may be used to query the full-text
   index for the set of documents that match the specified criteria. Using the
-  FTS query expression language it is possible to perform various set 
-  operations on the results of basic queries. There are currently three 
+  FTS query expression language it is possible to perform various set
+  operations on the results of basic queries. There are currently three
   supported operations:
 
 </p><ul>
@@ -865,11 +864,11 @@ SELECT * FROM docs WHERE docs MATCH 'acid NEAR/2 sqlite NEAR/2 relational';
 
 <p>
   The FTS modules may be compiled to use one of two slightly different versions
-  of the full-text query syntax, the "standard" query syntax and the "enhanced" 
-  query syntax. The basic term, term-prefix, phrase and NEAR queries described 
-  above are the same in both versions of the syntax. The way in which set 
-  operations are specified is slightly different. The following two sub-sections 
-  describe the part of the two query syntaxes that pertains to set operations. 
+  of the full-text query syntax, the "standard" query syntax and the "enhanced"
+  query syntax. The basic term, term-prefix, phrase and NEAR queries described
+  above are the same in both versions of the syntax. The way in which set
+  operations are specified is slightly different. The following two sub-sections
+  describe the part of the two query syntaxes that pertains to set operations.
   Refer to the description of how to <a href="fts3.html#compiling_and_enabling_fts3_and_fts4">compile fts</a> for compilation notes.
 
 </p><a name="_set_operations_using_the_enhanced_query_syntax"></a>
@@ -879,12 +878,12 @@ SELECT * FROM docs WHERE docs MATCH 'acid NEAR/2 sqlite NEAR/2 relational';
 <p>
   The enhanced query syntax supports the AND, OR and NOT binary set operators.
   Each of the two operands to an operator may be a basic FTS query, or the
-  result of another AND, OR or NOT set operation. Operators must be entered
+  result of another AND, OR&nbsp;or NOT set operation. Operators must be entered
   using capital letters. Otherwise, they are interpreted as basic term queries
   instead of set operators.
 
 </p><p>
-  The AND operator may be implicitly specified. If two basic queries appear 
+  The AND operator may be implicitly specified. If two basic queries appear
   with no operator separating them in an FTS query string, the results are
   the same as if the two basic queries were separated by an AND operator.
   For example, the query expression "implicit operator" is a more succinct
@@ -924,7 +923,7 @@ SELECT * FROM docs WHERE docs MATCH 'database and sqlite';
 </pre></div>
 
 <p>
-  The examples above all use basic full-text term queries as both operands of 
+  The examples above all use basic full-text term queries as both operands of
   the set operations demonstrated. Phrase and NEAR queries may also be used,
   as may the results of other set operations. When more than one set operation
   is present in an FTS query, the precedence of operators is as follows:
@@ -974,7 +973,7 @@ SELECT docid FROM (
 </p><ol>
   <li value="1"><p> Only the implicit version of the AND operator is supported.
     Specifying the string "AND" as part of a standard query syntax query is
-    interpreted as a term query for the set of documents containing the term 
+    interpreted as a term query for the set of documents containing the term
     "and".
 </p></li></ol>
 
@@ -983,7 +982,7 @@ SELECT docid FROM (
 </p></li></ol>
 
 <ol>
-  <li value="3"><p> The NOT operator is not supported. Instead of the NOT 
+  <li value="3"><p> The NOT operator is not supported. Instead of the NOT
     operator, the standard query syntax supports a unary "-" operator that
     may be applied to basic term and term-prefix queries (but not to phrase
     or NEAR queries). A term or term-prefix that has a unary "-" operator
@@ -998,10 +997,10 @@ SELECT * FROM docs WHERE docs MATCH 'sqlite -database';
 </pre></div>
 
 <ol>
-  <li value="4"><p> The relative precedence of the set operations is different. 
+  <li value="4"><p> The relative precedence of the set operations is different.
    In particular, using the standard query syntax the "OR" operator has a
    higher precedence than "AND". The precedence of operators when using the
-   standard query syntax is: 
+   standard query syntax is:
 </p></li></ol>
 
 <table striped="1" style="margin:1em auto; width:80%; border-spacing:0">
@@ -1012,7 +1011,7 @@ SELECT * FROM docs WHERE docs MATCH 'sqlite -database';
 </td></tr></table>
 
 <ol><li style="list-style:none">
-  The following example illustrates precedence of operators using the standard 
+  The following example illustrates precedence of operators using the standard
   query syntax:
 </li></ol>
 
@@ -1054,12 +1053,14 @@ SELECT matchinfo(mail) FROM mail WHERE mail MATCH &lt;full-text query expression
   offsets both return an empty string, and the matchinfo function returns
   a blob value zero bytes in size.
 
+<a name="matchable"></a>
+
 </p><p id="matchable">
   All three auxiliary functions extract a set of "matchable phrases" from
   the FTS query expression to work with. The set of matchable phrases for
   a given query consists of all phrases (including unquoted tokens and
   token prefixes) in the expression except those that are prefixed with
-  a unary "-" operator (standard syntax) or are part of a sub-expression 
+  a unary "-" operator (standard syntax) or are part of a sub-expression
   that is used as the right-hand operand of a NOT operator.
 
 </p><p>
@@ -1074,24 +1075,24 @@ SELECT matchinfo(mail) FROM mail WHERE mail MATCH &lt;full-text query expression
        types to satisfy the NEAR condition.
 
   </li><li> If the matchable phrase in the FTS query is restricted to matching
-       data in a specified FTS table column, then only phrase matches that 
+       data in a specified FTS table column, then only phrase matches that
        occur within that column are considered.
 </li></ol>
- 
+
 <a name="offsets"></a>
 
 <h2 id="the_offsets_function"><span>4.1. </span>The Offsets Function</h2>
 
 <p>
-  For a SELECT query that uses the full-text index, the offsets() function 
+  For a SELECT query that uses the full-text index, the offsets() function
   returns a text value containing a series of space-separated integers. For
-  each term in each <a href="#matchable">phrase match</a> of the current row, 
-  there are four integers in the returned list. Each set of four integers is 
+  each term in each <a href="#matchable">phrase match</a> of the current row,
+  there are four integers in the returned list. Each set of four integers is
   interpreted as follows:
 
 </p><table striped="1" style="margin:1em auto; width:80%; border-spacing:0">
   <tr style="text-align:left"><th>Integer </th><th>Interpretation
-  </th></tr><tr style="text-align:left;background-color:#DDDDDD"><td>0 
+  </th></tr><tr style="text-align:left;background-color:#DDDDDD"><td>0
       </td><td>The column number that the term instance occurs in (0 for the
           leftmost column of the FTS table, 1 for the next leftmost, etc.).
   </td></tr><tr style="text-align:left"><td>1
@@ -1139,7 +1140,7 @@ SELECT offsets(mail) FROM mail WHERE mail MATCH '"serious mail"';
 
 <p>
   The snippet function is used to create formatted fragments of document text
-  for display as part of a full-text query results report. The snippet function 
+  for display as part of a full-text query results report. The snippet function
   may be passed between one and six arguments, as follows:
 
 </p><table striped="1" style="margin:1em auto; width:80%; border-spacing:0">
@@ -1161,19 +1162,19 @@ SELECT offsets(mail) FROM mail WHERE mail MATCH '"serious mail"';
            zero. A negative value indicates that the text may be extracted
            from any column.
   </td></tr><tr style="text-align:left"><td>5 </td><td>-15
-      </td><td> The absolute value of this integer argument is used as the 
-           (approximate) number of tokens to include in the returned text 
+      </td><td> The absolute value of this integer argument is used as the
+           (approximate) number of tokens to include in the returned text
            value. The maximum allowable absolute value is 64. The value of
            this argument is referred to as <i>N</i> in the discussion below.
 </td></tr></table>
 
 <p>
   The snippet function first attempts to find a fragment of text consisting
-  of <i>|N|</i> tokens within the current row that contains at least one phrase 
-  match for each matchable phrase matched somewhere in the current row, 
+  of <i>|N|</i> tokens within the current row that contains at least one phrase
+  match for each matchable phrase matched somewhere in the current row,
   where <i>|N|</i> is the absolute value of the sixth argument passed to the
   snippet function. If the text stored in a single column contains less than
-  <i>|N|</i> tokens, then the entire column value is considered. Text fragments 
+  <i>|N|</i> tokens, then the entire column value is considered. Text fragments
   may not span multiple columns.
 
 </p><p>
@@ -1209,7 +1210,7 @@ SELECT offsets(mail) FROM mail WHERE mail MATCH '"serious mail"';
   the best coverage are selected.
 
 </p><p>
-  If <i>N</i> is a negative value, and no single fragment can be found 
+  If <i>N</i> is a negative value, and no single fragment can be found
   containing the required phrase matches, the snippet function searches
   for two fragments of <i>|N|</i> tokens each, then three, then four. In
   other words, if the specified value of <i>N</i> is negative, the sizes
@@ -1219,8 +1220,8 @@ SELECT offsets(mail) FROM mail WHERE mail MATCH '"serious mail"';
 </p><p>
   After the <i>M</i> fragments have been located, where <i>M</i> is between
   two and four as described in the paragraphs above, they are joined together
-  in sorted order with the "ellipses" text separating them. The three 
-  modifications enumerated earlier are performed on the text before it is 
+  in sorted order with the "ellipses" text separating them. The three
+  modifications enumerated earlier are performed on the text before it is
   returned.
 
 </p><div class="codeblock"><pre><b>Note: In this block of examples, newlines and whitespace characters have
@@ -1231,10 +1232,10 @@ they would not be present in actual SQLite commands or output.</b>
 <i>-- Create and populate an FTS table.</i>
 CREATE VIRTUAL TABLE text USING fts4();
 INSERT INTO text VALUES('
-  During 30 Nov-1 Dec, 2-3oC drops. Cool in the upper portion, minimum temperature 14-16oC 
-  and cool elsewhere, minimum temperature 17-20oC. Cold to very cold on mountaintops, 
-  minimum temperature 6-12oC. Northeasterly winds 15-30 km/hr. After that, temperature 
-  increases. Northeasterly winds 15-30 km/hr.     
+  During 30 Nov-1 Dec, 2-3oC drops. Cool in the upper portion, minimum temperature 14-16oC
+  and cool elsewhere, minimum temperature 17-20oC. Cold to very cold on mountaintops,
+  minimum temperature 6-12oC. Northeasterly winds 15-30 km/hr. After that, temperature
+  increases. Northeasterly winds 15-30 km/hr.
 ');
 
 <i>-- The following query returns the text value:</i>
@@ -1265,38 +1266,38 @@ SELECT snippet(text, '&#91;', '&#93;', '...') FROM text WHERE text MATCH '"min* 
 
 </p><p>
   The matchinfo function is called with either one or two arguments. As for
-  all auxiliary functions, the first argument must be the special 
+  all auxiliary functions, the first argument must be the special
   <a href="fts3.html#hiddencol">FTS hidden column</a>. The second argument, if it is specified, must be a text value
   comprised only of the characters 'p', 'c', 'n', 'a', 'l', 's', 'x', 'y' and 'b'.
   If no second argument is explicitly supplied, it defaults to "pcx". The
   second argument is referred to as the "format string" below.
 
 </p><p>
-  Characters in the matchinfo format string are processed from left to right. 
+  Characters in the matchinfo format string are processed from left to right.
   Each character in the format string causes one or more 32-bit unsigned
   integer values to be added to the returned array. The "values" column in
   the following table contains the number of integer values appended to the
   output buffer for each supported format string character. In the formula
-  given, <i>cols</i> is the number of columns in the FTS table, and 
-  <i>phrases</i> is the number of <a href="#matchable">matchable phrases</a> in 
-  the query. 
+  given, <i>cols</i> is the number of columns in the FTS table, and
+  <i>phrases</i> is the number of <a href="#matchable">matchable phrases</a> in
+  the query.
 
 </p><table striped="1" style="margin:1em auto; width:80%; border-spacing:0">
   <tr style="text-align:left"><th>Character</th><th>Values</th><th>Description
   </th></tr><tr style="text-align:left;background-color:#DDDDDD"><td>p </td><td>1 </td><td>The number of matchable phrases in the query.
   </td></tr><tr style="text-align:left"><td>c </td><td>1 </td><td>The number of user defined columns in the FTS
     table (i.e. not including the docid or the <a href="fts3.html#hiddencol">FTS hidden column</a>).
-  </td></tr><tr style="text-align:left;background-color:#DDDDDD"><td>x </td><td style="white-space:nowrap">3 * <i>cols</i> * <i>phrases</i> 
+  </td></tr><tr style="text-align:left;background-color:#DDDDDD"><td>x </td><td style="white-space:nowrap">3 * <i>cols</i> * <i>phrases</i>
     </td><td><a name="matchinfo-x"></a>
 
       For each distinct combination of a phrase and table column, the
       following three values:
       <ul>
-        <li> In the current row, the number of times the phrase appears in 
+        <li> In the current row, the number of times the phrase appears in
              the column.
         </li><li> The total number of times the phrase appears in the column in
              all rows in the FTS table.
-        </li><li> The total number of rows in the FTS table for which the 
+        </li><li> The total number of rows in the FTS table for which the
              column contains at least one instance of the phrase.
       </li></ul>
       The first set of three values corresponds to the left-most column
@@ -1312,7 +1313,7 @@ SELECT snippet(text, '&#91;', '&#93;', '...') FROM text WHERE text MATCH '"min* 
           hits_all_rows  = array&#91;3 * (c + p*cols) + 1&#93;
           docs_with_hits = array&#91;3 * (c + p*cols) + 2&#93;
 </pre>
-  </td></tr><tr style="text-align:left"><td>y</td><td style="white-space:nowrap"><i>cols</i> * <i>phrases</i> 
+  </td></tr><tr style="text-align:left"><td>y</td><td style="white-space:nowrap"><i>cols</i> * <i>phrases</i>
     </td><td><a name="matchinfo-y"></a>
 
       For each distinct combination of a phrase and table column, the
@@ -1322,7 +1323,7 @@ SELECT snippet(text, '&#91;', '&#93;', '...') FROM text WHERE text MATCH '"min* 
       'y' flag is zero for any phrase that is part of a sub-expression
       that does not match the current row. This makes a difference for
       expressions that contain AND operators that are descendants of OR
-      operators. For example, consider the expression: 
+      operators. For example, consider the expression:
 <pre>
           a OR (b AND c)
 </pre>
@@ -1349,7 +1350,7 @@ SELECT snippet(text, '&#91;', '&#93;', '...') FROM text WHERE text MATCH '"min* 
       For queries that use OR expressions, or those that use LIMIT or return
       many rows, the 'y' matchinfo option may be faster than 'x'.
 
-</td></tr><tr style="text-align:left;background-color:#DDDDDD"><td>b</td><td style="white-space:nowrap"><i>((cols+31)/32)</i> * <i>phrases</i> 
+</td></tr><tr style="text-align:left;background-color:#DDDDDD"><td>b</td><td style="white-space:nowrap"><i>((cols+31)/32)</i> * <i>phrases</i>
 </td><td><a name="matchinfo-b"></a>
 
 
@@ -1387,20 +1388,20 @@ SELECT snippet(text, '&#91;', '&#93;', '...') FROM text WHERE text MATCH '"min* 
   </td></tr><tr style="text-align:left;background-color:#DDDDDD"><td>a </td><td><i>cols</i> </td><td>For each column, the average number of
     tokens in the text values stored in the column (considering all rows in
     the FTS4 table). This value is only available when querying FTS4 tables,
-    not FTS3.  
+    not FTS3.
   </td></tr><tr style="text-align:left"><td>l </td><td><i>cols</i> </td><td>
     For each column, the length of the value stored in the current row of the
     FTS4 table, in tokens.  This value is only available when querying
     FTS4 tables, not FTS3. And only if the "matchinfo=fts3" directive was not
     specified as part of the "CREATE VIRTUAL TABLE" statement used to create
     the FTS4 table.
-  </td></tr><tr style="text-align:left;background-color:#DDDDDD"><td>s </td><td><i>cols</i> </td><td>For each column, the length of the longest 
+  </td></tr><tr style="text-align:left;background-color:#DDDDDD"><td>s </td><td><i>cols</i> </td><td>For each column, the length of the longest
     subsequence of phrase matches that the column value has in common
     with the query text. For example, if a table column contains the text
     'a b c d e' and the query is 'a c "d e"', then the length of the longest
     common subsequence is 2 (phrase "c" followed by phrase "d e").
-    
-    
+
+
 </td></tr></table>
 
 <p>
@@ -1415,7 +1416,7 @@ INSERT INTO t1 VALUES('single request', 'default data');
 <i>-- In the following query, no format string is specified and so it defaults</i>
 <i>-- to "pcx". It therefore returns a single row consisting of a single blob</i>
 <i>-- value 80 bytes in size (20 32-bit integers - 1 for "p", 1 for "c" and</i>
-<i>-- 3*2*3 for "x"). If each block of 4 bytes in</i> the blob is interpreted 
+<i>-- 3*2*3 for "x"). If each block of 4 bytes in</i> the blob is interpreted
 <i>-- as an unsigned integer in machine byte-order, the values will be:</i>
 <i>--</i>
 <i>--     3 2  1 3 2  0 1 1  1 2 2  0 1 1  0 0 0  1 1 1</i>
@@ -1462,9 +1463,9 @@ SELECT docid, offsets(tbl) FROM tbl WHERE tbl MATCH &lt;query expression&gt;;
 
 <p>
   The matchinfo function provides all the information required to calculate
-  probabilistic "bag-of-words" relevancy scores such as 
+  probabilistic "bag-of-words" relevancy scores such as
   <a href="http://en.wikipedia.org/wiki/Okapi_BM25">Okapi BM25/BM25F</a> that may
-  be used to order results in a full-text search application. Appendix A of this 
+  be used to order results in a full-text search application. Appendix A of this
   document, "<a href="fts3.html#appendix_a">search application tips</a>", contains an example of using the
   matchinfo() function efficiently.
 
@@ -1472,8 +1473,8 @@ SELECT docid, offsets(tbl) FROM tbl WHERE tbl MATCH &lt;query expression&gt;;
 <h1 id="fts4aux" tags="fts4aux"><span>5. </span>Fts4aux - Direct Access to the Full-Text Index</h1>
 
 <p>
-  As of <a href="releaselog/3_7_6.html">version 3.7.6</a> (2011-04-12), 
-  SQLite includes a new virtual table module called 
+  As of <a href="releaselog/3_7_6.html">version 3.7.6</a> (2011-04-12),
+  SQLite includes a new virtual table module called
   "fts4aux", which can be used to inspect the full-text index of an existing
   FTS table directly. Despite its name, fts4aux works just as well with FTS3
   tables as it does with FTS4 tables. Fts4aux tables are read-only. The only
@@ -1488,7 +1489,7 @@ SELECT docid, offsets(tbl) FROM tbl WHERE tbl MATCH &lt;query expression&gt;;
   database (for example, to create a TEMP fts4aux table that will access an
   FTS3 table in the MAIN database) use the two-argument form and give the
   name of the target database (ex: "main") in the first argument and the name
-  of the FTS3/4 table as the second argument.  (The two-argument form of 
+  of the FTS3/4 table as the second argument.  (The two-argument form of
   fts4aux was added for SQLite <a href="releaselog/3_7_17.html">version 3.7.17</a> (2013-05-20)
   and will throw an error in prior releases.)
   For example:
@@ -1506,15 +1507,15 @@ CREATE VIRTUAL TABLE temp.ft_terms_2 USING fts4aux(main,ft);
 <p>
   For each term present in the FTS table, there are between 2 and N+1 rows
   in the fts4aux table, where N is the number of user-defined columns in
-  the associated FTS table. An fts4aux table always has the same four columns, 
+  the associated FTS table. An fts4aux table always has the same four columns,
   as follows, from left to right:
 
 </p><table striped="1" style="margin:1em auto; width:80%; border-spacing:0">
   <tr style="text-align:left"><th>Column Name</th><th>Column Contents
-  </th></tr><tr style="text-align:left;background-color:#DDDDDD"><td>term</td><td> 
+  </th></tr><tr style="text-align:left;background-color:#DDDDDD"><td>term</td><td>
     Contains the text of the term for this row.
-  </td></tr><tr style="text-align:left"><td>col</td><td> 
-    This column may contain either the text value '*' (i.e. a single 
+  </td></tr><tr style="text-align:left"><td>col</td><td>
+    This column may contain either the text value '*' (i.e. a single
     character, U+002a) or an integer between 0 and N-1, where N is
     again the number of user-defined columns in the corresponding FTS table.
 
@@ -1533,7 +1534,7 @@ CREATE VIRTUAL TABLE temp.ft_terms_2 USING fts4aux(main,ft);
     This column also always contains an integer value greater than zero.
     <br><br>
     If the "col" column contains the value '*', then this column
-    contains the total number of instances of the term in all rows of the 
+    contains the total number of instances of the term in all rows of the
     FTS table (in any column). Otherwise, if col contains an integer
     value, then this column contains the total number of instances of the
     term that appear in the FTS table column identified by the col
@@ -1578,29 +1579,29 @@ SELECT term, col, documents, occurrences FROM ft_terms;
 </pre></div>
 
 <p>
-  In the example, the values in the "term" column are all lower case, 
+  In the example, the values in the "term" column are all lower case,
   even though they were inserted into table "ft" in mixed case. This is because
   an fts4aux table contains the terms as extracted from the document text
-  by the <a href="fts3.html#tokenizer">tokenizer</a>. In this case, since table "ft" uses the 
+  by the <a href="fts3.html#tokenizer">tokenizer</a>. In this case, since table "ft" uses the
   <a href="fts3.html#tokenizer">simple tokenizer</a>, this means all terms have been folded to
   lower case. Also, there is (for example) no row with column "term"
   set to "apple" and column "col" set to 1. Since there are no instances
   of the term "apple" in column 1, no row is present in the fts4aux table.
 
 </p><p>
-  During a transaction, some of the data written to an FTS table may be 
-  cached in memory and written to the database only when the transaction is 
-  committed. However the implementation of the fts4aux module is only able 
-  to read data from the database. In practice this means that if an fts4aux 
-  table is queried from within a transaction in which the associated 
-  FTS table has been modified, the results of the query are likely to reflect 
+  During a transaction, some of the data written to an FTS table may be
+  cached in memory and written to the database only when the transaction is
+  committed. However the implementation of the fts4aux module is only able
+  to read data from the database. In practice this means that if an fts4aux
+  table is queried from within a transaction in which the associated
+  FTS table has been modified, the results of the query are likely to reflect
   only a (possibly empty) subset of the changes made.
 
 </p><a name="fts4_options"></a>
 <h1 id="fts4_options" tags="FTS4 options"><span>6. </span>FTS4 Options</h1>
 
 <p>
-  If the "CREATE VIRTUAL TABLE" statement specifies module FTS4 (not FTS3), 
+  If the "CREATE VIRTUAL TABLE" statement specifies module FTS4 (not FTS3),
   then special directives - FTS4 options - similar to the "tokenize=*" option
   may also appear in place of column names. An FTS4 option consists of the
   option name, followed by an "=" character, followed by the option value.
@@ -1634,17 +1635,17 @@ CREATE VIRTUAL TABLE papers USING fts4(author, document, matchinfo=fts3);
     each row.  The use of the languageid option allows the same FTS4 table
     to hold text in multiple languages or scripts, each with different tokenizer
     rules, and to query each language independently of the others.
-    
-  </td></tr><tr style="text-align:left"><td>matchinfo</td><td> 
+
+  </td></tr><tr style="text-align:left"><td>matchinfo</td><td>
     When set to the value "fts3", the matchinfo option reduces the amount of
     information stored by FTS4 with the consequence that the "l" option of
     <a href="fts3.html#matchinfo">matchinfo()</a> is no longer available.
 
-  </td></tr><tr style="text-align:left;background-color:#DDDDDD"><td>notindexed</td><td> 
+  </td></tr><tr style="text-align:left;background-color:#DDDDDD"><td>notindexed</td><td>
     This option is used to specify the name of a column for which data is
     not indexed. Values stored in columns that are not indexed are not
     matched by MATCH queries. Nor are they recognized by auxiliary functions.
-    A single CREATE VIRTUAL TABLE statement may have any number of notindexed 
+    A single CREATE VIRTUAL TABLE statement may have any number of notindexed
     options.
 
   </td></tr><tr style="text-align:left"><td>order</td><td>
@@ -1653,14 +1654,14 @@ CREATE VIRTUAL TABLE papers USING fts4(author, document, matchinfo=fts3);
     The "order" option may be set to either "DESC" or "ASC" (in upper or
     lower case). If it is set to "DESC", then FTS4 stores its data in such
     a way as to optimize returning results in descending order by docid.
-    If it is set to "ASC" (the default), then the data structures are 
+    If it is set to "ASC" (the default), then the data structures are
     optimized for returning results in ascending order by docid.  In other
     words, if many of the queries run against the FTS4 table use "ORDER BY
-    docid DESC", then it may improve performance to add the "order=desc" 
+    docid DESC", then it may improve performance to add the "order=desc"
     option to the CREATE VIRTUAL TABLE statement.
 
   </td></tr><tr style="text-align:left;background-color:#DDDDDD"><td>prefix</td><td>
-    This option may be set to a comma-separated list of positive non-zero 
+    This option may be set to a comma-separated list of positive non-zero
     integers. For each integer N in the list, a separate index is created
     in the database file to optimize <a href="fts3.html#termprefix">prefix queries</a> where
     the query term is N bytes in length, not including the '*' character,
@@ -1675,7 +1676,7 @@ CREATE VIRTUAL TABLE papers USING fts4(author, document, matchinfo=fts3);
 <p>
   When using FTS4, specifying a column name that contains an "=" character
   and is not either a "tokenize=*" specification or a recognized FTS4 option
-  is an error. With FTS3, the first token in the unrecognized directive is 
+  is an error. With FTS3, the first token in the unrecognized directive is
   interpreted as a column name. Similarly, specifying multiple "tokenize=*"
   directives in a single table declaration is an error when using FTS4, whereas
   the second and subsequent "tokenize=*" directives are interpreted as column
@@ -1708,13 +1709,13 @@ CREATE VIRTUAL TABLE papers USING fts3(tokenize=porter, tokenize=simple, tokeniz
   The compress and uncompress options allow FTS4 content to be stored in
   the database in a compressed form. Both options should be set to the name
   of an SQL scalar function registered using <a href="c3ref/create_function.html">sqlite3_create_function()</a>
-  that accepts a single argument. 
+  that accepts a single argument.
 
 </p><p>
-  The compress function should return a compressed version of the value 
-  passed to it as an argument. Each time data is written to the FTS4 table, 
-  each column value is passed to the compress function and the result value 
-  stored in the database. The compress function may return any type of SQLite 
+  The compress function should return a compressed version of the value
+  passed to it as an argument. Each time data is written to the FTS4 table,
+  each column value is passed to the compress function and the result value
+  stored in the database. The compress function may return any type of SQLite
   value (blob, text, real, integer or null).
 
 </p><p>
@@ -1727,7 +1728,7 @@ CREATE VIRTUAL TABLE papers USING fts3(tokenize=porter, tokenize=simple, tokeniz
 </p><p>
   If the specified compress or uncompress functions do not exist, the table
   may still be created. An error is not returned until the FTS4 table is
-  read (if the uncompress function does not exist) or written (if it is the 
+  read (if the uncompress function does not exist) or written (if it is the
   compress function that does not exist).
 
 </p><div class="codeblock"><pre><i>-- Create an FTS4 table that stores data in compressed form. This</i>
@@ -1756,7 +1757,7 @@ CREATE VIRTUAL TABLE papers USING fts4(author, document, compress=zip, uncompres
   The content option can be used in two ways:
 
 </p><ul>
-<li><p> The indexed documents are not stored within the SQLite database 
+<li><p> The indexed documents are not stored within the SQLite database
         at all (a "contentless" FTS4 table), or
 
 </p></li><li><p> The indexed documents are stored in a database table created and
@@ -1764,8 +1765,8 @@ CREATE VIRTUAL TABLE papers USING fts4(author, document, compress=zip, uncompres
 </p></li></ul>
 
 <p>
-  Because the indexed documents themselves are usually much larger than 
-  the full-text index, the content option can be used to achieve 
+  Because the indexed documents themselves are usually much larger than
+  the full-text index, the content option can be used to achieve
   significant space savings.
 
 </p><a name="_contentless_fts4_tables_"></a>
@@ -1819,7 +1820,7 @@ SELECT snippet(t1) FROM t1 WHERE t1 MATCH 'xxx';
   Errors related to attempting to retrieve column values other than docid
   are runtime errors that occur within sqlite3_step(). In some cases, for
   example if the MATCH expression in a SELECT query matches zero rows, there
-  may be no error at all even if a statement does refer to column values 
+  may be no error at all even if a statement does refer to column values
   other than docid.
 
 </p><a name="_external_content_fts4_tables_"></a>
@@ -1827,12 +1828,12 @@ SELECT snippet(t1) FROM t1 WHERE t1 MATCH 'xxx';
 
 <p>
   An "external content" FTS4 table is similar to a contentless table, except
-  that if evaluation of a query requires the value of a column other than 
-  docid, FTS4 attempts to retrieve that value from a table (or view, or 
+  that if evaluation of a query requires the value of a column other than
+  docid, FTS4 attempts to retrieve that value from a table (or view, or
   virtual table) nominated by the user (hereafter referred to as the "content
   table"). The FTS4 module never writes to the content table, and writing
   to the content table does not affect the full-text index. It is the
-  responsibility of the user to ensure that the content table and the 
+  responsibility of the user to ensure that the content table and the
   full-text index are consistent.
 
 </p><p>
@@ -1847,7 +1848,7 @@ CREATE VIRTUAL TABLE t3 USING fts4(content="t2", a, c);
 </pre></div>
 
 <p>
-  Assuming the nominated table does exist, then its columns must be the same 
+  Assuming the nominated table does exist, then its columns must be the same
   as or a superset of those defined for the FTS table.  The external table
   must also be in the same database file as the FTS table.  In other words,
   The external table cannot be in a different database file connected using
@@ -1872,7 +1873,7 @@ INSERT INTO t3(docid, b, c) SELECT id, b, c FROM t2;
 <i>-- The following query returns a single row with two columns containing
 -- the text values "i j" and "k l".
 --
--- The query uses the full-text index to discover that the MATCH 
+-- The query uses the full-text index to discover that the MATCH
 -- term matches the row with docid=3. It then retrieves the values
 -- of columns b and c from the row with rowid=3 in the content table
 -- to return.
@@ -1900,7 +1901,7 @@ SELECT * FROM t3 WHERE t3 MATCH 'k';
   When a row is deleted from an external content FTS4 table, FTS4 needs to
   retrieve the column values of the row being deleted from the content table.
   This is so that FTS4 can update the full-text index entries for each token
-  that occurs within the deleted row to indicate that row has been 
+  that occurs within the deleted row to indicate that row has been
   deleted. If the content table row cannot be found, or if it contains values
   inconsistent with the contents of the FTS index, the results can be difficult
   to predict. The FTS index may be left containing entries corresponding to the
@@ -1916,10 +1917,10 @@ SELECT * FROM t3 WHERE t3 MATCH 'k';
 </p><div class="codeblock"><pre>CREATE TABLE t1_real(id INTEGER PRIMARY KEY, a, b, c, d);
 CREATE VIRTUAL TABLE t1_fts USING fts4(content="t1_real", b, c);
 
-<i>-- This works. When the row is removed from the FTS table, FTS retrieves 
--- the row with rowid=123 and tokenizes it in order to determine the entries 
+<i>-- This works. When the row is removed from the FTS table, FTS retrieves
+-- the row with rowid=123 and tokenizes it in order to determine the entries
 -- that must be removed from the full-text index.
---</i> 
+--</i>
 DELETE FROM t1_fts WHERE rowid = 123;
 DELETE FROM t1_real WHERE rowid = 123;
 
@@ -1932,7 +1933,7 @@ DELETE FROM t1_real WHERE rowid = 123;
 DELETE FROM t1_fts WHERE rowid = 123;
 </pre></div>
 
-<p>  
+<p>
   Instead of writing separately to the full-text index and the content table,
   some users may wish to use database triggers to keep the full-text index
   up to date with respect to the set of documents stored in the content table.
@@ -2027,7 +2028,7 @@ END;
   more than once for any single tokenizer object.  The fact that different
   languages might be tokenized differently is one reason why no single
   FTS query can return rows with different languageid values.
-  
+
 
 
 <a name="fts4matchinfo"></a>
@@ -2036,14 +2037,14 @@ END;
 <h2 tags="fts4 matchinfo option" id="the_matchinfo_option"><span>6.4. </span>The matchinfo= option</h2>
 
 <p>
-  The matchinfo option may only be set to the value "fts3". 
+  The matchinfo option may only be set to the value "fts3".
   Attempting to set matchinfo to anything other than "fts3" is an error.
   If this option is specified, then some of the extra information stored by
   FTS4 is omitted. This reduces the amount of disk space consumed by
   an FTS4 table until it is almost the same as the amount that would
   be used by the equivalent FTS3 table, but also means that the data
   accessed by passing the 'l' flag to the <a href="fts3.html#matchinfo">matchinfo()</a> function is
-  not available. 
+  not available.
 
 <a name="fts4notindexed"></a>
 
@@ -2063,7 +2064,7 @@ CREATE VIRTUAL TABLE t1 USING fts4(c1, c2, c3, c4, notindexed=c1, notindexed=c3)
 </pre></div>
 
 <p>
-  Values stored in unindexed columns are not eligible to match MATCH 
+  Values stored in unindexed columns are not eligible to match MATCH
   operators. They do not influence the results of the offsets() or matchinfo()
   auxiliary functions. Nor will the snippet() function ever return a
   snippet based on a value stored in an unindexed column.
@@ -2076,18 +2077,18 @@ CREATE VIRTUAL TABLE t1 USING fts4(c1, c2, c3, c4, notindexed=c1, notindexed=c3)
 <p>
   The FTS4 prefix option causes FTS to index term prefixes of specified lengths
   in the same way that it always indexes complete terms.  The prefix option
-  must be set to a comma separated list of positive non-zero integers. 
-  For each value N in the list, prefixes of length N bytes (when encoded 
+  must be set to a comma separated list of positive non-zero integers.
+  For each value N in the list, prefixes of length N bytes (when encoded
   using UTF-8) are indexed.  FTS4 uses term prefix indexes to speed up
   <a href="fts3.html#termprefix">prefix queries</a>. The cost, of course, is that indexing term prefixes as
-  well as complete terms increases the database size and slows down write 
+  well as complete terms increases the database size and slows down write
   operations on the FTS4 table.
 
 </p><p>
   Prefix indexes may be used to optimize <a href="fts3.html#termprefix">prefix queries</a> in two cases.
   If the query is for a prefix of N bytes, then a prefix index created
   with "prefix=N" provides the best optimization. Or, if no "prefix=N"
-  index is available, a "prefix=N+1" index may be used instead. 
+  index is available, a "prefix=N+1" index may be used instead.
   Using a "prefix=N+1" index is less
   efficient than a "prefix=N" index, but is better than no prefix index at all.
 
@@ -2169,7 +2170,7 @@ SELECT * FROM t1 WHERE t1 MATCH 'abc*';
 <p>
   The "integrity-check" command causes SQLite to read and verify
   the accuracy of all inverted indices in an FTS3/4 table by comparing
-  those inverted indices against the original content. The 
+  those inverted indices against the original content. The
   "integrity-check" command silently succeeds if the inverted
   indices are all ok, but will fail with an SQLITE_CORRUPT error
   if any problems are found.
@@ -2239,8 +2240,8 @@ SELECT * FROM t1 WHERE t1 MATCH 'abc*';
 <p>
   The "automerge=N" command (where N is an integer between 0 and 15,
   inclusive) is used to configure an FTS3/4 tables "automerge" parameter,
-  which controls automatic incremental inverted index merging. The default 
-  automerge value for new tables is 0, meaning that automatic incremental 
+  which controls automatic incremental inverted index merging. The default
+  automerge value for new tables is 0, meaning that automatic incremental
   merging is completely disabled. If the value of the automerge parameter
   is modified using the "automerge=N" command, the new parameter value is
   stored persistently in the database and is used by all subsequently
@@ -2248,11 +2249,11 @@ SELECT * FROM t1 WHERE t1 MATCH 'abc*';
 
 </p><p>
   Setting the automerge parameter to a non-zero value enables automatic
-  incremental merging. This causes SQLite to do a small amount of inverted 
-  index merging after every INSERT operation. The amount of merging 
-  performed is designed so that the FTS3/4 table never reaches a point 
-  where it has 16 segments at the same level and hence has to do a large 
-  merge in order to complete an insert.  In other words, automatic 
+  incremental merging. This causes SQLite to do a small amount of inverted
+  index merging after every INSERT operation. The amount of merging
+  performed is designed so that the FTS3/4 table never reaches a point
+  where it has 16 segments at the same level and hence has to do a large
+  merge in order to complete an insert.  In other words, automatic
   incremental merging is designed to prevent spiky INSERT performance.
 
 </p><p>
@@ -2260,7 +2261,7 @@ SELECT * FROM t1 WHERE t1 MATCH 'abc*';
   every INSERT, UPDATE, and DELETE operation on an FTS3/4 table run
   a little slower, since extra time must be used to do the incremental
   merge.  For maximum performance, it is recommended that applications
-  disable automatic incremental merge and instead use the 
+  disable automatic incremental merge and instead use the
   <a href="fts3.html#*fts4mergecmd">"merge" command</a> in an idle process to keep the inverted indices
   well merged.  But if the structure of an application does not easily
   allow for idle processes, the use of automatic incremental merge is
@@ -2272,7 +2273,7 @@ SELECT * FROM t1 WHERE t1 MATCH 'abc*';
   merge. If the value is set to N, the system waits until there are at
   least N segments on a single level before beginning to incrementally
   merge them. Setting a lower value of N causes segments to be merged more
-  quickly, which may speed up full-text queries and, if the workload 
+  quickly, which may speed up full-text queries and, if the workload
   contains UPDATE or DELETE operations as well as INSERTs, reduce the space
   on disk consumed by the full-text index. However, it also increases the
   amount of data written to disk.
@@ -2280,13 +2281,13 @@ SELECT * FROM t1 WHERE t1 MATCH 'abc*';
 </p><p>
   For general use in cases where the workload contains few UPDATE or DELETE
   operations, a good choice for automerge is 8. If the workload contains
-  many UPDATE or DELETE commands, 
+  many UPDATE or DELETE commands,
   or if query speed is a concern, it may be advantageous to reduce automerge
   to 2.
 
 </p><p>
   For reasons of backwards compatibility, the "automerge=1" command sets
-  the automerge parameter to 8, not 1 (a value of 1 would make no sense 
+  the automerge parameter to 8, not 1 (a value of 1 would make no sense
   anyway, as merging data from a single segment is a no-op).
 
 
@@ -2294,18 +2295,18 @@ SELECT * FROM t1 WHERE t1 MATCH 'abc*';
 <h1 id="tokenizer" tags="tokenizer"><span>8. </span>Tokenizers</h1>
 
 <p>
-  An FTS tokenizer is a set of rules for extracting terms from a document 
-  or basic FTS full-text query. 
+  An FTS tokenizer is a set of rules for extracting terms from a document
+  or basic FTS full-text query.
 
 </p><p>
-  Unless a specific tokenizer is specified as part of the CREATE 
-  VIRTUAL TABLE statement used to create the FTS table, the default 
+  Unless a specific tokenizer is specified as part of the CREATE
+  VIRTUAL TABLE statement used to create the FTS table, the default
   tokenizer, "simple", is used. The simple tokenizer extracts tokens from
-  a document or basic FTS full-text query according to the following 
+  a document or basic FTS full-text query according to the following
   rules:
 
 </p><ul>
-  <li><p> A term is a contiguous sequence of eligible characters, where 
+  <li><p> A term is a contiguous sequence of eligible characters, where
     eligible characters are all alphanumeric characters and all characters with
     Unicode codepoint values greater than or equal to 128.
     All other characters are
@@ -2320,15 +2321,15 @@ SELECT * FROM t1 WHERE t1 MATCH 'abc*';
 
 <p>
   For example, when a document containing the text "Right now, they're very
-  frustrated.", the terms extracted from the document and added to the 
+  frustrated.", the terms extracted from the document and added to the
   full-text index are, in order, "right now they re very frustrated". Such
-  a document would match a full-text query such as "MATCH 'Frustrated'", 
+  a document would match a full-text query such as "MATCH 'Frustrated'",
   as the simple tokenizer transforms the term in the query to lowercase
   before searching the full-text index.
 
 </p><p>
-  As well as the "simple" tokenizer, the FTS source code features a tokenizer 
-  that uses the <a href="http://tartarus.org/~martin/PorterStemmer/">Porter 
+  As well as the "simple" tokenizer, the FTS source code features a tokenizer
+  that uses the <a href="http://tartarus.org/~martin/PorterStemmer/">Porter
   Stemming algorithm</a>. This tokenizer uses the same rules to separate
   the input document into terms including folding all terms into lower case,
   but also uses the Porter Stemming algorithm to reduce related English language
@@ -2339,10 +2340,10 @@ SELECT * FROM t1 WHERE t1 MATCH 'abc*';
   useful than the more intelligible output produced by the simple tokenizer.
   Using the porter tokenizer, the document not only matches full-text queries
   such as "MATCH 'Frustrated'", but also queries such as "MATCH 'Frustration'",
-  as the term "Frustration" is reduced by the Porter stemmer algorithm to 
+  as the term "Frustration" is reduced by the Porter stemmer algorithm to
   "frustrat" - just as "Frustrated" is. So, when using the porter tokenizer,
   FTS is able to find not just exact matches for queried terms, but matches
-  against similar English language terms. For more information on the 
+  against similar English language terms. For more information on the
   Porter Stemmer algorithm, please refer to the page linked above.
 
 </p><p>
@@ -2462,7 +2463,7 @@ CREATE VIRTUAL TABLE txt5 USING fts4(
 </pre></div>
 
 <p>
-  The arguments passed to the "tokenchars=" or "separators=" options are 
+  The arguments passed to the "tokenchars=" or "separators=" options are
   case-sensitive. In the example above, specifying that "X" is a separator
   character does not affect the way "x" is handled.
 
@@ -2516,7 +2517,7 @@ SELECT fts3_tokenizer(&lt;tokenizer-name&gt;, &lt;sqlite3_tokenizer_module ptr&g
   be <a href="lang_expr.html#varparam">bound parameters</a>.  But that could lead to security problems in the
   event of an SQL injection.  Hence, the legacy behavior is now disabled
   by default.  But the old legacy behavior can be enabled, for backwards
-  compatibility in applications that really need it, 
+  compatibility in applications that really need it,
   by calling
   <a href="c3ref/db_config.html">sqlite3_db_config</a>(db,<a href="c3ref/c_dbconfig_defensive.html#sqlitedbconfigenablefts3tokenizer">SQLITE_DBCONFIG_ENABLE_FTS3_TOKENIZER</a>,1,0).
 
@@ -2583,7 +2584,7 @@ int queryTokenizer(
 <h2 id="querying_tokenizers"><span>8.2. </span>Querying Tokenizers</h2>
 
 <p>The "fts3tokenize" virtual table can be used to directly access any
-   tokenizer.  The following SQL demonstrates how to create an instance 
+   tokenizer.  The following SQL demonstrates how to create an instance
    of the fts3tokenize virtual table:
 
 </p><div class="codeblock"><pre>CREATE VIRTUAL TABLE tok1 USING fts3tokenize('porter');
@@ -2601,11 +2602,11 @@ CREATE VIRTUAL TABLE tokens1 USING fts3tokenize(icu, en_AU);
 CREATE VIRTUAL TABLE text2 USING fts4(tokenize=unicode61 "tokenchars=@." "separators=123");
 CREATE VIRTUAL TABLE tokens2 USING fts3tokenize(unicode61, "tokenchars=@.", "separators=123");
 </pre></div>
-   
+
 <p>
    Once the virtual table is created, it can be queried as follows:
 
-</p><div class="codeblock"><pre>SELECT token, start, end, position 
+</p><div class="codeblock"><pre>SELECT token, start, end, position
   FROM tok1
  WHERE input='This is a test sentence.';
 </pre></div>
@@ -2613,7 +2614,7 @@ CREATE VIRTUAL TABLE tokens2 USING fts3tokenize(unicode61, "tokenchars=@.", "sep
 <p>The virtual table will return one row of output for each token in the
    input string.  The "token" column is the text of the token.  The "start"
    and "end" columns are the byte offset to the beginning and end of the
-   token in the original input string.  
+   token in the original input string.
    The "position" column is the sequence number
    of the token in the original input string.  There is also an "input"
    column which is simply a copy of the input string that is specified in
@@ -2645,16 +2646,16 @@ sentenc|15|23|4
    of whether or not there exists an FTS3 or FTS4 table that actually uses
    that tokenizer.
 
- 
+
 </p><a name="data_structures"></a>
 <h1 tags="segment btree" id="data_structures"><span>9. </span>Data Structures</h1>
 
 <p>
   This section describes at a high-level the way the FTS module stores its
-  index and content in the database. It is <b>not necessary to read or 
-  understand the material in this section in order to use FTS</b> in an 
-  application. However, it may be useful to application developers attempting 
-  to analyze and understand FTS performance characteristics, or to developers 
+  index and content in the database. It is <b>not necessary to read or
+  understand the material in this section in order to use FTS</b> in an
+  application. However, it may be useful to application developers attempting
+  to analyze and understand FTS performance characteristics, or to developers
   contemplating enhancements to the existing FTS feature set.
 </p>
 
@@ -2673,7 +2674,7 @@ sentenc|15|23|4
   The leftmost column of the "%_content" table is an INTEGER PRIMARY KEY field
   named "docid". Following this is one column for each column of the FTS
   virtual table as declared by the user, named by prepending the column name
-  supplied by the user with "c<i>N</i>", where <i>N</i> is the index of the 
+  supplied by the user with "c<i>N</i>", where <i>N</i> is the index of the
   column within the table, numbered from left to right starting with 0. Data
   types supplied as part of the virtual table declaration are not used as
   part of the %_content table declaration. For example:
@@ -2686,7 +2687,7 @@ CREATE TABLE abc_content(docid INTEGER PRIMARY KEY, c0a, c1b, c2c);
 </pre></div>
 
 <p>
-  The %_content table contains the unadulterated data inserted by the user 
+  The %_content table contains the unadulterated data inserted by the user
   into the FTS virtual table by the user. If the user does not explicitly
   supply a "docid" value when inserting records, one is selected automatically
   by the system.
@@ -2698,7 +2699,7 @@ CREATE TABLE abc_content(docid INTEGER PRIMARY KEY, c0a, c1b, c2c);
   specified as part of the CREATE VIRTUAL TABLE statement. If they are created,
   the schema of the two tables is as follows:
 </p><div class="codeblock"><pre>CREATE TABLE %_stat(
-  id INTEGER PRIMARY KEY, 
+  id INTEGER PRIMARY KEY,
   value BLOB
 );
 
@@ -2714,7 +2715,7 @@ CREATE TABLE %_docsize(
   of <i>N</i> FTS varints, where <i>N</i> is the number of user-defined columns
   in the table. Each varint in the "size" blob is the number of tokens in the
   corresponding column of the associated row in the FTS table. The %_stat table
-  always contains a single row with the "id" column set to 0. The "value" 
+  always contains a single row with the "id" column set to 0. The "value"
   column contains a blob consisting of <i>N+1</i> FTS varints, where <i>N</i>
   is again the number of user-defined columns in the FTS table. The first
   varint in the blob is set to the total number of rows in the FTS table. The
@@ -2722,9 +2723,9 @@ CREATE TABLE %_docsize(
   the corresponding column for all rows of the FTS table.
 
 </p><p>
-  The two remaining tables, %_segments and %_segdir, are used to store the 
-  full-text index. Conceptually, this index is a lookup table that maps each 
-  term (word) to the set of docid values corresponding to records in the 
+  The two remaining tables, %_segments and %_segdir, are used to store the
+  full-text index. Conceptually, this index is a lookup table that maps each
+  term (word) to the set of docid values corresponding to records in the
   %_content table that contain one or more occurrences of the term. To
   retrieve all documents that contain a specified term, the FTS module
   queries this index to determine the set of docid values for records that
@@ -2749,7 +2750,7 @@ CREATE TABLE %_segdir(
 </pre></div>
 
 <p>
-  The schema depicted above is not designed to store the full-text index 
+  The schema depicted above is not designed to store the full-text index
   directly. Instead, it is used to store one or more b-tree structures. There
   is one b-tree for each row in the %_segdir table. The %_segdir table
   row contains the root node and various meta-data associated with the
@@ -2781,12 +2782,12 @@ CREATE TABLE %_segdir(
   contents of all segment b-trees. If a term is present in more than one
   segment b-tree, then it maps to the union of each individual doclist. If,
   for a single term, the same docid occurs in more than one doclist, then only
-  the doclist that is part of the most recently created segment b-tree is 
-  considered valid. 
+  the doclist that is part of the most recently created segment b-tree is
+  considered valid.
 
 </p><p>
   Multiple b-tree structures are used instead of a single b-tree to reduce
-  the cost of inserting records into FTS tables. When a new record is 
+  the cost of inserting records into FTS tables. When a new record is
   inserted into an FTS table that already contains a lot of data, it is
   likely that many of the terms in the new record are already present in
   a large number of existing records. If a single b-tree were used, then
@@ -2800,13 +2801,13 @@ CREATE TABLE %_segdir(
   (as the FTS code may have to look up individual terms in more than one
   b-tree and merge the results), but it has been found that in practice this
   overhead is often negligible.
-  
+
 </p><h2 id="variable_length_integer_varint_format"><span>9.2. </span>Variable Length Integer (varint) Format</h2>
 
 <p>
   Integer values stored as part of segment b-tree nodes are encoded using the
   FTS varint format. This encoding is similar, but <b>not identical</b>, to
-  the <a href="fileformat.html#varint_format">SQLite varint format</a>.
+  the <a href="fileformat2.html#varint">SQLite varint format</a>.
 
 </p><p>
   An encoded FTS varint consumes between one and ten bytes of space. The
@@ -2819,7 +2820,7 @@ CREATE TABLE %_segdir(
   stored using less space.
 
 </p><p>
-  The final byte of an encoded FTS varint has its most significant bit 
+  The final byte of an encoded FTS varint has its most significant bit
   cleared. All preceding bytes have the most significant bit set. Data
   is stored in the remaining seven least significant bits of each byte.
   The first byte of the encoded representation contains the least significant
@@ -2830,11 +2831,11 @@ CREATE TABLE %_segdir(
 
 </p><table striped="1" style="margin:1em auto; width:80%; border-spacing:0">
   <tr style="text-align:left"><th>Decimal</th><th>Hexadecimal</th><th width="100%">Encoded Representation
-  </th></tr><tr style="text-align:left;background-color:#DDDDDD"><td>43</td><td>0x000000000000002B</td><td>0x2B 
+  </th></tr><tr style="text-align:left;background-color:#DDDDDD"><td>43</td><td>0x000000000000002B</td><td>0x2B
   </td></tr><tr style="text-align:left"><td>200815</td><td>0x000000000003106F</td><td>0xEF 0xA0 0x0C
   </td></tr><tr style="text-align:left;background-color:#DDDDDD"><td>-1</td><td>0xFFFFFFFFFFFFFFFF</td><td>0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF 0x01
 </td></tr></table>
-  
+
 
 <h2 id="segment_b_tree_format"><span>9.3. </span>Segment B-Tree Format</h2>
 
@@ -2842,14 +2843,14 @@ CREATE TABLE %_segdir(
   Segment b-trees are prefix-compressed b+-trees. There is one segment b-tree
   for each row in the %_segdir table (see above). The root node of the segment
   b-tree is stored as a blob in the "root" field of the corresponding row
-  of the %_segdir table. All other nodes (if any exist) are stored in the 
+  of the %_segdir table. All other nodes (if any exist) are stored in the
   "blob" column of the %_segments table. Nodes within the %_segments table are
   identified by the integer value in the blockid field of the corresponding
   row. The following table describes the fields of the %_segdir table:
 
 </p><table striped="1" style="margin:1em auto; width:80%; border-spacing:0">
   <tr style="text-align:left"><th>Column           </th><th width="100%">Interpretation
-  </th></tr><tr style="text-align:left;background-color:#DDDDDD"><td>level            </td><td> 
+  </th></tr><tr style="text-align:left;background-color:#DDDDDD"><td>level            </td><td>
     Between them, the contents of the "level" and "idx" fields define the
     relative age of the segment b-tree. The smaller the value stored in the
     "level" field, the more recently the segment b-tree was created. If two
@@ -2859,11 +2860,11 @@ CREATE TABLE %_segdir(
     for both the "level" and "idx" fields.
   </td></tr><tr style="text-align:left"><td>idx              </td><td> See above.
   </td></tr><tr style="text-align:left;background-color:#DDDDDD"><td>start_block      </td><td>
-    The blockid that corresponds to the node with the smallest blockid that 
+    The blockid that corresponds to the node with the smallest blockid that
     belongs to this segment b-tree. Or zero if the entire segment b-tree
     fits on the root node. If it exists, this node is always a leaf node.
   </td></tr><tr style="text-align:left"><td>leaves_end_block </td><td>
-    The blockid that corresponds to the leaf node with the largest blockid 
+    The blockid that corresponds to the leaf node with the largest blockid
     that belongs to this segment b-tree. Or zero if the entire segment b-tree
     fits on the root node.
   </td></tr><tr style="text-align:left;background-color:#DDDDDD"><td>end_block </td><td>
@@ -2893,8 +2894,8 @@ CREATE TABLE %_segdir(
   value stored in the "start_block" column of the corresponding %_segdir row,
   and finishing at the blockid value stored in the "leaves_end_block"
   field of the same row. It is therefore possible to iterate through all the
-  leaves of a segment b-tree, in key order, by traversing the %_segments 
-  table in blockid order from "start_block" to "leaves_end_block".  
+  leaves of a segment b-tree, in key order, by traversing the %_segments
+  table in blockid order from "start_block" to "leaves_end_block".
 
 </p><h3 id="segment_b_tree_leaf_nodes"><span>9.3.1. </span>Segment B-Tree Leaf Nodes</h3>
 
@@ -2915,7 +2916,7 @@ CREATE TABLE %_segdir(
 </p><h3 id="segment_b_tree_interior_nodes"><span>9.3.2. </span>Segment B-Tree Interior Nodes</h3>
 
 <p>
-  The following diagram depicts the format of a segment b-tree interior 
+  The following diagram depicts the format of a segment b-tree interior
   (non-leaf) node.
 
 </p><center>
@@ -2928,13 +2929,13 @@ CREATE TABLE %_segdir(
 
 <p>
   A doclist consists of an array of 64-bit signed integers, serialized using
-  the FTS varint format. Each doclist entry is made up of a series of two 
+  the FTS varint format. Each doclist entry is made up of a series of two
   or more integers, as follows:
 
 </p><ol>
   <li> The docid value. The first entry in a doclist contains the literal docid
-       value. The first field of each subsequent doclist entry contains the 
-       difference between the new docid and the previous one (always a positive 
+       value. The first field of each subsequent doclist entry contains the
+       difference between the new docid and the previous one (always a positive
        number).
   </li><li> Zero or more term-offset lists. A term-offset list is present for each
        column of the FTS virtual table that contains the term. A term-offset
@@ -2945,8 +2946,8 @@ CREATE TABLE %_segdir(
        </li><li> The column number (1 for the second leftmost column, etc.). This
             field is omitted for any term-offset list associated with column 0.
        </li><li> A list of term-offsets, sorted from smallest to largest. Instead
-            of storing the term-offset value literally, each integer stored 
-            is the difference between the current term-offset and the previous 
+            of storing the term-offset value literally, each integer stored
+            is the difference between the current term-offset and the previous
             one (or zero if the current term-offset is the first), plus 2.
      </li></ol>
   </li><li> Constant value 0.
@@ -2964,8 +2965,8 @@ CREATE TABLE %_segdir(
 
 <p>
   For doclists for which the term appears in more than one column of the FTS
-  virtual table, term-offset lists within the doclist are stored in column 
-  number order. This ensures that the term-offset list associated with 
+  virtual table, term-offset lists within the doclist are stored in column
+  number order. This ensures that the term-offset list associated with
   column 0 (if any) is always first, allowing the first two fields of the
   term-offset list to be omitted in this case.
 
@@ -2975,7 +2976,7 @@ CREATE TABLE %_segdir(
 <h2 id="_utf_16_byte_order_mark_problem_"><span>10.1. </span> UTF-16 byte-order-mark problem </h2>
 
 For UTF-16 databases, when using the "simple" tokenizer, it is possible to use
-malformed unicode strings to cause the 
+malformed unicode strings to cause the
 <a href="#integcheck">integrity-check special command</a> to falsely report
 corruption, or for <a href="#snippet">auxiliary functions</a> to return
 incorrect results. More specifically, the bug can be triggered by any of the following:
@@ -2988,13 +2989,13 @@ incorrect results. More specifically, the bug can be triggered by any of the fol
 </pre></div>
 
   </li><li><p>Malformed UTF-8 that SQLite converts to a UTF-16 byte-order-mark is
-       embedded at the beginning of an SQL string literal value inserted 
+       embedded at the beginning of an SQL string literal value inserted
        into an FTS3 table.
 
   </p></li><li><p>A text value created by casting a blob that begins with the two
        bytes 0xFF and 0xFE, in either possible order, is inserted into an
        FTS3 table. For example:
-       
+
 </p><div class="codeblock"><pre>INSERT INTO fts_table(col) VALUES(CAST(X'FEFF' AS TEXT));
 </pre></div>
 </li></ul>
@@ -3024,22 +3025,22 @@ unexpected results.
 
 <p>
   FTS is primarily designed to support Boolean full-text queries - queries
-  to find the set of documents that match a specified criteria. However, many 
+  to find the set of documents that match a specified criteria. However, many
   (most?) search applications require that results are somehow ranked in order
   of "relevance", where "relevance" is defined as the likelihood that the user
   who performed the search is interested in a specific element of the returned
   set of documents. When using a search engine to find documents on the world
-  wide web, the user expects that the most useful, or "relevant", documents 
-  will be returned as the first page of results, and that each subsequent page 
-  contains progressively less relevant results. Exactly how a machine can 
+  wide web, the user expects that the most useful, or "relevant", documents
+  will be returned as the first page of results, and that each subsequent page
+  contains progressively less relevant results. Exactly how a machine can
   determine document relevance based on a users query is a complicated problem
   and the subject of much ongoing research.
 
 </p><p>
-  One very simple scheme might be to count the number of instances of the 
+  One very simple scheme might be to count the number of instances of the
   users search terms in each result document. Those documents that contain
   many instances of the terms are considered more relevant than those with
-  a small number of instances of each term. In an FTS application, the 
+  a small number of instances of each term. In an FTS application, the
   number of term instances in each result could be determined by counting
   the number of integers in the return value of the <a href="fts3.html#offsets">offsets</a> function.
   The following example shows a query that could be used to obtain the
@@ -3053,7 +3054,7 @@ CREATE VIRTUAL TABLE documents USING fts3(title, content);
 <i>-- the following query could be used to return the titles of the 10 documents that contain</i>
 <i>-- the greatest number of instances of the users query terms. Hopefully, these 10</i>
 <i>-- documents will be those that the users considers more or less the most "relevant".</i>
-SELECT title FROM documents 
+SELECT title FROM documents
   WHERE documents MATCH &lt;query&gt;
   ORDER BY countintegers(offsets(documents)) DESC
   LIMIT 10 OFFSET 0
@@ -3062,19 +3063,19 @@ SELECT title FROM documents
 <p>
   The query above could be made to run faster by using the FTS <a href="fts3.html#matchinfo">matchinfo</a>
   function to determine the number of query term instances that appear in each
-  result. The matchinfo function is much more efficient than the offsets 
+  result. The matchinfo function is much more efficient than the offsets
   function. Furthermore, the matchinfo function provides extra information
   regarding the overall number of occurrences of each query term in the entire
-  document set (not just the current row) and the number of documents in which 
+  document set (not just the current row) and the number of documents in which
   each query term appears. This may be used (for example) to attach a higher
-  weight to less common terms which may increase the overall computed relevancy 
+  weight to less common terms which may increase the overall computed relevancy
   of those results the user considers more interesting.
 
 </p><div class="codeblock"><pre><i>-- If the application supplies an SQLite user function called "rank" that</i>
 <i>-- interprets the blob of data returned by matchinfo and returns a numeric</i>
 <i>-- relevancy based on it, then the following SQL may be used to return the</i>
 <i>-- titles of the 10 most relevant documents in the dataset for a users query.</i>
-SELECT title FROM documents 
+SELECT title FROM documents
   WHERE documents MATCH &lt;query&gt;
   ORDER BY rank(matchinfo(documents)) DESC
   LIMIT 10 OFFSET 0
@@ -3091,11 +3092,11 @@ SELECT title FROM documents
   which may be quite large). This means that if the users query matches
   several thousand documents, many megabytes of "title" and "content" data
   may be loaded from disk into memory even though they will never be used
-  for any purpose. 
+  for any purpose.
 
 </p><p>
-  The SQL query in the following example block is one solution to this 
-  problem. In SQLite, when a <a href="optoverview.html#flattening">sub-query 
+  The SQL query in the following example block is one solution to this
+  problem. In SQLite, when a <a href="optoverview.html#flattening">sub-query
   used in a join contains a LIMIT clause</a>, the results of the sub-query are
   calculated and stored in temporary table before the main query is executed.
   This means that SQLite will load only the docid and matchinfo data for each
@@ -3105,11 +3106,11 @@ SELECT title FROM documents
   and docid values are gleaned entirely from the full-text index, this results
   in dramatically less data being loaded from the database into memory.
 
-</p><div class="codeblock"><pre>SELECT title FROM documents JOIN ( 
-    SELECT docid, rank(matchinfo(documents)) AS rank 
+</p><div class="codeblock"><pre>SELECT title FROM documents JOIN (
+    SELECT docid, rank(matchinfo(documents)) AS rank
     FROM documents
     WHERE documents MATCH &lt;query&gt;
-    ORDER BY rank DESC 
+    ORDER BY rank DESC
     LIMIT 10 OFFSET 0
 ) AS ranktable USING(docid)
 ORDER BY ranktable.rank DESC
@@ -3122,7 +3123,7 @@ ORDER BY ranktable.rank DESC
 </p><ol>
   <li> <p>
        The <a href="fts3.html#snippet">snippet</a> function cannot be used with the above query. Because
-       the outer query does not include a "WHERE ... MATCH" clause, the snippet 
+       the outer query does not include a "WHERE ... MATCH" clause, the snippet
        function may not be used with it. One solution is to duplicate the WHERE
        clause used by the sub-query in the outer query. The overhead associated
        with this is usually negligible.
@@ -3137,8 +3138,8 @@ ORDER BY ranktable.rank DESC
 </p></li></ol>
 
 <p>
-  This version of the query is very similar to that used by the 
-  <a href="http://www.sqlite.org/search?q=fts3">sqlite.org documentation search</a> 
+  This version of the query is very similar to that used by the
+  <a href="http://www.sqlite.org/search?q=fts3">sqlite.org documentation search</a>
   application.
 
 </p><div class="codeblock"><pre><i>-- This table stores the static weight assigned to each document in FTS table</i>
@@ -3155,11 +3156,11 @@ CREATE TABLE documents_data(docid INTEGER PRIMARY KEY, weight);
 <i>--   2. The sub-query joins the documents table with the document_data table, so that</i>
 <i>--      implementation of the rank function has access to the static weight assigned</i>
 <i>--      to each document.</i>
-SELECT title, snippet(documents) FROM documents JOIN ( 
+SELECT title, snippet(documents) FROM documents JOIN (
     SELECT docid, rank(matchinfo(documents), documents_data.weight) AS rank
     FROM documents JOIN documents_data USING(docid)
     WHERE documents MATCH &lt;query&gt;
-    ORDER BY rank DESC 
+    ORDER BY rank DESC
     LIMIT 10 OFFSET 0
 ) AS ranktable USING(docid)
 WHERE documents MATCH &lt;query&gt;
@@ -3168,18 +3169,18 @@ ORDER BY ranktable.rank DESC
 
 <p>
   All the example queries above return the ten most relevant query results.
-  By modifying the values used with the OFFSET and LIMIT clauses, a query 
-  to return (say) the next ten most relevant results is easy to construct. 
+  By modifying the values used with the OFFSET and LIMIT clauses, a query
+  to return (say) the next ten most relevant results is easy to construct.
   This may be used to obtain the data required for a search applications second
   and subsequent pages of results.
 
 </p><p>
-  The next block contains an example rank function that uses matchinfo data 
-  implemented in C. Instead of a single weight, it allows a weight to be 
+  The next block contains an example rank function that uses matchinfo data
+  implemented in C. Instead of a single weight, it allows a weight to be
   externally assigned to each column of each document. It may be registered
   with SQLite like any other user function using <a href="c3ref/create_function.html">sqlite3_create_function</a>.
 
-</p><p><b> Security Warning:</b> Because it is just an ordinary SQL function, 
+</p><p><b> Security Warning:</b> Because it is just an ordinary SQL function,
   rank() may be invoked as part of any SQL query in any context. This means
   that the first argument passed may not be a valid matchinfo blob.
   Implementors should take care to handle this case without causing buffer
@@ -3282,5 +3283,5 @@ wrong_number_args:
   sqlite3_result_error(pCtx, "wrong number of arguments to function rank()", -1);
 }
 </pre></div>
-</integer></language-id><p align="center"><small><i>This page last modified on  <a href="https://sqlite.org/docsrc/honeypot" id="mtimelink"  data-href="https://sqlite.org/docsrc/finfo/pages/fts3.in?m=8a8aa7fb8b4ab5e5a">2022-08-10 18:11:15</a> UTC </small></i></p>
+</integer></language-id><p align="center"><small><i>This page last modified on  <a href="https://sqlite.org/docsrc/honeypot" id="mtimelink"  data-href="https://sqlite.org/docsrc/finfo/pages/fts3.in?m=8c1e21ee46">2023-02-27 02:07:35</a> UTC </small></i></p>
 

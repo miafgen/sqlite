@@ -117,7 +117,7 @@ antiRobotDefense();
 </script>
 <!-- keywords: SQLITE_TRACE SQLITE_TRACE_CLOSE SQLITE_TRACE_PROFILE SQLITE_TRACE_ROW SQLITE_TRACE_STMT -->
 <div class=nosearch>
-<a href="intro.html"><h2>SQLite C Interface</h2></a>
+<a href="../c3ref/intro.html"><h2>SQLite C Interface</h2></a>
 <h2>SQL Trace Event Codes</h2>
 </div>
 <blockquote><pre>
@@ -160,8 +160,8 @@ interface by using the X argument when X begins with "--" and invoking
 <dd>An SQLITE_TRACE_PROFILE callback provides approximately the same
 information as is provided by the <a href="../c3ref/profile.html">sqlite3_profile()</a> callback.
 The P argument is a pointer to the <a href="../c3ref/stmt.html">prepared statement</a> and the
-X argument points to a 64-bit integer which is the estimated of
-the number of nanosecond that the prepared statement took to run.
+X argument points to a 64-bit integer which is approximately
+the number of nanoseconds that the prepared statement took to run.
 The SQLITE_TRACE_PROFILE callback is invoked when the statement finishes.</p>
 
 <p><a name="sqlitetracerow"></a>
@@ -179,7 +179,7 @@ The P argument is a pointer to the <a href="../c3ref/sqlite3.html">database conn
 and the X argument is unused.
 </dl>
 </p><p>See also lists of
-  <a href="objlist.html">Objects</a>,
-  <a href="constlist.html">Constants</a>, and
-  <a href="funclist.html">Functions</a>.</p>
+  <a href="../c3ref/objlist.html">Objects</a>,
+  <a href="../c3ref/constlist.html">Constants</a>, and
+  <a href="../c3ref/funclist.html">Functions</a>.</p>
 

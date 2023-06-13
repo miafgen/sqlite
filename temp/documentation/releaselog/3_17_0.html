@@ -126,9 +126,9 @@ antiRobotDefense();
     </ol>
 <li>Add the <a href="../compile.html#default_lookaside">SQLITE_DEFAULT_LOOKASIDE</a> compile-time option.
 <li>Increase the default <a href="../malloc.html#lookaside">lookaside</a>
-    size from 512,125 to 1200,100 
-    as this provides better performance while only adding 56KB 
-    of extra memory per connection.  Memory-sensitive 
+    size from 512,125 to 1200,100
+    as this provides better performance while only adding 56KB
+    of extra memory per connection.  Memory-sensitive
     applications can restore the old
     default at compile-time, start-time, or run-time.
 <li>Use compiler built-ins __builtin_sub_overflow(), __builtin_add_overflow(),
@@ -154,12 +154,12 @@ antiRobotDefense();
     extension.
 <li>In the <a href="../cli.html">command-line shell</a>, enhance the ".mode" command so that it
     restores the default column and row separators for modes "line",
-    "list", "column", and "tcl". 
+    "list", "column", and "tcl".
 <li>Enhance the <a href="../compile.html#direct_overflow_read">SQLITE_DIRECT_OVERFLOW_READ</a> option so that it works
     in <a href="../wal.html">WAL mode</a> as long as the pages being read are not in the WAL file.
-<li>Enhance the 
+<li>Enhance the
     <a href="../lemon.html">Lemon parser generator</a>
-    so that it can store the parser object as a stack variable rather than 
+    so that it can store the parser object as a stack variable rather than
     allocating space from the heap and make use of that enhancement in
     the <a href="../amalgamation.html">amalgamation</a>.
 <li>Other performance improvements. Uses about <a href="../cpu.html">6.5% fewer CPU cycles</a>.
@@ -182,7 +182,7 @@ antiRobotDefense();
 </ol></p>
 
       <p>A <a href="../changes.html">complete list of SQLite releases</a>
-      in a single page and a <a href="../chronology.html">chronology</a> are both also available.  
+      in a single page and a <a href="../chronology.html">chronology</a> are both also available.
       A detailed history of every
       check-in is available at
       <a href="http://www.sqlite.org/src/timeline">

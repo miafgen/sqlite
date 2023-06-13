@@ -179,9 +179,11 @@ for rendering polygons as
 similar operations.
 
 </p><p>
-The source code for Geopoly is included in the <a href="amalgamation.html">amalgamation</a> but is not
-included in the library unless the <a href="compile.html#enable_geopoly">-DSQLITE_ENABLE_GEOPOLY</a> compile-time option
-is used.
+The source code for Geopoly is included in the <a href="amalgamation.html">amalgamation</a>.  However,
+depending on configuration options and the a particular version of SQLite
+you are using, the Geopoly extension may or may not be enabled by default.
+To ensure that Geopoly is enabled for your build, 
+add the <a href="compile.html#enable_geopoly">-DSQLITE_ENABLE_GEOPOLY=1</a> compile-time option.
 
 </p><p>
 Geopoly operates on "simple" polygons - that is, polygons for which
@@ -564,5 +566,5 @@ polygon is represented in the shadow tables as a rectangular bounding box.
 The underlying R-Tree implementation uses bounding boxes to limit the search
 space.  Then the geoploy_overlap() and/or geopoly_within() routines further
 refine the search to the exact answer.
-</p><p align="center"><small><i>This page last modified on  <a href="https://sqlite.org/docsrc/honeypot" id="mtimelink"  data-href="https://sqlite.org/docsrc/finfo/pages/geopoly.in?m=b47321138852c597d">2020-04-18 20:02:04</a> UTC </small></i></p>
+</p><p align="center"><small><i>This page last modified on  <a href="https://sqlite.org/docsrc/honeypot" id="mtimelink"  data-href="https://sqlite.org/docsrc/finfo/pages/geopoly.in?m=f3580c58ff">2023-02-20 00:00:42</a> UTC </small></i></p>
 

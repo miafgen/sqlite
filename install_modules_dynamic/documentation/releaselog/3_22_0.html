@@ -118,7 +118,7 @@ antiRobotDefense();
 <h2>SQLite Release 3.22.0 On 2018-01-22</h2><p><ol class='lessindent'>
 <li> The output of <a href="../c3ref/trace_v2.html">sqlite3_trace_v2()</a> now shows each individual SQL statement
      run within a trigger.
-<li> Add the ability to read from <a href="../wal.html">WAL mode</a> databases even if the application 
+<li> Add the ability to read from <a href="../wal.html">WAL mode</a> databases even if the application
      lacks write permission on the database and its containing directory, as long as
      the -shm and -wal files exist in that directory.
 <li> Added the <a href="../rtree.html#rtreecheck">rtreecheck()</a> scalar SQL function to the <a href="../rtree.html">R-Tree extension</a>.
@@ -128,7 +128,7 @@ antiRobotDefense();
 <li> Added support for the <a href="../fts5.html#carrotq">"&#94;" initial token syntax</a> in FTS5.
 <li> New extensions:
 <ol type='a'>
-  <li> The <a href="../zipfile.html">Zipfile virtual table</a> can read and write a 
+  <li> The <a href="../zipfile.html">Zipfile virtual table</a> can read and write a
        <a href="https://en.wikipedia.org/wiki/Zip_(file_format)">ZIP Archive</a>.
   <li> Added the fsdir(PATH) <a href="../vtab.html#tabfunc2">table-valued function</a> to the
        <a href="https://sqlite.org/src/file/ext/misc/fileio.c">fileio.c</a> extension,
@@ -154,7 +154,7 @@ antiRobotDefense();
        set biases the decision toward the use of co-routines.
   <li> The planner avoids query plans that use indexes with unknown
        collating functions.
-  <li> The planner omits unused LEFT JOINs even if they are not the 
+  <li> The planner omits unused LEFT JOINs even if they are not the
        right-most joins of a query.
 </ol>
 <li> Other performance optimizations:
@@ -176,12 +176,12 @@ antiRobotDefense();
   <li> Enhance the ".lint fkey-indexes" command so that it works with
        <a href="../withoutrowid.html">WITHOUT ROWID</a> tables.
   <li> If the filename argument to the shell is a ZIP archive rather than
-       an SQLite database, then the shell automatically opens that ZIP 
+       an SQLite database, then the shell automatically opens that ZIP
        archive using the <a href="../zipfile.html">Zipfile virtual table</a>.
   <li> Added the <a href="../cli.html#editfunc">edit() SQL function</a>.
   <li> Added the <a href="../cli.html#exexcel*">.excel command</a> to simplify exporting
        database content to a spreadsheet.
-  <li> Databases are opened using 
+  <li> Databases are opened using
        <a href="https://sqlite.org/src/file/ext/misc/appendvfs.c">Append VFS</a> when
        the --append flag is used on the command line or with the
        .open command.
@@ -218,7 +218,7 @@ antiRobotDefense();
 </ol></p>
 
       <p>A <a href="../changes.html">complete list of SQLite releases</a>
-      in a single page and a <a href="../chronology.html">chronology</a> are both also available.  
+      in a single page and a <a href="../chronology.html">chronology</a> are both also available.
       A detailed history of every
       check-in is available at
       <a href="http://www.sqlite.org/src/timeline">

@@ -126,28 +126,28 @@ antiRobotDefense();
 <li>Added the <a href="../c3ref/c_fcntl_begin_atomic_write.html#sqlitefcntlpragma">SQLITE_FCNTL_PRAGMA</a> file control, giving <a href="../vfs.html">VFS</a> implementations
     the ability to add new <a href="../pragma.html#syntax">PRAGMA</a> statements or to override built-in
     PRAGMAs.
-<li>Queries of the form:  "SELECT max(x), y FROM table" returns the 
+<li>Queries of the form:  "SELECT max(x), y FROM table" returns the
     value of y on the same row that contains the maximum x value.
-<li>Added support for the <a href="../fts3.html#*fts4languageid">FTS4 languageid option</a>.  
+<li>Added support for the <a href="../fts3.html#*fts4languageid">FTS4 languageid option</a>.
 <li>Documented support for the <a href="../fts3.html#*fts4content">FTS4 content option</a>.  This feature has
     actually been in the code since <a href="../releaselog/3_7_9.html">version 3.7.9</a> but is only now considered
     to be officially supported.
 <li>Pending statements no longer block <a href="../lang_transaction.html">ROLLBACK</a>.  Instead, the pending
     statement will return SQLITE_ABORT upon next access after the ROLLBACK.
 <li>Improvements to the handling of CSV inputs in the <a href="../cli.html">command-line shell</a>
-<li>Fix a <a href="http://www.sqlite.org/src/info/b7c8682cc1">bug</a> introduced 
+<li>Fix a <a href="http://www.sqlite.org/src/info/b7c8682cc1">bug</a> introduced
     in <a href="../releaselog/3_7_10.html">version 3.7.10</a> that might cause a LEFT JOIN
     to be incorrectly converted into an INNER JOIN if the WHERE clause
     indexable terms connected by OR.
 
-<li>SQLITE_SOURCE_ID: 
+<li>SQLITE_SOURCE_ID:
     "2012-03-20 11:35:50 00bb9c9ce4f465e6ac321ced2a9d0062dc364669"
 <li>SHA1 for sqlite3.c: d460d7eda3a9dccd291aed2a9fda868b9b120a10
 
 </ol></p>
 
       <p>A <a href="../changes.html">complete list of SQLite releases</a>
-      in a single page and a <a href="../chronology.html">chronology</a> are both also available.  
+      in a single page and a <a href="../chronology.html">chronology</a> are both also available.
       A detailed history of every
       check-in is available at
       <a href="http://www.sqlite.org/src/timeline">

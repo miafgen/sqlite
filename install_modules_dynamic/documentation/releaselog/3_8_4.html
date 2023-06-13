@@ -124,13 +124,13 @@ antiRobotDefense();
 <li>Add support for coverage testing of VDBE programs using the
     <a href="../c3ref/c_testctrl_always.html">SQLITE_TESTCTRL_VDBE_COVERAGE</a> verb of <a href="../c3ref/test_control.html">sqlite3_test_control()</a>.
 <li>Update the _FILE_OFFSET_BITS macro so that builds work again on QNX.
-<li>Change the datatype of SrcList.nSrc from type u8 to type int to work around 
+<li>Change the datatype of SrcList.nSrc from type u8 to type int to work around
     an issue in the C compiler on AIX.
 <li>Get extension loading working on Cygwin.
 <li>Bug fix: Fix the <a href="../lang_corefunc.html#char">char()</a> SQL function so that it returns an empty string
-    rather than an "out of memory" error when called with zero arguments. 
+    rather than an "out of memory" error when called with zero arguments.
 <li>Bug fix: DISTINCT now recognizes that a <a href="../lang_corefunc.html#zeroblob">zeroblob</a> and a blob of all
-    0x00 bytes are the same thing. 
+    0x00 bytes are the same thing.
     <a href="http://www.sqlite.org/src/info/fccbde530a">Ticket &#91;fccbde530a&#93;</a>
 <li>Bug fix: Compute the correct answer for queries that contain an IS NOT NULL
     term in the WHERE clause and also contain an OR term in the WHERE clause and
@@ -158,7 +158,7 @@ antiRobotDefense();
 </ol></p>
 
       <p>A <a href="../changes.html">complete list of SQLite releases</a>
-      in a single page and a <a href="../chronology.html">chronology</a> are both also available.  
+      in a single page and a <a href="../chronology.html">chronology</a> are both also available.
       A detailed history of every
       check-in is available at
       <a href="http://www.sqlite.org/src/timeline">

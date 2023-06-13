@@ -489,9 +489,14 @@ A "-" sign always appears before negative numbers regardless of flag settings.
 numbers.
 </td></tr><tr>
 <td><b>0</b>
-</td><td>Prepend as many "0" characters to numeric substitutions as necessary to
+</td><td>(The zero-padding option)
+Prepend as many "0" characters to numeric substitutions as necessary to
 expand the value out to the specified width.  If the width field is omitted,
 then this flag is a no-op.
+Infinity and NaN (Not-A-Number) floating point values are normally rendered
+as "Inf" and "NaN", respectively, but with the zero-padding option enabled
+they are rendered as "9.0e+999" and "null".  In other words, with the zero-padding
+option, floating-point Infinity and NaN are rendered as valid SQL and JSON literals.
 </td></tr><tr>
 <td><b>#</b>
 </td><td>This is the "alternate-form-1" flag.
@@ -500,10 +505,14 @@ This flag forces a decimal point to appear for all floating-point substitutions.
 For %o, %x, and %X substitutions, the alternate-form-1 flag cause the value
 to be prepended with "0", "0x", or "0X", respectively.
 </td></tr><tr>
+<a name="comma"></a>
+
 <td><b>,</b>
-</td><td>This flag causes comma-separators to be added to the output of %d and %i
-substitutions, between every 3 digits from the left.  This can help humans
-to more easily discern the magnitude of large integer values.  For example,
+</td><td>The comma option causes comma separators to be added to the output of numeric
+substitutions (%d, %f, and similar) before every 3rd digits to the left of
+the decimal point.  No commas are added for digits to the right of the decimal point.
+This can help humans to more easily discern the magnitude of large integer values.
+For example,
 the value 2147483647 would be rendered as "2147483647" using "%d" but would
 appear as "2,147,483,647" with "%,d".  This flag is a non-standard extension.
 </td></tr><tr>
@@ -545,5 +554,5 @@ routine. This is because there was no snprintf() routine in the
 standard C library
 when Hipp was first implementing his version, and he chose a different order
 than the designers of the standard C library.
-</p><p align="center"><small><i>This page last modified on  <a href="https://sqlite.org/docsrc/honeypot" id="mtimelink"  data-href="https://sqlite.org/docsrc/finfo/pages/printf.in?m=dbe7254b32776057d">2022-02-15 13:32:30</a> UTC </small></i></p>
+</p><p align="center"><small><i>This page last modified on  <a href="https://sqlite.org/docsrc/honeypot" id="mtimelink"  data-href="https://sqlite.org/docsrc/finfo/pages/printf.in?m=541f47c7e3">2023-05-04 17:35:51</a> UTC </small></i></p>
 

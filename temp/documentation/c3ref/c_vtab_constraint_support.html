@@ -115,15 +115,16 @@ antiRobotGo();
 }
 antiRobotDefense();
 </script>
-<!-- keywords: SQLITE_VTAB_CONSTRAINT_SUPPORT SQLITE_VTAB_DIRECTONLY SQLITE_VTAB_INNOCUOUS {virtual table configuration option} {virtual table configuration options} -->
+<!-- keywords: SQLITE_VTAB_CONSTRAINT_SUPPORT SQLITE_VTAB_DIRECTONLY SQLITE_VTAB_INNOCUOUS SQLITE_VTAB_USES_ALL_SCHEMAS {virtual table configuration option} {virtual table configuration options} -->
 <div class=nosearch>
-<a href="intro.html"><h2>SQLite C Interface</h2></a>
+<a href="../c3ref/intro.html"><h2>SQLite C Interface</h2></a>
 <h2>Virtual Table Configuration Options</h2>
 </div>
 <blockquote><pre>
 #define SQLITE_VTAB_CONSTRAINT_SUPPORT 1
 #define SQLITE_VTAB_INNOCUOUS          2
 #define SQLITE_VTAB_DIRECTONLY         3
+#define SQLITE_VTAB_USES_ALL_SCHEMAS   4
 </pre></blockquote>
 <p>
 These macros define the various options to the
@@ -177,16 +178,26 @@ views.
 <dt>SQLITE_VTAB_INNOCUOUS</dt>
 <dd>Calls of the form
 <a href="../c3ref/vtab_config.html">sqlite3_vtab_config</a>(db,SQLITE_VTAB_INNOCUOUS) from within the
-the <a href="../vtab.html#xconnect">xConnect</a> or <a href="../vtab.html#xcreate">xCreate</a> methods of a <a href="../vtab.html">virtual table</a> implmentation
+the <a href="../vtab.html#xconnect">xConnect</a> or <a href="../vtab.html#xcreate">xCreate</a> methods of a <a href="../vtab.html">virtual table</a> implementation
 identify that virtual table as being safe to use from within triggers
 and views.  Conceptually, the SQLITE_VTAB_INNOCUOUS tag means that the
 virtual table can do no serious harm even if it is controlled by a
 malicious hacker.  Developers should avoid setting the SQLITE_VTAB_INNOCUOUS
 flag unless absolutely necessary.
+</dd></p>
+
+<p><a name="sqlitevtabusesallschemas"></a>
+<dt>SQLITE_VTAB_USES_ALL_SCHEMAS</dt>
+<dd>Calls of the form
+<a href="../c3ref/vtab_config.html">sqlite3_vtab_config</a>(db,SQLITE_VTAB_USES_ALL_SCHEMA) from within the
+the <a href="../vtab.html#xconnect">xConnect</a> or <a href="../vtab.html#xcreate">xCreate</a> methods of a <a href="../vtab.html">virtual table</a> implementation
+instruct the query planner to begin at least a read transaction on
+all schemas ("main", "temp", and any ATTACH-ed databases) whenever the
+virtual table is used.
 </dd>
 </dl>
 </p><p>See also lists of
-  <a href="objlist.html">Objects</a>,
-  <a href="constlist.html">Constants</a>, and
-  <a href="funclist.html">Functions</a>.</p>
+  <a href="../c3ref/objlist.html">Objects</a>,
+  <a href="../c3ref/constlist.html">Constants</a>, and
+  <a href="../c3ref/funclist.html">Functions</a>.</p>
 

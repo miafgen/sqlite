@@ -144,7 +144,7 @@ Table Of Contents
 <div class="fancy-toc3"><a href="#unicode61_tokenizer">4.3.1. Unicode61 Tokenizer</a></div>
 <div class="fancy-toc3"><a href="#ascii_tokenizer">4.3.2. Ascii Tokenizer</a></div>
 <div class="fancy-toc3"><a href="#porter_tokenizer">4.3.3. Porter Tokenizer</a></div>
-<div class="fancy-toc3"><a href="#the_experimental_trigram_tokenizer">4.3.4. The Experimental Trigram Tokenizer</a></div>
+<div class="fancy-toc3"><a href="#the_trigram_tokenizer">4.3.4. The Trigram Tokenizer</a></div>
 <div class="fancy-toc2"><a href="#external_content_and_contentless_tables">4.4. External Content and Contentless Tables</a></div>
 <div class="fancy-toc3"><a href="#contentless_tables">4.4.1. Contentless Tables</a></div>
 <div class="fancy-toc3"><a href="#external_content_tables">4.4.2. External Content Tables</a></div>
@@ -167,7 +167,8 @@ Table Of Contents
 <div class="fancy-toc2"><a href="#the_pgsz_configuration_option">6.8. The 'pgsz' Configuration Option</a></div>
 <div class="fancy-toc2"><a href="#the_rank_configuration_option">6.9. The 'rank' Configuration Option</a></div>
 <div class="fancy-toc2"><a href="#the_rebuild_command">6.10. The 'rebuild' Command</a></div>
-<div class="fancy-toc2"><a href="#the_usermerge_configuration_option">6.11. The 'usermerge' Configuration Option</a></div>
+<div class="fancy-toc2"><a href="#the_secure_delete_configuration_option">6.11. The 'secure-delete' Configuration Option</a></div>
+<div class="fancy-toc2"><a href="#the_usermerge_configuration_option">6.12. The 'usermerge' Configuration Option</a></div>
 <div class="fancy-toc1"><a href="#extending_fts5">7. Extending FTS5</a></div>
 <div class="fancy-toc2"><a href="#custom_tokenizers">7.1. Custom Tokenizers</a></div>
 <div class="fancy-toc3"><a href="#synonym_support">7.1.1. Synonym Support</a></div>
@@ -225,10 +226,10 @@ mk.innerHTML = "&#x25ba;";
 
 <h1 id="overview_of_fts5"><span>1. </span>Overview of FTS5</h1>
 
-<p>FTS5 is an SQLite <a href="c3ref/module.html">virtual table module</a> that provides 
+<p>FTS5 is an SQLite <a href="c3ref/module.html">virtual table module</a> that provides
 <a href="http://en.wikipedia.org/wiki/Full_text_search">full-text search</a>
-functionality to database applications. In their most elementary form, 
-full-text search engines allow the user to efficiently search a large 
+functionality to database applications. In their most elementary form,
+full-text search engines allow the user to efficiently search a large
 collection of documents for the subset that contain one or more instances of a
 search term. The search functionality provided to world wide web users by
 <a href="https://www.google.com/">Google</a> is, among other things, a full-text search
@@ -241,13 +242,13 @@ columns. For example:
 </p><div class="codeblock"><pre>CREATE VIRTUAL TABLE email USING fts5(sender, title, body);
 </pre></div>
 
-<p>It is an error to add types, constraints or <a href="lang_createtable.html#primkeyconst">PRIMARY KEY</a> declarations to 
+<p>It is an error to add types, constraints or <a href="lang_createtable.html#primkeyconst">PRIMARY KEY</a> declarations to
 a CREATE VIRTUAL TABLE statement used to create an FTS5 table. Once created,
 an FTS5 table may be populated using <a href="lang_insert.html">INSERT</a>, <a href="lang_update.html">UPDATE</a> or <a href="lang_delete.html">DELETE</a> statements
 like any other table. Like any other table with no PRIMARY KEY declaration, an
-FTS5 table has an implicit INTEGER PRIMARY KEY field named rowid. 
+FTS5 table has an implicit INTEGER PRIMARY KEY field named rowid.
 
-</p><p>Not shown in the example above is that there are also 
+</p><p>Not shown in the example above is that there are also
 <a href="fts5.html#fts5_table_creation_and_initialization">various options</a> that may be provided to FTS5 as
 part of the CREATE VIRTUAL TABLE statement to configure various aspects of the
 new table. These may be used to modify the way in which the FTS5 table extracts
@@ -264,7 +265,7 @@ the contents of an FTS5 table:
 </li></ul>
 
 <p>If using the MATCH or = operators, the expression to the left of the MATCH
-   operator is usually the name of the FTS5 table (the exception is when 
+   operator is usually the name of the FTS5 table (the exception is when
    <a href="fts5.html#fts5_column_filters">specifying a column-filter</a>). The expression on the right
    must be a text value specifying the term to search for. For the table-valued
    function syntax, the term to search for is specified as the first table argument.
@@ -302,25 +303,25 @@ SELECT highlight(email, 2, '&lt;b&gt;', '&lt;/b&gt;') FROM email('fts5');
 </pre></div>
 
 <p>A description of the available auxiliary functions, and more details
-regarding configuration of the special "rank" column, are 
+regarding configuration of the special "rank" column, are
 <a href="fts5.html#_auxiliary_functions_">available below</a>. <a href="fts5.html#custom_auxiliary_functions">Custom auxiliary functions</a> may also be implemented in C and registered with
 FTS5, just as custom SQL functions may be registered with the SQLite core.
 
-</p><p> As well as searching for all rows that contain a term, FTS5 allows 
+</p><p> As well as searching for all rows that contain a term, FTS5 allows
 the user to search for rows that contain:
 
 </p><ul>
   <li> any terms that begin with a specified prefix,
   </li><li> "phrases" - sequences of terms or prefix terms that must feature in a
-       document for it to match the query, 
+       document for it to match the query,
   </li><li> sets of terms, prefix terms or phrases that appear within a specified
        proximity of each other (these are called "NEAR queries"), or
   </li><li> boolean combinations of any of the above.
 </li></ul>
 
-<p> Such advanced searches are requested by providing a more complicated 
+<p> Such advanced searches are requested by providing a more complicated
 FTS5 query string as the text to the right of the MATCH operator (or =
-operator, or as the first argument to a table-valued function syntax). The 
+operator, or as the first argument to a table-valued function syntax). The
 full query syntax is <a href="fts5.html#full_text_query_syntax">described here</a>.
 
 </p><a name="compiling_and_using_fts5"></a>
@@ -367,7 +368,7 @@ fts5.c        fts5.h
 
 <p>
   The code in "fts5.c" may then be compiled into a loadable extension or
-  statically linked into an application as described in 
+  statically linked into an application as described in
   <a href="loadext.html#build">Compiling Loadable Extensions</a>. There are two entry points defined, both
   of which do the same thing:
 
@@ -377,7 +378,7 @@ fts5.c        fts5.h
 </li></ul>
 
 <p>
-  The other file, "fts5.h", is not required to compile the FTS5 extension. 
+  The other file, "fts5.h", is not required to compile the FTS5 extension.
   It is used by applications that implement <a href="fts5.html#extending_fts5">custom FTS5 tokenizers or auxiliary functions</a>.
 
 </p><a name="full_text_query_syntax"></a>
@@ -410,13 +411,13 @@ Within an FTS expression a <b>string</b> may be specified in one of two ways:
        double quote characters may be escaped SQL-style - by adding a second
        double-quote character.
 
-  </p></li><li> <p>As an FTS5 bareword that is not "AND", "OR" or "NOT" (case sensitive). 
+  </p></li><li> <p>As an FTS5 bareword that is not "AND", "OR" or "NOT" (case sensitive).
        An FTS5 bareword is a string of one or more consecutive characters that
        are all either:
-       
+
        </p><ul>
-         <li> Non-ASCII range characters (i.e. unicode codepoints greater 
-              than 127), or 
+         <li> Non-ASCII range characters (i.e. unicode codepoints greater
+              than 127), or
          </li><li> One of the 52 upper and lower case ASCII characters, or
          </li><li> One of the 10 decimal digit ASCII characters, or
          </li><li> The underscore character (unicode codepoint 96).
@@ -435,9 +436,9 @@ Within an FTS expression a <b>string</b> may be specified in one of two ways:
 <a name="fts5_phrases"></a>
 <h2 tags="FTS5 Phrases" id="fts5_phrases"><span>3.2. </span>FTS5 Phrases</h2>
 <p>
-FTS queries are made up of <b>phrases</b>. A phrase is an ordered list of 
+FTS queries are made up of <b>phrases</b>. A phrase is an ordered list of
 one or more tokens. A string is transformed into a phrase by passing it to
-the FTS table tokenizer. Two phrases can be concatenated into a single 
+the FTS table tokenizer. Two phrases can be concatenated into a single
 large phrase using the "+" operator. For example, assuming the tokenizer
 module being used tokenizes the input "one.two.three" to three separate
 tokens, the following four queries all specify the same phrase:
@@ -457,7 +458,7 @@ of tokens that matches the sequence of tokens that make up the phrase.
 <p>
 If a "*" character follows a string within an FTS expression, then the final
 token extracted from the string is marked as a <b>prefix token</b>. As you
-might expect, a prefix token matches any document token of which it is a 
+might expect, a prefix token matches any document token of which it is a
 prefix. For example, the first two queries in the following block will match
 any document that contains the token "one" immediately followed by the token
 "two" and then any token that begins with "thr".
@@ -480,7 +481,7 @@ a special FTS character.
 <p>
 If a "&#94;" character appears immediately before a phrase that is not part of a
 NEAR query, then that phrase only matches a document only if it starts at the
-first token in a column. The "&#94;" syntax may be combined with a 
+first token in a column. The "&#94;" syntax may be combined with a
 <a href="fts5.html#fts5_column_filters">column filter</a>, but may not be inserted into the middle of
 a phrase.
 
@@ -506,11 +507,11 @@ a close parenthesis. For example:
 </pre></div>
 
 <p>If no <i>N</i> parameter is supplied, it defaults to 10. A NEAR group
-matches a document if the document contains at least one clump of tokens that: 
+matches a document if the document contains at least one clump of tokens that:
 
-</p><ol> 
-  <li> contains at least one instance of each phrase, and 
-  </li><li> for which the number of tokens between the end of the first phrase 
+</p><ol>
+  <li> contains at least one instance of each phrase, and
+  </li><li> for which the number of tokens between the end of the first phrase
        and the beginning of the last phrase in the clump is less than or equal to <i>N</i>.
 </li></ol>
 
@@ -538,7 +539,7 @@ INSERT INTO f(rowid, x) VALUES(1, 'A B C D x x x E F x');
 
 <p>
 A single phrase or NEAR group may be restricted to matching text within a
-specified column of the FTS table by prefixing it with the column name 
+specified column of the FTS table by prefixing it with the column name
 followed by a colon character. Or to a set of columns by prefixing it
 with a whitespace separated list of column names enclosed in parenthesis
 ("curly brackets") followed by a colon character. Column names may be specified
@@ -567,9 +568,9 @@ it is interpreted as a list of column not to match against. For example:
 
 <p>
 Column filter specifications may also be applied to arbitrary expressions
-enclosed in parenthesis. In this case the column filter applies to all 
-phrases within the expression. Nested column filter operations may only 
-further restrict the subset of columns matched, they can not be used to 
+enclosed in parenthesis. In this case the column filter applies to all
+phrases within the expression. Nested column filter operations may only
+further restrict the subset of columns matched, they can not be used to
 re-enable filtered columns. For example:
 
 </p><div class="codeblock"><pre><i>-- The following are equivalent:</i>
@@ -604,13 +605,13 @@ lowest (loosest grouping), the operators are:
 </p><table striped="1" style="margin:1em auto; width:80%; border-spacing:0">
   <tr style="text-align:left"><th>Operator </th><th>Function
 
-  </th></tr><tr style="text-align:left;background-color:#DDDDDD"><td><code>&lt;query1&gt; NOT &lt;query2&gt;</code> 
+  </th></tr><tr style="text-align:left;background-color:#DDDDDD"><td><code>&lt;query1&gt; NOT &lt;query2&gt;</code>
       </td><td>Matches if query1 matches and query2 does not match.
 
-  </td></tr><tr style="text-align:left"><td><code>&lt;query1&gt; AND &lt;query2&gt;</code> 
+  </td></tr><tr style="text-align:left"><td><code>&lt;query1&gt; AND &lt;query2&gt;</code>
       </td><td>Matches if both query1 and query2 match.
 
-  </td></tr><tr style="text-align:left;background-color:#DDDDDD"><td><code>&lt;query1&gt; OR &lt;query2&gt;</code> 
+  </td></tr><tr style="text-align:left;background-color:#DDDDDD"><td><code>&lt;query1&gt; OR &lt;query2&gt;</code>
       </td><td>Matches if either query1 or query2 match.
 
 </td></tr></table>
@@ -649,7 +650,7 @@ parenthesis. For example:
 <a name="fts5_table_creation_and_initialization"></a>
 <h1 tags="FTS5 CREATE TABLE Options" id="fts5_table_creation_and_initialization"><span>4. </span>FTS5 Table Creation and Initialization</h1>
 
-<p>Each argument specified as part of a "CREATE VIRTUAL TABLE ... USING fts5 
+<p>Each argument specified as part of a "CREATE VIRTUAL TABLE ... USING fts5
 ..." statement is either a column declaration or a configuration option. A
 <b>column declaration</b> consists of one or more whitespace separated FTS5
 barewords or string literals quoted in any manner acceptable to SQLite.
@@ -662,7 +663,7 @@ supported.
 </p><p>Each subsequent string or bareword in a column declaration is a column
 option that modifies the behaviour of that column. Column options are
 case-independent. Unlike the SQLite core, FTS5 considers unrecognized column
-options to be errors. Currently, the only option recognized is 
+options to be errors. Currently, the only option recognized is
 <a href="fts5.html#the_unindexed_column_option">"UNINDEXED" (see below)</a>.
 
 </p><p>A <b>configuration option</b> consists of an FTS5 bareword - the option name -
@@ -679,16 +680,16 @@ in any manner acceptable to the SQLite core. For example:
   <li> The "tokenize" option, used to configure a <a href="fts5.html#tokenizers">custom tokenizer</a>.
   </li><li> The "prefix" option, used to add <a href="fts5.html#prefix_indexes">prefix indexes</a>
        to an FTS5 table.
-  </li><li> The "content" option, used to make the FTS5 table an 
+  </li><li> The "content" option, used to make the FTS5 table an
        <a href="fts5.html#external_content_and_contentless_tables">external content or contentless table</a>.
-  </li><li> The "content_rowid" option, used to set the rowid field of an 
+  </li><li> The "content_rowid" option, used to set the rowid field of an
        <a href="fts5.html#external_content_tables">external content table</a>.
   </li><li> The <a href="fts5.html#the_columnsize_option">"columnsize" option</a>, used to configure
        whether or not the size in tokens of each value in the FTS5 table is
        stored separately within the database.
-  </li><li> The <a href="fts5.html#the_detail_option">"detail" option</a>. This option may be used 
+  </li><li> The <a href="fts5.html#the_detail_option">"detail" option</a>. This option may be used
        to reduce the size of the FTS index on disk by omitting some information
-       from it.  
+       from it.
 </li></ul>
 
 <a name="the_unindexed_column_option"></a>
@@ -696,7 +697,7 @@ in any manner acceptable to the SQLite core. For example:
 
 <p>The contents of columns qualified with the UNINDEXED column option are not
 added to the FTS index. This means that for the purposes of MATCH queries and
-<a href="fts5.html#_auxiliary_functions_">FTS5 auxiliary functions</a>, the column contains no matchable tokens. 
+<a href="fts5.html#_auxiliary_functions_">FTS5 auxiliary functions</a>, the column contains no matchable tokens.
 
 </p><p>For example, to avoid adding the contents of the "uuid" field to the FTS
 index:
@@ -708,7 +709,7 @@ index:
 
 <p> By default, FTS5 maintains a single index recording the location of each
 token instance within the document set. This means that querying for complete
-tokens is fast, as it requires a single lookup, but querying for a prefix 
+tokens is fast, as it requires a single lookup, but querying for a prefix
 token can be slow, as it requires a range scan. For example, to query for
 the prefix token "abc*" requires a range scan of all tokens greater than
 or equal to "abc" and less than "abd".
@@ -769,7 +770,7 @@ sections:
   </li><li> The <b>ascii</b> tokenizer, which assumes all characters outside of
   the ASCII codepoint range (0-127) are to be treated as token characters.
 
-  </li><li> The <b>porter</b> tokenizer, which implements the 
+  </li><li> The <b>porter</b> tokenizer, which implements the
 <a href="http://tartarus.org/martin/PorterStemmer/">porter stemming algorithm</a>.
 </li></ul>
 
@@ -777,16 +778,16 @@ sections:
 
 </p><h3 id="unicode61_tokenizer"><span>4.3.1. </span>Unicode61 Tokenizer</h3>
 
-<p> The unicode tokenizer classifies all unicode characters as either 
+<p> The unicode tokenizer classifies all unicode characters as either
 "separator" or "token" characters. By default all space and punctuation
-characters, as defined by Unicode 6.1, are considered separators, and all 
-other characters as token characters. More specifically, all unicode 
-characters assigned to a 
+characters, as defined by Unicode 6.1, are considered separators, and all
+other characters as token characters. More specifically, all unicode
+characters assigned to a
 <a href="https://en.wikipedia.org/wiki/Unicode_character_property#General_Category">
 general category</a> beginning with "L" or "N" (letters and numbers,
 specifically) or to category "Co" ("other, private use") are considered tokens.
 All other characters are separators.
- 
+
 </p><p>Each contiguous run of one or more token characters is considered to be a
 token. The tokenizer is case-insensitive according to the rules defined by
 Unicode 6.1.
@@ -821,15 +822,15 @@ following options:
   value is "L* N* Co".
 
   </td></tr><tr style="text-align:left;background-color:#DDDDDD"><td> tokenchars
-  </td><td> This option is used to specify additional unicode characters that 
+  </td><td> This option is used to specify additional unicode characters that
   should be considered token characters, even if they are white-space or
   punctuation characters according to Unicode 6.1. All characters in the
   string that this option is set to are considered token characters.
 
   </td></tr><tr style="text-align:left"><td> separators
-  </td><td> This option is used to specify additional unicode characters that 
+  </td><td> This option is used to specify additional unicode characters that
   should be considered as separator characters, even if they are token
-  characters according to Unicode 6.1. All characters in the string that 
+  characters according to Unicode 6.1. All characters in the string that
   this option is set to are considered separators.
 </td></tr></table>
 
@@ -838,7 +839,7 @@ following options:
 </p><div class="codeblock"><pre><i>-- Create an FTS5 table that does not remove diacritics from Latin
 -- script characters, and that considers hyphens and underscore characters
 -- to be part of tokens. </i>
-CREATE VIRTUAL TABLE ft USING fts5(a, b, 
+CREATE VIRTUAL TABLE ft USING fts5(a, b,
     tokenize = "unicode61 remove_diacritics 0 tokenchars '-_'"
 );
 </pre></div>
@@ -847,7 +848,7 @@ CREATE VIRTUAL TABLE ft USING fts5(a, b,
 
 </p><div class="codeblock"><pre><i>-- Create an FTS5 table that, as well as the default token character classes,</i>
 <i>-- considers characters in class "Mn" to be token characters.</i>
-CREATE VIRTUAL TABLE ft USING fts5(a, b, 
+CREATE VIRTUAL TABLE ft USING fts5(a, b,
     tokenize = "unicode61 categories 'L* N* Co Mn'"
 );
 </pre></div>
@@ -862,7 +863,7 @@ unicode61 tokenizer.
 </p><ul>
   <li> All non-ASCII characters (those with codepoints greater than 127) are
   always considered token characters. If any non-ASCII characters are specified
-  as part of the separators option, they are ignored.  
+  as part of the separators option, they are ignored.
 
   </li><li> Case-folding is only performed for ASCII characters. So while "A" and
   "a" are considered to be equivalent, "&#195;" and "&#227;" are distinct.
@@ -874,7 +875,7 @@ unicode61 tokenizer.
 
 </p><div class="codeblock"><pre><i>-- Create an FTS5 table that uses the ascii tokenizer, but does not
 -- consider numeric characters to be part of tokens.</i>
-CREATE VIRTUAL TABLE ft USING fts5(a, b, 
+CREATE VIRTUAL TABLE ft USING fts5(a, b,
     tokenize = "ascii separators '0123456789'"
 );
 </pre></div>
@@ -882,11 +883,11 @@ CREATE VIRTUAL TABLE ft USING fts5(a, b,
 <h3 id="porter_tokenizer"><span>4.3.3. </span>Porter Tokenizer</h3>
 
 <p> The porter tokenizer is a wrapper tokenizer. It takes the output of some
-other tokenizer and applies the 
+other tokenizer and applies the
 <a href="http://tartarus.org/martin/PorterStemmer/">porter stemming algorithm</a>
 to each token before it returns it to FTS5. This allows search terms like
 "correction" to match similar words such as "corrected" or "correcting". The
-porter stemmer algorithm is designed for use with English language terms 
+porter stemmer algorithm is designed for use with English language terms
 only - using it with other languages may or may not improve search utility.
 
 </p><p> By default, the porter tokenizer operates as a wrapper around the default
@@ -896,7 +897,7 @@ the underlying tokenizer that the porter stemmer uses. For example:
 
 </p><div class="codeblock"><pre><i>-- Two ways to create an FTS5 table that uses the porter tokenizer to
 -- stem the output of the default tokenizer (unicode61). </i>
-CREATE VIRTUAL TABLE t1 USING fts5(x, tokenize = porter); 
+CREATE VIRTUAL TABLE t1 USING fts5(x, tokenize = porter);
 CREATE VIRTUAL TABLE t1 USING fts5(x, tokenize = 'porter unicode61');
 
 <i>-- A porter tokenizer used to stem the output of the unicode61 tokenizer,
@@ -906,10 +907,10 @@ CREATE VIRTUAL TABLE t1 USING fts5(x, tokenize = 'porter unicode61 remove_diacri
 
 <a name="trigramidx"></a>
 
-<h3 id="the_experimental_trigram_tokenizer"><span>4.3.4. </span>The Experimental Trigram Tokenizer</h3>
+<h3 id="the_trigram_tokenizer"><span>4.3.4. </span>The Trigram Tokenizer</h3>
 
 <p>
-The <b>experimental</b> trigram tokenizer extends FTS5 to support substring
+The trigram tokenizer extends FTS5 to support substring
 matching in general, instead of the usual token matching. When using the
 trigram tokenizer, a query or phrase token may match any sequence of characters
 within a row, not just a complete token. For example:
@@ -924,7 +925,7 @@ SELECT * FROM tri('"hij klm" NOT stuv');
 </pre></div>
 
 <p>
-The trigram tokenizer supports a single option - "case_sensitive". With the default 
+The trigram tokenizer supports a single option - "case_sensitive". With the default
 value, 0, matching is case-insensitive. If this value is set to 1, then all matches
 are case-sensitive.
 
@@ -989,7 +990,7 @@ There are two ways to use the "content" option:
        FTS5 functionality may be used, but it is the responsibility of the user
        to ensure that the contents of the full-text index are consistent with
        the named database object. If they are not, query results may be
-       unpredictable.  
+       unpredictable.
 </li></ul>
 
 <a name="contentless_tables"></a>
@@ -1003,7 +1004,7 @@ an empty string. For example:
 
 <p> Contentless FTS5 tables do not support UPDATE or DELETE statements, or
 INSERT statements that do not supply a non-NULL value for the rowid field.
-Contentless tables do not support REPLACE conflict handling. REPLACE 
+Contentless tables do not support REPLACE conflict handling. REPLACE
 and INSERT OR REPLACE statements are treated as regular INSERT statements.
 Rows may be deleted from a contentless table using an <a href="fts5.html#the_delete_command">FTS5 delete command</a>.
 
@@ -1013,7 +1014,7 @@ FTS5 table returns an SQL NULL value.
 </p><a name="external_content_tables"></a>
 <h3 tags="FTS5 external content tables" id="external_content_tables"><span>4.4.2. </span>External Content Tables</h3>
 
-<p> An external content FTS5 table is created by setting the content 
+<p> An external content FTS5 table is created by setting the content
 option to the name of a table, virtual table or view (hereafter the "content
 table") within the same database. Whenever column values are required by
 FTS5, it queries the content table as follows, with the rowid of the row
@@ -1043,7 +1044,7 @@ SELECT &lt;content_rowid&gt;, &lt;cols&gt; FROM &lt;content&gt; ORDER BY &lt;con
 </pre></div>
 
 <p> It is still the responsibility of the user to ensure that the contents of
-an external content FTS5 table are kept up to date with the content table. 
+an external content FTS5 table are kept up to date with the content table.
 One way to do this is with triggers. For example:
 
 </p><div class="codeblock"><pre><i>-- Create a table. And an external content fts5 table to index it.</i>
@@ -1074,7 +1075,7 @@ handled using ABORT.
 stores the size of each column value in tokens inserted into the main FTS5
 table in a separate table. This backing table is used by the
 <a href="#xColumnSize">xColumnSize</a><a> API function, which is in turn used by
-the built-in <a href="fts5.html#the_bm25_function">bm25 ranking function</a> (and is likely to be useful 
+the built-in <a href="fts5.html#the_bm25_function">bm25 ranking function</a> (and is likely to be useful
 to other ranking functions as well).
 
 </a></p><p>In order to save space, this backing table may be omitted by setting the
@@ -1103,7 +1104,7 @@ itself and count the tokens within it on demand.
 then the following apply:
 
 </p><ul>
-  <li> <p>The xColumnSize API always returns -1. There is no way to determine 
+  <li> <p>The xColumnSize API always returns -1. There is no way to determine
        the number of tokens in a value stored within a contentless FTS5 table
        configured with columnsize=0.
 
@@ -1119,8 +1120,8 @@ then the following apply:
 </p></li></ul>
 
 <p> The name of the table in which the xColumnSize values are stored
-(unless columnsize=0 is specified) is "&lt;name&gt;_docsize", where 
-&lt;name&gt; is the name of the FTS5 table itself. The 
+(unless columnsize=0 is specified) is "&lt;name&gt;_docsize", where
+&lt;name&gt; is the name of the FTS5 table itself. The
 <a href="https://www.sqlite.org/download.html">sqlite3_analyzer</a>
 tool may be used on an existing database in order to determine how much
 space might be saved by recreating an FTS5 table using columnsize=0.
@@ -1128,7 +1129,7 @@ space might be saved by recreating an FTS5 table using columnsize=0.
 </p><a name="the_detail_option"></a>
 <h2 tags="FTS5 detail option" id="the_detail_option"><span>4.6. </span>The Detail Option</h2>
 
-<p> For each term in a document, the FTS index maintained by FTS5 
+<p> For each term in a document, the FTS index maintained by FTS5
 stores the rowid of the document, the column number of the column that contains
 the term and the offset of the term within the column value. The "detail"
 option may be used to omit some of this information. This reduces the space
@@ -1154,18 +1155,18 @@ information. This results in the following restrictions:
 </p><ul>
   <li> NEAR queries are not available.
   </li><li> Phrase queries are not available.
-  </li><li> Assuming the table is not also a 
-  <a href="fts5.html#contentless_tables">contentless table</a>, the 
-  <a href="#xInstCount">xInstCount</a>, <a href="#xInst">xInst</a>, 
+  </li><li> Assuming the table is not also a
+  <a href="fts5.html#contentless_tables">contentless table</a>, the
+  <a href="#xInstCount">xInstCount</a>, <a href="#xInst">xInst</a>,
   <a href="#xPhraseFirst">xPhraseFirst</a> and <a href="#xPhraseNext">xPhraseNext</a>
   are slower than usual. This is because instead of reading the required data
-  directly from the FTS index they have to load and tokenize the document text 
+  directly from the FTS index they have to load and tokenize the document text
   on demand.
-  </li><li> If the table is also a contentless table, the xInstCount, xInst, 
+  </li><li> If the table is also a contentless table, the xInstCount, xInst,
   xPhraseFirst and xPhraseNext APIs behave as if the current row contains no
   phrase matches at all (i.e. xInstCount() returns 0).
 </li></ul>
-  
+
 <p>If the detail option is set to <b>none</b>, then for each term the FTS
 index records just the rowid is stored. Both column and offset information
 are omitted. As well as the restrictions itemized above for detail=column
@@ -1173,9 +1174,9 @@ mode, this imposes the following extra limitations:
 
 </p><ul>
   <li> Column filter queries are not available.
-  </li><li> Assuming the table is not also a contentless table, the 
-  <a href="#xPhraseFirstColumn">xPhraseFirstColumn</a> and 
-  <a href="#xPhraseNextColumn">xPhraseNextColumn</a> are slower than usual. 
+  </li><li> Assuming the table is not also a contentless table, the
+  <a href="#xPhraseFirstColumn">xPhraseFirstColumn</a> and
+  <a href="#xPhraseNextColumn">xPhraseNextColumn</a> are slower than usual.
 
   </li><li> If the table is also a contentless table, the xPhraseFirstColumn and
   xPhraseNextColumn APIs behave as if the current row contains no phrase
@@ -1192,10 +1193,10 @@ MiB with detail=none.
 <p> Auxiliary functions are similar to <a href="lang_corefunc.html">SQL scalar functions</a>,
 except that they may only be used within full-text queries (those that use
 the MATCH operator) on an FTS5 table. Their results are calculated based not
-only on the arguments passed to them, but also on the current match and 
+only on the arguments passed to them, but also on the current match and
 matched row. For example, an auxiliary function may return a numeric value
-indicating the accuracy of the match (see the <a href="fts5.html#the_bm25_function">bm25()</a> function), 
-or a fragment of text from the matched row that contains one or more 
+indicating the accuracy of the match (see the <a href="fts5.html#the_bm25_function">bm25()</a> function),
+or a fragment of text from the matched row that contains one or more
 instances of the search terms (see the <a href="fts5.html#the_snippet_function">snippet()</a> function).
 
 </p><p>To invoke an auxiliary function, the name of the FTS5 table should be
@@ -1207,7 +1208,7 @@ invoke the "highlight" function:
 </pre></div>
 
 <p>The built-in auxiliary functions provided as part of FTS5 are described in
-the following section. Applications may also implement 
+the following section. Applications may also implement
 <a href="fts5.html#custom_auxiliary_functions">custom auxiliary functions in C</a>.
 
 </p><h2 id="built_in_auxiliary_functions"><span>5.1. </span>Built-in Auxiliary Functions</h2>
@@ -1243,7 +1244,7 @@ be used to return matches in order from best to worst match:
 </pre></div>
 
 <p> In order to calculate a documents score, the full-text query is separated
-    into its component phrases. The bm25 score for document <i>D</i> and 
+    into its component phrases. The bm25 score for document <i>D</i> and
     query <i>Q</i> is then calculated as follows:
 
 </p><p> <img src="images/fts5_formula1.png" style="width:75ex;margin-left:5ex">
@@ -1264,16 +1265,16 @@ avoid this pitfall, the FTS5 implementation of BM25 multiplies the result
 by -1 before returning it, ensuring that better matches are assigned
 numerically lower scores.
 
-</p><p> <i>IDF(q<sub>i</sub>)</i> is the inverse-document-frequency of query 
+</p><p> <i>IDF(q<sub>i</sub>)</i> is the inverse-document-frequency of query
     phrase <i>i</i>. It is calculated as follows, where <i>N</i> is the total
     number of rows in the FTS5 table and <i>n(q<sub>i</sub>)</i> is the total
     number of rows that contain at least one instance of phrase <i>i</i>:
 
 </p><p> <img src="images/fts5_formula2.png" style="width:75ex;margin-left:5ex">
 
-</p><p> Finally, <i>f(q<sub>i</sub>,D)</i> is the phrase frequency of phrase 
+</p><p> Finally, <i>f(q<sub>i</sub>,D)</i> is the phrase frequency of phrase
 <i>i</i>. By default, this is simply the number of occurrences of the phrase
-within the current row. However, by passing extra real value arguments to 
+within the current row. However, by passing extra real value arguments to
 the bm25() SQL function, each column of the table may be assigned a different
 weight and the phrase frequency calculated as follows:
 
@@ -1285,7 +1286,7 @@ column <i>c</i> of the current row. The first argument passed to bm25()
 following the table name is the weight assigned to the leftmost column of
 the FTS5 table. The second is the weight assigned to the second leftmost
 column, and so on. If there are not enough arguments for all table columns,
-remaining columns are assigned a weight of 1.0. If there are too many 
+remaining columns are assigned a weight of 1.0. If there are too many
 trailing arguments, the extras are ignored. For example:
 
 </p><div class="codeblock"><pre><i>-- Assuming the following schema:</i>
@@ -1298,22 +1299,22 @@ CREATE VIRTUAL TABLE email USING fts5(sender, title, body);
 SELECT * FROM email WHERE email MATCH ? ORDER BY bm25(email, 10.0, 5.0);
 </pre></div>
 
-<p>Refer to wikipedia for 
+<p>Refer to wikipedia for
 <a href="http://en.wikipedia.org/wiki/Okapi_BM25">more information regarding
 BM25</a> and its variants.
 
 </p><a name="the_highlight_function"></a>
 <h3 tags="FTS5 highlight" id="the_highlight_function"><span>5.1.2. </span>The highlight() function</h3>
 
-<p> The highlight() function returns a copy of the text from a specified 
-column of the current row with extra markup text inserted to mark the start 
-and end of phrase matches. 
+<p> The highlight() function returns a copy of the text from a specified
+column of the current row with extra markup text inserted to mark the start
+and end of phrase matches.
 
-</p><p>The highlight() must be invoked with exactly three arguments following 
+</p><p>The highlight() must be invoked with exactly three arguments following
 the table name. To be interpreted as follows:
 
 </p><ol>
-  <li> An integer indicating the index of the FTS table column to read the 
+  <li> An integer indicating the index of the FTS table column to read the
        text from. Columns are numbered from left to right starting at zero.
 
   </li><li> The text to insert before each phrase match.
@@ -1355,7 +1356,7 @@ must be passed five parameters following the table name argument:
 
 </p><ol>
   <li> An integer indicating the index of the FTS table column to select
-       the returned text from. Columns are numbered from left to right 
+       the returned text from. Columns are numbered from left to right
        starting at zero. A negative value indicates that the column should
        be automatically selected.
 
@@ -1368,7 +1369,7 @@ must be passed five parameters following the table name argument:
        respectively.
 
   </li><li> The maximum number of tokens in the returned text. This must be greater
-       than zero and equal to or less than 64. 
+       than zero and equal to or less than 64.
 </li></ol>
 
 <a name="sorting_by_auxiliary_function_results"></a>
@@ -1378,7 +1379,7 @@ must be passed five parameters following the table name argument:
 current query is not a full-text query (i.e. if it does not include a MATCH
 operator), the value of the "rank" column is always NULL. Otherwise, in a
 full-text query, column rank contains by default the same value as would be
-returned by executing the bm25() auxiliary function with no trailing 
+returned by executing the bm25() auxiliary function with no trailing
 arguments.
 
 </p><p> The difference between reading from the rank column and using the bm25()
@@ -1397,8 +1398,8 @@ SELECT * FROM fts WHERE fts MATCH ? ORDER BY rank;
 function mapped to the rank column may be configured either on a per-query
 basis, or by setting a different persistent default for the FTS table.
 
-</p><p> In order to change the mapping of the rank column for a single query, 
-a term similar to either of the following is added to the WHERE clause of a 
+</p><p> In order to change the mapping of the rank column for a single query,
+a term similar to either of the following is added to the WHERE clause of a
 query:
 
 </p><div class="codeblock"><pre>rank MATCH 'auxiliary-function-name(arg1, arg2, ...)'
@@ -1426,7 +1427,7 @@ SELECT * FROM fts WHERE fts = ? AND rank = 'bm25(10.0, 5.0)' ORDER BY rank;
 SELECT * FROM fts WHERE fts(?, 'bm25(10.0, 5.0)') ORDER BY rank;
 </pre></div>
 
-<p> The default mapping of the rank column for a table may be modified 
+<p> The default mapping of the rank column for a table may be modified
 using the <a href="fts5.html#the_rank_configuration_option">FTS5 rank configuration option</a>.
 
 </p><h1 id="special_insert_commands"><span>6. </span>Special INSERT Commands</h1>
@@ -1449,7 +1450,7 @@ using the <a href="fts5.html#the_rank_configuration_option">FTS5 rank configurat
   automatically within INSERT, UPDATE or DELETE statements that modify the
   full-text index. The 'automerge' parameter determines how many smaller
   b-trees are merged together at a time. Setting it to a small value can
-  speed up queries (as they have to query and merge the results from fewer 
+  speed up queries (as they have to query and merge the results from fewer
   b-trees), but can also slow down writing to the database (as each INSERT,
   UPDATE or DELETE statement has to do more work as part of the automatic
   merging process).
@@ -1459,13 +1460,13 @@ using the <a href="fts5.html#the_rank_configuration_option">FTS5 rank configurat
   based on its size. Level-0 b-trees are the smallest, as they contain the
   contents of a single transaction. Higher level b-trees are the result of
   merging two or more level-0 b-trees together and so they are larger. FTS5
-  begins to merge b-trees together once there exist <i>M</i> or more b-trees 
-  with the same level, where <i>M</i> is the value of the 'automerge' 
+  begins to merge b-trees together once there exist <i>M</i> or more b-trees
+  with the same level, where <i>M</i> is the value of the 'automerge'
   parameter.
 
 </p><p>
   The maximum allowed value for the 'automerge' parameter is 16. The default
-  value is 4. Setting the 'automerge' parameter to 0 disables the automatic 
+  value is 4. Setting the 'automerge' parameter to 0 disables the automatic
   incremental merging of b-trees altogether.
 
 </p><div class="codeblock"><pre>INSERT INTO ft(ft, rank) VALUES('automerge', 8);
@@ -1481,10 +1482,10 @@ option, all b-trees on the level are immediately merged into a single b-tree.
 
 </p><p>The difference between this option and the 'automerge' option is that when
 the 'automerge' limit is reached FTS5 only begins to merge the b-trees
-together. Most of the work is performed as part of subsequent INSERT, 
+together. Most of the work is performed as part of subsequent INSERT,
 UPDATE or DELETE operations. Whereas when the 'crisismerge' limit is reached,
 the offending b-trees are all merged immediately. This means that an INSERT,
-UPDATE or DELETE that triggers a crisis-merge may take a long time to 
+UPDATE or DELETE that triggers a crisis-merge may take a long time to
 complete.
 
 </p><p>The default 'crisismerge' value is 16. There is no maximum limit. Attempting
@@ -1504,7 +1505,7 @@ full-text index. This command and the <a href="fts5.html#the_delete_all_command"
 command are the only ways to remove entries from the full-text index of a
 contentless table.
 
-</p><p> In order to use this command to delete a row, the text value 'delete' 
+</p><p> In order to use this command to delete a row, the text value 'delete'
 must be inserted into the special column with the same name as the table.
 The rowid of the row to delete is inserted into the rowid column. The
 values inserted into the other columns must match the values currently
@@ -1527,8 +1528,8 @@ position of each token within the new document. When a document is removed,
 the original data is required in order to determine the set of entries that
 need to be removed from the full-text index. So if the data supplied to FTS5
 when a row is deleted using this command is different from that used to
-determine the set of token instances when it was inserted, some full-text 
-index entries may not be correctly deleted, or FTS5 may try to remove index 
+determine the set of token instances when it was inserted, some full-text
+index entries may not be correctly deleted, or FTS5 may try to remove index
 entries that do not exist. This can leave the full-text index in an
 unpredictable state, making future query results unreliable.
 
@@ -1544,7 +1545,7 @@ deletes all entries from the full-text index.
 <h2 id="the_integrity_check_command"><span>6.5. </span>The 'integrity-check' Command</h2>
 
 <p> This command is used to verify that the full-text index is internally
-consistent, and, optionally, that it is consistent with any 
+consistent, and, optionally, that it is consistent with any
 <a href="fts5.html#external_content_tables">external content</a> table.
 
 </p><p>The integrity-check command is invoked by inserting the text value
@@ -1558,15 +1559,15 @@ INSERT INTO ft(ft, rank) VALUES('integrity-check', 1);
 </pre></div>
 
 <p>The three forms above are equivalent for all FTS tables that are
-not external content tables. They check that the index data structures are 
+not external content tables. They check that the index data structures are
 not corrupt, and, if the FTS table is not contentless, that the contents of
 the index match the contents of the table itself.
 
 </p><p>For an external content table, the contents of the index are only
-compared to the contents of the external content table if the value 
+compared to the contents of the external content table if the value
 specified for the rank column is 1.
 
-</p><p>In all cases, if any discrepancies are found, the command fails 
+</p><p>In all cases, if any discrepancies are found, the command fails
 with an <a href="rescode.html#corrupt_vtab">SQLITE_CORRUPT_VTAB</a> error.
 
 </p><a name="the_merge_command"></a>
@@ -1592,7 +1593,7 @@ for merging if one of the following is true:
        specified a negative parameter).
 </li></ul>
 
-<p> It is possible to tell whether or not the 'merge' command found any 
+<p> It is possible to tell whether or not the 'merge' command found any
 b-trees to merge together by checking the value returned by the
 <a href="c3ref/total_changes.html">sqlite3_total_changes()</a> API before and after the command is executed. If
 the difference between the two values is 2 or greater, then work was performed.
@@ -1603,14 +1604,14 @@ until after the FTS table is next updated.
 </p><p> If the parameter is negative, and there are B-tree structures on more than
 one level within the FTS index, all B-tree structures are assigned to the same
 level before the merge operation is commenced. Additionally, if the parameter
-is negative, the value of the usermerge configuration option is not 
+is negative, the value of the usermerge configuration option is not
 respected - as few as two b-trees from the same level may be merged together.
 
 </p><p> The above means that executing the 'merge' command with a negative
 parameter until the before and after difference in the return value of
 <a href="c3ref/total_changes.html">sqlite3_total_changes()</a> is less than two optimizes the FTS index in the
 same way as the <a href="fts5.html#the_optimize_command">FTS5 optimize command</a>. However, if a new b-tree is added
-to the FTS index while this process is ongoing, FTS5 will move the new 
+to the FTS index while this process is ongoing, FTS5 will move the new
 b-tree to the same level as the existing b-trees and restart the merge. To
 avoid this, only the first call to 'merge' should specify a negative parameter.
 Each subsequent call to 'merge' should specify a positive value so that the
@@ -1632,7 +1633,7 @@ b-trees.
 </p><div class="codeblock"><pre>INSERT INTO ft(ft) VALUES('optimize');
 </pre></div>
 
-<p>Because it reorganizes the entire FTS index, the optimize command can 
+<p>Because it reorganizes the entire FTS index, the optimize command can
 take a long time to run. The <a href="fts5.html#the_merge_command">FTS5 merge command</a> can be used to divide
 the work of optimizing the FTS index into multiple steps. To do this:
 
@@ -1646,7 +1647,7 @@ the merge command. The application should stop invoking merge when the
 difference in the value returned by the sqlite3_total_changes() function before
 and after the merge command drops to below two. The merge commands may be
 issued as part of the same or separate transactions, and by the same or
-different database clients. Refer to the documentation for the 
+different database clients. Refer to the documentation for the
 <a href="fts5.html#the_merge_command">merge command</a> for further details.
 
 </p><a name="the_pgsz_configuration_option"></a>
@@ -1669,7 +1670,7 @@ of all blobs created by subsequent index writers. The default value is 1000.
 
 </p><p> The rank option is used to change the default auxiliary function mapping
 for the rank column. The option should be set to a text value in the same
-format as described for <a href="fts5.html#sorting_by_auxiliary_function_results">"rank MATCH ?"</a> terms 
+format as described for <a href="fts5.html#sorting_by_auxiliary_function_results">"rank MATCH ?"</a> terms
 above. For example:
 
 </p><div class="codeblock"><pre>INSERT INTO ft(ft, rank) VALUES('rank', 'bm25(10.0, 5.0)');
@@ -1686,8 +1687,48 @@ tables</a>.
 </p><div class="codeblock"><pre>INSERT INTO ft(ft) VALUES('rebuild');
 </pre></div>
 
-<a name="the_usermerge_configuration_option"></a>
-<h2 tags="FTS5 usermerge option" id="the_usermerge_configuration_option"><span>6.11. </span>The 'usermerge' Configuration Option</h2>
+<a name="the_secure_delete_configuration_option"></a>
+<h2 tags="FTS5 secure-delete command" id="the_secure_delete_configuration_option"><span>6.11. </span>The 'secure-delete' Configuration Option</h2>
+
+<p> This command is used to set the persistent boolean "secure-delete" option.
+For example:
+
+</p><div class="codeblock"><pre>INSERT INTO ft(ft, rank) VALUES('secure-delete', 1);
+</pre></div>
+
+<p> Normally, when an entry in an fts5 table is updated or deleted, instead
+of removing entries from the full-text index, delete-keys are added to the <a href="#the_automerge_configuration_option">new b-tree</a> created by the
+transaction. This is efficient, but it means that the old full-text index
+entries remain in the database file until they are eventually removed
+by merge operations on the full-text index. Anyone with access to the
+database can use these entries to trivially reconstruct the contents of
+deleted FTS5 table rows. However, if the 'secure-delete' option is set
+to 1, then full-text entries are actually removed from the database when
+existing FTS5 table rows are updated or deleted. This is slower, but
+it prevents old full-text entries from being used to reconstruct deleted
+table rows.
+
+</p><p> This option ensures that old full-text entries are not available to
+attackers with SQL access to the database. To also ensure that they may
+not be recovered by attackers with access to the SQLite database file 
+itself, the application must also enable the SQLite core secure-delete
+option with a command like <a href="pragma.html#pragma_secure_delete">
+"PRAGMA secure_delete = 1"</a>.
+
+</p><p> <b>Warning:</b> Once one or more table rows have been updated or
+deleted with this option set, the FTS5 table may no longer be read or
+written by any version of FTS5 earlier than 3.42.0 (the first version
+in which this option was available). Attempting to do so results in
+an error, with an error message like "invalid fts5 file format (found 5,
+expected 4) - run 'rebuild'". The FTS5 file format may be reverted, so
+that it may be read by earlier versions of FTS5, by running the 
+<a href="#the_rebuild_command">'rebuild' command</a> on the table using 
+version 3.42.0 or later.
+
+</p><p>The default value of the secure-delete option is 0.
+
+</p><a name="the_usermerge_configuration_option"></a>
+<h2 tags="FTS5 usermerge option" id="the_usermerge_configuration_option"><span>6.12. </span>The 'usermerge' Configuration Option</h2>
 
 <p> This command is used to set the persistent "usermerge" option.
 
@@ -1715,7 +1756,7 @@ is 2, and the maximum 16.
 document are all implemented using the publicly available API described
 below.
 
-</p><p> Before a new auxiliary function or tokenizer implementation may be 
+</p><p> Before a new auxiliary function or tokenizer implementation may be
 registered with FTS5, an application must obtain a pointer to the "fts5_api"
 structure. There is one fts5_api structure for each database connection with
 which the FTS5 extension is registered. To obtain the pointer, the application
@@ -1726,7 +1767,7 @@ The following example code demonstrates the technique:
 
 </p><div class="codeblock"><pre><i>/*
 ** Return a pointer to the fts5_api pointer for database connection db.
-** If an error occurs, return NULL and leave an error in the database 
+** If an error occurs, return NULL and leave an error in the database
 ** handle (accessible using sqlite3_errcode()/errmsg()).
 */</i>
 fts5_api *fts5_api_from_db(sqlite3 *db){
@@ -1734,7 +1775,7 @@ fts5_api *fts5_api_from_db(sqlite3 *db){
   sqlite3_stmt *pStmt = 0;
 
   if( SQLITE_OK==sqlite3_prepare(db, "SELECT fts5(?1)", -1, &pStmt, 0) ){
-    sqlite3_bin_pointer(pStmt, (void*)&pRet, "fts5_api_ptr", NULL);
+    sqlite3_bind_pointer(pStmt, 1, (void*)&pRet, "fts5_api_ptr", NULL);
     sqlite3_step(pStmt);
   }
   sqlite3_finalize(pStmt);
@@ -1744,10 +1785,10 @@ fts5_api *fts5_api_from_db(sqlite3 *db){
 
 <p><b>Backwards Compatibility Warning:</b>
 Prior to SQLite version 3.20.0 (2017-08-01), the fts5() worked slightly
-differently.  Older applications that extend FTS5 must be revised to use 
+differently.  Older applications that extend FTS5 must be revised to use
 the new technique shown above.
 
-</p><p> The fts5_api structure is defined as follows. It exposes three methods, 
+</p><p> The fts5_api structure is defined as follows. It exposes three methods,
 one each for registering new auxiliary functions and tokenizers, and one for
 retrieving existing tokenizer. The latter is intended to facilitate the
 implementation of "tokenizer wrappers" similar to the built-in
@@ -1842,7 +1883,7 @@ pointer passed as the only argument when the database handle is closed or when
 the tokenizer is replaced.
 
 </p><p> If successful, xCreateTokenizer() returns SQLITE_OK. Otherwise, it
-returns an SQLite error code. In this case the xDestroy function is <b>not</b> 
+returns an SQLite error code. In this case the xDestroy function is <b>not</b>
 invoked.
 
 </p><p> When an FTS5 table uses the custom tokenizer, the FTS5 core calls xCreate()
@@ -2064,7 +2105,7 @@ database handle is closed or when the registered auxiliary function is
 replaced.
 
 </p><p> If successful, xCreateFunction() returns SQLITE_OK. Otherwise, it
-returns an SQLite error code. In this case the xDestroy function is <b>not</b> 
+returns an SQLite error code. In this case the xDestroy function is <b>not</b>
 invoked.
 
 </p><p> The final three arguments passed to the auxiliary function callback are
@@ -2076,7 +2117,7 @@ implementation should return a result or error via the content handle pCtx.
 </p><p> The first argument passed to an auxiliary function callback is a pointer
 to a structure containing methods that may be invoked in order to obtain
 information regarding the current query or row. The second argument is an
-opaque handle that should be passed as the first argument to any such method 
+opaque handle that should be passed as the first argument to any such method
 invocation. For example, the following auxiliary function definition returns
 the total number of tokens in all columns of the current row:
 
@@ -2463,7 +2504,7 @@ See xPhraseFirstColumn above.
 <h1 tags="fts5vocab" id="the_fts5vocab_virtual_table_module"><span>8. </span>The fts5vocab Virtual Table Module</h1>
 
 <p> The fts5vocab virtual table module allows users to extract information from
-an FTS5 full-text index directly. The fts5vocab module is a part of FTS5 - it 
+an FTS5 full-text index directly. The fts5vocab module is a part of FTS5 - it
 is available whenever FTS5 is.
 
 </p><p> Each fts5vocab table is associated with a single FTS5 table. An fts5vocab
@@ -2490,7 +2531,7 @@ CREATE VIRTUAL TABLE ft3_v USING fts5vocab(ft3, instance);
 <p> If an fts5vocab table is created in the temp database, it may be associated
 with an FTS5 table in any attached database. In order to attach the fts5vocab
 table to an FTS5 table located in a database other than "temp", the name of the
-database is inserted before the FTS5 table name in the CREATE VIRTUAL TABLE 
+database is inserted before the FTS5 table name in the CREATE VIRTUAL TABLE
 arguments. For example:
 
 </p><div class="codeblock"><pre><i>-- Create an fts5vocab "row" table to query the full-text index belonging
@@ -2501,7 +2542,7 @@ CREATE VIRTUAL TABLE temp.ft1_v USING fts5vocab(main, 'ft1', 'row');
 -- to FTS5 table "ft2" in attached database "aux".</i>
 CREATE VIRTUAL TABLE temp.ft2_v USING fts5vocab('aux', ft2, col);
 
-<i>-- Create an fts5vocab "instance" table to query the full-text index 
+<i>-- Create an fts5vocab "instance" table to query the full-text index
 -- belonging to FTS5 table "ft3" in attached database "other".</i>
 CREATE VIRTUAL TABLE temp.ft2_v USING fts5vocab('aux', ft3, 'instance');
 </pre></div>
@@ -2529,7 +2570,7 @@ combination in the associated FTS5 table. Table columns are as follows:
   </td></tr><tr style="text-align:left;background-color:#DDDDDD"><td>doc</td><td>  The number of rows in the FTS5 table for which column $col
                    contains at least one instance of the term.
   </td></tr><tr style="text-align:left"><td>cnt</td><td>  The total number of instances of the term that appear in
-                   column $col of the FTS5 table (considering all rows). 
+                   column $col of the FTS5 table (considering all rows).
 </td></tr></table>
 
 <p> An fts5vocab table of type "instance" contains one row for each term
@@ -2541,13 +2582,13 @@ created with the 'detail' option set to 'full', table columns are as follows:
   </th></tr><tr style="text-align:left;background-color:#DDDDDD"><td>term</td><td>   The term, as stored in the FTS5 index.
   </td></tr><tr style="text-align:left"><td>doc</td><td>    The rowid of the document that contains the term instance.
   </td></tr><tr style="text-align:left;background-color:#DDDDDD"><td>col</td><td>    The name of the column that contains the term instance.
-  </td></tr><tr style="text-align:left"><td>offset</td><td> The index of the term instance within its column. Terms 
+  </td></tr><tr style="text-align:left"><td>offset</td><td> The index of the term instance within its column. Terms
                      are numbered in order of occurrence starting from 0.
 </td></tr></table>
 
 <p> If the FTS5 table is created with the 'detail' option set to 'col', then
 the <i>offset</i> column of an instance virtual table always contains NULL.
-In this case there is one row in the table for each unique term/doc/col 
+In this case there is one row in the table for each unique term/doc/col
 combination. Or, if the FTS5 table is created with 'detail' set to 'none',
 then both <i>offset</i> and <i>col</i> always contain NULL values. For
 detail=none FTS5 tables, there is one row in the fts5vocab table for each
@@ -2672,20 +2713,20 @@ combination of:
   <li> The rowid of the FTS5 table row it appears in,
   </li><li> The index of the column the term instance appears in (columns are
        numbered from left to right starting from zero), and
-  </li><li> The offset of the term within the column value (i.e. the number of 
+  </li><li> The offset of the term within the column value (i.e. the number of
        tokens that appear within the column value before this one).
 </li></ul>
 
-<p>The FTS index contains up to (nPrefix+1) entries for each token in the 
+<p>The FTS index contains up to (nPrefix+1) entries for each token in the
 data set, where nPrefix is the number of defined <a href="#prefix_indexes">
 prefix indexes</a>.
 
 </p><p>Keys associated with the main FTS index (the one that is not a prefix
-index) are prefixed with the character "0". Keys for the first prefix 
+index) are prefixed with the character "0". Keys for the first prefix
 index are prefixed with "1". Keys for the second prefix index are
-prefixed with "2", and so on. For example, if the token "document" is 
+prefixed with "2", and so on. For example, if the token "document" is
 inserted into an FTS5 table with <a href="#prefix_indexes">prefix indexes</a>
-specified by prefix="2 4", then the keys added to the FTS index would be 
+specified by prefix="2 4", then the keys added to the FTS index would be
 "0document", "1do" and "2docu".
 
 </p><p>The FTS index entries are not stored in a single tree or hash table
@@ -2693,21 +2734,21 @@ structure. Instead, they are stored in a series of immutable b-tree like
 structures referred to as "segment b-trees". Each time a write to the FTS5
 table is committed, one or more (but usually just one) new segment b-trees
 are added containing both the new entries and tombstones for any deleted
-entries. When the FTS index is queried, the reader queries each segment 
+entries. When the FTS index is queried, the reader queries each segment
 b-tree in turn and merges the results, giving priority to newer data.
 
-</p><p>Each segment b-tree is assigned a numerical level. When a new segment 
+</p><p>Each segment b-tree is assigned a numerical level. When a new segment
 b-tree is written to the database as part of committing a transaction,
 it is assigned to level 0. Segment b-trees belonging to a single level are
 periodically merged together to create a single, larger segment b-tree
-that is assigned to the next level (i.e. level 0 segment b-trees are 
+that is assigned to the next level (i.e. level 0 segment b-trees are
 merged to become a single level 1 segment b-tree). Thus the numerically
-larger levels contain older data in (usually) larger segment b-trees. 
-Refer to the 
+larger levels contain older data in (usually) larger segment b-trees.
+Refer to the
 <a href="#the_automerge_configuration_option">'automerge'</a>,
 <a href="#the_crisismerge_configuration_option">'crisismerge'</a> and
 <a href="#the_usermerge_configuration_option">'usermerge'</a> options, along
-with the 
+with the
 <a href="#the_merge_command">'merge'</a> and
 <a href="#the_optimize_command">'optimize'</a> commands for details on how to
 control the merging.
@@ -2728,7 +2769,7 @@ the subset of matches with rowids in the required range.
 </p><h3 id="data_structure"><span>9.2.1. </span>The %_data Table Rowid Space</h3>
 
 <div class="codeblock"><pre>CREATE TABLE %_data(
-  id INTEGER PRIMARY KEY, 
+  id INTEGER PRIMARY KEY,
   block BLOB
 );
 </pre></div>
@@ -2736,9 +2777,9 @@ the subset of matches with rowids in the required range.
 <p>The %_data table is used to store three types of records:
 
 </p><ul>
-  <li> The special <a href="#structure_record_format">structure record</a>, 
+  <li> The special <a href="#structure_record_format">structure record</a>,
        stored with id=1.
-  </li><li> The special <a href="#averages_record_format">averages record</a>, 
+  </li><li> The special <a href="#averages_record_format">averages record</a>,
        stored with id=10.
   </li><li> A record to store each <a href="#segment_b_tree_format">segment b-tree</a>
        leaf and <a href="#doclist_index_format">doclist index</a> leaf and
@@ -2753,7 +2794,7 @@ each leaf page is assigned a unique page number - 1 for the first leaf page, 2
 for the second, and so on.
 
 </p><p>Each doclist index leaf page is also assigned a page number. The first
-(leftmost) leaf page in a doclist index is assigned the same page number as 
+(leftmost) leaf page in a doclist index is assigned the same page number as
 the segment b-tree leaf page on which its term appears (because doclist indexes
 are only created for terms with very long doclists, at most one term per
 segment b-tree leaf has an associated doclist index). Call this page number P.
@@ -2778,7 +2819,7 @@ leaf or doclist index leaf or node is composed as follows:
 
 <h3 id="structure_record_format"><span>9.2.2. </span>Structure Record Format</h3>
 
-<p>The structure record identifies the set of segment b-trees that make up the 
+<p>The structure record identifies the set of segment b-trees that make up the
 current FTS index, along with details of any ongoing incremental merge
 operations. It is stored in the %_data table with id=1.
 
@@ -2814,7 +2855,7 @@ Following the cookie value are three varint values, as follows:
 <p>The averages record, which is always stored with id=10 in the %_data table,
 does not store the average of anything. Instead, it contains a vector of
 (nCol+1) packed varint values, where nCol is the number of columns in the FTS5
-table, including unindexed columns. The first varint contains the total 
+table, including unindexed columns. The first varint contains the total
 number of rows in the FTS5 table. The second contains the total number of
 tokens in all values stored in the leftmost FTS5 table column. The third the
 number of tokens in all values for the next leftmost, and so on. The value for
@@ -2886,7 +2927,7 @@ followed by the 11 bytes "0challenger", and the second key is stored as varints
 least one instance of the term or term prefix and an associated position list,
 or "poslist" enumerating the position of each term instance within the row. In
 this sense a "position" is defined as a column number and term offset within
-the column value. 
+the column value.
 
 </p><p>Within a doclist, documents are always stored in order sorted by rowid.  The
 first rowid in a doclist is stored as is, as a varint. It is immediately
@@ -3027,7 +3068,7 @@ if there are no keys on the page.
 
 <h4 id="data_term_index"><span>9.2.4.3. </span>Segment Index Format</h4>
 
-<p>The result of formatting the contents of the segment b-tree in the 
+<p>The result of formatting the contents of the segment b-tree in the
 key/doclist format and then splitting it into pages is something very
 similar to the leaves of a b+tree. Instead of creating a format for
 the internal nodes of this b+tree and storing them in the %_data table
@@ -3055,7 +3096,7 @@ to the %_idx table. Fields are set as follows:
   </td></tr><tr style="text-align:left;background-color:#DDDDDD"><td>pgno</td><td>    This field encodes both the page number (within the
                       segment - starting from 1) and the doclist index flag.
                       The doclist index flag is set if the final key on the
-                      page has an <a href="#data_doclist_index">associated 
+                      page has an <a href="#doclist_index_format">associated
                       doclist index</a>. The value of this field is:
                       <pre>
        (pgno*2 + bDoclistIndexFlag)
@@ -3068,7 +3109,7 @@ searching through internal nodes, FTS5 runs the query:
 </p><div class="codeblock"><pre>SELECT pgno FROM %_idx WHERE segid=$i AND term>=$t ORDER BY term LIMIT 1
 </pre></div>
 
-<h4 data_doclist_index="1" id="doclist_index_format"><span>9.2.4.4. </span>Doclist Index Format</h4>
+<h4 id="doclist_index_format"><span>9.2.4.4. </span>Doclist Index Format</h4>
 
 <p>The segment index described in the <a href="#data_term_index">previous
 section</a> allows a segment b-tree to be efficiently queried by term or,
@@ -3114,10 +3155,10 @@ itself.
 );
 </pre></div>
 
-<p>Many common search result ranking functions require as an input the size 
+<p>Many common search result ranking functions require as an input the size
 in tokens of the result document (as a search term hit in a short document is
 considered more significant than one in a long document). To provide fast
-access to this information, for each row in the FTS5 table there exists a 
+access to this information, for each row in the FTS5 table there exists a
 corresponding record (with the same rowid) in the %_docsize shadow table
 that contains the size of each column value in the row, in tokens.
 
@@ -3128,7 +3169,7 @@ columns are included in this vector of varints; for them the value is always
 set to zero.
 
 </p><p>This table is used by the <a href="#xColumnSize">xColumnSize</a> API. It can
-be omitted altogether by specifying the 
+be omitted altogether by specifying the
 <a href="#the_columnsize_option">columnsize=0</a> option. In that case the
 xColumnSize API is still available to auxiliary functions, but runs much more
 slowly.
@@ -3144,7 +3185,8 @@ each column of the FTS5 table, including any unindexed columns. The values for
 the leftmost FTS5 table column are stored in column "c0" of the %_content
 table, the values from the next FTS5 table column in column "c1", and so on.
 
-</p><p>This table is omitted completely for <a href="#content_and_contentless_tables">
+</p><p>This table is omitted completely for
+<a href="#external_content_and_contentless_tables">
 external content or contentless</a> FTS5 tables.
 tables.
 
@@ -3153,7 +3195,7 @@ tables.
 <div class="codeblock"><pre>CREATE TABLE %_config(k PRIMARY KEY, v) WITHOUT ROWID;
 </pre></div>
 
-<p>This table stores the values of any persistent configuration options. 
+<p>This table stores the values of any persistent configuration options.
 Column "k" stores the name of the option (text) and column "v" the value.
 Example contents:
 
@@ -3173,10 +3215,10 @@ Example contents:
   Appendix A: Comparison with FTS3/4
 </h1>
 
-<p> Also available is the similar but more mature <a href="fts3.html">FTS3/4</a> module. 
-FTS5 is a new version of FTS4 that includes various fixes and solutions for 
-problems that could not be fixed in FTS4 without sacrificing backwards 
-compatibility. Some of these problems are 
+<p> Also available is the similar but more mature <a href="fts3.html">FTS3/4</a> module.
+FTS5 is a new version of FTS4 that includes various fixes and solutions for
+problems that could not be fixed in FTS4 without sacrificing backwards
+compatibility. Some of these problems are
 <a href="fts5.html#_summary_of_technical_differences_">described below</a>.
 
 </p><h2 nonumber="1" id="_application_porting_guide_"> Application Porting Guide </h2>
@@ -3197,7 +3239,7 @@ and changes required to applications that use <a href="fts3.html#snippet">FTS au
      a column definition, FTS5 attempts to parse it (and will report an error
      if it fails to).
 
-</p></li><li> <p>The "matchinfo=fts3" option is not available. The 
+</p></li><li> <p>The "matchinfo=fts3" option is not available. The
      <a href="fts5.html#the_columnsize_option">"columnsize=0"</a> option is equivalent.
 
 </p></li><li> <p>The notindexed= option is not available. Adding <a href="fts5.html#the_unindexed_column_option">UNINDEXED</a>
@@ -3248,7 +3290,7 @@ CREATE VIRTUAL TABLE t1 USING fts5(
 
   </p></li><li> <p>The FTS query syntax (right hand side of the MATCH operator) has
           changed in some ways. The FTS5 syntax is quite close to the FTS4
-          "enhanced syntax". The main difference is that FTS5 is fussier 
+          "enhanced syntax". The main difference is that FTS5 is fussier
           about unrecognized punctuation characters and similar within query
           strings. Most queries that work with FTS3/4 should also work with
           FTS5, and those that do not should return parse errors.
@@ -3257,11 +3299,11 @@ CREATE VIRTUAL TABLE t1 USING fts5(
 <h3 nonumber="1" id="_auxiliary_function_changes_"> Auxiliary Function Changes </h3>
 
 <p> FTS5 has no matchinfo() or offsets() function, and the snippet() function
-is not as fully-featured as in FTS3/4. However, since FTS5 does provide 
+is not as fully-featured as in FTS3/4. However, since FTS5 does provide
 an API allowing applications to create <a href="fts5.html#_custom_auxiliary_functions_api_reference_">custom auxiliary functions</a>, any
 required functionality may be implemented within the application code.
 
-</p><p> The set of built-in auxiliary functions provided by FTS5 may be 
+</p><p> The set of built-in auxiliary functions provided by FTS5 may be
 improved upon in the future.
 
 </p><h3 nonumber="1" id="_other_issues"> Other Issues</h3>
@@ -3270,21 +3312,21 @@ improved upon in the future.
   <li><p> The functionality provided by the fts4aux module is now provided
           by <a href="fts5.html#the_fts5vocab_virtual_table_module">fts5vocab</a>. The schema of these two tables is slightly different.
 
-  </p></li><li><p> The FTS3/4 "merge=X,Y" command has been replaced by the 
+  </p></li><li><p> The FTS3/4 "merge=X,Y" command has been replaced by the
           <a href="fts5.html#the_merge_command">FTS5 merge command</a>.
 
-  </p></li><li><p> The FTS3/4 "automerge=X" command has been replaced by the 
+  </p></li><li><p> The FTS3/4 "automerge=X" command has been replaced by the
           <a href="fts5.html#the_automerge_configuration_option">FTS5 automerge option</a>.
 </p></li></ol>
 
 <a name="_summary_of_technical_differences_"></a>
-<h2 nonumber="1" tags="fts5 technical differences" id="_summary_of_technical_differences_"> 
-  Summary of Technical Differences 
+<h2 nonumber="1" tags="fts5 technical differences" id="_summary_of_technical_differences_">
+  Summary of Technical Differences
 </h2>
 
 <p>FTS5 is similar to FTS3/4 in that the primary task of each is to maintain
-an index mapping from each unique token to a list of instances of that token 
-within a set of documents, where each instance is identified by the document 
+an index mapping from each unique token to a list of instances of that token
+within a set of documents, where each instance is identified by the document
 in which it appears and its position within that document. For example:
 
 </p><div class="codeblock"><pre><i>-- Given the following SQL:</i>
@@ -3326,10 +3368,10 @@ contain large lists:
 
   </p></li><li> If an instance-list grows so large that it exceeds
        the <a href="limits.html#max_length">SQLITE_MAX_LENGTH</a> limit, FTS3/4 is unable to handle it. FTS5
-       does not have this problem. 
+       does not have this problem.
 </li></ul>
 
-<p>For these reasons, many complex queries may use less memory and run faster 
+<p>For these reasons, many complex queries may use less memory and run faster
 using FTS5.
 
 </p><p>Some other ways in which FTS5 differs from FTS3/4 are:
@@ -3338,7 +3380,7 @@ using FTS5.
   <li> <p>FTS5 supports "ORDER BY rank" for returning results in order of
        decreasing relevancy.
 
-  </p></li><li> <p>FTS5 features an API allowing users to create custom auxiliary 
+  </p></li><li> <p>FTS5 features an API allowing users to create custom auxiliary
        functions for advanced ranking and text processing applications. The
        special "rank" column may be mapped to a custom auxiliary function
        so that adding "ORDER BY rank" to a query works as expected.
@@ -3354,11 +3396,11 @@ using FTS5.
   </p></li><li> <p>By default, FTS3/4 occasionally merges together two or more of the
        b-trees that make up its full-text index within an INSERT, UPDATE or
        DELETE statement executed by the user. This means that any operation
-       on an FTS3/4 table may turn out to be surprisingly slow, as FTS3/4 
+       on an FTS3/4 table may turn out to be surprisingly slow, as FTS3/4
        may unpredictably choose to merge together two or more large b-trees
        within it. FTS5 uses incremental merging by default, which limits
-       the amount of processing that may take place within any given 
+       the amount of processing that may take place within any given
        INSERT, UPDATE or DELETE operation.
 </p></li></ul>
-<p align="center"><small><i>This page last modified on  <a href="https://sqlite.org/docsrc/honeypot" id="mtimelink"  data-href="https://sqlite.org/docsrc/finfo/pages/fts5.in?m=13ff6fb4a9d162419">2022-09-24 16:31:11</a> UTC </small></i></p>
+<p align="center"><small><i>This page last modified on  <a href="https://sqlite.org/docsrc/honeypot" id="mtimelink"  data-href="https://sqlite.org/docsrc/finfo/pages/fts5.in?m=db66401e22">2023-04-19 10:53:54</a> UTC </small></i></p>
 

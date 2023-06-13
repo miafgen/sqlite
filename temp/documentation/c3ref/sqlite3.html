@@ -117,7 +117,7 @@ antiRobotDefense();
 </script>
 <!-- keywords: {database connection} {database connections} sqlite3 -->
 <div class=nosearch>
-<a href="intro.html"><h2>SQLite C Interface</h2></a>
+<a href="../c3ref/intro.html"><h2>SQLite C Interface</h2></a>
 <h2>Database Connection Handle</h2>
 </div>
 <blockquote><pre>
@@ -133,14 +133,14 @@ interfaces (such as
 <a href="../c3ref/prepare.html">sqlite3_prepare_v2()</a>, <a href="../c3ref/create_function.html">sqlite3_create_function()</a>, and
 <a href="../c3ref/busy_timeout.html">sqlite3_busy_timeout()</a> to name but three) that are methods on an
 sqlite3 object.
-</p><p>3 Constructors:
+</p><p>3 Constructors using this object:
  <a href="../c3ref/open.html">sqlite3_open()</a>,
 <a href="../c3ref/open.html">sqlite3_open16()</a>,
 <a href="../c3ref/open.html">sqlite3_open_v2()</a></p>
-<p>2 Destructors:
+<p>2 Destructors using this object:
  <a href="../c3ref/close.html">sqlite3_close()</a>,
 <a href="../c3ref/close.html">sqlite3_close_v2()</a></p>
-<p>76 Methods:
+<p>77 Methods using this object:
 <div class='columns' style='columns: 17em auto;'>
 <ul style='padding-top:0;'>
 <li><a href='../c3ref/autovacuum_pages.html'>sqlite3_autovacuum_pages</a></li>
@@ -184,6 +184,7 @@ sqlite3 object.
 <li><a href='../c3ref/get_autocommit.html'>sqlite3_get_autocommit</a></li>
 <li><a href='../c3ref/free_table.html'>sqlite3_get_table</a></li>
 <li><a href='../c3ref/interrupt.html'>sqlite3_interrupt</a></li>
+<li><a href='../c3ref/interrupt.html'>sqlite3_is_interrupted</a></li>
 <li><a href='../c3ref/last_insert_rowid.html'>sqlite3_last_insert_rowid</a></li>
 <li><a href='../c3ref/limit.html'>sqlite3_limit</a></li>
 <li><a href='../c3ref/load_extension.html'>sqlite3_load_extension</a></li>
@@ -223,7 +224,7 @@ sqlite3 object.
 </div>
 </p>
 <p>See also lists of
-  <a href="objlist.html">Objects</a>,
-  <a href="constlist.html">Constants</a>, and
-  <a href="funclist.html">Functions</a>.</p>
+  <a href="../c3ref/objlist.html">Objects</a>,
+  <a href="../c3ref/constlist.html">Constants</a>, and
+  <a href="../c3ref/funclist.html">Functions</a>.</p>
 

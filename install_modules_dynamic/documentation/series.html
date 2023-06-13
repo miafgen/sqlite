@@ -151,16 +151,22 @@ mk.innerHTML = "&#x25ba;";
 
 <h1 id="overview"><span>1. </span>Overview</h1>
 
-<p>The generate_series(START,END,STEP) <a href="vtab.html#tabfunc2">table-valued function</a> is a
+<p>The generate_series(START,STOP,STEP) <a href="vtab.html#tabfunc2">table-valued function</a> is a
 <a href="loadext.html">loadable extension</a> included in the SQLite source tree, and compiled into
-the <a href="cli.html">command-line shell</a>.  The generate_series() table has a single
+the <a href="cli.html">command-line shell</a>.  The generate_series() table has one visible
 result column named "value" holding integer values
 and a number of rows determined by the
-parameters START, END, and STEP.  The first row of the table has
-a value of START.  Subsequent rows increase by STEP up to END.
+parameters START, STOP, and STEP.  The first row of the table has
+a value of START.  Subsequent rows increment by STEP to a value
+not exceeding STOP.
+
+</p><p>The generate_series() table has additional, hidden columns
+named "start", "stop", and "step" whose values are the effective
+values of START, STOP and STEP as provided or defaulted.
+It also has a rowid, accessible by its usual names.
 
 </p><p>Omitted parameters take on default values.  STEP defaults to 1.
-END defaults to 9223372036854775807.  The START parameter is required
+STOP defaults to 4294967295.  The START parameter is required
 as of version 3.37.0 (2021-11-27) and later and an error will
 be raised if START is omitted or has a self-referential or otherwise
 uncomputable value.  Older versions used a default of 0 for START.
@@ -169,8 +175,8 @@ with -DZERO_ARGUMENT_GENERATE_SERIES.
 
 </p><h2 id="equivalent_recursive_common_table_expression"><span>1.1. </span>Equivalent Recursive Common Table Expression</h2>
 
-<p>The generate_series table can be simulated using a
-<a href="lang_with.html#recursivecte">recursive common table expression</a>.  If the three parameters
+<p>The generate_series table can be simulated for positive step values
+using a <a href="lang_with.html#recursivecte">recursive common table expression</a>.  If the three parameters
 are $start, $end, and $step, then the equivalent common table
 expression is:
 
@@ -209,5 +215,5 @@ SELECT name FROM customer
  WHERE id IN (SELECT value
                 FROM generate_series(10000,20000,200));
 </pre></div>
-<p align="center"><small><i>This page last modified on  <a href="https://sqlite.org/docsrc/honeypot" id="mtimelink"  data-href="https://sqlite.org/docsrc/finfo/pages/series.in?m=2ef7ed3d3eec2b729">2022-01-20 21:38:08</a> UTC </small></i></p>
+<p align="center"><small><i>This page last modified on  <a href="https://sqlite.org/docsrc/honeypot" id="mtimelink"  data-href="https://sqlite.org/docsrc/finfo/pages/series.in?m=bc2d791663">2023-05-01 21:49:55</a> UTC </small></i></p>
 

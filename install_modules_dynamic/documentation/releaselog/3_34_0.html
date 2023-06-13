@@ -142,10 +142,10 @@ antiRobotDefense();
 <li> Query planner improvements:
      <ol type="a">
      <li> Improved estimates for the cost of running a DISTINCT operator.
-     <li> When doing an UPDATE or DELETE using a multi-column index where 
-          only a few of the earlier columns of the index are useful for the 
-          index lookup, postpone doing the main table seek until after all 
-          WHERE clause constraints have been evaluated, in case those 
+     <li> When doing an UPDATE or DELETE using a multi-column index where
+          only a few of the earlier columns of the index are useful for the
+          index lookup, postpone doing the main table seek until after all
+          WHERE clause constraints have been evaluated, in case those
           constraints can be covered by unused later terms of the index,
           thus avoiding unnecessary main table seeks.
      <li> The new OP_SeekScan opcode is used to improve performance of
@@ -173,7 +173,7 @@ antiRobotDefense();
 </ol></p>
 
       <p>A <a href="../changes.html">complete list of SQLite releases</a>
-      in a single page and a <a href="../chronology.html">chronology</a> are both also available.  
+      in a single page and a <a href="../chronology.html">chronology</a> are both also available.
       A detailed history of every
       check-in is available at
       <a href="http://www.sqlite.org/src/timeline">

@@ -396,6 +396,28 @@ be added.
 <tbody>
 
 <tr><td valign='top'>
+<a href='https://nvd.nist.gov/vuln/detail/CVE-2022-46908'>CVE-2022-46908</a>
+</td>
+<td valign='top'>Bug not in the SQLite library</td>
+<td valign='top'>This is a bug in the --safe command-line option of the <a href="cli.html">command-line shell</a>
+  program that is available for accessing SQLite database files.  The bug does
+  not exist in the SQLite library.  Nor is it an issue for the <a href="cli.html">CLI</a> as long as
+  the user does not depend on the --safe option.  It is not serious.  It is
+  debatable whether or not this is a security issue.</td>
+</tr>
+
+<tr><td valign='top'>
+<a href='https://nvd.nist.gov/vuln/detail/CVE-2022-38627'>CVE-2022-38627</a>
+</td>
+<td valign='top'>Not a bug</td>
+<td valign='top'>This is not a bug in SQLite.  This is an 
+  <a href="https://en.wikipedia.org/wiki/SQL_injection">SQL injection bug</a> in a specific
+  PHP application.  In other words, the bug is in the PHP application code, not
+  in SQLite.  Even though this CVE is not about SQLite, "SQLite" is
+  mentioned in the publicity about the bug and so we list it here.</td>
+</tr>
+
+<tr><td valign='top'>
 <a href='https://nvd.nist.gov/vuln/detail/CVE-2022-35737'>CVE-2022-35737</a>
 </td>
 <td valign='top'><a href="releaselog/3_39_2.html">3.39.2</a><br>(2022-07-21)</td>
@@ -512,7 +534,7 @@ be added.
 <a href='https://nvd.nist.gov/vuln/detail/CVE-2020-15358'>CVE-2020-15358</a>
 </td>
 <td valign='top'><a href="releaselog/3_32_3.html">3.32.3</a><br>(2020-06-18)</td>
-<td valign='top'>Malicious SQL statement causes an read past the end of a heap buffer.
+<td valign='top'>Malicious SQL statement causes a read past the end of a heap buffer.
 <a href='https://sqlite.org/src/info/8f157e8010b22af0'>(details)</a></td>
 </tr>
 
@@ -549,7 +571,7 @@ be added.
 </td>
 <td valign='top'><a href="releaselog/3_32_0.html">3.32.0</a><br>(2020-05-22)</td>
 <td valign='top'>Malicious SQL statement causes a read-only use-after-free,
-  possibly resulting in a incorrect output from the <a href="fts3.html#snippet">snippet()</a>
+  possibly resulting in an incorrect output from the <a href="fts3.html#snippet">snippet()</a>
   SQL function of the <a href="fts3.html">FTS3</a> extension.  There is no known
   way to exfiltrate data or crash the application using this bug.
 <a href='https://sqlite.org/src/info/0d69f76f0865f962'>(details)</a></td>
@@ -660,7 +682,7 @@ be added.
 <a href='https://nvd.nist.gov/vuln/detail/CVE-2019-19924'>CVE-2019-19924</a>
 </td>
 <td valign='top'><a href="releaselog/3_31_0.html">3.31.0</a><br>(2020-01-22)</td>
-<td valign='top'>Malicious SQL statement causes a uninitialized pointer reference and
+<td valign='top'>Malicious SQL statement causes an uninitialized pointer reference and
   denial-of-service.
 <a href='https://www.sqlite.org/src/info/e2bddcd4c55ba3cb'>(details)</a></td>
 </tr>
@@ -699,5 +721,5 @@ be added.
 
 </tbody>
 </table>
-<p align="center"><small><i>This page last modified on  <a href="https://sqlite.org/docsrc/honeypot" id="mtimelink"  data-href="https://sqlite.org/docsrc/finfo/pages/cves.in?m=c96e426c971af615e">2022-09-07 11:54:34</a> UTC </small></i></p>
+<p align="center"><small><i>This page last modified on  <a href="https://sqlite.org/docsrc/honeypot" id="mtimelink"  data-href="https://sqlite.org/docsrc/finfo/pages/cves.in?m=c1c00c0e5b">2023-02-27 02:07:35</a> UTC </small></i></p>
 

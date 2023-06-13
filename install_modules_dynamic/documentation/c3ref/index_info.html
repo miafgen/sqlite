@@ -117,7 +117,7 @@ antiRobotDefense();
 </script>
 <!-- keywords: sqlite3_index_info -->
 <div class=nosearch>
-<a href="intro.html"><h2>SQLite C Interface</h2></a>
+<a href="../c3ref/intro.html"><h2>SQLite C Interface</h2></a>
 <h2>Virtual Table Indexing Information</h2>
 </div>
 <blockquote><pre>
@@ -206,10 +206,10 @@ the constraint may or may not be checked in byte code.  In other words,
 when the omit flag is true there is no guarantee that the constraint will
 not be checked again using byte code.</p>
 
-<p>The idxNum and idxPtr values are recorded and passed into the
+<p>The idxNum and idxStr values are recorded and passed into the
 <a href="../vtab.html#xfilter">xFilter</a> method.
-<a href="../c3ref/free.html">sqlite3_free()</a> is used to free idxPtr if and only if
-needToFreeIdxPtr is true.</p>
+<a href="../c3ref/free.html">sqlite3_free()</a> is used to free idxStr if and only if
+needToFreeIdxStr is true.</p>
 
 <p>The orderByConsumed means that output from <a href="../vtab.html#xfilter">xFilter</a>/<a href="../vtab.html#xnext">xNext</a> will occur in
 the correct order to satisfy the ORDER BY clause so that no separate
@@ -251,12 +251,12 @@ was added for <a href="../releaselog/3_9_0.html">version 3.9.0</a> (2015-10-14).
 It may therefore only be used if
 sqlite3_libversion_number() returns a value greater than or equal to
 3009000.
-</p><p>3 Methods:
+</p><p>3 Methods using this object:
  <a href="../c3ref/vtab_collation.html">sqlite3_vtab_collation()</a>,
 <a href="../c3ref/vtab_distinct.html">sqlite3_vtab_distinct()</a>,
 <a href="../c3ref/vtab_rhs_value.html">sqlite3_vtab_rhs_value()</a></p>
 <p>See also lists of
-  <a href="objlist.html">Objects</a>,
-  <a href="constlist.html">Constants</a>, and
-  <a href="funclist.html">Functions</a>.</p>
+  <a href="../c3ref/objlist.html">Objects</a>,
+  <a href="../c3ref/constlist.html">Constants</a>, and
+  <a href="../c3ref/funclist.html">Functions</a>.</p>
 

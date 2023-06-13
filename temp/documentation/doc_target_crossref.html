@@ -163,7 +163,7 @@ antiRobotDefense();
 <li><a href="c3ref/busy_handler.html">c3ref/busy_handler.html</a> &rarr; {busy handler} {busy-handler callback} sqlite3_busy_handler</li>
 <li><a href="c3ref/busy_timeout.html">c3ref/busy_timeout.html</a> &rarr; sqlite3_busy_timeout</li>
 <li><a href="c3ref/c_abort.html">c3ref/c_abort.html</a> &rarr; {result code definitions}</li>
-<li><a href="c3ref/c_abort_rollback.html">c3ref/c_abort_rollback.html</a> &rarr; SQLITE_OK_SYMLINK {extended result code definitions}</li>
+<li><a href="c3ref/c_abort_rollback.html">c3ref/c_abort_rollback.html</a> &rarr; SQLITE_NOTICE_RBU SQLITE_OK_SYMLINK {extended result code definitions}</li>
 <li><a href="c3ref/c_access_exists.html">c3ref/c_access_exists.html</a> &rarr; SQLITE_ACCESS_EXISTS SQLITE_ACCESS_READ SQLITE_ACCESS_READWRITE</li>
 <li><a href="c3ref/c_alter_table.html">c3ref/c_alter_table.html</a> &rarr; SQLITE_ALTER_TABLE SQLITE_ANALYZE SQLITE_ATTACH SQLITE_COPY SQLITE_CREATE_INDEX SQLITE_CREATE_TABLE SQLITE_CREATE_TEMP_INDEX SQLITE_CREATE_TEMP_TABLE SQLITE_CREATE_TEMP_TRIGGER SQLITE_CREATE_TEMP_VIEW SQLITE_CREATE_TRIGGER SQLITE_CREATE_VIEW SQLITE_CREATE_VTABLE SQLITE_DELETE SQLITE_DETACH SQLITE_DROP_INDEX SQLITE_DROP_TABLE SQLITE_DROP_TEMP_INDEX SQLITE_DROP_TEMP_TABLE SQLITE_DROP_TEMP_TRIGGER SQLITE_DROP_TEMP_VIEW SQLITE_DROP_TRIGGER SQLITE_DROP_VIEW SQLITE_DROP_VTABLE SQLITE_FUNCTION SQLITE_INSERT SQLITE_PRAGMA SQLITE_READ SQLITE_RECURSIVE SQLITE_REINDEX SQLITE_SAVEPOINT SQLITE_SELECT SQLITE_TRANSACTION SQLITE_UPDATE</li>
 <li><a href="c3ref/c_any.html">c3ref/c_any.html</a> &rarr; SQLITE_ANY SQLITE_UTF16 SQLITE_UTF16BE SQLITE_UTF16LE SQLITE_UTF16_ALIGNED SQLITE_UTF8</li>
@@ -214,6 +214,8 @@ antiRobotDefense();
 <li><a href="c3ref/c_dbconfig_defensive.html#sqlitedbconfigmaindbname">c3ref/c_dbconfig_defensive.html#sqlitedbconfigmaindbname</a> &rarr; SQLITE_DBCONFIG_MAINDBNAME</li>
 <li><a href="c3ref/c_dbconfig_defensive.html#sqlitedbconfignockptonclose">c3ref/c_dbconfig_defensive.html#sqlitedbconfignockptonclose</a> &rarr; SQLITE_DBCONFIG_NO_CKPT_ON_CLOSE</li>
 <li><a href="c3ref/c_dbconfig_defensive.html#sqlitedbconfigresetdatabase">c3ref/c_dbconfig_defensive.html#sqlitedbconfigresetdatabase</a> &rarr; SQLITE_DBCONFIG_RESET_DATABASE</li>
+<li><a href="c3ref/c_dbconfig_defensive.html#sqlitedbconfigreversescanorder">c3ref/c_dbconfig_defensive.html#sqlitedbconfigreversescanorder</a> &rarr; SQLITE_DBCONFIG_REVERSE_SCANORDER</li>
+<li><a href="c3ref/c_dbconfig_defensive.html#sqlitedbconfigstmtscanstatus">c3ref/c_dbconfig_defensive.html#sqlitedbconfigstmtscanstatus</a> &rarr; SQLITE_DBCONFIG_STMT_SCANSTATUS</li>
 <li><a href="c3ref/c_dbconfig_defensive.html#sqlitedbconfigtriggereqp">c3ref/c_dbconfig_defensive.html#sqlitedbconfigtriggereqp</a> &rarr; SQLITE_DBCONFIG_TRIGGER_EQP</li>
 <li><a href="c3ref/c_dbconfig_defensive.html#sqlitedbconfigtrustedschema">c3ref/c_dbconfig_defensive.html#sqlitedbconfigtrustedschema</a> &rarr; SQLITE_DBCONFIG_TRUSTED_SCHEMA</li>
 <li><a href="c3ref/c_dbconfig_defensive.html#sqlitedbconfigwritableschema">c3ref/c_dbconfig_defensive.html#sqlitedbconfigwritableschema</a> &rarr; SQLITE_DBCONFIG_WRITABLE_SCHEMA</li>
@@ -260,6 +262,7 @@ antiRobotDefense();
 <li><a href="c3ref/c_fcntl_begin_atomic_write.html#sqlitefcntlpowersafeoverwrite">c3ref/c_fcntl_begin_atomic_write.html#sqlitefcntlpowersafeoverwrite</a> &rarr; SQLITE_FCNTL_POWERSAFE_OVERWRITE</li>
 <li><a href="c3ref/c_fcntl_begin_atomic_write.html#sqlitefcntlpragma">c3ref/c_fcntl_begin_atomic_write.html#sqlitefcntlpragma</a> &rarr; SQLITE_FCNTL_PRAGMA</li>
 <li><a href="c3ref/c_fcntl_begin_atomic_write.html#sqlitefcntlrbu">c3ref/c_fcntl_begin_atomic_write.html#sqlitefcntlrbu</a> &rarr; SQLITE_FCNTL_RBU</li>
+<li><a href="c3ref/c_fcntl_begin_atomic_write.html#sqlitefcntlresetcache">c3ref/c_fcntl_begin_atomic_write.html#sqlitefcntlresetcache</a> &rarr; SQLITE_FCNTL_RESET_CACHE</li>
 <li><a href="c3ref/c_fcntl_begin_atomic_write.html#sqlitefcntlrollbackatomicwrite">c3ref/c_fcntl_begin_atomic_write.html#sqlitefcntlrollbackatomicwrite</a> &rarr; SQLITE_FCNTL_ROLLBACK_ATOMIC_WRITE</li>
 <li><a href="c3ref/c_fcntl_begin_atomic_write.html#sqlitefcntlsizehint">c3ref/c_fcntl_begin_atomic_write.html#sqlitefcntlsizehint</a> &rarr; SQLITE_FCNTL_SIZE_HINT</li>
 <li><a href="c3ref/c_fcntl_begin_atomic_write.html#sqlitefcntlsizelimit">c3ref/c_fcntl_begin_atomic_write.html#sqlitefcntlsizelimit</a> &rarr; SQLITE_FCNTL_SIZE_LIMIT</li>
@@ -296,12 +299,15 @@ antiRobotDefense();
 <li><a href="c3ref/c_prepare_normalize.html#sqlitepreparenormalize">c3ref/c_prepare_normalize.html#sqlitepreparenormalize</a> &rarr; SQLITE_PREPARE_NORMALIZE</li>
 <li><a href="c3ref/c_prepare_normalize.html#sqlitepreparenovtab">c3ref/c_prepare_normalize.html#sqlitepreparenovtab</a> &rarr; SQLITE_PREPARE_NO_VTAB</li>
 <li><a href="c3ref/c_prepare_normalize.html#sqlitepreparepersistent">c3ref/c_prepare_normalize.html#sqlitepreparepersistent</a> &rarr; SQLITE_PREPARE_PERSISTENT</li>
+<li><a href="c3ref/c_scanstat_complex.html">c3ref/c_scanstat_complex.html</a> &rarr; SQLITE_SCANSTAT_COMPLEX {scan status flags}</li>
 <li><a href="c3ref/c_scanstat_est.html">c3ref/c_scanstat_est.html</a> &rarr; {scanstatus options}</li>
 <li><a href="c3ref/c_scanstat_est.html#sqlitescanstatest">c3ref/c_scanstat_est.html#sqlitescanstatest</a> &rarr; SQLITE_SCANSTAT_EST</li>
 <li><a href="c3ref/c_scanstat_est.html#sqlitescanstatexplain">c3ref/c_scanstat_est.html#sqlitescanstatexplain</a> &rarr; SQLITE_SCANSTAT_EXPLAIN</li>
 <li><a href="c3ref/c_scanstat_est.html#sqlitescanstatname">c3ref/c_scanstat_est.html#sqlitescanstatname</a> &rarr; SQLITE_SCANSTAT_NAME</li>
+<li><a href="c3ref/c_scanstat_est.html#sqlitescanstatncycle">c3ref/c_scanstat_est.html#sqlitescanstatncycle</a> &rarr; SQLITE_SCANSTAT_NCYCLE</li>
 <li><a href="c3ref/c_scanstat_est.html#sqlitescanstatnloop">c3ref/c_scanstat_est.html#sqlitescanstatnloop</a> &rarr; SQLITE_SCANSTAT_NLOOP</li>
 <li><a href="c3ref/c_scanstat_est.html#sqlitescanstatnvisit">c3ref/c_scanstat_est.html#sqlitescanstatnvisit</a> &rarr; SQLITE_SCANSTAT_NVISIT</li>
+<li><a href="c3ref/c_scanstat_est.html#sqlitescanstatparentid">c3ref/c_scanstat_est.html#sqlitescanstatparentid</a> &rarr; SQLITE_SCANSTAT_PARENTID</li>
 <li><a href="c3ref/c_scanstat_est.html#sqlitescanstatselectid">c3ref/c_scanstat_est.html#sqlitescanstatselectid</a> &rarr; SQLITE_SCANSTAT_SELECTID</li>
 <li><a href="c3ref/c_serialize_nocopy.html">c3ref/c_serialize_nocopy.html</a> &rarr; SQLITE_SERIALIZE_NOCOPY</li>
 <li><a href="c3ref/c_shm_exclusive.html">c3ref/c_shm_exclusive.html</a> &rarr; SQLITE_SHM_EXCLUSIVE SQLITE_SHM_LOCK SQLITE_SHM_SHARED SQLITE_SHM_UNLOCK</li>
@@ -344,6 +350,7 @@ antiRobotDefense();
 <li><a href="c3ref/c_vtab_constraint_support.html#sqlitevtabconstraintsupport">c3ref/c_vtab_constraint_support.html#sqlitevtabconstraintsupport</a> &rarr; SQLITE_VTAB_CONSTRAINT_SUPPORT</li>
 <li><a href="c3ref/c_vtab_constraint_support.html#sqlitevtabdirectonly">c3ref/c_vtab_constraint_support.html#sqlitevtabdirectonly</a> &rarr; SQLITE_VTAB_DIRECTONLY</li>
 <li><a href="c3ref/c_vtab_constraint_support.html#sqlitevtabinnocuous">c3ref/c_vtab_constraint_support.html#sqlitevtabinnocuous</a> &rarr; SQLITE_VTAB_INNOCUOUS</li>
+<li><a href="c3ref/c_vtab_constraint_support.html#sqlitevtabusesallschemas">c3ref/c_vtab_constraint_support.html#sqlitevtabusesallschemas</a> &rarr; SQLITE_VTAB_USES_ALL_SCHEMAS</li>
 <li><a href="c3ref/c_win32_data_directory_type.html">c3ref/c_win32_data_directory_type.html</a> &rarr; SQLITE_WIN32_DATA_DIRECTORY_TYPE SQLITE_WIN32_TEMP_DIRECTORY_TYPE</li>
 <li><a href="c3ref/cancel_auto_extension.html">c3ref/cancel_auto_extension.html</a> &rarr; sqlite3_cancel_auto_extension</li>
 <li><a href="c3ref/changes.html">c3ref/changes.html</a> &rarr; sqlite3_changes sqlite3_changes64</li>
@@ -401,7 +408,7 @@ antiRobotDefense();
 <li><a href="c3ref/index_info.html">c3ref/index_info.html</a> &rarr; sqlite3_index_info</li>
 <li><a href="c3ref/initialize.html">c3ref/initialize.html</a> &rarr; sqlite3_initialize sqlite3_os_end sqlite3_os_init sqlite3_shutdown</li>
 <li><a href="c3ref/int64.html">c3ref/int64.html</a> &rarr; sqlite3_int64 sqlite3_uint64 sqlite_int64 sqlite_uint64</li>
-<li><a href="c3ref/interrupt.html">c3ref/interrupt.html</a> &rarr; sqlite3_interrupt</li>
+<li><a href="c3ref/interrupt.html">c3ref/interrupt.html</a> &rarr; sqlite3_interrupt sqlite3_is_interrupted</li>
 <li><a href="c3ref/intro.html">c3ref/intro.html</a> &rarr; {C-language Interface} capi3ref</li>
 <li><a href="c3ref/io_methods.html">c3ref/io_methods.html</a> &rarr; sqlite3_io_methods</li>
 <li><a href="c3ref/keyword_check.html">c3ref/keyword_check.html</a> &rarr; sqlite3_keyword_check sqlite3_keyword_count sqlite3_keyword_name</li>
@@ -467,7 +474,7 @@ antiRobotDefense();
 <li><a href="c3ref/stmt_busy.html">c3ref/stmt_busy.html</a> &rarr; sqlite3_stmt_busy</li>
 <li><a href="c3ref/stmt_isexplain.html">c3ref/stmt_isexplain.html</a> &rarr; sqlite3_stmt_isexplain</li>
 <li><a href="c3ref/stmt_readonly.html">c3ref/stmt_readonly.html</a> &rarr; sqlite3_stmt_readonly</li>
-<li><a href="c3ref/stmt_scanstatus.html">c3ref/stmt_scanstatus.html</a> &rarr; sqlite3_stmt_scanstatus</li>
+<li><a href="c3ref/stmt_scanstatus.html">c3ref/stmt_scanstatus.html</a> &rarr; sqlite3_stmt_scanstatus sqlite3_stmt_scanstatus_v2</li>
 <li><a href="c3ref/stmt_scanstatus_reset.html">c3ref/stmt_scanstatus_reset.html</a> &rarr; sqlite3_stmt_scanstatus_reset</li>
 <li><a href="c3ref/stmt_status.html">c3ref/stmt_status.html</a> &rarr; sqlite3_stmt_status</li>
 <li><a href="c3ref/str.html">c3ref/str.html</a> &rarr; {dynamic string} sqlite3_str</li>
@@ -491,8 +498,9 @@ antiRobotDefense();
 <li><a href="c3ref/uri_boolean.html">c3ref/uri_boolean.html</a> &rarr; sqlite3_uri_boolean sqlite3_uri_int64 sqlite3_uri_key sqlite3_uri_parameter</li>
 <li><a href="c3ref/user_data.html">c3ref/user_data.html</a> &rarr; sqlite3_user_data</li>
 <li><a href="c3ref/value.html">c3ref/value.html</a> &rarr; {protected sqlite3_value} sqlite3_value {unprotected sqlite3_value}</li>
-<li><a href="c3ref/value_blob.html">c3ref/value_blob.html</a> &rarr; sqlite3_value_blob sqlite3_value_bytes sqlite3_value_bytes16 sqlite3_value_double sqlite3_value_encoding sqlite3_value_frombind sqlite3_value_int sqlite3_value_int64 sqlite3_value_nochange sqlite3_value_numeric_type sqlite3_value_pointer sqlite3_value_text sqlite3_value_text16 sqlite3_value_text16be sqlite3_value_text16le sqlite3_value_type</li>
+<li><a href="c3ref/value_blob.html">c3ref/value_blob.html</a> &rarr; sqlite3_value_blob sqlite3_value_bytes sqlite3_value_bytes16 sqlite3_value_double sqlite3_value_frombind sqlite3_value_int sqlite3_value_int64 sqlite3_value_nochange sqlite3_value_numeric_type sqlite3_value_pointer sqlite3_value_text sqlite3_value_text16 sqlite3_value_text16be sqlite3_value_text16le sqlite3_value_type</li>
 <li><a href="c3ref/value_dup.html">c3ref/value_dup.html</a> &rarr; sqlite3_value_dup sqlite3_value_free</li>
+<li><a href="c3ref/value_encoding.html">c3ref/value_encoding.html</a> &rarr; sqlite3_value_encoding</li>
 <li><a href="c3ref/value_subtype.html">c3ref/value_subtype.html</a> &rarr; sqlite3_value_subtype</li>
 <li><a href="c3ref/vfs.html">c3ref/vfs.html</a> &rarr; sqlite3_vfs</li>
 <li><a href="c3ref/vfs.html#sqlite3vfsxaccess">c3ref/vfs.html#sqlite3vfsxaccess</a> &rarr; sqlite3_vfs.xAccess</li>
@@ -521,6 +529,8 @@ antiRobotDefense();
 <li><a href="cksumvfs.html">cksumvfs.html</a> &rarr; {checksum VFS} {checksum VFS shim} cksumvfs</li>
 <li><a href="cli.html">cli.html</a> &rarr; CLI {Command Line Interface} {command-line interface} {command-line shell} sqlite3.exe {sqlite3.exe command-line shell}</li>
 <li><a href="cli.html#arinsup">cli.html#arinsup</a> &rarr; {--insert option} {--update option}</li>
+<li><a href="cli.html#base64">cli.html#base64</a> &rarr; {base64 SQL function}</li>
+<li><a href="cli.html#base85">cli.html#base85</a> &rarr; {base85 SQL function}</li>
 <li><a href="cli.html#clmnr">cli.html#clmnr</a> &rarr; {Columnar output modes} {columnar output modes}</li>
 <li><a href="cli.html#clopts">cli.html#clopts</a> &rarr; {command-line options}</li>
 <li><a href="cli.html#csv">cli.html#csv</a> &rarr; .import {.import command} {CSV import}</li>
@@ -541,15 +551,17 @@ antiRobotDefense();
 <li><a href="cli.html#editfunc">cli.html#editfunc</a> &rarr; {edit SQL function}</li>
 <li><a href="cli.html#exexcel*">cli.html#exexcel*</a> &rarr; {export to excel}</li>
 <li><a href="cli.html#expert">cli.html#expert</a> &rarr; {.expert command}</li>
+<li><a href="cli.html#extsv*">cli.html#extsv*</a> &rarr; {export to TSV}</li>
 <li><a href="cli.html#fileio">cli.html#fileio</a> &rarr; {file I/O functions}</li>
 <li><a href="cli.html#fullschema">cli.html#fullschema</a> &rarr; .fullschema {the .fullschema dot-command}</li>
 <li><a href="cli.html#param">cli.html#param</a> &rarr; {.parameter command}</li>
 <li><a href="cli.html#qbox">cli.html#qbox</a> &rarr; qbox {qbox output mode}</li>
 <li><a href="cli.html#recover">cli.html#recover</a> &rarr; {.recover dot-command}</li>
-<li><a href="cli.html#safemode">cli.html#safemode</a> &rarr; {safe command-line option}</li>
+<li><a href="cli.html#safemode">cli.html#safemode</a> &rarr; {--safe command-line option} {safe command-line option}</li>
 <li><a href="cli.html#selftest">cli.html#selftest</a> &rarr; {.selftest dot-command}</li>
 <li><a href="cli.html#sha3sum">cli.html#sha3sum</a> &rarr; {.sha3sum dot-command}</li>
 <li><a href="cli.html#sqlar">cli.html#sqlar</a> &rarr; {.archive command}</li>
+<li><a href="cli.html#testing_mode">cli.html#testing_mode</a> &rarr; {--unsafe-testing command-line option} {unsafe-testing command-line option}</li>
 <li><a href="cli.html#wrap1">cli.html#wrap1</a> &rarr; {wrapping text}</li>
 <li><a href="cli.html#zipdb">cli.html#zipdb</a> &rarr; {ZIP file as database}</li>
 <li><a href="codeofconduct.html">codeofconduct.html</a> &rarr; {Code of Conduct}</li>
@@ -744,7 +756,6 @@ antiRobotDefense();
 <li><a href="compile.html#use_alloca">compile.html#use_alloca</a> &rarr; -DSQLITE_USE_ALLOCA SQLITE_USE_ALLOCA</li>
 <li><a href="compile.html#use_fcntl_trace">compile.html#use_fcntl_trace</a> &rarr; -DSQLITE_USE_FCNTL_TRACE SQLITE_USE_FCNTL_TRACE</li>
 <li><a href="compile.html#use_uri">compile.html#use_uri</a> &rarr; -DSQLITE_USE_URI SQLITE_USE_URI</li>
-<li><a href="compile.html#usleep">compile.html#usleep</a> &rarr; -DHAVE_USLEEP HAVE_USLEEP</li>
 <li><a href="compile.html#utime">compile.html#utime</a> &rarr; -DHAVE_UTIME HAVE_UTIME</li>
 <li><a href="compile.html#win32_heap_create">compile.html#win32_heap_create</a> &rarr; -DSQLITE_WIN32_HEAP_CREATE SQLITE_WIN32_HEAP_CREATE</li>
 <li><a href="compile.html#win32_malloc">compile.html#win32_malloc</a> &rarr; -DSQLITE_WIN32_MALLOC SQLITE_WIN32_MALLOC</li>
@@ -794,7 +805,7 @@ antiRobotDefense();
 <li><a href="eqp.html">eqp.html</a> &rarr; {EXPLAIN QUERY PLAN} {explain query plan}</li>
 <li><a href="eqp.html#or-opt">eqp.html#or-opt</a> &rarr; eqp-or-opt</li>
 <li><a href="errlog.html">errlog.html</a> &rarr; errlog {error log}</li>
-<li><a href="expridx.html">expridx.html</a> &rarr; {Indexes On Expressions} {expression index} {expression indexes} {indexes on expressions}</li>
+<li><a href="expridx.html">expridx.html</a> &rarr; {Indexes On Expressions} {expression index} {expression indexes} {indexed expression} {indexed expressions} {indexes on expressions}</li>
 <li><a href="fasterthanfs.html">fasterthanfs.html</a> &rarr; {35 Faster Than The Filesystem} {faster than the filesystem}</li>
 <li><a href="fileformat2.html">fileformat2.html</a> &rarr; {SQLite database file format} {file format} {on-disk format} {second edition file format document}</li>
 <li><a href="fileformat2.html##sqltab">fileformat2.html##sqltab</a> &rarr; {table data format}</li>
@@ -930,6 +941,7 @@ antiRobotDefense();
 <li><a href="fts5.html#the_pgsz_configuration_option">fts5.html#the_pgsz_configuration_option</a> &rarr; {FTS5 pgsz option}</li>
 <li><a href="fts5.html#the_rank_configuration_option">fts5.html#the_rank_configuration_option</a> &rarr; {FTS5 rank configuration option}</li>
 <li><a href="fts5.html#the_rebuild_command">fts5.html#the_rebuild_command</a> &rarr; {FTS5 rebuild command}</li>
+<li><a href="fts5.html#the_secure_delete_configuration_option">fts5.html#the_secure_delete_configuration_option</a> &rarr; {FTS5 secure-delete command}</li>
 <li><a href="fts5.html#the_snippet_function">fts5.html#the_snippet_function</a> &rarr; {FTS5 snippet}</li>
 <li><a href="fts5.html#the_unindexed_column_option">fts5.html#the_unindexed_column_option</a> &rarr; unindexed</li>
 <li><a href="fts5.html#the_usermerge_configuration_option">fts5.html#the_usermerge_configuration_option</a> &rarr; {FTS5 usermerge option}</li>
@@ -979,6 +991,7 @@ antiRobotDefense();
 <li><a href="json1.html#jarray">json1.html#jarray</a> &rarr; json_array {json_array SQL function}</li>
 <li><a href="json1.html#jarraylen">json1.html#jarraylen</a> &rarr; json_array_length {json_array_length SQL function}</li>
 <li><a href="json1.html#jeach">json1.html#jeach</a> &rarr; json_each {json_each table-valued function}</li>
+<li><a href="json1.html#jerr">json1.html#jerr</a> &rarr; json_error_position {json_error_position SQL function}</li>
 <li><a href="json1.html#jex">json1.html#jex</a> &rarr; json_extract {json_extract SQL function}</li>
 <li><a href="json1.html#jgrouparray">json1.html#jgrouparray</a> &rarr; json_group_array {json_group_array SQL function}</li>
 <li><a href="json1.html#jgroupobject">json1.html#jgroupobject</a> &rarr; json_group_object {json_group_object SQL function}</li>
@@ -991,6 +1004,7 @@ antiRobotDefense();
 <li><a href="json1.html#jrepl">json1.html#jrepl</a> &rarr; json_replace {json_replace SQL function}</li>
 <li><a href="json1.html#jrm">json1.html#jrm</a> &rarr; json_remove {json_remove SQL function}</li>
 <li><a href="json1.html#jset">json1.html#jset</a> &rarr; json_set {json_set SQL function}</li>
+<li><a href="json1.html#json5">json1.html#json5</a> &rarr; JSON5 {JSON5 extensions}</li>
 <li><a href="json1.html#jsonpath">json1.html#jsonpath</a> &rarr; {JSON function path arguments} {JSON paths}</li>
 <li><a href="json1.html#jtree">json1.html#jtree</a> &rarr; json_tree {json_tree table-valued function}</li>
 <li><a href="json1.html#jtype">json1.html#jtype</a> &rarr; json_type {json_type SQL function}</li>
@@ -1059,6 +1073,7 @@ antiRobotDefense();
 <li><a href="lang_corefunc.html#total_changes">lang_corefunc.html#total_changes</a> &rarr; total_changes {total_changes SQL function}</li>
 <li><a href="lang_corefunc.html#trim">lang_corefunc.html#trim</a> &rarr; trim {trim SQL function}</li>
 <li><a href="lang_corefunc.html#typeof">lang_corefunc.html#typeof</a> &rarr; typeof {typeof SQL function}</li>
+<li><a href="lang_corefunc.html#unhex">lang_corefunc.html#unhex</a> &rarr; unhex {unhex SQL function}</li>
 <li><a href="lang_corefunc.html#unicode">lang_corefunc.html#unicode</a> &rarr; unicode {unicode SQL function}</li>
 <li><a href="lang_corefunc.html#unlikely">lang_corefunc.html#unlikely</a> &rarr; unlikely {unlikely SQL function}</li>
 <li><a href="lang_corefunc.html#upper">lang_corefunc.html#upper</a> &rarr; upper {upper SQL function}</li>
@@ -1084,12 +1099,16 @@ antiRobotDefense();
 <li><a href="lang_createtrigger.html#undef_before">lang_createtrigger.html#undef_before</a> &rarr; {undefined BEFORE trigger behavior}</li>
 <li><a href="lang_createview.html">lang_createview.html</a> &rarr; {CREATE VIEW} VIEW createview view views</li>
 <li><a href="lang_createvtab.html">lang_createvtab.html</a> &rarr; {CREATE VIRTUAL TABLE} createvtab</li>
-<li><a href="lang_datefunc.html">lang_datefunc.html</a> &rarr; {Date And Time Functions} {date SQL function} {date and time functions} datefunc {datetime SQL function} {julianday SQL function} {strftime SQL function} {time SQL function}</li>
+<li><a href="lang_datefunc.html">lang_datefunc.html</a> &rarr; {Date And Time Functions} {date and time functions} datefunc</li>
 <li><a href="lang_datefunc.html#automod">lang_datefunc.html#automod</a> &rarr; {auto modifier}</li>
 <li><a href="lang_datefunc.html#dtmods">lang_datefunc.html#dtmods</a> &rarr; {date/time modifiers} modifiers</li>
+<li><a href="lang_datefunc.html#dttm">lang_datefunc.html#dttm</a> &rarr; date {date SQL function} datetime {datetime SQL function} time {time SQL function}</li>
 <li><a href="lang_datefunc.html#jdmod">lang_datefunc.html#jdmod</a> &rarr; {julianday modifier}</li>
+<li><a href="lang_datefunc.html#jlndy">lang_datefunc.html#jlndy</a> &rarr; julianday {julianday SQL function}</li>
 <li><a href="lang_datefunc.html#localtime">lang_datefunc.html#localtime</a> &rarr; {localtime modifier} {utc modifier}</li>
-<li><a href="lang_datefunc.html#uepch">lang_datefunc.html#uepch</a> &rarr; {unixepoch function}</li>
+<li><a href="lang_datefunc.html#strftm">lang_datefunc.html#strftm</a> &rarr; strftime {strftime SQL function}</li>
+<li><a href="lang_datefunc.html#subsec">lang_datefunc.html#subsec</a> &rarr; {subsec modifier} {subsecond modifier}</li>
+<li><a href="lang_datefunc.html#uepch">lang_datefunc.html#uepch</a> &rarr; unixepoch {unixepoch SQL function} {unixepoch function}</li>
 <li><a href="lang_delete.html">lang_delete.html</a> &rarr; DELETE DELETEs delete</li>
 <li><a href="lang_delete.html#truncateopt">lang_delete.html#truncateopt</a> &rarr; {truncate optimization}</li>
 <li><a href="lang_detach.html">lang_detach.html</a> &rarr; DETACH {DETACH DATABASE} detach</li>
@@ -1334,6 +1353,7 @@ antiRobotDefense();
 <li><a href="pragma.html#syntax">pragma.html#syntax</a> &rarr; PRAGMA</li>
 <li><a href="pragma.html#toc">pragma.html#toc</a> &rarr; {pragma list}</li>
 <li><a href="printf.html">printf.html</a> &rarr; {built-in printf}</li>
+<li><a href="printf.html#comma">printf.html#comma</a> &rarr; {comma option}</li>
 <li><a href="printf.html#percentq">printf.html#percentq</a> &rarr; Q q</li>
 <li><a href="printf.html#percentw">printf.html#percentw</a> &rarr; w</li>
 <li><a href="printf.html#percentz">printf.html#percentz</a> &rarr; z</li>
@@ -1354,7 +1374,7 @@ antiRobotDefense();
 <li><a href="queryplanner.html#sorting">queryplanner.html#sorting</a> &rarr; sorting</li>
 <li><a href="quickstart.html">quickstart.html</a> &rarr; {Quick Start Guide} quickstart</li>
 <li><a href="quirks.html">quirks.html</a> &rarr; Quirks</li>
-<li><a href="quirks.html#dblquote">quirks.html#dblquote</a> &rarr; {double-quoted string literal}</li>
+<li><a href="quirks.html#dblquote">quirks.html#dblquote</a> &rarr; {double-quoted string literal} {double-quoted string misfeature}</li>
 <li><a href="rbu.html">rbu.html</a> &rarr; RBU {RBU extension}</li>
 <li><a href="rbu.html#database_contents">rbu.html#database_contents</a> &rarr; {RBU Database Contents}</li>
 <li><a href="rbu.html#database_tables">rbu.html#database_tables</a> &rarr; {RBU Database Tables}</li>
@@ -1482,6 +1502,11 @@ antiRobotDefense();
 <li><a href="releaselog/3_3_8.html">releaselog/3_3_8.html</a> &rarr; {Version 3.3.8} {Version 3.3.8.0} {version 3.3.8} {version 3.3.8.0}</li>
 <li><a href="releaselog/3_3_9.html">releaselog/3_3_9.html</a> &rarr; {Version 3.3.9} {Version 3.3.9.0} {version 3.3.9} {version 3.3.9.0}</li>
 <li><a href="releaselog/3_40_0.html">releaselog/3_40_0.html</a> &rarr; {Version 3.40.0} {version 3.40.0}</li>
+<li><a href="releaselog/3_40_1.html">releaselog/3_40_1.html</a> &rarr; {Version 3.40.1} {version 3.40.1}</li>
+<li><a href="releaselog/3_41_0.html">releaselog/3_41_0.html</a> &rarr; {Version 3.41.0} {version 3.41.0}</li>
+<li><a href="releaselog/3_41_1.html">releaselog/3_41_1.html</a> &rarr; {Version 3.41.1} {version 3.41.1}</li>
+<li><a href="releaselog/3_41_2.html">releaselog/3_41_2.html</a> &rarr; {Version 3.41.2} {version 3.41.2}</li>
+<li><a href="releaselog/3_42_0.html">releaselog/3_42_0.html</a> &rarr; {Version 3.42.0} {version 3.42.0}</li>
 <li><a href="releaselog/3_4_0.html">releaselog/3_4_0.html</a> &rarr; {Version 3.4.0} {version 3.4.0}</li>
 <li><a href="releaselog/3_4_1.html">releaselog/3_4_1.html</a> &rarr; {Version 3.4.1} {version 3.4.1}</li>
 <li><a href="releaselog/3_4_2.html">releaselog/3_4_2.html</a> &rarr; {Version 3.4.2} {version 3.4.2}</li>
@@ -1714,9 +1739,10 @@ antiRobotDefense();
 <li><a href="serverless.html">serverless.html</a> &rarr; embedded serverless</li>
 <li><a href="session/c_changeset_abort.html">session/c_changeset_abort.html</a> &rarr; SQLITE_CHANGESET_ABORT SQLITE_CHANGESET_OMIT SQLITE_CHANGESET_REPLACE</li>
 <li><a href="session/c_changeset_conflict.html">session/c_changeset_conflict.html</a> &rarr; SQLITE_CHANGESET_CONFLICT SQLITE_CHANGESET_CONSTRAINT SQLITE_CHANGESET_DATA SQLITE_CHANGESET_FOREIGN_KEY SQLITE_CHANGESET_NOTFOUND</li>
-<li><a href="session/c_changesetapply_invert.html">session/c_changesetapply_invert.html</a> &rarr; SQLITE_CHANGESETAPPLY_INVERT SQLITE_CHANGESETAPPLY_NOSAVEPOINT</li>
+<li><a href="session/c_changesetapply_ignorenoop.html">session/c_changesetapply_ignorenoop.html</a> &rarr; SQLITE_CHANGESETAPPLY_IGNORENOOP SQLITE_CHANGESETAPPLY_INVERT SQLITE_CHANGESETAPPLY_NOSAVEPOINT</li>
 <li><a href="session/c_changesetstart_invert.html">session/c_changesetstart_invert.html</a> &rarr; SQLITE_CHANGESETSTART_INVERT</li>
 <li><a href="session/c_session_config_strmsize.html">session/c_session_config_strmsize.html</a> &rarr; SQLITE_SESSION_CONFIG_STRMSIZE</li>
+<li><a href="session/c_session_objconfig_rowid.html">session/c_session_objconfig_rowid.html</a> &rarr; SQLITE_SESSION_OBJCONFIG_ROWID SQLITE_SESSION_OBJCONFIG_SIZE</li>
 <li><a href="session/changegroup.html">session/changegroup.html</a> &rarr; sqlite3_changegroup</li>
 <li><a href="session/changeset_iter.html">session/changeset_iter.html</a> &rarr; sqlite3_changeset_iter</li>
 <li><a href="session/funclist.html">session/funclist.html</a> &rarr; {Session Module C-API function list} session_funclist</li>
@@ -1755,6 +1781,7 @@ antiRobotDefense();
 <li><a href="session/sqlite3session_indirect.html">session/sqlite3session_indirect.html</a> &rarr; sqlite3session_indirect</li>
 <li><a href="session/sqlite3session_isempty.html">session/sqlite3session_isempty.html</a> &rarr; sqlite3session_isempty</li>
 <li><a href="session/sqlite3session_memory_used.html">session/sqlite3session_memory_used.html</a> &rarr; sqlite3session_memory_used</li>
+<li><a href="session/sqlite3session_object_config.html">session/sqlite3session_object_config.html</a> &rarr; sqlite3session_object_config</li>
 <li><a href="session/sqlite3session_patchset.html">session/sqlite3session_patchset.html</a> &rarr; sqlite3session_patchset</li>
 <li><a href="session/sqlite3session_table_filter.html">session/sqlite3session_table_filter.html</a> &rarr; sqlite3session_table_filter</li>
 <li><a href="sessionintro.html">sessionintro.html</a> &rarr; session {session extension}</li>
@@ -1881,6 +1908,7 @@ antiRobotDefense();
 <li><a href="tclsqlite.html#last_insert_rowid">tclsqlite.html#last_insert_rowid</a> &rarr; {TCL interface last_insert_rowid method} {last_insert_rowid method}</li>
 <li><a href="tclsqlite.html#nullvalue">tclsqlite.html#nullvalue</a> &rarr; {TCL interface nullvalue method} {nullvalue method}</li>
 <li><a href="tclsqlite.html#onecolumn">tclsqlite.html#onecolumn</a> &rarr; {TCL interface onecolumn method} {onecolumn method}</li>
+<li><a href="tclsqlite.html#preupdate">tclsqlite.html#preupdate</a> &rarr; {TCL interface preupdate method} {preupdate method}</li>
 <li><a href="tclsqlite.html#profile">tclsqlite.html#profile</a> &rarr; {TCL interface profile method} {profile method}</li>
 <li><a href="tclsqlite.html#progress">tclsqlite.html#progress</a> &rarr; {TCL interface progress method} {progress method}</li>
 <li><a href="tclsqlite.html#restore">tclsqlite.html#restore</a> &rarr; {TCL interface restore method} {restore method}</li>
@@ -2015,5 +2043,5 @@ antiRobotDefense();
 <li><a href="zipfile.html">zipfile.html</a> &rarr; {Zipfile virtual table} zipfile</li>
 <li><a href="zipfile.html#adding_entries_to_a_zip_archive">zipfile.html#adding_entries_to_a_zip_archive</a> &rarr; {Adding to Zip}</li>
 </ul>
-<p align="center"><small><i>This page last modified on  <a href="https://sqlite.org/docsrc/honeypot" id="mtimelink"  data-href="https://sqlite.org/docsrc/finfo/wrap.tcl?m=c378b221a4d027d54">2022-11-01 22:56:31</a> UTC </small></i></p>
+<p align="center"><small><i>This page last modified on  <a href="https://sqlite.org/docsrc/honeypot" id="mtimelink"  data-href="https://sqlite.org/docsrc/finfo/wrap.tcl?m=08af34fe24">2023-03-31 19:57:15</a> UTC </small></i></p>
 

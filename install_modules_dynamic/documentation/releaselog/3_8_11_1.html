@@ -115,7 +115,7 @@ antiRobotGo();
 }
 antiRobotDefense();
 </script>
-<h2>SQLite Release 3.8.11.1 On 2015-07-29</h2><p><b>Changes in version 3.8.11 (2015-07-27):</b></p>
+<h2>SQLite Release 3.8.11.1 On 2015-07-29</h2><p><b>Prior changes from version 3.8.11 (2015-07-27):</b></p>
 <p><ol class='lessindent'>
 <li value='1'>Added the experimental <a href="../rbu.html">RBU</a> extension.  Note that this extension is experimental
     and subject to change in incompatible ways.
@@ -141,10 +141,10 @@ antiRobotDefense();
     use for the initial set page cache lines.  Set the default preallocation
     to 100 pages.  Yields about a 5% performance increase on common workloads.
 <li>Miscellaneous micro-optimizations result in 22.3% more work for the same
-    number of CPU cycles relative to the previous release. 
+    number of CPU cycles relative to the previous release.
     SQLite now runs twice as fast as <a href="../releaselog/3_8_0.html">version 3.8.0</a> and three times as
     fast as <a href="../releaselog/3_3_9.html">version 3.3.9</a>.
-    (Measured using 
+    (Measured using
     <a href="http://valgrind.org/docs/manual/cg-manual.html">cachegrind</a> on the
     <a href="http://www.sqlite.org/src/artifact/83f6b3318f7ee">speedtest1.c</a> workload on
     Ubuntu 14.04 x64 with gcc 4.8.2 and -Os. Your performance may vary.)
@@ -165,7 +165,7 @@ antiRobotDefense();
     so that they actually do provide a 64-bit answer.
 
 </ol>
-<p><b>Additional changes in version 3.8.11.1 (2015-07-29):</b></p>
+<p><b>Changes in this specific patch release, version 3.8.11.1 (2015-07-29):</b></p>
 <p><ol class='lessindent'>
 <li value='21'>Restore an undocumented side-effect of <a href="../pragma.html#pragma_cache_size">PRAGMA cache_size</a>: force
     the database schema to be parsed if the database has not been previously accessed.
@@ -177,7 +177,7 @@ antiRobotDefense();
 </ol></p>
 
       <p>A <a href="../changes.html">complete list of SQLite releases</a>
-      in a single page and a <a href="../chronology.html">chronology</a> are both also available.  
+      in a single page and a <a href="../chronology.html">chronology</a> are both also available.
       A detailed history of every
       check-in is available at
       <a href="http://www.sqlite.org/src/timeline">

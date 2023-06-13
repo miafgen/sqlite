@@ -115,7 +115,7 @@ antiRobotGo();
 }
 antiRobotDefense();
 </script>
-<h2>SQLite Release 3.30.1 On 2019-10-10</h2><p><b>Changes in version 3.30.0 (2019-10-04):</b></p>
+<h2>SQLite Release 3.30.1 On 2019-10-10</h2><p><b>Prior changes from version 3.30.0 (2019-10-04):</b></p>
 <p><ol class='lessindent'>
 <li value='1'> Add support for the <a href="../lang_aggfunc.html#aggfilter">FILTER clause on aggregate functions</a>.
 <li> Add support for the <a href="../lang_select.html#nullslast">NULLS FIRST</a> and <a href="../lang_select.html#nullslast">NULLS LAST</a> syntax in <a href="../lang_select.html#orderby">ORDER BY</a> clauses.
@@ -145,10 +145,10 @@ antiRobotDefense();
      being used inside triggers and views.
 <li> The legacy <a href="../compile.html#enable_stat3">SQLITE_ENABLE_STAT3</a> compile-time option is now a no-op.
 </ol>
-<p><b>Additional changes in version 3.30.1 (2019-10-10):</b></p>
+<p><b>Changes in this specific patch release, version 3.30.1 (2019-10-10):</b></p>
 <p><ol class='lessindent'>
 <li value='13'> Fix a bug in the <a href="../optoverview.html#flattening">query flattener</a> that might cause a segfault
-for nested queries that use the new 
+for nested queries that use the new
 <a href="../lang_aggfunc.html#aggfilter">FILTER clause on aggregate functions</a>.
 Ticket <a href="https://www.sqlite.org/src/info/1079ad19993d13fa">1079ad19993d13fa</a>
 <li> Cherrypick fixes for other obscure problems found since the 3.30.0
@@ -160,7 +160,7 @@ Ticket <a href="https://www.sqlite.org/src/info/1079ad19993d13fa">1079ad19993d13
 </ol></p>
 
       <p>A <a href="../changes.html">complete list of SQLite releases</a>
-      in a single page and a <a href="../chronology.html">chronology</a> are both also available.  
+      in a single page and a <a href="../chronology.html">chronology</a> are both also available.
       A detailed history of every
       check-in is available at
       <a href="http://www.sqlite.org/src/timeline">

@@ -136,7 +136,7 @@ and to the <a href="lang_attach.html">ATTACH</a> command can be specified
 either as an ordinary filename or as a Uniform Resource Identifier or URI.
 The advantage of using a URI filename is that query parameters on the URI can
 be used to control details of the newly created database connection.
-For example, an alternative <a href="vfs.html">VFS</a> can be specified using a 
+For example, an alternative <a href="vfs.html">VFS</a> can be specified using a
 "vfs=" query parameter.
 Or the database can be opened read-only by using "mode=ro" as a query
 parameter.
@@ -169,8 +169,8 @@ is first opened, they will not be recognized by <a href="lang_attach.html">ATTAC
 Since SQLite always interprets any filename that does not begin
 with "<tt>file:</tt>"
 as an ordinary filename regardless of the URI setting, and because it is
-very unusual to have an actual file begin with "<tt>file:</tt>", 
-it is safe for most applications to enable URI processing even if URI 
+very unusual to have an actual file begin with "<tt>file:</tt>",
+it is safe for most applications to enable URI processing even if URI
 filenames are not currently being used.
 </p>
 
@@ -186,15 +186,17 @@ always required.  The query string and fragment are optional.
 <p>
 SQLite uses the "<tt>file:</tt>" URI syntax to identify database files.
 SQLite strives to interpret file: URIs in exactly the same way as
-popular web-browsers such as 
-<a href="http://www.mozilla.com/en-US/firefox/new/">Firefox</a>, 
-<a href="http://www.google.com/chrome/">Chrome</a>, 
-<a href="http://www.apple.com/safari/">Safari</a>, 
+popular web-browsers such as
+<a href="http://www.mozilla.com/en-US/firefox/new/">Firefox</a>,
+<a href="http://www.google.com/chrome/">Chrome</a>,
+<a href="http://www.apple.com/safari/">Safari</a>,
 <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home">Internet Explorer</a>, and
 <a href="http://www.opera.com/">Opera</a>,
-and command-line programs such as 
-<a href="http://www.microsoft.com/resources/documentation/windows/xp/all/proddocs/en-us/start.mspx">Windows "start"</a> and the Mac OS-X
-<a href="http://developer.apple.com/library/mac/#documentation/Darwin/Reference/ManPages/man1/open.1.html">"open"</a> command.
+and command-line programs such as Windows
+<a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/start">"cmd start"</a>
+or
+<a href="https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/start-process?view=powershell-7.3">"powershell start"</a>,
+or the macOS "open" or Linux "xdg-open" commands.
 A succinct summary of the URI parsing rules follows:
 </p>
 
@@ -204,25 +206,25 @@ A succinct summary of the URI parsing rules follows:
 </li><li> The authority may be omitted, may be blank, or may be
       "<tt>localhost</tt>".  Any other authority results in an error.
       Exception: If SQLite is compiled with <a href="compile.html#allow_uri_authority">SQLITE_ALLOW_URI_AUTHORITY</a>
-      then any authority value other than "localhost" is passed through to the 
+      then any authority value other than "localhost" is passed through to the
       underlying operating system as a UNC filename.
 </li><li> The path is optional if the authority is present.  If the authority
-     is omitted then the path is required. 
+     is omitted then the path is required.
 </li><li> The query string is optional.  If the query string is present, then
       all query parameters are passed through into the xOpen method of
-      the underlying <a href="vfs.html">VFS</a>.  
+      the underlying <a href="vfs.html">VFS</a>.
 </li><li> The fragment is optional.  If present, it is ignored.
 </li></ul>
 
-<p>Zero or more escape sequences of the form  "<b>%<i>HH</i></b>" 
-(where <b><i>H</i></b> represents any hexadecimal digit) can occur 
+<p>Zero or more escape sequences of the form  "<b>%<i>HH</i></b>"
+(where <b><i>H</i></b> represents any hexadecimal digit) can occur
 in the path, query string, or fragment.</p>
 
 <p>A filename that is not a well-formed URI is interpreted as an
 ordinary filename.</p>
 
 <p>URIs are processed as UTF8 text.
-The filename argument sqlite3_open16() is converted from UTF16 
+The filename argument sqlite3_open16() is converted from UTF16
 native byte order into UTF8 prior to processing.
 
 </p><h2 id="the_uri_path"><span>3.1. </span>The URI Path</h2>
@@ -231,7 +233,7 @@ native byte order into UTF8 prior to processing.
 SQLite database to be opened.  If the path component is omitted, then
 the database is stored in a temporary file that will be automatically
 deleted when the database connection closes.  If the authority section
-is present, then the path is always an absolute pathname.  If the 
+is present, then the path is always an absolute pathname.  If the
 authority section is omitted, then the path is an absolute pathname if it
 begins with the "/" character (ASCII code 0x2f) and is a relative
 pathname otherwise.  On windows, if the absolute path begins with
@@ -240,7 +242,7 @@ character ("a" through "z" or "A" through "Z") then the "<b><i>X:</i></b>"
 is understood to be the drive letter of the volume containing the file,
 not the toplevel directory.
 
-</p><p>An ordinary filename can usually be converted into an equivalent URI 
+</p><p>An ordinary filename can usually be converted into an equivalent URI
 by the steps shown below.  The one exception is that a relative windows
 pathname with a drive letter cannot be converted directly into a URI; it must
 be changed into an absolute pathname first.</p>
@@ -286,14 +288,14 @@ Note that the value of a query parameter can be an empty string.
 <h2 id="recognized_query_parameters"><span>3.3. </span>Recognized Query Parameters</h2>
 
 <p>
-Some query parameters are interpreted by the SQLite core and used to 
+Some query parameters are interpreted by the SQLite core and used to
 modify the characteristics of the new connection.  All query parameters
 are always passed through into the xOpen method of the <a href="vfs.html">VFS</a> even if
 they are previously read and interpreted by the SQLite core.
 </p>
 
 <p>
-The following query parameters are recognized by SQLite as of 
+The following query parameters are recognized by SQLite as of
 <a href="releaselog/3_15_0.html">version 3.15.0</a> (2016-10-14).
 New query parameters might be added in the future.
 </p>
@@ -311,13 +313,13 @@ using <a href="sharedcache.html">shared cache mode</a> or with a private cache.
 <dt><b>immutable=1</b></dt>
 <dd><p>The immutable query parameter is a boolean that signals to
 SQLite that the underlying database file is held on read-only media
-and cannot be modified, even by another process with elevated 
+and cannot be modified, even by another process with elevated
 privileges.  SQLite always opens immutable database files
 read-only and it skips all file locking and change detection
 on immutable database files.  If this query parameter (or
 the <a href="c3ref/c_iocap_atomic.html">SQLITE_IOCAP_IMMUTABLE</a> bit in xDeviceCharacteristics)
-asserts that a database file is immutable and that file 
-changes anyhow, then SQLite might return incorrect query 
+asserts that a database file is immutable and that file
+changes anyhow, then SQLite might return incorrect query
 results and/or <a href="rescode.html#corrupt">SQLITE_CORRUPT</a> errors.
 </p></dd>
 
@@ -345,7 +347,7 @@ database file to match the existing file "<i>filename</i>".
 to the xLock, xUnlock, and xCheckReservedLock methods of the VFS when true.
 The nolock query parameter might be used, for example, when trying to
 access a file on a filesystem that does not support file locking.
-Caution:  If two or more <a href="c3ref/sqlite3.html">database connections</a> try to interact with 
+Caution:  If two or more <a href="c3ref/sqlite3.html">database connections</a> try to interact with
 the same SQLite database and one or more of those connections has
 enabled "nolock", then database corruption can result.  The "nolock"
 query parameter should only be used if the application can guarantee
@@ -376,5 +378,5 @@ is built into SQLite or that has been previously registered using
 <li> <a href="c3ref/open.html#urifilenamesinsqlite3open">URI filenames in sqlite3_open()</a>
 </li><li> <a href="c3ref/open.html#urifilenameexamples">URI filename examples</a>
 </li></ul>
-<p align="center"><small><i>This page last modified on  <a href="https://sqlite.org/docsrc/honeypot" id="mtimelink"  data-href="https://sqlite.org/docsrc/finfo/pages/uri.in?m=adfa05577ead37cf9">2022-01-20 21:38:08</a> UTC </small></i></p>
+<p align="center"><small><i>This page last modified on  <a href="https://sqlite.org/docsrc/honeypot" id="mtimelink"  data-href="https://sqlite.org/docsrc/finfo/pages/uri.in?m=8b0b8e2fb2">2023-01-02 14:22:42</a> UTC </small></i></p>
 

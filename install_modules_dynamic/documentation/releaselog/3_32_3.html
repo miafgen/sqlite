@@ -115,7 +115,7 @@ antiRobotGo();
 }
 antiRobotDefense();
 </script>
-<h2>SQLite Release 3.32.3 On 2020-06-18</h2><p><b>Changes in version 3.32.0 (2020-05-22):</b></p>
+<h2>SQLite Release 3.32.3 On 2020-06-18</h2><p><b>Prior changes from version 3.32.0 (2020-05-22):</b></p>
 <p><ol class='lessindent'>
 <li value='1'> Added support for <a href="../lang_analyze.html#approx">approximate ANALYZE</a> using the
      <a href="../pragma.html#pragma_analysis_limit">PRAGMA analysis_limit</a> command.
@@ -151,7 +151,7 @@ antiRobotDefense();
 <li> The <a href="../lang_expr.html#like">ESCAPE</a> clause of a <a href="../lang_expr.html#like">LIKE</a> operator now overrides wildcard
      characters, so that the behavior matches what PostgreSQL does.
 </ol>
-<p><b>Additional changes in version 3.32.1 (2020-05-25):</b></p>
+<p><b>Prior changes from version 3.32.1 (2020-05-25):</b></p>
 <p><ol class='lessindent'>
 <li value='11'> Fix two long-standing bugs that allow malicious SQL statements
      to crash the process that is running SQLite.  These bugs were announced
@@ -159,14 +159,14 @@ antiRobotDefense();
      not specific to the 3.32.0 release.
 <li> Other minor compiler-warning fixes and whatnot.
 </ol>
-<p><b>Additional changes in version 3.32.2 (2020-06-04):</b></p>
+<p><b>Prior changes from version 3.32.2 (2020-06-04):</b></p>
 <p><ol class='lessindent'>
 <li value='13'> Fix a long-standing bug in the byte-code engine that can cause a
      <a href="../lang_transaction.html">COMMIT</a> command report as success when in fact it failed
      to commit.  Ticket
      <a href="https://www.sqlite.org/src/info/810dc8038872e212">810dc8038872e212</a>
 </ol>
-<p><b>Additional changes in version 3.32.3 (2020-06-18):</b></p>
+<p><b>Changes in this specific patch release, version 3.32.3 (2020-06-18):</b></p>
 <p><ol class='lessindent'>
 <li value='14'> Various minor bug fixes including fixes for tickets
      <a href="https://www.sqlite.org/src/info/8f157e8010b22af0">8f157e8010b22af0</a>,
@@ -182,7 +182,7 @@ antiRobotDefense();
 </ol></p>
 
       <p>A <a href="../changes.html">complete list of SQLite releases</a>
-      in a single page and a <a href="../chronology.html">chronology</a> are both also available.  
+      in a single page and a <a href="../chronology.html">chronology</a> are both also available.
       A detailed history of every
       check-in is available at
       <a href="http://www.sqlite.org/src/timeline">

@@ -121,10 +121,10 @@ antiRobotDefense();
 
 <font color="red"><b>
 Note:  This document is very very old.  It describes a speed comparison between
-archaic versions of SQLite, MySQL and PostgreSQL.  
+archaic versions of SQLite, MySQL and PostgreSQL.
 <p>
 The numbers here have become meaningless.  This page has been retained only
-as an historical artifact.  
+as an historical artifact.
 </b></font>
 
 <h3>Executive Summary</h3>
@@ -139,7 +139,7 @@ conclusions drawn from these experiments:
 <li><p>
   SQLite 2.7.6 is significantly faster (sometimes as much as 10 or
   20 times faster) than the default PostgreSQL 7.1.3 installation
-  on RedHat 7.2 for most common operations.  
+  on RedHat 7.2 for most common operations.
 </p></li>
 <li><p>
   SQLite 2.7.6 is often faster (sometimes
@@ -203,7 +203,7 @@ results, visit
 </p>
 
 <blockquote>
-<a href="http://www.sergeant.org/sqlite_vs_pgsync.html">http://www.sergeant.org/sqlite_vs_pgsync.html</a>
+Obsolete URL: http://www.sergeant.org/sqlite_vs_pgsync.html
 </blockquote>
 
 <p>
@@ -222,13 +222,13 @@ in the file <b>tools/speedtest.tcl</b>.
 </p>
 
 <p>
-The times reported on all tests represent wall-clock time 
+The times reported on all tests represent wall-clock time
 in seconds.  Two separate time values are reported for SQLite.
 The first value is for SQLite in its default configuration with
 full disk synchronization turned on.  With synchronization turned
 on, SQLite executes
 an <b>fsync()</b> system call (or the equivalent) at key points
-to make certain that critical data has 
+to make certain that critical data has
 actually been written to the disk drive surface.  Synchronization
 is necessary to guarantee the integrity of the database if the
 operating system crashes or the computer powers down unexpectedly
@@ -238,7 +238,7 @@ SQLite is sometimes much faster, but there is a risk that an
 operating system crash or an unexpected power failure could
 damage the database.  Generally speaking, the synchronous SQLite
 times are for comparison against PostgreSQL (which is also
-synchronous) and the asynchronous SQLite times are for 
+synchronous) and the asynchronous SQLite times are for
 comparison against the asynchronous MySQL engine.
 </p>
 
@@ -266,7 +266,7 @@ its cache, for each transaction.  In this test, each SQL statement
 is a separate transaction so the database file must be opened and closed
 and the cache must be flushed 1000 times.  In spite of this, the asynchronous
 version of SQLite is still nearly as fast as MySQL.  Notice how much slower
-the synchronous version is, however.  SQLite calls <b>fsync()</b> after 
+the synchronous version is, however.  SQLite calls <b>fsync()</b> after
 each synchronous transaction to make sure that all data is safely on
 the disk surface before continuing.  For most of the 13 seconds in the
 synchronous test, SQLite was sitting idle waiting on disk I/O to complete.</p>
@@ -516,7 +516,7 @@ DELETE FROM t2 WHERE c LIKE '%fifty%';
 
 <p>
 The synchronous version of SQLite is the slowest of the group in this test,
-but the asynchronous version is the fastest.  
+but the asynchronous version is the fastest.
 The difference is the extra time needed to execute fsync().
 </p>
 
@@ -594,8 +594,8 @@ so they can drop a table simply by deleting a file, which is much faster.
 </p>
 
 <p>
-On the other hand, dropping tables is not a very common operation 
+On the other hand, dropping tables is not a very common operation
 so if SQLite takes a little longer, that is not seen as a big problem.
 </p>
-<p align="center"><small><i>This page last modified on  <a href="https://sqlite.org/docsrc/honeypot" id="mtimelink"  data-href="https://sqlite.org/docsrc/finfo/pages/speed.in?m=3bf464cea8e518c51">2014-04-01 15:02:43</a> UTC </small></i></p>
+<p align="center"><small><i>This page last modified on  <a href="https://sqlite.org/docsrc/honeypot" id="mtimelink"  data-href="https://sqlite.org/docsrc/finfo/pages/speed.in?m=5496b6bdd5">2023-01-02 14:22:42</a> UTC </small></i></p>
 

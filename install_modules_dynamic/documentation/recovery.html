@@ -323,7 +323,14 @@ The two C source file above need to be linked into your application in the
 same way as "sqlite3.c" is linked in.  And the header file needs to be
 accessible to the compiler when the C files are being compiled.
 
-</p><h2 id="how_to_implement_recovery"><span>3.2. </span>How To Implement Recovery</h2>
+</p><p>
+Additionally, the application, or more specifically the sqlite3.c linked
+into the application, must be compiled with the following option:
+</p><pre>
+        -DSQLITE_ENABLE_DBPAGE_VTAB
+</pre>
+
+<h2 id="how_to_implement_recovery"><span>3.2. </span>How To Implement Recovery</h2>
 
 <p>These are the basic steps needed to recover content from a corrupt
 Database:
@@ -380,5 +387,5 @@ An example of the recovery extension found in the
 </p><p>
 The code that implements the ".recover" command in the <a href="cli.html">CLI</a>.
 </p></li></ul>
-<p align="center"><small><i>This page last modified on  <a href="https://sqlite.org/docsrc/honeypot" id="mtimelink"  data-href="https://sqlite.org/docsrc/finfo/pages/recovery.in?m=e396bdde80595020a">2022-11-04 15:23:18</a> UTC </small></i></p>
+<p align="center"><small><i>This page last modified on  <a href="https://sqlite.org/docsrc/honeypot" id="mtimelink"  data-href="https://sqlite.org/docsrc/finfo/pages/recovery.in?m=846399393d">2023-02-28 11:22:37</a> UTC </small></i></p>
 

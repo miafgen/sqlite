@@ -156,7 +156,7 @@ mk.innerHTML = "&#x25ba;";
 <h1 id="introduction"><span>1. </span>Introduction</h1>
 
 <p>
-An "SQLite Archive" is a file container similar to a 
+An "SQLite Archive" is a file container similar to a
 <a href="https://en.wikipedia.org/wiki/Zip_(file_format)">ZIP archive</a> or
 <a href="https://en.wikipedia.org/wiki/Tar_(computing)">Tarball</a> but
 based on an SQLite database.
@@ -273,7 +273,7 @@ lots of extra custom code, or sometimes both.
 
 </p></li><li><p>
 An SQLite Archive can work around firewall-imposed censorship.
-For example, certain file types that are considered "dangerous" 
+For example, certain file types that are considered "dangerous"
 (examples: DLLs) will be
 <a href="https://support.google.com/mail/answer/6590">blocked by Gmail</a>
 and probably many other email services and firewalls, even if the
@@ -324,7 +324,7 @@ compression methods.
 
 <p>
 The recommended way of creating, updating, listing, and extracting
-an SQLite Archive is to use the <a href="cli.html">sqlite3.exe command-line shell</a> 
+an SQLite Archive is to use the <a href="cli.html">sqlite3.exe command-line shell</a>
 for SQLite <a href="releaselog/3_23_0.html">version 3.23.0</a> (2018-04-02) or later.  This CLI
 supports the -A command-line option that allows easy management
 of SQLite Archives.
@@ -374,7 +374,7 @@ is a ZIP Archive instead of an SQLite database.
 
 <p>
 Just as there is the "zip" program to manage ZIP Archives, and the
-"tar" program to manage Tarballs, the 
+"tar" program to manage Tarballs, the
 <a href="https://sqlite.org/sqlar">"sqlar" program</a> exists to manage SQL Archives.
 The "sqlar" program is able to create a new SQLite Archive, list the
 content of an existing archive, add or remove files from the archive,
@@ -386,7 +386,7 @@ a <a href="https://github.com/libfuse/libfuse">Fuse Filesystem</a>.
 
 <p>
 Applications can easily read or write SQLite Archives by linking against
-SQLite and including the 
+SQLite and including the
 <a href="https://sqlite.org/src/file/ext/misc/sqlar.c">ext/misc/sqlar.c</a> extension
 to handle the compression and decompression.  The sqlar.c extension
 creates two new SQL functions.
@@ -395,8 +395,8 @@ creates two new SQL functions.
 <dt><b>sqlar_compress(X)</b></dt>
 <dd><p>
 The sqlar_compress(X) function attempts to compress a copy of the
-string or blob X using the <a href="https://zlib.net/">Default</a> algorithm and
-returns the result as a blob.  If the input X is incompressible, then
+blob X using the <a href="https://zlib.net/">Default</a> algorithm and returns the
+result as a blob.  If the input X is not a compressible blob, then
 a copy of X is returned.  This routine is used when inserting content
 into an SQLite Archive.
 </p></dd><dt><b>sqlar_uncompress(Y,SZ)</b></dt>
@@ -438,5 +438,5 @@ JPEG, GIF, and/or PNG images) then the content can be inserted into
 and extracted from the database without using the sqlar_compress()
 and sqlar_uncompress() functions, and the sqlar.c extension is not
 required.
-</p><p align="center"><small><i>This page last modified on  <a href="https://sqlite.org/docsrc/honeypot" id="mtimelink"  data-href="https://sqlite.org/docsrc/finfo/pages/sqlar.in?m=f269c832360dc8a51">2020-12-02 18:42:06</a> UTC </small></i></p>
+</p>
 

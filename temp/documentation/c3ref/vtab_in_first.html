@@ -117,7 +117,7 @@ antiRobotDefense();
 </script>
 <!-- keywords: sqlite3_vtab_in_first sqlite3_vtab_in_next -->
 <div class=nosearch>
-<a href="intro.html"><h2>SQLite C Interface</h2></a>
+<a href="../c3ref/intro.html"><h2>SQLite C Interface</h2></a>
 <h2>Find all elements on the right-hand side of an IN constraint.</h2>
 </div>
 <blockquote><pre>
@@ -131,21 +131,20 @@ The result of invoking these interfaces from any other context
 is undefined and probably harmful.</p>
 
 <p>The X parameter in a call to sqlite3_vtab_in_first(X,P) or
-sqlite3_vtab_in_next(X,P) must be one of the parameters to the
+sqlite3_vtab_in_next(X,P) should be one of the parameters to the
 xFilter method which invokes these routines, and specifically
 a parameter that was previously selected for all-at-once IN constraint
 processing use the <a href="../c3ref/vtab_in.html">sqlite3_vtab_in()</a> interface in the
 <a href="../vtab.html#xbestindex">xBestIndex method</a>.  If the X parameter is not
 an xFilter argument that was selected for all-at-once IN constraint
-processing, then these routines return <a href="../rescode.html#misuse">SQLITE_MISUSE</a> or perhaps
-exhibit some other undefined or harmful behavior.</p>
+processing, then these routines return <a href="../rescode.html#error">SQLITE_ERROR</a>.</p>
 
 <p>Use these routines to access all values on the right-hand side
 of the IN constraint using code like the following:</p>
 
 <p><blockquote><pre>
 &nbsp;  for(rc=sqlite3_vtab_in_first(pList, &pVal);
-&nbsp;      rc==SQLITE_OK && pVal
+&nbsp;      rc==SQLITE_OK && pVal;
 &nbsp;      rc=sqlite3_vtab_in_next(pList, &pVal)
 &nbsp;  ){
 &nbsp;    // do something with pVal
@@ -168,7 +167,7 @@ method from which these routines were called.  If the virtual table
 implementation needs to retain the *ppOut values for longer, it must make
 copies.  The *ppOut values are <a href="../c3ref/value.html">protected</a>.
 </p><p>See also lists of
-  <a href="objlist.html">Objects</a>,
-  <a href="constlist.html">Constants</a>, and
-  <a href="funclist.html">Functions</a>.</p>
+  <a href="../c3ref/objlist.html">Objects</a>,
+  <a href="../c3ref/constlist.html">Constants</a>, and
+  <a href="../c3ref/funclist.html">Functions</a>.</p>
 

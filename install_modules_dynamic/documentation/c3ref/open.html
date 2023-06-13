@@ -117,7 +117,7 @@ antiRobotDefense();
 </script>
 <!-- keywords: sqlite3_open sqlite3_open16 sqlite3_open_v2 -->
 <div class=nosearch>
-<a href="intro.html"><h2>SQLite C Interface</h2></a>
+<a href="../c3ref/intro.html"><h2>SQLite C Interface</h2></a>
 <h2>Opening A New Database Connection</h2>
 </div>
 <blockquote><pre>
@@ -166,13 +166,18 @@ three flag combinations:</p>
 
 <p><dl>
 <dt><a href="../c3ref/c_open_autoproxy.html">SQLITE_OPEN_READONLY</a></dt>
-<dd>The database is opened in read-only mode.  If the database does not
-already exist, an error is returned.</dd></p>
+<dd>The database is opened in read-only mode.  If the database does
+not already exist, an error is returned.</dd></p>
 
 <p><dt><a href="../c3ref/c_open_autoproxy.html">SQLITE_OPEN_READWRITE</a></dt>
-<dd>The database is opened for reading and writing if possible, or reading
-only if the file is write protected by the operating system.  In either
-case the database must already exist, otherwise an error is returned.</dd></p>
+<dd>The database is opened for reading and writing if possible, or
+reading only if the file is write protected by the operating
+system.  In either case the database must already exist, otherwise
+an error is returned.  For historical reasons, if opening in
+read-write mode fails due to OS-level permissions, an attempt is
+made to open it in read-only mode. <a href="../c3ref/db_readonly.html">sqlite3_db_readonly()</a> can be
+used to determine whether the database is actually
+read-write.</dd></p>
 
 <p><dt><a href="../c3ref/c_open_autoproxy.html">SQLITE_OPEN_READWRITE</a> | <a href="../c3ref/c_open_autoproxy.html">SQLITE_OPEN_CREATE</a></dt>
 <dd>The database is opened for reading and writing, and is created if
@@ -411,7 +416,7 @@ features that require the use of temporary files may fail.</p>
 
 <p>See also: <a href="../c3ref/temp_directory.html">sqlite3_temp_directory</a>
 </p><p>See also lists of
-  <a href="objlist.html">Objects</a>,
-  <a href="constlist.html">Constants</a>, and
-  <a href="funclist.html">Functions</a>.</p>
+  <a href="../c3ref/objlist.html">Objects</a>,
+  <a href="../c3ref/constlist.html">Constants</a>, and
+  <a href="../c3ref/funclist.html">Functions</a>.</p>
 

@@ -138,27 +138,35 @@ Because there is only this
 one command, the interface is not placed in a separate
 namespace.</p>
 
-<p>The <b>sqlite3</b> command is used as follows:</p>
+<p>The <b>sqlite3</b> command is mostly used as follows
+to open or create a database:</p>
 
 <blockquote>
-<b>sqlite3</b>&nbsp;&nbsp;<i>dbcmd&nbsp;&nbsp;database-name&nbsp;&nbsp;?options?</i>
+<b>sqlite3</b>&nbsp;&nbsp;<i>dbcmd&nbsp;&nbsp;?database-name?&nbsp;&nbsp;?options?</i>
 </blockquote>
 
-<p>
-The <b>sqlite3</b> command opens the database named in the second
-argument.  If the database does not already exist, the default behavior
+<p>To get information only, the <b>sqlite3</b> command may be given exactly
+one argument, either "-version", "-sourceid" or "-has-codec", which will
+return the specified datum with no other effect.
+</p>
+
+<p>With other arguments, the <b>sqlite3</b> command opens the database
+named in the second non-option argument, or named "" if there is no such.
+If the open succeeds, a new Tcl command named by the first argument is created
+and "" is returned.
+(This approach is similar to the way widgets are created in Tk.)
+If the open fails, an error is raised without creating a Tcl command
+and an error message string is returned.
+</p>
+<p>If the database does not already exist, the default behavior
 is for it to be created automatically (though this can be changed by
-using the "<b>-create false</b>" option).
-The <b>sqlite3</b> command always creates a new Tcl
-command to control the database.  The name of the new Tcl command
-is given by the first argument.  This approach is similar to the
-way widgets are created in Tk.
+using the "<b>-create <i>false</i></b>" option).
 </p>
 
 <p>
 The name of the database is usually just the name of a disk file in which
-the database is stored.  If the name of the database is 
-the special name "<a href="inmemorydb.html">:memory:</a>" then a new database is created
+the database is stored.  If the name of the database is
+the special name "<a href="inmemorydb.html">:memory:</a>", then a new database is created
 in memory.  If the name of the database is an empty string, then
 the database is created in an empty file that is automatically deleted
 when the database connection closes.  <a href="uri.html">URI filenames</a> can be used if
@@ -209,13 +217,28 @@ false, then the argument is a literal filename.  The default value is
 Use an alternative <a href="vfs.html">VFS</a> named by the argument.
 </p></dd>
 
+<dt><b>-fullmutex</b> <i>BOOLEAN</i></dt>
+<dd><p>
+If true, multiple threads can safely attempt to use the database.
+If false, such attempts are unsafe. The default value depends upon
+how the extension is built.
+</p></dd>
+
+<dt><b>-nofollow</b> <i>BOOLEAN</i></dt>
+<dd><p>
+If true, and the database name refers to a symbolic link,
+it will not be followed to open the true database file.
+If false, symbolic links will be followed.
+The default is "false".
+</p></dd>
+
 </dl>
 </blockquote>
 
 
 
 <p>
-Once an SQLite database is open, it can be controlled using 
+Once an SQLite database is open, it can be controlled using
 methods of the <i>dbcmd</i>.
 There are currently 40 methods
 defined.</p>
@@ -284,7 +307,7 @@ to execute SQL on the database.  The syntax of the eval method looks
 like this:</p>
 
 <blockquote>
-<i>dbcmd</i>&nbsp;&nbsp;<b>eval</b>&nbsp;&nbsp;?<i>options</i>?&nbsp;&nbsp;<i>sql</i>
+<i>dbcmd</i>&nbsp;&nbsp;<b>eval</b>&nbsp;&nbsp;?<b>-withoutnulls</b>?&nbsp;&nbsp;<i>sql</i>
 &nbsp;&nbsp;?<i>array-name</i>?&nbsp;&nbsp;?<i>script</i>?
 </blockquote>
 
@@ -428,14 +451,14 @@ is another way to express the same statement:
 db1 eval {INSERT INTO t1 VALUES(5,:bigstring)}
 </b></blockquote>
 
-<p>The use of ":" instead of "$" before the name of a variable can 
+<p>The use of ":" instead of "$" before the name of a variable can
 sometimes be useful if the SQL text is enclosed in double-quotes "..."
-instead of curly-braces {...}.  
+instead of curly-braces {...}.
 When the SQL is contained within double-quotes "..." then TCL will do
 the substitution of $-variables, which can lead to SQL injection if
 extreme care is not used.  But TCL will never substitute a :-variable
-regardless of whether double-quotes "..." or curly-braces {...} are 
-used to enclose the SQL, so the use of :-variables adds an extra 
+regardless of whether double-quotes "..." or curly-braces {...} are
+used to enclose the SQL, so the use of :-variables adds an extra
 measure of defense against SQL
 injection.
 </p>
@@ -509,7 +532,7 @@ The <i>transaction-type</i> can be one of <b>deferred</b>,
 <p>
 The "eval" method described <a href="#eval">above</a> keeps a cache of
 <a href="c3ref/prepare.html">prepared statements</a>
-for recently evaluated SQL commands.  
+for recently evaluated SQL commands.
 The "cache" method is used to control this cache.
 The first form of this command is:</p>
 
@@ -528,7 +551,7 @@ to 0, no caching is done.</p>
 <i>dbcmd</i>&nbsp;&nbsp;<b>cache flush</b>
 </blockquote>
 
-<p>The cache-flush method 
+<p>The cache-flush method
 <a href="c3ref/finalize.html">finalizes</a>
 all prepared statements currently
 in the cache.</p>
@@ -544,7 +567,7 @@ there is more to be entered.</p>
 
 <p>The "complete" method is useful when building interactive applications
 in order to know when the user has finished entering a line of SQL code.
-This is really just an interface to the 
+This is really just an interface to the
 <a href="c3ref/complete.html"><b>sqlite3_complete()</b></a> C
 function.
 <a name="config"></a>
@@ -575,7 +598,7 @@ The following four configuration changes are recommended for maximum
 application security.  Turning off the trust_schema setting prevents
 virtual tables and dodgy SQL functions from being used inside of triggers,
 views, CHECK constraints, generated columns, and expression indexes.
-Turning off the dqs_dml and dqs_ddl settings prevents the use of 
+Turning off the dqs_dml and dqs_ddl settings prevents the use of
 double-quoted strings.  Turning on defensive prevents direct writes
 to shadow tables.
 
@@ -604,8 +627,8 @@ The syntax of the copy method looks like this:</p>
 <p>Conflict-algorithm must be one of the SQLite conflict algorithms for
 the INSERT statement: <i>rollback</i>, <i>abort</i>,
 <i>fail</i>,<i>ignore</i>, or <i>replace</i>. See the SQLite Language
-section for <a href="lang.html#conflict">ON CONFLICT</a> for more information.
-The conflict-algorithm must be specified in lower case.
+section for <a href="lang_conflict.html">ON CONFLICT</a> for
+more information. The conflict-algorithm must be specified in lower case.
 </p>
 
 <p>Table-name must already exists as a table.  File-name must exist, and
@@ -623,7 +646,7 @@ is specified, a column-separator argument must be specified and
 precede the null-indicator argument.</p>
 
 <p>The copy method implements similar functionality to the <b>.import</b>
-SQLite shell command. 
+SQLite shell command.
 <a name="timeout"></a>
 <h3>The "timeout" method</h3>
 
@@ -663,7 +686,7 @@ Tcl procedure that is invoked whenever SQLite tries to open a locked
 database.  A single integer argument is appended to the callback before
 it is invoke.  The argument is the number of prior calls to the busy
 callback for the current locking event.  It is intended that
-the callback will do some other useful work for a short while 
+the callback will do some other useful work for a short while
 (such as service GUI events) then return
 so that the lock can be tried again.  The callback procedure should
 return "0" if it wants SQLite to try again to open the database and
@@ -685,7 +708,7 @@ this method.</p>
 <p>This method takes a single boolean argument which will turn the
 extension loading functionality on or off.</p>
 
-<p>For best security, do not use this method unless truly needed, 
+<p>For best security, do not use this method unless truly needed,
 and run <a href="pragma.html#pragma_trusted_schema">PRAGMA trusted_schema=OFF</a> or the
 "<a href="#config">db config trusted_schema 0</a>" method <u>before</u>
 invoking this method.
@@ -729,9 +752,20 @@ TCL command before it is invoked.</p>
 
 <p>
 For security reasons, it is recommended that applications first set
-<a href="pragma.html#pragma_trusted_schema">PRAGMA trusted_schema=OFF</a> or run the 
+<a href="pragma.html#pragma_trusted_schema">PRAGMA trusted_schema=OFF</a> or run the
 "<a href="#config">db config trusted_schema 0</a>"
-method before using this method.
+method before using this method.</p>
+
+<p>
+The syntax looks like this:
+</p>
+
+<blockquote>
+<i>dbcmd</i>&nbsp;&nbsp;<b>function</b>
+&nbsp;&nbsp;<i>sql-name</i>
+&nbsp;&nbsp;<i>?options?</i>
+&nbsp;&nbsp;<i>script</i>
+</blockquote>
 
 <p>
 The following example creates a new SQL function named "hex" that converts
@@ -755,7 +789,7 @@ value of -1 means any number of arguments.
 <dd><p>
 This option indicates that the function will always return the same
 answer given the same argument values.  The SQLite query optimizer
-uses this information to cache answers from function calls with 
+uses this information to cache answers from function calls with
 constant inputs and reuse the result rather than invoke the function
 repeatedly.
 </dd>
@@ -828,7 +862,7 @@ representation for NULL values is an empty string.</p>
 <h3>The "onecolumn" method</h3>
 
 
-<p>The "onecolumn" method works like 
+<p>The "onecolumn" method works like
 "<a href="#eval">eval</a>" in that it evaluates the
 SQL query statement given as its argument.  The difference is that
 "onecolumn" returns a single element which is the first column of the
@@ -855,7 +889,7 @@ current database connection was first opened.</p>
 <h3>The "authorizer" method</h3>
 
 
-<p>The "authorizer" method provides access to the 
+<p>The "authorizer" method provides access to the
 <a href="c3ref/set_authorizer.html">sqlite3_set_authorizer</a>
 C/C++ interface.  The argument to authorizer is the name of a procedure that
 is called when SQL statements are being compiled in order to authorize
@@ -890,8 +924,8 @@ be by default.
 <p>The "bind_fallback" method has a single optional argument.  If the argument
 is an empty string, then the bind_fallback is cancelled and the default behavior
 is restored.  If the argument is a non-empty string, then the argument is a
-TCL command (usually the name of a proc) to invoke whenever an SQL parameter 
-is seen that does not match any TCL variable.  If the "bind_fallback" method 
+TCL command (usually the name of a proc) to invoke whenever an SQL parameter
+is seen that does not match any TCL variable.  If the "bind_fallback" method
 is given no arguments, then the current bind_fallback command is returned.
 
 <p>As an example, the following setup causes TCL to throw an error if
@@ -975,7 +1009,7 @@ not using indices to speed search or sorting.</p>
 <h3>The "update_hook" method</h3>
 
 
-<p>This method registers a callback routine that is invoked just before
+<p>This method registers a callback routine that is invoked just after
 each row is modified by an UPDATE, INSERT, or DELETE statement.  Four
 arguments are appended to the callback before it is invoked:</p>
 
@@ -985,6 +1019,56 @@ arguments are appended to the callback before it is invoked:</p>
 <li>The table that is being changed</li>
 <li>The rowid of the row in the table being changed</li>
 </ul>
+
+<p>The callback must not do anything that will modify the database connection
+that invoked the update hook such as running queries.</p>
+<a name="preupdate"></a>
+<h3>The "preupdate" method</h3>
+
+
+<p>This method either registers a callback routine that is invoked just
+before each row is modified by an UPDATE, INSERT, or DELETE statement,
+or may perform certain operations related to the impending update.</p>
+
+<p>To register or remove a preupdate callback, use this syntax:
+<blockquote>
+<i>dbcmd</i>&nbsp;&nbsp;<b>preupdate&nbsp;&nbsp;hook</b>&nbsp;&nbsp;<i>?SCRIPT?</i>
+</blockquote>
+When a preupdate callback is registered, then prior to each row modification,
+the callback is run with these arguments:
+<ul>
+<li>The keyword "INSERT", "UPDATE", or "DELETE", as appropriate</li>
+<li>The name of the database which is being changed</li>
+<li>The table that is being changed</li>
+<li>The original rowid of the row in the table being changed</li>
+<li>The new rowid (if any) of the row in the table being changed</li>
+</ul>
+The callback must not do anything that will modify the database connection
+that invoked the preupdate hook such as running queries.</p>
+
+<p>When the callback is executing, and only then, these preupdate operations
+may be performed by use of the indicated syntax:
+<blockquote>
+<i>dbcmd</i>&nbsp;&nbsp;<b>preupdate&nbsp;&nbsp;count</b><br>
+<i>dbcmd</i>&nbsp;&nbsp;<b>preupdate&nbsp;&nbsp;depth</b><br>
+<i>dbcmd</i>&nbsp;&nbsp;<b>preupdate&nbsp;&nbsp;new</b>&nbsp;&nbsp;<i>INDEX</i><br>
+<i>dbcmd</i>&nbsp;&nbsp;<b>preupdate&nbsp;&nbsp;old</b>&nbsp;&nbsp;<i>INDEX</i><br>
+</blockquote>
+</p>
+
+<p>The <b>count</b> submethod returns the number of columns in the row that is
+being inserted, updated, or deleted.</p>
+<p>The <b>depth</b> submethod returns the update nesting depth. This will be
+0 for a direct insert, update, or delete operation;
+1 for inserts, updates, or deletes invoked by top-level triggers;
+or higher values for changes resulting from trigger-invoked triggers.</p>
+
+<p>The <b>old</b> and <b>new</b> submethods return the selected original
+or changed column value respectively of the row being updated.</p>
+
+<p>Note that the Tcl interface (and underlying SQLite library) must have
+been built with the preprocessor symbol SQLITE_ENABLE_PREUPDATE_HOOK
+defined for the <b>preupdate</b> method to be available.</p>
 <a name="wal_hook"></a>
 <h3>The "wal_hook" method</h3>
 
@@ -1004,7 +1088,7 @@ By default this single WAL hook is used for the auto-checkpointing.  If you
 set up an explicit WAL hook, then that one WAL hook must ensure that checkpoints
 are occurring since the auto-checkpointing mechanism will be disabled.</p>
 
-<p>This method should return an integer value that is equivalent to an 
+<p>This method should return an integer value that is equivalent to an
 SQLite error code (usually 0 for SQLITE_OK in the case of success or 1 for
 SQLITE_ERROR if some error occurs). As in <a href="c3ref/wal_hook.html">sqlite3_wal_hook()</a>, the results of
 returning an integer that does not correspond to an SQLite error code are
@@ -1025,7 +1109,7 @@ into a preexisting BLOB in the database.  The syntax is like this:</p>
 
 <p>
 The command returns a new TCL channel for reading or writing to the BLOB.
-The channel is opened using the underlying 
+The channel is opened using the underlying
 <a href="c3ref/blob_open.html">sqlite3_blob_open()</a> C-language
 interface.  Close the channel using the <b>close</b> command of TCL.
 </p>
@@ -1124,7 +1208,7 @@ it does, it must be a well-formed SQLite database.</p>
 <h3>The "restore" method</h3>
 
 
-<p>The "restore" method copies the content from a separate database file 
+<p>The "restore" method copies the content from a separate database file
 into the current database connection, overwriting any preexisting content.
 The command syntax is like this:</p>
 
@@ -1133,8 +1217,8 @@ The command syntax is like this:</p>
 </blockquote>
 
 <p>The optional <i>target-database</i> argument tells which database in
-the current connection should be overwritten with new content.  
-The default value is <b>main</b> 
+the current connection should be overwritten with new content.
+The default value is <b>main</b>
 (or, in other words, the primary database file).  To repopulate the TEMP tables
 use <b>temp</b>.  To overwrite an auxiliary database added to the connection
 using the <a href="lang_attach.html">ATTACH</a> command, use the name of that database as it was assigned
@@ -1210,8 +1294,8 @@ the statement, in nanoseconds.
 </p>
 <p>A database handle may only have a single profile script registered at
 any time. If there is already a script registered when the profile method
-is invoked, the previous profile script is replaced by the new one. If the 
-<i>script</i> argument is an empty string, any previously registered 
+is invoked, the previous profile script is replaced by the new one. If the
+<i>script</i> argument is an empty string, any previously registered
 profile callback is canceled but no new profile script is registered.
 </p>
 <a name="unlock_notify"></a>
@@ -1222,5 +1306,5 @@ profile callback is canceled but no new profile script is registered.
    this method by applications is discouraged.
 </p>
 
-<p align="center"><small><i>This page last modified on  <a href="https://sqlite.org/docsrc/honeypot" id="mtimelink"  data-href="https://sqlite.org/docsrc/finfo/pages/tclsqlite.in?m=600f5d243b3bc655b">2020-04-10 00:26:39</a> UTC </small></i></p>
+
 

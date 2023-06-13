@@ -115,7 +115,7 @@ antiRobotGo();
 }
 antiRobotDefense();
 </script>
-<a href="intro.html"><h2>Session Module C Interface</h2></a><h2>Create A New Session Object</h2><blockquote><pre>int sqlite3session_create(
+<a href="../session/intro.html"><h2>Session Module C Interface</h2></a><h2>Create A New Session Object</h2><blockquote><pre>int sqlite3session_create(
   sqlite3 *db,                    /* Database handle */
   const char *zDb,                /* Name of db (e.g. "main") */
   sqlite3_session **ppSession     /* OUT: New session object */
@@ -148,7 +148,7 @@ database zDb, where zDb is either "main", or "temp", or the name of an
 attached database. It is not an error if database zDb is not attached
 to the database when the session object is created.
 </p><p>See also lists of
-  <a href="objlist.html">Objects</a>,
-  <a href="constlist.html">Constants</a>, and
-  <a href="funclist.html">Functions</a>.</p>
+  <a href="../session/objlist.html">Objects</a>,
+  <a href="../session/constlist.html">Constants</a>, and
+  <a href="../session/funclist.html">Functions</a>.</p>
 

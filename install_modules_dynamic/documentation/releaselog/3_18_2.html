@@ -115,17 +115,17 @@ antiRobotGo();
 }
 antiRobotDefense();
 </script>
-<h2>SQLite Release 3.18.2 On 2017-06-17</h2><p><b>Changes in version 3.18.0 (2017-03-30):</b></p>
+<h2>SQLite Release 3.18.2 On 2017-06-17</h2><p><b>Prior changes from version 3.18.0 (2017-03-30):</b></p>
 <p><ol class='lessindent'>
 <li value='1'>Added the <a href="../pragma.html#pragma_optimize">PRAGMA optimize</a> command
 <li>The SQLite version identifier returned by the <a href="../lang_corefunc.html#sqlite_source_id">sqlite_source_id()</a> SQL function
     and the <a href="../c3ref/libversion.html">sqlite3_sourceid()</a> C API and found in the <a href="../c3ref/c_source_id.html">SQLITE_SOURCE_ID</a> macro is
     now a 64-digit SHA3-256 hash instead of a 40-digit SHA1 hash.
 <li>Added the <a href="../json1.html#jpatch">json_patch()</a> SQL function to the <a href="../json1.html">JSON1 extension</a>.
-<li>Enhance the <a href="../optoverview.html#like_opt">LIKE optimization</a> so that it works for arbitrary expressions on 
+<li>Enhance the <a href="../optoverview.html#like_opt">LIKE optimization</a> so that it works for arbitrary expressions on
     the left-hand side as long as the LIKE pattern on the right-hand side does not
     begin with a digit or minus sign.
-<li>Added the <a href="../c3ref/set_last_insert_rowid.html">sqlite3_set_last_insert_rowid()</a> interface and use the new interface in 
+<li>Added the <a href="../c3ref/set_last_insert_rowid.html">sqlite3_set_last_insert_rowid()</a> interface and use the new interface in
     the <a href="../fts3.html">FTS3</a>, <a href="../fts3.html#fts4">FTS4</a>, and <a href="../fts5.html">FTS5</a> extensions to ensure that the <a href="../c3ref/last_insert_rowid.html">sqlite3_last_insert_rowid()</a>
     interface always returns reasonable values.
 <li>Enhance <a href="../pragma.html#pragma_integrity_check">PRAGMA integrity_check</a> and <a href="../pragma.html#pragma_quick_check">PRAGMA quick_check</a> so that they verify
@@ -136,7 +136,7 @@ antiRobotDefense();
     to put comma separators at the thousands marks for integers, if the "," format modifier
     is used in between the "%" and the "d" (example: "%,d").
 <li>Added the -D<a href="../compile.html#max_memory">SQLITE_MAX_MEMORY</a>=<i>N</i> compile-time option.
-<li>Added the <a href="../cli.html#sha3sum">.sha3sum dot-command</a> and the <a href="../cli.html#selftest">.selftest dot-command</a> 
+<li>Added the <a href="../cli.html#sha3sum">.sha3sum dot-command</a> and the <a href="../cli.html#selftest">.selftest dot-command</a>
     to the <a href="../cli.html">command-line shell</a>
 <li>Begin enforcing <a href="../c3ref/c_limit_attached.html#sqlitelimitvdbeop">SQLITE_LIMIT_VDBE_OP</a>. This can be used, for example, to prevent
     excessively large prepared statements in systems that accept SQL queries from
@@ -156,13 +156,13 @@ antiRobotDefense();
 <li>The <a href="../c3ref/trace_v2.html">sqlite3_trace_v2()</a> output for nested SQL statements should always begin
     with a "--" comment marker.
 </ol>
-<p><b>Additional changes in version 3.18.1 (2017-06-16):</b></p>
+<p><b>Prior changes from version 3.18.1 (2017-06-16):</b></p>
 <p><ol class='lessindent'>
 <li value='18'>Fix a bug associated with <a href="../pragma.html#pragma_auto_vacuum">auto_vacuum</a> that can lead to database
     corruption.  The bug was introduced in <a href="../releaselog/3_16_0.html">version 3.16.0</a> (2017-01-02).
     Ticket <a href="https://sqlite.org/src/info/fda22108">fda22108</a>.
 </ol>
-<p><b>Additional changes in version 3.18.2 (2017-06-17):</b></p>
+<p><b>Changes in this specific patch release, version 3.18.2 (2017-06-17):</b></p>
 <p><ol class='lessindent'>
 <li value='19'>Fix a bug that might cause duplicate output rows when an IN operator is
     used in the WHERE clause.
@@ -174,7 +174,7 @@ antiRobotDefense();
 </ol></p>
 
       <p>A <a href="../changes.html">complete list of SQLite releases</a>
-      in a single page and a <a href="../chronology.html">chronology</a> are both also available.  
+      in a single page and a <a href="../chronology.html">chronology</a> are both also available.
       A detailed history of every
       check-in is available at
       <a href="http://www.sqlite.org/src/timeline">

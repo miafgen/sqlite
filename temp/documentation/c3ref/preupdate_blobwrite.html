@@ -117,7 +117,7 @@ antiRobotDefense();
 </script>
 <!-- keywords: sqlite3_preupdate_blobwrite sqlite3_preupdate_count sqlite3_preupdate_depth sqlite3_preupdate_hook sqlite3_preupdate_new sqlite3_preupdate_old -->
 <div class=nosearch>
-<a href="intro.html"><h2>SQLite C Interface</h2></a>
+<a href="../c3ref/intro.html"><h2>SQLite C Interface</h2></a>
 <h2>The pre-update hook.</h2>
 </div>
 <blockquote><pre>
@@ -184,6 +184,10 @@ or updated. The value of the seventh parameter passed to the callback
 function is not defined for operations on WITHOUT ROWID tables, or for
 DELETE operations on rowid tables.</p>
 
+<p>The sqlite3_preupdate_hook(D,C,P) function returns the P argument from
+the previous call on the same <a href="../c3ref/sqlite3.html">database connection</a> D, or NULL for
+the first call on D.</p>
+
 <p>The <a href="../c3ref/preupdate_blobwrite.html">sqlite3_preupdate_old()</a>, <a href="../c3ref/preupdate_blobwrite.html">sqlite3_preupdate_new()</a>,
 <a href="../c3ref/preupdate_blobwrite.html">sqlite3_preupdate_count()</a>, and <a href="../c3ref/preupdate_blobwrite.html">sqlite3_preupdate_depth()</a> interfaces
 provide additional information about a preupdate event. These routines
@@ -231,7 +235,7 @@ regular DELETE, sqlite3_preupdate_blobwrite() returns -1.</p>
 
 <p>See also:  <a href="../c3ref/update_hook.html">sqlite3_update_hook()</a>
 </p><p>See also lists of
-  <a href="objlist.html">Objects</a>,
-  <a href="constlist.html">Constants</a>, and
-  <a href="funclist.html">Functions</a>.</p>
+  <a href="../c3ref/objlist.html">Objects</a>,
+  <a href="../c3ref/constlist.html">Constants</a>, and
+  <a href="../c3ref/funclist.html">Functions</a>.</p>
 

@@ -115,7 +115,7 @@ antiRobotGo();
 }
 antiRobotDefense();
 </script>
-<h2>SQLite Release 3.25.2 On 2018-09-25</h2><p><b>Changes in version 3.25.0 (2018-09-15):</b></p>
+<h2>SQLite Release 3.25.2 On 2018-09-25</h2><p><b>Prior changes from version 3.25.0 (2018-09-15):</b></p>
 <p><ol class='lessindent'>
 <li value='1'> Add support for <a href="../windowfunctions.html">window functions</a>
 <li> Enhancements the <a href="../lang_altertable.html">ALTER TABLE</a> command:
@@ -170,7 +170,7 @@ antiRobotDefense();
      Fix for ticket
      <a href="https://www.sqlite.org/src/info/c94369cae9b561b1f996d0054b">c94369cae9b561b1f996d0054b</a>
 </ol>
-<p><b>Additional changes in version 3.25.1 (2018-09-18):</b></p>
+<p><b>Prior changes from version 3.25.1 (2018-09-18):</b></p>
 <p><ol class='lessindent'>
 <li value='13'> Extra sanity checking added to ALTER TABLE in the 3.25.0 release
      sometimes raises a false-positive
@@ -178,13 +178,13 @@ antiRobotDefense();
      updates a virtual table.  The false-positive caused the ALTER
      TABLE to rollback, thus leaving the schema unchanged.
      Ticket <a href="https://sqlite.org/src/info/b41031ea2b537237">b41031ea2b537237</a>.
-<li> The fix in the 3.25.0 release for the endless-loop in the byte-code 
+<li> The fix in the 3.25.0 release for the endless-loop in the byte-code
      associated with the ORDER BY LIMIT optimization did not work for
      some queries involving window functions.  An additional correction
      is required.  Ticket
      <a href="https://sqlite.org/src/info/510cde277783b5fb">510cde277783b5fb</a>
 </ol>
-<p><b>Additional changes in version 3.25.2 (2018-09-25):</b></p>
+<p><b>Changes in this specific patch release, version 3.25.2 (2018-09-25):</b></p>
 <p><ol class='lessindent'>
 <li value='15'> Add the <a href="../pragma.html#pragma_legacy_alter_table">PRAGMA legacy_alter_table=ON</a> command that causes the
      "ALTER TABLE RENAME" command to behave as it did in SQLite versions 3.24.0
@@ -204,7 +204,7 @@ antiRobotDefense();
 </ol></p>
 
       <p>A <a href="../changes.html">complete list of SQLite releases</a>
-      in a single page and a <a href="../chronology.html">chronology</a> are both also available.  
+      in a single page and a <a href="../chronology.html">chronology</a> are both also available.
       A detailed history of every
       check-in is available at
       <a href="http://www.sqlite.org/src/timeline">

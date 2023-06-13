@@ -115,10 +115,10 @@ antiRobotGo();
 }
 antiRobotDefense();
 </script>
-<h2>SQLite Release 3.27.2 On 2019-02-25</h2><p><b>Changes in version 3.27.0 (2019-02-07):</b></p>
+<h2>SQLite Release 3.27.2 On 2019-02-25</h2><p><b>Prior changes from version 3.27.0 (2019-02-07):</b></p>
 <p><ol class='lessindent'>
 <li value='1'>Added the <a href="../lang_vacuum.html#vacuuminto">VACUUM INTO</a> command
-<li>Issue an SQLITE_WARNING message on the <a href="../errlog.html">error log</a> if a 
+<li>Issue an SQLITE_WARNING message on the <a href="../errlog.html">error log</a> if a
 <a href="../quirks.html#dblquote">double-quoted string literal</a> is used.
 <li>The <a href="../c3ref/expanded_sql.html">sqlite3_normalized_sql()</a> interface works on any prepared statement
 created using <a href="../c3ref/prepare.html">sqlite3_prepare_v2()</a> or <a href="../c3ref/prepare.html">sqlite3_prepare_v3()</a>.  It is no
@@ -144,15 +144,15 @@ causing resource leaks.
 <li>Enhancements to the <a href="../cli.html">CLI</a>, mostly to support testing and debugging
 of the SQLite library itself:
 <ol type="a">
-  <li> Add support for ".open --hexdb". The 
-       "<a href="https://sqlite.org/src/doc/trunk/tool/dbtotxt.md">dbtotxt</a>" utility 
-       program used to generate the text for the "hexdb" is added to the 
+  <li> Add support for ".open --hexdb". The
+       "<a href="https://sqlite.org/src/doc/trunk/tool/dbtotxt.md">dbtotxt</a>" utility
+       program used to generate the text for the "hexdb" is added to the
        source tree.
   <li> Add support for the "--maxsize N" option on ".open --deserialize".
   <li> Add the "--memtrace" command-line option, to show all memory allocations
        and deallocations.
   <li> Add the ".eqp trace" option on builds with SQLITE_DEBUG, to enable
-       bytecode program listing with indentation and 
+       bytecode program listing with indentation and
        <a href="../pragma.html#pragma_vdbe_trace">PRAGMA vdbe_trace</a> all in one step.
   <li> Add the ".progress" command for accessing
        the <a href="../c3ref/progress_handler.html">sqlite3_progress_handler()</a> interface.
@@ -160,7 +160,7 @@ of the SQLite library itself:
   <li> Add options "--expanded", "--normalized", "--plain", "--profile", "--row",
        "--stmt", and "--close" to the ".trace" command.
 </ol>
-<li> Increased robustness against malicious SQL that is run against a 
+<li> Increased robustness against malicious SQL that is run against a
      maliciously corrupted database.
  <p><b>Bug fixes:</b>
 <li>Do not use a partial index to do a table scan on an IN operator.
@@ -182,7 +182,7 @@ Ticket <a href="https://www.sqlite.org/src/info/5948e09b8c415bc45d">5948e09b8c41
 NULL value into a NOT NULL column even if the NOT NULL column has a default
 value of NULL.
 Ticket <a href="https://www.sqlite.org/src/info/e6f1f2e34dceeb1ed6">e6f1f2e34dceeb1ed6</a>
-<li>Fix a problem with the use of <a href="../windowfunctions.html">window functions</a> used within 
+<li>Fix a problem with the use of <a href="../windowfunctions.html">window functions</a> used within
 <a href="../lang_expr.html#cosub">correlated subqueries</a>.
 Ticket <a href="https://www.sqlite.org/src/info/d0866b26f83e9c55e3">d0866b26f83e9c55e3</a>
 <li>Fix the <a href="../lang_altertable.html#altertabmvcol">ALTER TABLE RENAME COLUMN</a> command so that it works for tables
@@ -192,7 +192,7 @@ Ticket <a href="https://www.sqlite.org/src/info/bc8d94f0fbd633fd9a">bc8d94f0fbd6
 a table that uses an <a href="../expridx.html">expression index</a>.
 Ticket <a href="https://www.sqlite.org/src/info/bb4bdb9f7f654b0bb9">bb4bdb9f7f654b0bb9</a>
 </ol>
-<p><b>Additional changes in version 3.27.1 (2019-02-08):</b></p>
+<p><b>Prior changes from version 3.27.1 (2019-02-08):</b></p>
 <p><ol class='lessindent'>
 <li value='19'> Fix a bug in the query optimizer: an adverse interaction between
 the <a href="../optoverview.html#or_opt">OR optimization</a> and the optimization that tries to use values
@@ -200,9 +200,9 @@ read directly from an <a href="../expridx.html">expression index</a> instead of 
 expression.
 Ticket <a href="https://www.sqlite.org/src/info/4e8e4857d32d401f">4e8e4857d32d401f</a>
 </ol>
-<p><b>Additional changes in version 3.27.2 (2019-02-25):</b></p>
+<p><b>Changes in this specific patch release, version 3.27.2 (2019-02-25):</b></p>
 <p><ol class='lessindent'>
-<li value='20'> Fix a bug in the IN operator that was introduced by an 
+<li value='20'> Fix a bug in the IN operator that was introduced by an
      attempted optimization in version 3.27.0. Ticket
      <a href="https://www.sqlite.org/src/info/df46dfb631f75694">df46dfb631f75694</a>
 <li> Fix a bug causing a crash when a <a href="../windowfunctions.html">window function</a> is misused.  Ticket
@@ -215,7 +215,7 @@ Ticket <a href="https://www.sqlite.org/src/info/4e8e4857d32d401f">4e8e4857d32d40
 </ol></p>
 
       <p>A <a href="../changes.html">complete list of SQLite releases</a>
-      in a single page and a <a href="../chronology.html">chronology</a> are both also available.  
+      in a single page and a <a href="../chronology.html">chronology</a> are both also available.
       A detailed history of every
       check-in is available at
       <a href="http://www.sqlite.org/src/timeline">

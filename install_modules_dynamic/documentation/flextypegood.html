@@ -202,9 +202,9 @@ summary:
 </li><li><p> Note that an INTEGER or REAL value will never end up being stored
         in a TEXT column, since an INTEGER or REAL value can and always will
         be converted into its equivalent TEXT representation.  Similarly,
-        and INTEGER will never be stored in a REAL column because it will
+        an INTEGER will never be stored in a REAL column because it will
         always be converted into a REAL.  But TEXT does not always look like
-        and INTEGER or REAL value and so cannot always be converted.  And a
+        an INTEGER or REAL value and so cannot always be converted.  And a
         BLOB cannot be converted into anything and nothing else can be
         converted into a BLOB.
 </p></li></ul>
@@ -261,15 +261,15 @@ JSON field.  For example:
 </p><h2 id="storage_for_dirty_data"><span>3.3. </span>Storage for dirty data</h2>
 
 <p> Analysts sometimes encounter CSV files where some columns contain
-a mixture of integer, real, and text data.  CSV file that are obtained
+a mixture of integer, real, and text data.  CSV files that are obtained
 from Excel spreadsheet exports commonly have this trait, for example.
 When importing such "dirty data" into an SQL database, it is convenient
-to have flexible columns to import into.
+to have flexibly typed columns to import into.
 
 </p><p> Dirty data is not restricted to CSV files coming out of Excel, of
 course.  There are many data sources in which a single field might
-contain a mix of types.  For example, a data column might the number
-of seconds since 1970 sometimes, or as a text date string in other cases.
+contain a mix of types.  For example, a data column might contain the number
+of seconds since 1970 sometimes, or a text date string in other cases.
 It is desirable to clean up these inconsistent representations,
 but at the same time it is convenient to be able to store all the different
 representations in the same column of the intermediate database while the
@@ -285,7 +285,7 @@ everything looks like a string.  Flexible typing is a natural fit for
 use with dynamic programming languages like TCL and others, since with
 a dynamic programming language, you can not always predict in advance what
 datatype a variable will hold.  So when you need to store the value of that
-variable into the database, having a database that is supports flexible
+variable into the database, having a database that supports flexible
 typing makes storage much easier.
 
 </p><h2 id="data_typename_cross_compatibility"><span>3.5. </span>Data typename cross-compatibility</h2>
@@ -363,7 +363,7 @@ find no evidence in support of this.
 </p><p> To be sure, strict type enforcement does help prevent some kinds of
 bugs in lower-level languages like C and C++ that present a model that is
 close to machine hardware.  But this does not seem to
-be the case for higher-abstraction languages in which all data is 
+be the case for higher-abstraction languages in which all data is
 passed around in a "Value" superclass of some kind which is subclassed
 for the various lower-level data types.  When everything is a Value
 object, specific datatypes cease to be important.
@@ -383,7 +383,7 @@ in C, I have even implemented supplemental static analysis programs that
 scan the Fossil source code prior to compilation, looking for problems
 that compilers miss.  This works well for compiled programs.
 
-</p><p> The SQL language model is a higher-level abstraction that C/C++.
+</p><p> The SQL language model is a higher-level abstraction than C/C++.
 In SQLite, every data item is stored in memory as an "sqlite3_value" object.
 There are subclasses of this object for strings, integer, floating-point
 numbers, blobs, and other representations.  Everything is passed around
@@ -394,9 +394,9 @@ that have a single "Value" superclass used to represent any data element.
 Fossil makes extensive use of SQLite in its implementation.  There have
 been many bugs in Fossil over its 14-years history, but I cannot recall
 a single bug that might have been prevented by rigid type enforcement in
-the SQLite.  C-language bugs might have been caught by better type enforcement
-(which is why I wrote the supplemental source code scanners), but no
-SQL bugs.
+the SQLite. Some C-language bugs might have been caught by better type
+enforcement (which is why I wrote the supplemental source code scanners),
+but no SQL bugs.
 
 </p><p> Based on decades of experience, I reject the thesis that rigid
 type enforcement helps prevent application bugs.  I will accept and
@@ -424,8 +424,8 @@ family name and given name are reversed, since both are text fields.
 
 </p><p> (Aside:  Decades ago, I worked on a team where there was a woman
 named "Merritt Tracy".  "Merritt" was her given name and "Tracy" was
-her family name.  She reported that she spend an inordinate amount of
-time and energy trying to correct databases that had "Tracy" has her 
+her family name.  She reported that she spent an inordinate amount of
+time and energy trying to correct databases that had "Tracy" has her
 given name and "Merritt" as her family name.)
 
 </p><p> By suppressing easy-to-detect errors and passing through only the
@@ -434,7 +434,7 @@ difficult to find and fix bugs.  Data errors tend to cluster.  If you have
 20 different data sources, most of the data errors will usually come
 from just 2 or 3 of those sources.  The presence of egregious
 errors (such as text in an integer column) is a convenient early warning
-signal that something is amiss.  The source of the problem can be 
+signal that something is amiss.  The source of the problem can be
 tracked quickly and extra scrutiny applied to the source of the
 egregious errors, thus hopefully also fixing the subtle errors too.
 When egregious errors are suppressed, you lose an important signal
@@ -491,5 +491,5 @@ datatype if not complete SQLite-style type flexibility.
 stores a single well-defined type.  But occasionally you will run
 across situations where having a flexible type system makes the
 solution to your problem cleaner and easier.
-</p><p align="center"><small><i>This page last modified on  <a href="https://sqlite.org/docsrc/honeypot" id="mtimelink"  data-href="https://sqlite.org/docsrc/finfo/pages/flextypegood.in?m=f9717ffe7d350c56f">2021-08-24 21:13:00</a> UTC </small></i></p>
+</p><p align="center"><small><i>This page last modified on  <a href="https://sqlite.org/docsrc/honeypot" id="mtimelink"  data-href="https://sqlite.org/docsrc/finfo/pages/flextypegood.in?m=215fc30dae">2023-04-29 00:28:20</a> UTC </small></i></p>
 

@@ -151,7 +151,7 @@ mk.innerHTML = "&#x25ba;";
 
 
 
-<h2 style="margin-left:1.0em" notoc="1" id="overview"> Overview</h2> 
+<h2 style="margin-left:1.0em" notoc="1" id="overview"> Overview</h2>
 
 <p>
 SQLite is ANSI-C source code.
@@ -162,19 +162,19 @@ This article is a guide to the various ways of compiling SQLite.
 <p>This article does not contain a step-by-step recipe for compiling
 SQLite.  That would be difficult since each development situation
 is different.
-Rather, this article describes and illustrates the principals behind the
+Rather, this article describes and illustrates the principles behind the
 compilation of SQLite.  Typical compilation commands are provided as examples
 with the expectation that application developers can use these examples
 as guidance for developing their own custom compilation procedures.
 In other words, this article provides ideas and insights, not turnkey
 solutions.</p>
 
-<h1 id="amalgamation_versus_individual_source_files"><span>1. </span>Amalgamation Versus Individual Source Files</h1> 
+<h1 id="amalgamation_versus_individual_source_files"><span>1. </span>Amalgamation Versus Individual Source Files</h1>
 
 <p>SQLite is built from over one hundred files of C code and script
 spread across multiple directories.  The implementation of SQLite is pure
 ANSI-C, but many of the C-language source code files are either
-generated or transformed by auxiliary C programs and AWK, SED, and TCL 
+generated or transformed by auxiliary C programs and AWK, SED, and TCL
 scripts prior to being incorporated into the finished SQLite library.
 Building the necessary C programs and transforming and/or creating the
 C-language source code for SQLite is a complex process.</p>
@@ -188,8 +188,8 @@ of a larger C or C++ program.  All the code generation and transformation
 steps have already been carried out so there are no auxiliary C programs
 to configure and compile and no scripts to run.  And, because the entire
 library is contained in a single translation unit, compilers are able to
-do more advanced optimizations resulting in a 5% to 10% performance 
-improvement.  For these reasons, the amalgamation source file 
+do more advanced optimizations resulting in a 5% to 10% performance
+improvement.  For these reasons, the amalgamation source file
 ("<b>sqlite3.c</b>") is recommended for all applications.</p>
 
 <blockquote><i>
@@ -202,7 +202,7 @@ might be necessary to modify the build process in ways that cannot be done
 using just the prebuilt amalgamation source file downloaded from the website.
 For those situations, it is recommended that a customized amalgamation be
 built (as described <a href="howtocompile.html#amal">below</a>)
-and used.  In other words, even if a project requires building SQLite 
+and used.  In other words, even if a project requires building SQLite
 beginning with individual source files, it is still recommended that an
 amalgamation source file be used as an intermediate step.</p>
 
@@ -215,7 +215,7 @@ files:</p>
 
 <ul>
 <li><b>sqlite3.c</b>: The SQLite amalgamation source file
-</li><li><b>sqlite3.h</b>: The header files that accompanies sqlite3.c and 
+</li><li><b>sqlite3.h</b>: The header files that accompanies sqlite3.c and
 defines the C-language interfaces to SQLite.
 </li><li><b>shell.c</b>: The command-line interface program itself.
 This is the C source code file that contains the definition of
@@ -233,7 +233,7 @@ and compile them together.  Using MSVC:
 cl shell.c sqlite3.c -Fesqlite3.exe
 </pre></blockquote>
 
-<p>On unix systems (or on Windows using cygwin or mingw+msys)
+<p>On Unix systems (or on Windows using cygwin or mingw+msys)
 the command typically looks something like this:</p>
 
 <blockquote><pre>
@@ -258,31 +258,33 @@ option:</p>
 gcc -DSQLITE_THREADSAFE=0 -DSQLITE_OMIT_LOAD_EXTENSION shell.c sqlite3.c -o sqlite3
 </pre></blockquote>
 
-<p>One might want to provide other <a href="compile.html">compile-time options</a> such as
-<a href="compile.html#enable_fts4">-DSQLITE_ENABLE_FTS4</a> or <a href="compile.html#enable_fts5">-DSQLITE_ENABLE_FTS5</a> for full-text search,
-<a href="compile.html#enable_rtree">-DSQLITE_ENABLE_RTREE</a> for the R*Tree search engine extension,
-<a href="compile.html#enable_json1">-DSQLITE_ENABLE_JSON1</a> to include <a href="json1.html">JSON SQL functions</a>, or
-<a href="compile.html#enable_dbstat_vtab">-DSQLITE_ENABLE_DBSTAT_VTAB</a> for the <a href="dbstat.html">dbstat virtual table</a>.
-In order to see extra commentary in <a href="lang_explain.html">EXPLAIN</a> listings, add the 
-<a href="compile.html#enable_explain_comments">-DSQLITE_ENABLE_EXPLAIN_COMMENTS</a> option.
-On unix systems, add -DHAVE_USLEEP=1 if the host machine supports the
-usleep() system call.  Add -DHAVE_READLINE and the -lreadline
-and -lncurses libraries to get command-line editing support.
-One might also want to
-specify some compiler optimization switches.  (The precompiled
-CLI available for download from the SQLite website uses "-Os".)
-There are countless possible variations here.  A command to
-compile a full-featured shell might look something like this:</p>
+<p>One might want to provide other <a href="compile.html">compile-time options</a> such as</p>
+
+<ul>
+  <li><a href="compile.html#enable_fts4">-DSQLITE_ENABLE_FTS4</a> or <a href="compile.html#enable_fts5">-DSQLITE_ENABLE_FTS5</a> for full-text search,</li>
+  <li><a href="compile.html#enable_rtree">-DSQLITE_ENABLE_RTREE</a> for the R*Tree search engine extension,</li>
+  <li><a href="compile.html#enable_dbstat_vtab">-DSQLITE_ENABLE_DBSTAT_VTAB</a> for the <a href="dbstat.html">dbstat virtual table</a>, or</li>
+  <li><a href="compile.html#enable_math_functions">-DSQLITE_ENABLE_MATH_FUNCTIONS</a> for extended math functions.</li>
+</ul>
+
+<p>In order to see extra commentary in <a href="lang_explain.html">EXPLAIN</a> listings, add the
+<a href="compile.html#enable_explain_comments">-DSQLITE_ENABLE_EXPLAIN_COMMENTS</a> option. Add -DHAVE_READLINE and
+the -lreadline and -lncurses libraries to get command-line editing
+support.  One might also want to specify some compiler optimization
+switches.  (The precompiled CLI available for download from the SQLite
+website uses "-Os".)  There are countless possible variations here.  A
+command to compile a full-featured shell might look something like
+this:</p>
 
 <blockquote><pre>
 gcc -Os -I. -DSQLITE_THREADSAFE=0 -DSQLITE_ENABLE_FTS4 &#92;
    -DSQLITE_ENABLE_FTS5 -DSQLITE_ENABLE_JSON1 &#92;
    -DSQLITE_ENABLE_RTREE -DSQLITE_ENABLE_EXPLAIN_COMMENTS &#92;
-   -DHAVE_USLEEP -DHAVE_READLINE &#92;
+   -DHAVE_READLINE &#92;
    shell.c sqlite3.c -ldl -lm -lreadline -lncurses -o sqlite3
 </pre></blockquote>
 
-<p>The key point is this:  Building the CLI consists of compiling 
+<p>The key point is this:  Building the CLI consists of compiling
 together two C-language files.   The <b>shell.c</b> file contains the
 definition of the entry point and the user input loop and the
 SQLite amalgamation <b>sqlite3.c</b> contains the complete implementation
@@ -296,9 +298,9 @@ of the SQLite library.</p>
 the regular amalgamation.  The result is a new amalgamated source
 file called "<b>tclsqlite3.c</b>".  This single source file is all that
 is needed to generate a shared library that can be loaded into a
-standard 
-<a href="http://wiki.tcl-lang.org/2541">tclsh</a> or 
-<a href="http://wiki.tcl-lang.org/2364">wish</a> using the 
+standard
+<a href="http://wiki.tcl-lang.org/2541">tclsh</a> or
+<a href="http://wiki.tcl-lang.org/2364">wish</a> using the
 <a href="http://wiki.tcl-lang.org/9830">TCL load command</a>, or to generate a
 standalone tclsh that comes with SQLite built in.
 A copy of the tcl amalgamation
@@ -341,7 +343,7 @@ reason for building a custom amalgamation is in order to use certain
 the SQLite amalgamation contains a lot of C-code that is generated by
 auxiliary programs and scripts.  Many of the compile-time
 options effect this generated code and must be supplied to the code
-generators before the amalgamation is assembled.  The set of 
+generators before the amalgamation is assembled.  The set of
 compile-time options that must be passed into the code generators can
 vary from one release of SQLite to the next, but at the time of this
 writing (circa SQLite 3.6.20, 2009-11-04) the set of options that must
@@ -368,7 +370,7 @@ be known by the code generators includes:</p>
 </li></ul>
 
 <p>To build a custom amalgamation, first download the original individual
-source files onto a unix or unix-like development platform.  
+source files onto a Unix or Unix-like development platform.
 Be sure to get the original source
 files not the "preprocessed source files".  One can obtain the complete
 set of original source files either from the <a href="download.html">download page</a> or directly
@@ -404,7 +406,7 @@ compiled according to the procedures outlined above.</p>
 <h1 id="building_a_windows_dll"><span>5. </span>Building A Windows DLL</h1>
 
 <p>To build a DLL of SQLite for use in Windows, first acquire the
-appropriate amalgamated source code files, sqlite3.c and sqlite3.h.  
+appropriate amalgamated source code files, sqlite3.c and sqlite3.h.
 These can either
 be downloaded from the <a href="http://www.sqlite.org/download.html">SQLite website</a>
 or custom generated from sources as shown above.</p>
@@ -441,7 +443,7 @@ is to generate 32-bit DLLs using MinGW and 64-bit DLLs using MSVC.
 compile-time options include:
 
 </p><ul>
-<li><p><b>-Os</b> - Optimize for size. 
+<li><p><b>-Os</b> - Optimize for size.
 Make the DLL as small as possible.</p>
 
 </li><li><p><b>-O2</b> - Optimize for speed.  This will make the DLL larger by
@@ -456,5 +458,5 @@ Include the <a href="fts3.html">full-text search</a> engine code in SQLite.
 This enables some extra APIs that are required by some common systems,
 including Ruby-on-Rails.
 </p></li></ul>
-<p align="center"><small><i>This page last modified on  <a href="https://sqlite.org/docsrc/honeypot" id="mtimelink"  data-href="https://sqlite.org/docsrc/finfo/pages/howtocompile.in?m=7a488b0570e1db92a">2021-10-12 03:48:52</a> UTC </small></i></p>
+<p align="center"><small><i>This page last modified on  <a href="https://sqlite.org/docsrc/honeypot" id="mtimelink"  data-href="https://sqlite.org/docsrc/finfo/pages/howtocompile.in?m=ab15aea1a6">2023-03-06 12:28:27</a> UTC </small></i></p>
 

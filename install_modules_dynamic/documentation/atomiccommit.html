@@ -196,14 +196,14 @@ mk.innerHTML = "&#x25ba;";
 <h1 id="_introduction"><span>1. </span> Introduction</h1>
 
 <p>An important feature of transactional databases like SQLite
-is "atomic commit".  
-Atomic commit means that either all database changes within a single 
+is "atomic commit".
+Atomic commit means that either all database changes within a single
 transaction occur or none of them occur.  With atomic commit, it
 is as if many different writes to different sections of the database
 file occur instantaneously and simultaneously.
 Real hardware serializes writes to mass storage, and writing
 a single sector takes a finite amount of time.
-So it is impossible to truly write many different sectors of a 
+So it is impossible to truly write many different sectors of a
 database file simultaneously and/or instantaneously.
 But the atomic commit logic within
 SQLite makes it appear as if the changes for a transaction
@@ -217,7 +217,7 @@ operating system crash or power failure.</p>
 illusion of atomic commit.</p>
 
 <p>The information in this article applies only when SQLite is operating
-in "rollback mode", or in other words when SQLite is not 
+in "rollback mode", or in other words when SQLite is not
 using a <a href="wal.html">write-ahead log</a>.  SQLite still supports atomic commit when
 write-ahead logging is enabled, but it accomplishes atomic commit by
 a different mechanism from the one described in this article.  See
@@ -305,7 +305,7 @@ all pending write operations for the file that is being flushed have
 completed.  We are told that the flush and fsync primitives
 are broken on some versions of Windows and Linux.  This is unfortunate.
 It opens SQLite up to the possibility of database corruption following
-a power loss in the middle of a commit.  However, there is nothing 
+a power loss in the middle of a commit.  However, there is nothing
 that SQLite can do to test for or remedy the situation.  SQLite
 assumes that the operating system that it is running on works as
 advertised.  If that is not quite the case, well then hopefully you
@@ -314,13 +314,13 @@ will not lose power too often.</p>
 <p>SQLite assumes that when a file grows in length that the new
 file space originally contains garbage and then later is filled in
 with the data actually written.  In other words, SQLite assumes that
-the file size is updated before the file content.  This is a 
+the file size is updated before the file content.  This is a
 pessimistic assumption and SQLite has to do some extra work to make
 sure that it does not cause database corruption if power is lost
 between the time when the file size is increased and when the
 new content is written.  The xDeviceCharacteristics method of
 the <a href="vfs.html">VFS</a> might indicate that the filesystem will always write the
-data before updating the file size.  (This is the 
+data before updating the file size.  (This is the
 SQLITE_IOCAP_SAFE_APPEND property for those readers who are looking
 at the code.)  When the xDeviceCharacteristics method indicates
 that files content is written before the file size is increased,
@@ -340,25 +340,25 @@ if some of its data has been altered or erased,
 or the file has been truncated but not completely removed, then
 database corruption will likely result.</p>
 
-<p>SQLite assumes that the detection and/or correction of 
+<p>SQLite assumes that the detection and/or correction of
 bit errors caused by cosmic rays, thermal noise, quantum
-fluctuations, device driver bugs, or other mechanisms, is the 
-responsibility of the underlying hardware and operating system.  
+fluctuations, device driver bugs, or other mechanisms, is the
+responsibility of the underlying hardware and operating system.
 SQLite does not add any redundancy to the database file for
 the purpose of detecting corruption or I/O errors.
-SQLite assumes that the data it reads is exactly the same data 
+SQLite assumes that the data it reads is exactly the same data
 that it previously wrote.</p>
 
 <p>By default, SQLite assumes that an operating system call to write
 a range of bytes will not damage or alter any bytes outside of that range
 even if a power loss or OS crash occurs during that write.  We
-call this the "<a href="psow.html">powersafe overwrite</a>" property.  
+call this the "<a href="psow.html">powersafe overwrite</a>" property.
 Prior to <a href="releaselog/3_7_9.html">version 3.7.9</a> (2011-11-01),
 SQLite did not assume powersafe overwrite.  But with the standard
 sector size increasing from 512 to 4096 bytes on most disk drives, it
 has become necessary to assume powersafe overwrite in order to maintain
 historical performance levels and so powersafe overwrite is assumed by
-default in recent versions of SQLite.  The assumption of powersafe 
+default in recent versions of SQLite.  The assumption of powersafe
 overwrite property can be disabled at compile-time or a run-time if
 desired.  See the <a href="psow.html">powersafe overwrite documentation</a> for further
 details.
@@ -398,6 +398,7 @@ user space is empty.
 
 <a name="rdlck"></a>
 
+<a name="section_3_2"></a>
 <h2 id="_acquiring_a_read_lock"><span>3.2. </span> Acquiring A Read Lock</h2>
 
 <img src="images/ac/commit-1.gif" align="right" hspace="15">
@@ -484,18 +485,18 @@ database.</p>
 <img src="images/ac/commit-4.gif" align="right" hspace="15">
 
 <p>Prior to making any changes to the database file, SQLite first
-creates a separate rollback journal file and writes into the 
+creates a separate rollback journal file and writes into the
 rollback journal the original
 content of the database pages that are to be altered.
 The idea behind the rollback journal is that it contains
-all information needed to restore the database back to 
+all information needed to restore the database back to
 its original state.</p>
 
 <p>The rollback journal contains a small header (shown in green
 in the diagram) that records the original size of the database
 file.  So if a change causes the database file to grow, we
 will still know the original size of the database.  The page
-number is stored together with each database page that is 
+number is stored together with each database page that is
 written into the rollback journal.</p>
 
 <p>
@@ -532,7 +533,7 @@ own copies of the original database content.</p>
 
 <p>The next step is to flush the content of the rollback journal
 file to nonvolatile storage.
-As we will see later, 
+As we will see later,
 this is a critical step in insuring that the database can survive
 an unexpected power loss.
 This step also takes a lot of time, since writing to nonvolatile
@@ -542,7 +543,7 @@ storage is normally a slow operation.</p>
 the rollback journal to the disk.  On most platforms two separate
 flush (or fsync()) operations are required.  The first flush writes
 out the base rollback journal content.  Then the header of the
-rollback journal is modified to show the number of pages in the 
+rollback journal is modified to show the number of pages in the
 rollback journal.  Then the header is flushed to disk.  The details
 on why we do this header modification and extra flush are provided
 in a later section of this paper.</p>
@@ -597,7 +598,7 @@ cache and do not make it all the way to mass storage.</p>
 database changes are written into nonvolatile storage.
 This is a critical step to ensure that the database will
 survive a power loss without damage.  However, because
-of the inherent slowness of writing to disk or flash memory, 
+of the inherent slowness of writing to disk or flash memory,
 this step together with the rollback journal file flush in section
 3.7 above takes up most of the time required to complete a
 transaction commit in SQLite.</p>
@@ -625,7 +626,7 @@ journal file exists.</p>
 it appears to be from the point of view of a user process.
 A process is always able to ask the operating system "does
 this file exist?" and the process will get back a yes or no
-answer.  After a power failure that occurs during a 
+answer.  After a power failure that occurs during a
 transaction commit, SQLite will ask the operating system
 whether or not the rollback journal file exists.  If the
 answer is "yes" then the transaction is incomplete and is
@@ -635,7 +636,7 @@ did commit.</p>
 <p>The existence of a transaction depends on whether or
 not the rollback journal file exists and the deletion
 of a file appears to be an atomic operation from the point of
-view of a user-space process.  Therefore, 
+view of a user-space process.  Therefore,
 a transaction appears to be an atomic operation.</p>
 
 <p>The act of deleting a file is expensive on many systems.
@@ -721,8 +722,8 @@ prior to making any changes to the database file itself.</p>
 
 <p>The first time that any SQLite process attempts to access
 the database file, it obtains a shared lock as described in
-<a href="section_3_2">section 3.2</a> above.
-But then it notices that there is a 
+<a href="#section_3_2">section 3.2</a> above.
+But then it notices that there is a
 rollback journal file present.  SQLite then checks to see if
 the rollback journal is a "hot journal".   A hot journal is
 a rollback journal that needs to be played back in order to
@@ -796,7 +797,7 @@ can be deleted.</p>
 <p>As in <a href="#section_3_11">section 3.11</a>, the journal
 file might be truncated to zero length or its header might
 be overwritten with zeros as an optimization on systems where
-deleting a file is expensive.  Either way, the journal is no 
+deleting a file is expensive.  Either way, the journal is no
 longer hot after this step.</p>
 
 <br clear="both">
@@ -817,12 +818,12 @@ SQLite as if the aborted transaction had never begun.</p>
 
 <h1 id="_multi_file_commit"><span>5. </span> Multi-file Commit</h1>
 
-<p>SQLite allows a single 
+<p>SQLite allows a single
 <a href="c3ref/sqlite3.html">database connection</a> to talk to
 two or more database files simultaneously through the use of
 the <a href="lang_attach.html">ATTACH DATABASE</a> command.
 When multiple database files are modified within a single
-transaction, all files are updated atomically.  
+transaction, all files are updated atomically.
 In other words, either all of the database files are updated or
 else none of them are.
 Achieving an atomic commit across multiple database files is
@@ -838,10 +839,10 @@ describes how SQLite works that bit of magic.</p>
 each database has its own rollback journal and each database
 is locked separately.  The diagram at the right shows a scenario
 where three different database files have been modified within
-one transaction.  The situation at this step is analogous to 
-the single-file transaction scenario at 
+one transaction.  The situation at this step is analogous to
+the single-file transaction scenario at
 <a href="#section_3_6">step 3.6</a>.  Each database file has
-a reserved lock.  For each database, the original content of pages 
+a reserved lock.  For each database, the original content of pages
 that are being changed have been written into the rollback journal
 for that database, but the content of the journals have not yet
 been flushed to disk.  No changes have been made to the database
@@ -867,7 +868,7 @@ any new information, so they are omitted here.</p>
 <p>The next step in a multi-file commit is the creation of a
 "super-journal" file.  The name of the super-journal file is
 the same name as the original database filename (the database
-that was opened using the 
+that was opened using the
 <a href="c3ref/open.html">sqlite3_open()</a> interface,
 not one of the <a href="lang_attach.html">ATTACHed</a> auxiliary
 databases) with the text "<b>-mj</b><i>HHHHHHHH</i>" appended where
@@ -903,7 +904,7 @@ the creation of the super-journal is omitted, as an optimization.
 <img src="images/ac/multi-2.gif" align="right" hspace="15">
 
 <p>The next step is to record the full pathname of the super-journal file
-in the header of every rollback journal.  Space to hold the 
+in the header of every rollback journal.  Space to hold the
 super-journal filename was reserved at the beginning of each rollback journal
 as the rollback journals were created.</p>
 
@@ -913,7 +914,7 @@ journal header.  It is important to do both of these flushes.  Fortunately,
 the second flush is usually inexpensive since typically only a single
 page of the journal file (the first page) has changed.</p>
 
-<p>This step is analogous to 
+<p>This step is analogous to
 <a href="#section_3_7">step 3.7</a> in the single-file commit
 scenario described above.</p>
 
@@ -944,7 +945,7 @@ scenario described previously.</p>
 
 <p>The next step is to delete the super-journal file.
 This is the point where the multi-file transaction commits.
-This step corresponds to 
+This step corresponds to
 <a href="#section_3_11">step 3.11</a> in the single-file
 commit scenario where the rollback journal is deleted.</p>
 
@@ -967,7 +968,7 @@ exists on disk.</p>
 <p>The final step in a multi-file commit is to delete the
 individual rollback journals and drop the exclusive locks on
 the database files so that other processes can see the changes.
-This corresponds to 
+This corresponds to
 <a href="#section_3_12">step 3.12</a> in the single-file
 commit sequence.</p>
 
@@ -998,7 +999,7 @@ in the gaps.</p>
 <p>When the original content of a database page is written into
 the rollback journal (as shown in <a href="#section_3_5">section 3.5</a>),
 SQLite always writes a complete sector of data, even if the
-page size of the database is smaller than the sector size.  
+page size of the database is smaller than the sector size.
 Historically, the sector size in SQLite has been hard coded to 512
 bytes and since the minimum page size is also 512 bytes, this has never
 been an issue.  But beginning with SQLite version 3.3.14, it is possible
@@ -1062,7 +1063,7 @@ PRAGMA synchronous=FULL;
 happens.  However, if the synchronous setting is lowered to "normal",
 SQLite only flushes the rollback journal once, after the page count has
 been written.
-This carries a risk of corruption because it might happen that the 
+This carries a risk of corruption because it might happen that the
 modified (non-zero) page count reaches the disk surface before all
 of the data does.  The data will have been written first, but SQLite
 assumes that the underlying filesystem can reorder write requests and
@@ -1070,7 +1071,7 @@ that the page count can be burned into oxide first even though its
 write request occurred last.  So as a second line of defense, SQLite
 also uses a 32-bit checksum on every page of data in the rollback
 journal.  This checksum is evaluated for each page during rollback
-while rolling back a journal as described in 
+while rolling back a journal as described in
 <a href="#section_4_4">section 4.4</a>.  If an incorrect checksum
 is seen, the rollback is abandoned.  Note that the checksum does
 not guarantee that the page data is correct since there is a small
@@ -1189,7 +1190,7 @@ at the beginning of a transaction.</p></li>
 <li><p>Each transaction can be committed by overwriting the rollback
 journal header with zeros rather than deleting the journal file.
 This avoids having to modify the directory entry for the journal file
-and it avoids having to deallocate disk sectors associated with the 
+and it avoids having to deallocate disk sectors associated with the
 journal.  Furthermore, the next transaction will overwrite existing
 journal file content rather than append new content and on most systems
 overwriting is much faster than appending.</p></li>
@@ -1249,7 +1250,7 @@ sector is overwritten or else nothing in the sector is changed.</p>
 
 <p>We believe that most modern disk drives implement atomic sector
 writes.  When power is lost, the drive uses energy stored in capacitors
-and/or the angular momentum of the disk platter to provide power to 
+and/or the angular momentum of the disk platter to provide power to
 complete any operation in progress.  Nevertheless, there are so many
 layers in between the write system call and the on-board disk drive
 electronics that we take the safe approach in both Unix and w32 VFS
@@ -1306,7 +1307,7 @@ Instead of deleting the journal file in order to commit a transaction,
 the file is either truncated to zero bytes in length or its
 header is overwritten with zeros.  Truncating the file to zero
 length saves having to make modifications to the directory containing
-the file since the file is not removed from the directory. 
+the file since the file is not removed from the directory.
 Overwriting the header has the additional savings of not having
 to update the length of the file (in the "inode" on many systems)
 and not having to deal with newly freed disk sectors.  Furthermore,
@@ -1316,7 +1317,7 @@ of a file, and overwriting is often much faster than appending.</p>
 
 <p>SQLite can be configured to commit transactions by overwriting
 the journal header with zeros instead of deleting the journal file
-by setting the "PERSIST" journaling mode using the 
+by setting the "PERSIST" journaling mode using the
 <a href="pragma.html#pragma_journal_mode">journal_mode</a> PRAGMA.
 For example:</p>
 
@@ -1325,7 +1326,7 @@ PRAGMA journal_mode=PERSIST;
 </pre></blockquote>
 
 <p>The use of persistent journal mode provides a noticeable performance
-improvement on many systems.  Of course, the drawback is that the 
+improvement on many systems.  Of course, the drawback is that the
 journal files remain on the disk, using disk space and cluttering
 directories, long after the transaction commits.  The only safe way
 to delete a persistent journal file is to commit a transaction
@@ -1341,7 +1342,7 @@ COMMIT;
 since the journal file might be hot, in which case deleting it will
 corrupt the corresponding database file.</p>
 
-<p>Beginning in SQLite <a href="releaselog/3_6_4.html">version 3.6.4</a> (2008-10-15), 
+<p>Beginning in SQLite <a href="releaselog/3_6_4.html">version 3.6.4</a> (2008-10-15),
 the TRUNCATE journal mode is
 also supported:</p>
 
@@ -1397,7 +1398,7 @@ or not at all and that the database is in a completely
 consistent state.</p>
 
 <p>The crash tests in SQLite have discovered a number of very
-subtle bugs (now fixed) in the recovery mechanism.  Some of 
+subtle bugs (now fixed) in the recovery mechanism.  Some of
 these bugs were very obscure and unlikely to have been found
 using only code inspection and analysis techniques.  From this
 experience, the developers of SQLite feel confident that any other
@@ -1432,9 +1433,9 @@ database file at the same time, severe damage can result.</p>
 Windows network filesystems and NFS in which locking was
 subtly broken.  We can not verify these reports, but as
 locking is difficult to get right on a network filesystem
-we have no reason to doubt them.  You are advised to 
+we have no reason to doubt them.  You are advised to
 avoid using SQLite on a network filesystem in the first place,
-since performance will be slow.  But if you must use a 
+since performance will be slow.  But if you must use a
 network filesystem to store SQLite database files, consider
 using a secondary locking mechanism to prevent simultaneous
 writes to the same database even if the native filesystem
@@ -1464,7 +1465,7 @@ reports that neither of these interfaces works as advertised on many
 systems.  We hear that FlushFileBuffers() can be completely disabled
 using registry settings on some Windows versions.  Some historical
 versions of Linux contain versions of fsync() which are no-ops on
-some filesystems, we are told.  Even on systems where 
+some filesystems, we are told.  Even on systems where
 FlushFileBuffers() and fsync() are said to be working, often
 the IDE disk control lies and says that data has reached oxide
 while it is still held only in the volatile control cache.</p>
@@ -1498,7 +1499,7 @@ on systems that do not work this way.</p>
 
 <p>SQLite database files are ordinary disk files that can be
 opened and written by ordinary user processes.  A rogue process
-can open an SQLite database and fill it with corrupt data.  
+can open an SQLite database and fill it with corrupt data.
 Corrupt data might also be introduced into an SQLite database
 by bugs in the operating system or disk controller; especially
 bugs triggered by a power failure.  There is nothing SQLite can
@@ -1511,7 +1512,7 @@ do to defend against these kinds of problems.</p>
 <p>If a crash or power loss does occur and a hot journal is left on
 the disk, it is essential that the original database file and the hot
 journal remain on disk with their original names until the database
-file is opened by another SQLite process and rolled back.  
+file is opened by another SQLite process and rolled back.
 During recovery at <a href="#section_4_2">step 4.2</a> SQLite locates
 the hot journal by looking for a file in the same directory as the
 database being opened and whose name is derived from the name of the
@@ -1573,5 +1574,5 @@ particular, we suspect that most modern filesystems exhibit the
 safe append property and that many of them might support atomic
 sector writes.  But until this is known for certain, SQLite will
 take the conservative approach and assume the worst.</p>
-<p align="center"><small><i>This page last modified on  <a href="https://sqlite.org/docsrc/honeypot" id="mtimelink"  data-href="https://sqlite.org/docsrc/finfo/pages/atomiccommit.in?m=daed65c9ccb4a9262">2021-10-05 17:51:47</a> UTC </small></i></p>
+<p align="center"><small><i>This page last modified on  <a href="https://sqlite.org/docsrc/honeypot" id="mtimelink"  data-href="https://sqlite.org/docsrc/finfo/pages/atomiccommit.in?m=a727909a51">2022-12-31 21:51:03</a> UTC </small></i></p>
 

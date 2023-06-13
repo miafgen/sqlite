@@ -177,7 +177,7 @@ The constructor for <a href="c3ref/sqlite3.html">sqlite3</a>.
 
 </p></li><li><p><b><a href="c3ref/prepare.html">sqlite3_prepare()</a></b> &rarr;
 Compile SQL text into
-byte-code that will do the work of querying or updating the database. 
+byte-code that will do the work of querying or updating the database.
 The constructor for <a href="c3ref/stmt.html">sqlite3_stmt</a>.
 
 </p></li><li><p><b><a href="c3ref/bind_blob.html">sqlite3_bind()</a></b> &rarr;
@@ -218,7 +218,7 @@ a string of one or more SQL statements.
   provides detailed
   specifications for all C/C++ APIs for SQLite.  Once
   the reader
-  understands the basic principles of operation for SQLite, 
+  understands the basic principles of operation for SQLite,
   <a href="c3ref/intro.html">that document</a> should be used as a reference
   guide.  This article is intended as introduction only and is neither a
   complete nor authoritative reference for the SQLite API.
@@ -269,7 +269,7 @@ a string of one or more SQL statements.
   The list mentions <a href="c3ref/column_blob.html">sqlite3_column()</a>
   when in fact no such routine exists.
   The "sqlite3_column()" shown in the list is a placeholder for
-  an entire family of routines that extra column
+  an entire family of routines that extract column
   data in various datatypes.
 </p>
 
@@ -281,7 +281,7 @@ a string of one or more SQL statements.
 
 <li><p><b><a href="c3ref/open.html">sqlite3_open()</a></b>
 </p><p>
-  This routine 
+  This routine
   opens a connection to an SQLite database file and returns a
   <a href="c3ref/sqlite3.html">database connection</a> object.  This is often the first SQLite API
   call that an application makes and is a prerequisite for most other
@@ -326,13 +326,13 @@ a string of one or more SQL statements.
   set for a <a href="c3ref/stmt.html">prepared statement</a> that is being evaluated by <a href="c3ref/step.html">sqlite3_step()</a>.
   Each time <a href="c3ref/step.html">sqlite3_step()</a> stops with a new result set row, this routine
   can be called multiple times to find the values of all columns in that row.
-  
+
   </p><p>As noted above, there really is no such thing as a "sqlite3_column()"
   function in the SQLite API.  Instead, what we here call "sqlite3_column()"
   is a place-holder for an entire family of functions that return
   a value from the result set in various data types.  There are also routines
   in this family that return the size of the result (if it is a string or
-  BLOB) and the number of columns in the result set.  
+  BLOB) and the number of columns in the result set.
 
   </p><p></p><ul>
     <li> <a href="c3ref/column_blob.html">sqlite3_column_blob()</a> </li>
@@ -398,7 +398,7 @@ a string of one or more SQL statements.
   <li> Create a <a href="c3ref/stmt.html">prepared statement</a> using <a href="c3ref/prepare.html">sqlite3_prepare()</a>. </li>
   <li> Evaluate the <a href="c3ref/stmt.html">prepared statement</a> by calling <a href="c3ref/step.html">sqlite3_step()</a> one
        or more times. </li>
-  <li> For queries, extract results by calling 
+  <li> For queries, extract results by calling
        <a href="c3ref/column_blob.html">sqlite3_column()</a> in between
        two calls to <a href="c3ref/step.html">sqlite3_step()</a>. </li>
   <li> Destroy the <a href="c3ref/stmt.html">prepared statement</a> using <a href="c3ref/finalize.html">sqlite3_finalize()</a>. </li>
@@ -472,9 +472,11 @@ a string of one or more SQL statements.
 </p>
 
 <p>
-  SQLite allows a <a href="lang_expr.html#varparam">parameter</a> wherever
-  a string literal, numeric constant, or NULL is allowed.
-  (Parameters may not be used for column or table names.)
+  SQLite allows a <a href="lang_expr.html#varparam">parameter</a> wherever a string literal,
+  blob literal, numeric constant, or NULL is allowed
+  in queries or data modification statements. (DQL or DML)
+  (Parameters may not be used for column or table names,
+  or as values for constraints or default values. (DDL))
   A <a href="lang_expr.html#varparam">parameter</a> takes one of the following forms:
 </p>
 
@@ -528,9 +530,9 @@ a string of one or more SQL statements.
 </li><li>Set up a process-wide <a href="errlog.html">error log</a>.
 </li><li>Specify an application-defined page cache.
 </li><li>Adjust the use of mutexes so that they are appropriate for various
-    <a href="threadsafe.html">threading models</a>, or substitute an 
+    <a href="threadsafe.html">threading models</a>, or substitute an
     application-defined mutex system.
-</li></ul> 
+</li></ul>
 <p>
   After process-wide configuration is complete and <a href="c3ref/sqlite3.html">database connections</a>
   have been created, individual database connections can be configured using
@@ -559,7 +561,7 @@ a string of one or more SQL statements.
 </p>
 
 <p>
-  The <a href="c3ref/create_function.html">sqlite3_create_function()</a> interface creates new SQL functions - 
+  The <a href="c3ref/create_function.html">sqlite3_create_function()</a> interface creates new SQL functions -
   either scalar or aggregate.  The new function implementation typically
   makes use of the following additional interfaces:
 </p>
@@ -574,7 +576,7 @@ a string of one or more SQL statements.
 <p>
   All of the built-in SQL functions of SQLite are created using exactly
   these same interfaces.  Refer to the SQLite source code, and in particular
-  the 
+  the
   <a href="http://www.sqlite.org/src/doc/trunk/src/date.c">date.c</a> and
   <a href="http://www.sqlite.org/src/doc/trunk/src/func.c">func.c</a> source files
   for examples.
@@ -589,12 +591,12 @@ a string of one or more SQL statements.
   This article only mentions the most important and most commonly
   used SQLite interfaces.
   The SQLite library includes many other APIs implementing useful
-  features that are not described here.  
+  features that are not described here.
   A <a href="c3ref/funclist.html">complete list of functions</a> that form the SQLite
   application programming interface is found at the
   <a href="c3ref/intro.html">C/C++ Interface Specification</a>.
   Refer to that document for complete and authoritative information about
   all SQLite interfaces.
 </p>
-<p align="center"><small><i>This page last modified on  <a href="https://sqlite.org/docsrc/honeypot" id="mtimelink"  data-href="https://sqlite.org/docsrc/finfo/pages/cintro.in?m=21c6c0dd3b573d0f6">2017-09-29 12:11:33</a> UTC </small></i></p>
+<p align="center"><small><i>This page last modified on  <a href="https://sqlite.org/docsrc/honeypot" id="mtimelink"  data-href="https://sqlite.org/docsrc/finfo/pages/cintro.in?m=8fd0a5fe33">2022-12-31 21:51:03</a> UTC </small></i></p>
 

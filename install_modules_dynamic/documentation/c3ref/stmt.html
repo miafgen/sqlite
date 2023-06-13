@@ -117,7 +117,7 @@ antiRobotDefense();
 </script>
 <!-- keywords: {prepared statement} {prepared statements} sqlite3_stmt -->
 <div class=nosearch>
-<a href="intro.html"><h2>SQLite C Interface</h2></a>
+<a href="../c3ref/intro.html"><h2>SQLite C Interface</h2></a>
 <h2>Prepared Statement Object</h2>
 </div>
 <blockquote><pre>
@@ -143,7 +143,7 @@ interfaces.
 to step 2.  Do this zero or more times.
 <li> Destroy the object using <a href="../c3ref/finalize.html">sqlite3_finalize()</a>.
 </ol>
-</p><p>6 Constructors:
+</p><p>6 Constructors using this object:
 <div class='columns' style='columns: 17em auto;'>
 <ul style='padding-top:0;'>
 <li><a href='../c3ref/prepare.html'>sqlite3_prepare</a></li>
@@ -155,8 +155,8 @@ to step 2.  Do this zero or more times.
 </ul>
 </div>
 </p>
-<p>1 Destructor: <a href="../c3ref/finalize.html">sqlite3_finalize()</a></p>
-<p>51 Methods:
+<p>1 Destructor using this object: <a href="../c3ref/finalize.html">sqlite3_finalize()</a></p>
+<p>52 Methods using this object:
 <div class='columns' style='columns: 17em auto;'>
 <ul style='padding-top:0;'>
 <li><a href='../c3ref/bind_blob.html'>sqlite3_bind_blob</a></li>
@@ -209,12 +209,13 @@ to step 2.  Do this zero or more times.
 <li><a href='../c3ref/stmt_readonly.html'>sqlite3_stmt_readonly</a></li>
 <li><a href='../c3ref/stmt_scanstatus.html'>sqlite3_stmt_scanstatus</a></li>
 <li><a href='../c3ref/stmt_scanstatus_reset.html'>sqlite3_stmt_scanstatus_reset</a></li>
+<li><a href='../c3ref/stmt_scanstatus.html'>sqlite3_stmt_scanstatus_v2</a></li>
 <li><a href='../c3ref/stmt_status.html'>sqlite3_stmt_status</a></li>
 </ul>
 </div>
 </p>
 <p>See also lists of
-  <a href="objlist.html">Objects</a>,
-  <a href="constlist.html">Constants</a>, and
-  <a href="funclist.html">Functions</a>.</p>
+  <a href="../c3ref/objlist.html">Objects</a>,
+  <a href="../c3ref/constlist.html">Constants</a>, and
+  <a href="../c3ref/funclist.html">Functions</a>.</p>
 

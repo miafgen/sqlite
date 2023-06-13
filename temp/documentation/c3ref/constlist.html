@@ -115,7 +115,7 @@ antiRobotGo();
 }
 antiRobotDefense();
 </script>
-<a href="intro.html"><h2>SQLite C Interface</h2></a>
+<a href="../c3ref/intro.html"><h2>SQLite C Interface</h2></a>
 
 <h2>List Of Constants:</h2>
 <p>Also available: <a href="../rescode.html">list of error codes</a></p>
@@ -219,6 +219,8 @@ antiRobotDefense();
 <li><a href='../c3ref/c_dbconfig_defensive.html'>SQLITE_DBCONFIG_MAX</a></li>
 <li><a href='../c3ref/c_dbconfig_defensive.html#sqlitedbconfignockptonclose'>SQLITE_DBCONFIG_NO_CKPT_ON_CLOSE</a></li>
 <li><a href='../c3ref/c_dbconfig_defensive.html#sqlitedbconfigresetdatabase'>SQLITE_DBCONFIG_RESET_DATABASE</a></li>
+<li><a href='../c3ref/c_dbconfig_defensive.html#sqlitedbconfigreversescanorder'>SQLITE_DBCONFIG_REVERSE_SCANORDER</a></li>
+<li><a href='../c3ref/c_dbconfig_defensive.html#sqlitedbconfigstmtscanstatus'>SQLITE_DBCONFIG_STMT_SCANSTATUS</a></li>
 <li><a href='../c3ref/c_dbconfig_defensive.html#sqlitedbconfigtriggereqp'>SQLITE_DBCONFIG_TRIGGER_EQP</a></li>
 <li><a href='../c3ref/c_dbconfig_defensive.html#sqlitedbconfigtrustedschema'>SQLITE_DBCONFIG_TRUSTED_SCHEMA</a></li>
 <li><a href='../c3ref/c_dbconfig_defensive.html#sqlitedbconfigwritableschema'>SQLITE_DBCONFIG_WRITABLE_SCHEMA</a></li>
@@ -285,6 +287,7 @@ antiRobotDefense();
 <li><a href='../c3ref/c_fcntl_begin_atomic_write.html#sqlitefcntlpragma'>SQLITE_FCNTL_PRAGMA</a></li>
 <li><a href='../c3ref/c_fcntl_begin_atomic_write.html#sqlitefcntlrbu'>SQLITE_FCNTL_RBU</a></li>
 <li><a href='../c3ref/c_fcntl_begin_atomic_write.html'>SQLITE_FCNTL_RESERVE_BYTES</a></li>
+<li><a href='../c3ref/c_fcntl_begin_atomic_write.html#sqlitefcntlresetcache'>SQLITE_FCNTL_RESET_CACHE</a></li>
 <li><a href='../c3ref/c_fcntl_begin_atomic_write.html#sqlitefcntlrollbackatomicwrite'>SQLITE_FCNTL_ROLLBACK_ATOMIC_WRITE</a></li>
 <li><a href='../c3ref/c_fcntl_begin_atomic_write.html'>SQLITE_FCNTL_SET_LOCKPROXYFILE</a></li>
 <li><a href='../c3ref/c_fcntl_begin_atomic_write.html#sqlitefcntlsizehint'>SQLITE_FCNTL_SIZE_HINT</a></li>
@@ -420,6 +423,7 @@ antiRobotDefense();
 <li><a href='../rescode.html#notadb'>SQLITE_NOTADB</a></li>
 <li><a href='../rescode.html#notfound'>SQLITE_NOTFOUND</a></li>
 <li><a href='../rescode.html#notice'>SQLITE_NOTICE</a></li>
+<li><a href='../c3ref/c_abort_rollback.html'>SQLITE_NOTICE_RBU</a></li>
 <li><a href='../rescode.html#notice_recover_rollback'>SQLITE_NOTICE_RECOVER_ROLLBACK</a></li>
 <li><a href='../rescode.html#notice_recover_wal'>SQLITE_NOTICE_RECOVER_WAL</a></li>
 <li><a href='../c3ref/c_blob.html'>SQLITE_NULL</a></li>
@@ -469,11 +473,14 @@ antiRobotDefense();
 <li><a href='../c3ref/c_fail.html'>SQLITE_ROLLBACK</a></li>
 <li><a href='../rescode.html#row'>SQLITE_ROW</a></li>
 <li><a href='../c3ref/c_alter_table.html'>SQLITE_SAVEPOINT</a></li>
+<li><a href='../c3ref/c_scanstat_complex.html'>SQLITE_SCANSTAT_COMPLEX</a></li>
 <li><a href='../c3ref/c_scanstat_est.html#sqlitescanstatest'>SQLITE_SCANSTAT_EST</a></li>
 <li><a href='../c3ref/c_scanstat_est.html#sqlitescanstatexplain'>SQLITE_SCANSTAT_EXPLAIN</a></li>
 <li><a href='../c3ref/c_scanstat_est.html#sqlitescanstatname'>SQLITE_SCANSTAT_NAME</a></li>
+<li><a href='../c3ref/c_scanstat_est.html#sqlitescanstatncycle'>SQLITE_SCANSTAT_NCYCLE</a></li>
 <li><a href='../c3ref/c_scanstat_est.html#sqlitescanstatnloop'>SQLITE_SCANSTAT_NLOOP</a></li>
 <li><a href='../c3ref/c_scanstat_est.html#sqlitescanstatnvisit'>SQLITE_SCANSTAT_NVISIT</a></li>
+<li><a href='../c3ref/c_scanstat_est.html#sqlitescanstatparentid'>SQLITE_SCANSTAT_PARENTID</a></li>
 <li><a href='../c3ref/c_scanstat_est.html#sqlitescanstatselectid'>SQLITE_SCANSTAT_SELECTID</a></li>
 <li><a href='../rescode.html#schema'>SQLITE_SCHEMA</a></li>
 <li><a href='../c3ref/c_alter_table.html'>SQLITE_SELECT</a></li>
@@ -564,6 +571,7 @@ antiRobotDefense();
 <li><a href='../c3ref/c_vtab_constraint_support.html#sqlitevtabconstraintsupport'>SQLITE_VTAB_CONSTRAINT_SUPPORT</a></li>
 <li><a href='../c3ref/c_vtab_constraint_support.html#sqlitevtabdirectonly'>SQLITE_VTAB_DIRECTONLY</a></li>
 <li><a href='../c3ref/c_vtab_constraint_support.html#sqlitevtabinnocuous'>SQLITE_VTAB_INNOCUOUS</a></li>
+<li><a href='../c3ref/c_vtab_constraint_support.html#sqlitevtabusesallschemas'>SQLITE_VTAB_USES_ALL_SCHEMAS</a></li>
 <li><a href='../rescode.html#warning'>SQLITE_WARNING</a></li>
 <li><a href='../rescode.html#warning_autoindex'>SQLITE_WARNING_AUTOINDEX</a></li>
 <li><a href='../c3ref/c_win32_data_directory_type.html'>SQLITE_WIN32_DATA_DIRECTORY_TYPE</a></li>
@@ -571,8 +579,8 @@ antiRobotDefense();
 </ul>
 </div>
 <p>Other lists:
-<a href="objlist.html">Objects</a> and
-<a href="funclist.html">Functions</a> and
+<a href="../c3ref/objlist.html">Objects</a> and
+<a href="../c3ref/funclist.html">Functions</a> and
 <a href="../rescode.html">Result Codes</a>.</p>
 
 

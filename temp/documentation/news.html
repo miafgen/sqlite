@@ -119,7 +119,54 @@ antiRobotDefense();
 
 <h2>Recent News</h2>
 
-<a name="2022_11_16"></a><h3>2022-11-16 - <a href="releaselog/3_40_0.html">Version 3.40.0</a></h3><blockquote>
+<a name="2023_05_16"></a><h3>2023-05-16 - <a href="releaselog/3_42_0.html">Version 3.42.0</a></h3><blockquote>
+Version 3.42.0 is a routine enhancement release of SQLite.
+Key enhancements in this release are added support for
+<a href="json1.html#json5">JSON5</a> and the <a href="fts5.html#the_secure_delete_configuration_option">FTS5 secure-delete command</a>.  See the
+<a href="releaselog/3_42_0.html">change log</a> for a
+summary of all enhancements in this release.
+</blockquote><hr width="50%"><a name="2023_03_22"></a><h3>2023-03-22 - <a href="releaselog/3_41_2.html">Version 3.41.2</a></h3><blockquote>
+Version 3.41.2 is a patch release that fixes multiple
+fuzzer-found problems in prior releases.  The worst problems
+include reads (not writes) past the end of a buffer.  Upgrading
+is recommended.
+</blockquote><hr width="50%"><a name="2023_03_10"></a><h3>2023-03-10 - <a href="releaselog/3_41_1.html">Version 3.41.1</a></h3><blockquote>
+Version 3.41.1 is a patch release that fixes various obscure
+problems found in 3.41.0 and reported by users.  Upgrading
+is optional.
+</blockquote><hr width="50%"><a name="2023_02_21"></a><h3>2023-02-21 - <a href="releaselog/3_41_0.html">Version 3.41.0</a></h3><blockquote>
+Version 3.41.0 is a routine enhancement release.
+</blockquote><hr width="50%"><a name="2022_12_28"></a><h3>2022-12-28 - <a href="releaselog/3_40_1.html">Version 3.40.1</a></h3><blockquote>
+Version 3.40.1 is a patch release that fixes some obscure problems
+in version 3.40.0.  The problems fixed have no impact on most applications.
+Upgrading is only necessary if you encounter problems.
+<p>
+The two most important fixes are these:
+<ul>
+<li><p>
+Fix the <a href="cli.html#safemode">safe command-line option</a> on the <a href="cli.html">CLI</a> so that it
+correctly disallows functions with side-effects.  This is a bug
+in the CLI &mdash; <i>not</i> a bug in the
+SQLite library &mdash; and it only affects the --safe command-line
+option, making that option less than fully "safe".  As the number
+of systems that use the --safe command-line option in the CLI is
+approximately zero, this is not considered an important bug.  However,
+a third-party wrote a CVE against it which caused considerable angst
+among maintainers, so it seems good to get the fix into circulation
+sooner rather than wait on the next major release.
+<li><p>
+The optional <a href="malloc.html#memsys5">memsys5</a> memory allocator picked up a bug that might
+put it into an infinite loop for very large (500MiB) allocations.
+Almost all systems use their native memory allocator, not memsys5.
+Memsys5 is only used if SQLite is compiled using SQLITE_ENABLE_MEMSYS5
+and then initialized using <a href="c3ref/config.html">sqlite3_config</a>(<a href="c3ref/c_config_covering_index_scan.html#sqliteconfigheap">SQLITE_CONFIG_HEAP</a>).
+Very, very few systems do this, and so the problem is not considered
+to be serious.
+</ul>
+<p>
+See the <a href="https://sqlite.org/src/timeline?r=branch-3.40">branch-3.40 timeline</a>
+for a complete listing of changes that have gone into this patch release.
+</blockquote><hr width="50%"><a name="2022_11_16"></a><h3>2022-11-16 - <a href="releaselog/3_40_0.html">Version 3.40.0</a></h3><blockquote>
 Version 3.40.0 is a new feature release of SQLite.  See the
 <a href="releaselog/3_40_0.html">change log</a> for details.
 Key enhancements in this release include:
@@ -197,7 +244,7 @@ tables contains a NULL value.
 </blockquote><hr width="50%"><a name="2022_04_27"></a><h3>2022-04-27 - <a href="releaselog/3_38_3.html">Version 3.38.3</a></h3><blockquote>
 Version 3.38.3 fixes a bug in the automatic-index and Bloom filter
 construction logic that might cause SQLite to be overly aggressive
-in the use of ON clause constraints, resulting in a incorret
+in the use of ON clause constraints, resulting in an incorrect
 automatic-index or Bloom filter that excludes some valid rows from
 output.  The bug was introduced in version 3.38.0.  Other minor
 changes were tossed in to complete the patch.
@@ -714,5 +761,5 @@ the Firefox developers at Mozilla.  The differences from version
 </blockquote><hr width="50%">
 
 <a href="oldnews.html">Old news...</a>
-<p align="center"><small><i>This page last modified on  <a href="https://sqlite.org/docsrc/honeypot" id="mtimelink"  data-href="https://sqlite.org/docsrc/finfo/pages/news.in?m=e3eda394b7e070ed6">2022-11-16 12:07:56</a> UTC </small></i></p>
+<p align="center"><small><i>This page last modified on  <a href="https://sqlite.org/docsrc/honeypot" id="mtimelink"  data-href="https://sqlite.org/docsrc/finfo/pages/news.in?m=d4e6e24072">2023-05-16 10:48:13</a> UTC </small></i></p>
 

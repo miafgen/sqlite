@@ -141,6 +141,7 @@ That Are Not In The GROUP BY Clause</a></div>
 <div class="fancy-toc1"><a href="#dubious_sql_is_allowed_without_any_error_or_warning">10. Dubious SQL Is Allowed Without Any Error Or Warning</a></div>
 <div class="fancy-toc1"><a href="#autoincrement_does_not_work_the_same_as_mysql">11. AUTOINCREMENT Does Not Work The Same As MySQL</a></div>
 <div class="fancy-toc1"><a href="#nul_characters_are_allowed_in_text_strings">12. NUL Characters Are Allowed In Text Strings</a></div>
+<div class="fancy-toc1"><a href="#sqlite_distinguishes_between_integer_and_text_literals">13. SQLite Distinguishes Between Integer And Text Literals</a></div>
 </div>
 </div>
 <script>
@@ -178,8 +179,9 @@ system that works across multiple database engines.
 
 </p><p>
 If you are an SQLite user whose has stumbled over some quirk of
-SQLite that is not mentioned here, please send us an email so that
-we can document the problem.
+SQLite that is not mentioned here, please let the developers know
+by posting a brief message on the
+<a href="https://sqlite.org/forum/forum">SQLite Forum</a>.
 
 </p><h1 id="sqlite_is_embedded_not_client_server"><span>2. </span>SQLite Is Embedded, Not Client-Server</h1>
 
@@ -198,8 +200,8 @@ client/server is a feature, not a bug.
 
 </p><p>
 Client/server databases like MySQL, PostgreSQL, SQL Server, Oracle, and
-others are an important component of modern systems.  
-These systems solve an important problem.  
+others are an important component of modern systems.
+These systems solve an important problem.
 But SQLite solves a different problem.
 Both SQLite and client/server databases have their role.
 Developers who are comparing SQLite against other SQL database engines need
@@ -217,7 +219,7 @@ rather than mandatory.
 </p><p>
 Some commentators say that SQLite is "weakly typed" and that other
 SQL databases are "strongly typed".  We consider these terms to be
-inaccurate and even pejorative.  We prefer to say that SQLite is 
+inaccurate and even pejorative.  We prefer to say that SQLite is
 "flexibly typed" and that other SQL database engines are
 "rigidly typed".
 
@@ -294,7 +296,7 @@ Instead, dates and times can be stored in any of these ways:
 </p><ul>
 <li> As a TEXT string in the ISO-8601 format.  Example: '2018-04-02 12:13:46'.
 </li><li> As an INTEGER number of seconds since 1970 (also known as "unix time").
-</li><li> As a REAL value that is the fractional 
+</li><li> As a REAL value that is the fractional
      <a href="https://en.wikipedia.org/wiki/Julian_day">Julian day number</a>.
 </li></ul>
 
@@ -341,7 +343,7 @@ This is a bug, but by the time the problem was discovered there
 where so many databases in circulation that depended on the bug that
 the decision was made to support the buggy behavior moving forward.
 </p><p>
-The value of an <a href="lang_createtable.html#rowid">INTEGER PRIMARY KEY</a> column must always be a 
+The value of an <a href="lang_createtable.html#rowid">INTEGER PRIMARY KEY</a> column must always be a
 non-NULL integer.  The PRIMARY KEY columns of a <a href="withoutrowid.html">WITHOUT ROWID</a>
 table are also required to be non-NULL.
 
@@ -405,7 +407,7 @@ reasons for this:
 <p>
 Full unicode case folding is supported in SQLite if it is compiled
 with the <a href="compile.html#enable_icu">-DSQLITE_ENABLE_ICU</a> option and linked against the
-<a href="http://site.icu-project.org/">International Components for Unicode</a>
+<a href="https://icu.unicode.org">International Components for Unicode</a>
 library.
 
 <a name="dblquote"></a>
@@ -460,6 +462,11 @@ sqlite3_db_config(db, SQLITE_DBCONFIG_DQS_DML, 0, (void*)0);
 to be selectively enabled for some historical database connections,
 that can be done using the same C-code as shown above except with the
 third parameter changed from 0 to 1.
+</p><p>
+As of SQLite 3.41.0 (2023-02-21) SQLITE_DBCONFIG_DQS_DDL and
+SQLTIE_DBCONFIG_DQS_DML are disabled by default in the <a href="cli.html">CLI</a>.  Use
+the ".dbconfig" dot-command to reenable the legacy behavior if
+desired.
 
 </p><h1 id="keywords_can_often_be_used_as_identifiers"><span>9. </span>Keywords Can Often Be Used As Identifiers</h1>
 
@@ -529,5 +536,14 @@ in SQLite.
 <p>NUL characters (ASCII code 0x00 and Unicode \u0000) may appear in
 the middle of strings in SQLite.  This can lead to unexpected behavior.
 See the "<a href="nulinstr.html">NUL characters in strings</a>" document for further information.
-</p><p align="center"><small><i>This page last modified on  <a href="https://sqlite.org/docsrc/honeypot" id="mtimelink"  data-href="https://sqlite.org/docsrc/finfo/pages/quirks.in?m=ee1922c171948eb28">2022-01-20 21:38:08</a> UTC </small></i></p>
+
+</p><h1 id="sqlite_distinguishes_between_integer_and_text_literals"><span>13. </span>SQLite Distinguishes Between Integer And Text Literals</h1>
+
+<p>SQLite says that the following query returns false:
+</p><div class="codeblock"><pre>SELECT 1='1';
+</pre></div>
+<p>It does this because an integer is not a string.  
+Every other major SQL database engine says this is true, for reasons
+that the creator of SQLite does not understand.
+</p><p align="center"><small><i>This page last modified on  <a href="https://sqlite.org/docsrc/honeypot" id="mtimelink"  data-href="https://sqlite.org/docsrc/finfo/pages/quirks.in?m=52efdab3cb">2023-04-16 12:53:27</a> UTC </small></i></p>
 

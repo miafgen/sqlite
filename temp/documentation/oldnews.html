@@ -127,12 +127,12 @@ Upgrade only if you are having problems.
 <p>SQLite <a href="releaselog/3_9_1.html">version 3.9.1</a> is a
 <a href="https://www.sqlite.org/src/vpatch?from=version-3.9.0&to=version-3.9.1">small patch</a>
 to <a href="releaselog/3_9_0.html">version 3.9.0</a> that includes
-a few simple build script and #ifdef tweaks to make the code easier to 
-compile on a wider variety of platform.  There are no functional changes, 
+a few simple build script and #ifdef tweaks to make the code easier to
+compile on a wider variety of platform.  There are no functional changes,
 except for a single
-<a href="https://www.sqlite.org/src/info/57eec374ae1d0a1d4a">minor bug-fix</a> in 
-<a href="json1.html">the json1 extension</a> to stop it from recognizing form-feed 
-(ASCII 0x0c) as a whitespace character, in conformance with 
+<a href="https://www.sqlite.org/src/info/57eec374ae1d0a1d4a">minor bug-fix</a> in
+<a href="json1.html">the json1 extension</a> to stop it from recognizing form-feed
+(ASCII 0x0c) as a whitespace character, in conformance with
 <a href="http://www.rfc-editor.org/rfc/rfc7159.txt">RFC7159</a>.
 </blockquote><hr width="50%"><a name="2015_10_14"></a><h3>2015-10-14 - Release 3.9.0</h3><blockquote>
 <p>SQLite version 3.9.0 is a regularly schedule maintenance release.
@@ -156,7 +156,7 @@ of changes.
    See the <a href="releaselog/3_8_11.html">change log</a> for details.
 </blockquote><hr width="50%"><a name="2015_05_20"></a><h3>2015-05-20 - Release 3.8.10.2</h3><blockquote>
 <p>Yikes!  Index corruption after a sequence of valid SQL statements!
-<p>It has been many years since anything like 
+<p>It has been many years since anything like
    <a href="https://www.sqlite.org/src/info/34cd55d6">this bug</a> has snuck into
    an official SQLite release.  But for the pasts seven months
    (<a href="releaselog/3_8_7.html">version 3.8.7</a> through <a href="releaselog/3_8_10_1.html">version 3.8.10.1</a>)
@@ -182,11 +182,11 @@ of changes.
    This release features performance improvements, fixes to several
    arcane bugs found by the AFL fuzzer, the new "sqldiff.exe" command-line
    utility, improvements to the documentation, and other enhancements.
-   See the <a href='releaselog/3_8_10.html'>release notes</a> for 
+   See the <a href='releaselog/3_8_10.html'>release notes</a> for
    additional information.
 </blockquote><hr width="50%"><a name="2015_04_08"></a><h3>2015-04-08 - Release 3.8.9</h3><blockquote>
 <p>SQLite version 3.8.9 is a regularly scheduled maintenance release.
-   New features in this release include the 
+   New features in this release include the
    <a href="pragma.html#pragma_index_xinfo">PRAGMA index_xinfo</a> command, the <a href="c3ref/status.html">sqlite3_status64()</a> interface,
    and the ".dbinfo" command of the <a href="cli.html">command-line shell</a>.
    See the <a href='releaselog/3_8_9.html'>release notes</a> for
@@ -264,7 +264,7 @@ of changes.
    the previous release are minimal.</p>
 
 <p><p>The primary reason for this release is to enhance the <a href="lang_transaction.html">ROLLBACK</a> command
-   so that it allows running queries on the same database connection to 
+   so that it allows running queries on the same database connection to
    continue running as long as the ROLLBACK does not change the schema.
    In all previous versions of SQLite, a ROLLBACK would cause pending
    queries to stop immediately and return <a href="rescode.html#abort">SQLITE_ABORT</a> or
@@ -273,7 +273,7 @@ of changes.
    are allowed to continue running if the schema is unmodified.</p>
 
 <p><p>In addition to the ROLLBACK enhancement, this patch release also
-   includes fixes for three obscure bugs.  See the 
+   includes fixes for three obscure bugs.  See the
    <a href="releaselog/3_8_7_2.html">change log</a> for details.
 </blockquote><hr width="50%"><a name="2014_10_30"></a><h3>2014-10-30 - Release 3.8.7.1</h3><blockquote>
 <p>SQLite <a href="releaselog/3_8_7_1.html">version 3.8.7.1</a> is a bug-fix release.</p>
@@ -308,7 +308,7 @@ of changes.
    has an unmeasurably small performance impact.  But the improvements add up.
    Measured on a well-defined workload (which the SQLite developers use
    as a proxy for a typical application workload) using cachegrind on Linux
-   and compiled with gcc 4.8.1 and -Os on x64 linux, the current release 
+   and compiled with gcc 4.8.1 and -Os on x64 linux, the current release
    does over 20% more work for the same number of CPU cycles compared to the
    previous release.  Cachegrind is not a real CPU, and the workload
    used for measurement is only a proxy.  So your performance may vary.
@@ -349,7 +349,7 @@ of changes.
 
 <p><p>Other noteworthy changes include the addition of support for
    <a href="lang_expr.html#hexint">hexadecimal integers</a> (ex: 0x1234), and performance enhancements
-   to the <a href="lang_expr.html#in_op">IN operator</a> which, according to 
+   to the <a href="lang_expr.html#in_op">IN operator</a> which, according to
    <a href="http://www.mail-archive.com/sqlite-users%40sqlite.org/msg85350.html">mailing list reports</a>,
    help some queries run up to five times faster.</p>
 
@@ -360,7 +360,7 @@ of changes.
    test program.
    On the other hand,
    the compiled binary for version 3.8.6 is about 5% larger than 3.8.0.
-   The size increase is 
+   The size increase is
    due in part to the addition of new features such as <a href="withoutrowid.html">WITHOUT ROWID</a>
    tables and <a href="lang_with.html">common table expressions</a>.
 </blockquote><hr width="50%"><a name="2014_06_04"></a><h3>2014-06-04 - Release 3.8.5</h3><blockquote>
@@ -373,7 +373,7 @@ of changes.
    is recommended to prevent future problems.</p>
 
 <p><p>In addition to bug fixes, the 3.8.5 release adds improvements to the
-   query planner, especially regarding sorting using indices and handling 
+   query planner, especially regarding sorting using indices and handling
    OR terms
    in the WHERE clause for WITHOUT ROWID tables.  The ".system" and
    ".once" dot-commands were added to the command-line interface.  And
@@ -385,7 +385,7 @@ of changes.
    result.  See
    <a href="http://www.sqlite.org/src/info/98825a79ce145686392d8074032ae54863aa21a3">ticket 98825a79ce145</a>
    for details.
-   This release adds a 
+   This release adds a
    <a href="http://www.sqlite.org/src/fdiff?sbs=1&v1=7d539cedb1c&v2=ebad891b7494d&smhdr">one-character change</a>
    to a single line of code to fix the problem.
 </blockquote><hr width="50%"><a name="2014_03_26"></a><h3>2014-03-26 - Release 3.8.4.2</h3><blockquote>
@@ -415,14 +415,14 @@ decision was made to do a quick patch release to address both issues.
 <p>SQLite <a href="releaselog/3_8_4.html">version 3.8.4</a> is a maintenance release featuring performance
    enhancements and fixes for a number of obscure bugs.
    There are no significant new features in SQLite version 3.8.4.
-   However, the number of CPU cycles (measured by valgrind) needed to 
+   However, the number of CPU cycles (measured by valgrind) needed to
    do many common operations has be reduced by about 12% relative to the
    previous release, and by about 25% relative to <a href="releaselog/3_7_16.html">version 3.7.16</a>
    from approximately one year ago.</p>
 
 <p><p>Version 3.8.4 of SQLite fixes several corner-case bugs that were
    found since the previous release.  These bugs were unlikely to appear
-   in practice, and none represent a security vulnerability. 
+   in practice, and none represent a security vulnerability.
    Nevertheless, developers are encouraged to upgrade from all prior releases.
 </blockquote><hr width="50%"><a name="2014_02_11"></a><h3>2014-02-11 - Release 3.8.3.1</h3><blockquote>
 <p>SQLite <a href="releaselog/3_8_3_1.html">version 3.8.3.1</a> fixes a bug present in versions 3.8.1,
@@ -451,7 +451,7 @@ WHERE (expr1 OR expr2 OR ... OR exprN) AND column IS NOT NULL
 <p>  <p>The most visible change in version 3.8.3 is the addition of
   support for <a href="lang_with.html">common table expressions</a>.  It is now possible to write a
   single <a href="lang_select.html">SELECT</a> statement that will query a tree or graph, using either
-  a depth-first or a breadth-first search.  A single SQLite query will 
+  a depth-first or a breadth-first search.  A single SQLite query will
   even <a href="lang_with.html#sudoku">solve Sudoku puzzles</a> or <a href="lang_with.html#mandelbrot">compute the Mandelbrot set</a>.  As part
   of this change, SQLite now accepts a <a href="lang_select.html#values">VALUES clause</a> anyplace that
   a <a href="lang_select.html">SELECT</a> statement is valid.</p>
@@ -467,14 +467,14 @@ WHERE (expr1 OR expr2 OR ... OR exprN) AND column IS NOT NULL
 <p>  <p>Version 3.8.2 adds support for <a href="withoutrowid.html">WITHOUT ROWID</a> tables.  This is a
   significant extension to SQLite.  Database files that contain WITHOUT ROWID
   tables are not readable or writable by prior versions of SQLite, however
-  databases that do not use WITHOUT ROWID tables are fully backwards 
+  databases that do not use WITHOUT ROWID tables are fully backwards
   and forwards compatible.</p>
 
 <p>  <p>The 3.8.2 release contains a potentially incompatible change.  In
-  all prior versions of SQLite, a <a href="lang_expr.html#castexpr">cast</a> from a very large positive 
+  all prior versions of SQLite, a <a href="lang_expr.html#castexpr">cast</a> from a very large positive
   floating point number into an integer resulted in the most negative integer.
   In other words, CAST(+99.9e99 to INT) would yield -9223372036854775808.
-  This behavior came about because it is what x86/x64 hardware does 
+  This behavior came about because it is what x86/x64 hardware does
   for the equivalent cast in the C language.  But the behavior is
   bizarre.  And so it has been changed effective with this release so that
   a cast from a floating point number into an integer returns the integer
@@ -484,7 +484,7 @@ WHERE (expr1 OR expr2 OR ... OR exprN) AND column IS NOT NULL
   value being accessed is really a floating point number, they are also
   affected by this change.</p>
 
-<p>  <p>Besides the two changes mentioned above, the 3.8.2 release also 
+<p>  <p>Besides the two changes mentioned above, the 3.8.2 release also
   includes a number of performance enhancements.  The
   <a href="optoverview.html#skipscan">skip-scan optimization</a> is now available for databases that have been
   processed by <a href="lang_analyze.html">ANALYZE</a>.  Constant SQL functions are now factored out of
@@ -495,13 +495,13 @@ WHERE (expr1 OR expr2 OR ... OR exprN) AND column IS NOT NULL
 </blockquote><hr width="50%"><a name="2013_10_17"></a><h3>2013-10-17 - Release 3.8.1</h3><blockquote>
   <p>SQLite <a href="releaselog/3_8_1.html">version 3.8.1</a> is a regularly scheduled maintenance release.
   Upgrading from the previous release is optional, though you should upgrade
-  if you are using <a href="partialindex.html">partial indices</a> as there was a 
+  if you are using <a href="partialindex.html">partial indices</a> as there was a
   <a href="http://www.sqlite.org/src/info/a5c8ed66ca">bug</a> related to partial
   indices in the previous release that could result in an incorrect answer
   for count(*) queries.</p>
 
 <p>  <p>The <a href="queryplanner-ng.html">next generation query planner</a> that was premiered in the previous
-  release continues to work well.  
+  release continues to work well.
   The new query planner has been tweaked slightly
   in the current release to help it make better decisions in some
   cases, but is largely unchanged.  Two new SQL functions, <a href="lang_corefunc.html#likelihood">likelihood()</a> and
@@ -523,12 +523,12 @@ WHERE (expr1 OR expr2 OR ... OR exprN) AND column IS NOT NULL
   <a href="pragma.html#pragma_stats">PRAGMA stats</a> statement can be used to view row size estimates.</p>
 
 <p>  <p>Version 3.8.1 adds the <a href="compile.html#enable_stat4">SQLITE_ENABLE_STAT4</a> compile-time option.
-  STAT4 is very similar to STAT3 in that it uses samples from indices to 
+  STAT4 is very similar to STAT3 in that it uses samples from indices to
   try to guess how many rows of the index will be satisfy by WHERE clause
   constraints.  The difference is that STAT4 samples all columns of the
   index whereas the older STAT3 only sampled the left-most column.  Users
   of STAT3 are encouraged to upgrade to STAT4.  Application developers should
-  use STAT3 and STAT4 with caution since both options, by design, violate 
+  use STAT3 and STAT4 with caution since both options, by design, violate
   the <a href="queryplanner-ng.html#qpstab">query planner stability guarantee</a>, making it more difficult to ensure
   uniform performance is widely-deployed and mass-produced embedded
   applications.
@@ -547,7 +547,7 @@ WHERE (expr1 OR expr2 OR ... OR exprN) AND column IS NOT NULL
   <a href="queryplanner-ng.html#hazards">breaking legacy programs</a> that
   rely on undefined behavior in previous SQLite releases, and so the
   minor version number was incremented for that reason.
-  But the risks are low and there is a <a href="queryplanner-ng.html#howtofix">query planner checklist</a> is 
+  But the risks are low and there is a <a href="queryplanner-ng.html#howtofix">query planner checklist</a> is
   available to application developers to aid in avoiding problems.</p>
 
 <p>  <p>SQLite <a href="releaselog/3_8_0.html">version 3.8.0</a> is actually one of the most heavily tested
@@ -564,9 +564,9 @@ WHERE (expr1 OR expr2 OR ... OR exprN) AND column IS NOT NULL
   changes in this release.</p>
 
 <p>  There are many bug fixes in version 3.7.17.  But this does not indicate
-  that 3.7.16 was a problematic release.  All of the bugs in 3.7.17 are 
-  obscure and are unlikely to impact any particular application.  And most 
-  of the bugs that are fixed in 3.7.17 predate 3.7.16 and have been in 
+  that 3.7.16 was a problematic release.  All of the bugs in 3.7.17 are
+  obscure and are unlikely to impact any particular application.  And most
+  of the bugs that are fixed in 3.7.17 predate 3.7.16 and have been in
   the code for years without ever before being noticed.
   Nevertheless, due to the large number of fixes,
   all users are encouraged to upgrade when possible.
@@ -580,12 +580,12 @@ WHERE (expr1 OR expr2 OR ... OR exprN) AND column IS NOT NULL
 <p>  As far as we know, this bug has never been seen in the wild.  The
   problem was discovered by the SQLite developers while writing stress tests
   for a separate component of SQLite.  Those stress tests have not yet
-  found any problems with the component they were intended to verify, but 
+  found any problems with the component they were intended to verify, but
   they did find the bug which is the subject of this patch release.</p>
 
 <p>  Other than updates to version numbers, the only difference between this
   release and 3.7.16.1 is a two-character change in a single identifier,
-  which is contained in the windows-specific OS interface logic.  There 
+  which is contained in the windows-specific OS interface logic.  There
   are no changes in this release (other than version numbers) for platforms
   other than Windows.
 </blockquote><hr width="50%"><a name="2013_03_29"></a><h3>2013-03-29 - Release 3.7.16.1</h3><blockquote>
@@ -643,11 +643,11 @@ WHERE (expr1 OR expr2 OR ... OR exprN) AND column IS NOT NULL
   was also being cached within expressions.  If an expression was part of the
   schema and contained a cached collating function, it would point to the
   collating function in the database connection that originally parsed the
-  schema.  If that database connection closed while other database 
+  schema.  If that database connection closed while other database
   connections using the same shared cache continued to operate, they other
   database connections would try to use the deallocated collating function
   in the database connection that closed.  The fix in version 3.7.15 was to
-  not cache collating function pointers in the expression structure but 
+  not cache collating function pointers in the expression structure but
   instead look them up each time a new statement is prepared.</p>
 
 <p>  This release also contains some important enhancements to the query planner
@@ -658,10 +658,10 @@ WHERE (expr1 OR expr2 OR ... OR exprN) AND column IS NOT NULL
   the original table, under the theory that indices contain less information
   and are thus smaller and hence require less disk I/O to scan.</p></p>
 
-<p>  <li><p>Enhance the <a href="lang_expr.html#in_op">IN operator</a> to allow it to make use of 
+<p>  <li><p>Enhance the <a href="lang_expr.html#in_op">IN operator</a> to allow it to make use of
   indices that have <a href="datatype3.html#affinity">numeric affinity</a>.</p></p>
 
-<p>  <li><p>Do a better job of recognizing when an ORDER BY clause can be 
+<p>  <li><p>Do a better job of recognizing when an ORDER BY clause can be
   implemented using indices - especially in cases where the ORDER BY clause
   contains terms from two or more tables in a join.</p>
   </ol>
@@ -705,7 +705,7 @@ WHERE (expr1 OR expr2 OR ... OR exprN) AND column IS NOT NULL
   SQLite <a href="releaselog/3_7_13.html">version 3.7.13</a> adds support for WinRT and metro style
   applications for Microsoft Windows 8.  The 3.7.13 release is
   coming sooner than is usual after the previous release in order to get
-  this new capability into the hands of developers.  To use SQLite in 
+  this new capability into the hands of developers.  To use SQLite in
   a metro style application, compile with the -DSQLITE_OS_WINRT flag.
   Because of the increased application security and safety requirements
   of WinRT, all database
@@ -716,7 +716,7 @@ WHERE (expr1 OR expr2 OR ... OR exprN) AND column IS NOT NULL
   the same on WinRT as it does on every other system.</p>
 
 <p>  Also in this release: when a database is opened using <a href="uri.html">URI filenames</a>
-  and the <a href="uri.html#coreqp">mode=memory</a> query parameter 
+  and the <a href="uri.html#coreqp">mode=memory</a> query parameter
   then the database is an in-memory database, just as if it had
   been named ":memory:".  But, if shared cache mode is enabled, then
   all other database connections that specify the same URI filename
@@ -744,7 +744,7 @@ WHERE (expr1 OR expr2 OR ... OR exprN) AND column IS NOT NULL
   is recommended.  See the <a href="releaselog/3_7_12.html">change summary</a> for details.
 </blockquote><hr width="50%"><a name="2012_03_20"></a><h3>2012-03-20 - Version 3.7.11</h3><blockquote>
   SQLite <a href="releaselog/3_7_11.html">version 3.7.11</a> is a regularly scheduled maintenance release
-  which was rushed out early due to a 
+  which was rushed out early due to a
   <a href="http://www.sqlite.org/src/info/b7c8682cc1">bug in the query optimizer</a>
   introduced in the previous release.  The bug is obscure - it changes
   a LEFT JOIN into an INNER JOIN in some cases when there is a 3-way join
@@ -764,7 +764,7 @@ WHERE (expr1 OR expr2 OR ... OR exprN) AND column IS NOT NULL
 
 <p>  The <a href="c3ref/c_config_covering_index_scan.html#sqliteconfigpcache">SQLITE_CONFIG_PCACHE</a> mechanism has been replaced with
   <a href="c3ref/c_config_covering_index_scan.html#sqliteconfigpcache2">SQLITE_CONFIG_PCACHE2</a>.  If you do not know what this mechanism
-  is (it is an extreme corner-case and is seldom used) then this 
+  is (it is an extreme corner-case and is seldom used) then this
   change will not effect you in the least.</p>
 
 <p>  The default <a href="fileformat2.html#schemaformat">schema format number</a> for new database files has changed
@@ -772,7 +772,7 @@ WHERE (expr1 OR expr2 OR ... OR exprN) AND column IS NOT NULL
   using schema format 4 for six years.  But up unto now, the default
   schema format has been 1 so that older versions of SQLite could read
   and write databases generated by newer versions of SQLite.  But those
-  older versions of SQLite have become so scarce now that it seems 
+  older versions of SQLite have become so scarce now that it seems
   reasonable to make the new format the default.</p>
 
 <p>  SQLite is changing some of the assumptions it makes above the behavior
@@ -794,7 +794,7 @@ WHERE (expr1 OR expr2 OR ... OR exprN) AND column IS NOT NULL
   use this statement to tell SQLite how many pages of the database files it
   should hold in its cache at once.  The total memory requirement would
   depend on the database page size. Now, if you give <a href="pragma.html#pragma_cache_size">PRAGMA cache_size</a>
-  a negative value -N, it will allocate roughly N 
+  a negative value -N, it will allocate roughly N
   <a href="http://en.wikipedia.org/wiki/Kibibyte">kibibytes</a> of memory to cache,
   divided up according to page size.  This enhancement allows programs to
   more easily control their memory usage.</p>
@@ -815,7 +815,7 @@ WHERE (expr1 OR expr2 OR ... OR exprN) AND column IS NOT NULL
   query-planner functionality formerly available using SQLITE_ENABLE_STAT2
   is now available through <a href="compile.html#enable_stat3">SQLITE_ENABLE_STAT3</a>.  The enhanced query planning
   is still disabled by default.  However, future releases of SQLite might
-  convert STAT3 from an enable-option to a disable-option so that it is 
+  convert STAT3 from an enable-option to a disable-option so that it is
   available by default and is only omitted upon request.</p>
 
 <p>  The <a href="fts3.html#fts4">FTS4</a> full-text search engine has been enhanced such that tokens in
@@ -824,11 +824,11 @@ WHERE (expr1 OR expr2 OR ... OR exprN) AND column IS NOT NULL
   search string were simply ignored.  Hence, if a legacy application was
   including "&#94;" characters in FTS4 search strings, thinking that they would
   always be ignored, then those legacy applications might break with this
-  update.  The fix is simply remove the "&#94;" characters from the search 
+  update.  The fix is simply remove the "&#94;" characters from the search
   string.</p>
 
 <p>  See the <a href="releaselog/3_7_9.html">change summary</a> for additional changes associated
-  with this release.  
+  with this release.
 </blockquote><hr width="50%"><a name="2011__eptember_19"></a><h3>2011-September-19 - Version 3.7.8</h3><blockquote>
   SQLite <a href="releaselog/3_7_8.html">version 3.7.8</a> is a quarterly maintenance release.  Upgrading from
   versions 3.7.6.3, 3.7.7, or 3.7.7.1 is optional.  Upgrading from other
@@ -839,12 +839,12 @@ WHERE (expr1 OR expr2 OR ... OR exprN) AND column IS NOT NULL
   index for CREATE INDEX.  The new algorithm does approximately the same
   number of comparisons and I/Os as before, but the I/Os are much more
   sequential and so runtimes are greatly reduced when the size of the
-  set being sorted is larger than the filesystem cache.  The performance 
-  improvement can be dramatic - orders of magnitude faster 
-  for large CREATE INDEX commands.  On the other hand, 
+  set being sorted is larger than the filesystem cache.  The performance
+  improvement can be dramatic - orders of magnitude faster
+  for large CREATE INDEX commands.  On the other hand,
   the code is slightly slower (1% or 2%)
   for a small CREATE INDEX.  Since CREATE INDEX is not an
-  operation that commonly occurs on a speed-critical path, we feel that 
+  operation that commonly occurs on a speed-critical path, we feel that
   this tradeoff is a good one.  The slight slowdown for small CREATE INDEX
   statements might be recovered in a future release.  ORDER BY and GROUP BY
   operations should now be faster for all cases, large and small.</p>
@@ -852,7 +852,7 @@ WHERE (expr1 OR expr2 OR ... OR exprN) AND column IS NOT NULL
 <p>  The query planner has been enhanced to do a better job of handling
   the DISTINCT keyword on SELECT statements.</p>
 
-<p>  There has been a lot of work on the default <a href="vfs.html">VFSes</a>.  The unix VFS has
+<p>  There has been a lot of work on the default <a href="vfs.html">VFSes</a>.  The Unix VFS has
   been enhanced to include more overrideable system calls - a feature requested
   by Chromium to make it easier to build SQLite into a sandbox.  The
   windows VFS has been enhanced to be more resistant to interference from
@@ -881,13 +881,13 @@ WHERE (expr1 OR expr2 OR ... OR exprN) AND column IS NOT NULL
 <p>  This release adds support for naming database files using <a href="uri.html">URI filenames</a>.
   URI filenames are disabled by default (for backwards compatibility) but
   applications are encouraged to enable them since incompatibilities are
-  likely to be exceedingly rare and the feature is useful.  See the 
+  likely to be exceedingly rare and the feature is useful.  See the
   <a href="uri.html">URI filename documentation</a> for details.</p>
 
-<p>  Most of the other enhancements in this release involve 
+<p>  Most of the other enhancements in this release involve
   <a href="vtab.html">virtual tables</a>.  The virtual table interface has been enhanced to
-  support <a href="lang_savepoint.html">SAVEPOINT</a> and <a href="lang_conflict.html">ON CONFLICT</a> clause processing, and the built-in 
-  <a href="rtree.html">RTREE</a> and <a href="fts3.html">FTS3/FTS4</a> have been augmented to take advantage of 
+  support <a href="lang_savepoint.html">SAVEPOINT</a> and <a href="lang_conflict.html">ON CONFLICT</a> clause processing, and the built-in
+  <a href="rtree.html">RTREE</a> and <a href="fts3.html">FTS3/FTS4</a> have been augmented to take advantage of
   the new capability.  This means, for example, that it is now possible
   to use the <a href="lang_replace.html">REPLACE</a> command on <a href="fts3.html">FTS3/FTS4</a> and <a href="rtree.html">RTREE</a> tables.</p>
 
@@ -910,7 +910,7 @@ WHERE (expr1 OR expr2 OR ... OR exprN) AND column IS NOT NULL
   release has not given any problems, so we expect this to be a very
   stable release.
 </blockquote><hr width="50%"><a name="2011_05_19"></a><h3>2011-05-19 - Version 3.7.6.3</h3><blockquote>
-  SQLite <a href="releaselog/3_7_6_3.html">version 3.7.6.3</a> is a patch release that fixes a 
+  SQLite <a href="releaselog/3_7_6_3.html">version 3.7.6.3</a> is a patch release that fixes a
   <a href="http://www.sqlite.org/src/info/2d1a5c67df">single bug</a>
   associated with <a href="wal.html">WAL mode</a>.  The bug has been in SQLite ever since WAL
   was added, but the problem is very obscure and so nobody has noticed
@@ -940,7 +940,7 @@ WHERE (expr1 OR expr2 OR ... OR exprN) AND column IS NOT NULL
   during that transaction, appends them to the WAL, and sets the commit
   flag on the last page.  Now, if SQLite comes under memory pressure, it
   might try to free up memory space by writing changed pages to the WAL
-  prior to the commit.  We call this "spilling" the cache to WAL.  There 
+  prior to the commit.  We call this "spilling" the cache to WAL.  There
   is nothing wrong with spilling cache to WAL.  But if the
   memory pressure is severe, it might be that by the time <a href="lang_transaction.html">COMMIT</a> is run,
   all changed pages for the transaction have already been spilled to WAL
@@ -962,11 +962,11 @@ WHERE (expr1 OR expr2 OR ... OR exprN) AND column IS NOT NULL
 <p>  Upgrading from version 3.7.6.1 is only needed on NetBSD.
 </blockquote><hr width="50%"><a name="2011_04_13"></a><h3>2011-04-13 - Version 3.7.6.1</h3><blockquote>
   SQLite <a href="releaselog/3_7_6_1.html">version 3.7.6.1</a> fixes a single bug in 3.7.6 that can cause a
-  segfault if <a href="c3ref/c_fcntl_begin_atomic_write.html#sqlitefcntlsizehint">SQLITE_FCNTL_SIZE_HINT</a> is used on a unix build that has
+  segfault if <a href="c3ref/c_fcntl_begin_atomic_write.html#sqlitefcntlsizehint">SQLITE_FCNTL_SIZE_HINT</a> is used on a Unix build that has
   SQLITE_ENABLE_LOCKING_MODE set to 0 and is compiled with
   HAVE_POSIX_FALLOCATE.</p>
 
-<p>  Upgrading from 3.7.6 is only needed for users effected by the 
+<p>  Upgrading from 3.7.6 is only needed for users effected by the
   configuration-specific bug described above.  There are no other changes
   to the code.
 </blockquote><hr width="50%"><a name="2011_04_12"></a><h3>2011-04-12 - Version 3.7.6</h3><blockquote>
@@ -975,7 +975,7 @@ WHERE (expr1 OR expr2 OR ... OR exprN) AND column IS NOT NULL
   releases prior to 3.7.5 is recommended.
 </blockquote><hr width="50%"><a name="2011_02_01"></a><h3>2011-02-01 - Version 3.7.5</h3><blockquote>
   SQLite <a href="releaselog/3_7_5.html">version 3.7.5</a> is a regularly scheduled bi-monthly maintenance
-  release of SQLite.  Due to the discovery and fix of 
+  release of SQLite.  Due to the discovery and fix of
   <a href="http://www.sqlite.org/src/tktview?name=5d863f876e">an obscure bug</a>
   that could cause database corruption, upgrading from all prior
   releases of SQLite is recommended.  This bug was found during code
@@ -1007,11 +1007,11 @@ WHERE (expr1 OR expr2 OR ... OR exprN) AND column IS NOT NULL
   release of SQLite.  Upgrading from <a href="releaselog/3_7_2.html">version 3.7.2</a> and <a href="releaselog/3_7_3.html">version 3.7.3</a>
   is optional.  Upgrading from all other SQLite releases is recommended.</p>
 
-<p>  This release features <a href="fts3.html">full-text search</a> enhancements.  The older 
+<p>  This release features <a href="fts3.html">full-text search</a> enhancements.  The older
   <a href="fts3.html">FTS3</a> virtual table is still fully supported, and should also run
   faster.  In addition, the new <a href="fts3.html#fts4">FTS4</a> virtual table is added.  FTS4
   follows the same syntax as FTS3 but holds additional metadata which
-  facilitates some performance improvements and more advanced 
+  facilitates some performance improvements and more advanced
   <a href="fts3.html#matchinfo">matchinfo()</a> output.  Look for further full-text search enhancements
   in subsequent releases.</p>
 
@@ -1020,7 +1020,7 @@ WHERE (expr1 OR expr2 OR ... OR exprN) AND column IS NOT NULL
   more easily understand how SQLite is performing their queries.</p>
 
 <p>  Thanks to an account from the folks at <a href="http://www.devio.us/">http://www.devio.us/</a>, OpenBSD
-  has been added to the list of platforms upon which we 
+  has been added to the list of platforms upon which we
   <a href="testing.html">test SQLite</a> prior to every release.  That list of platforms
   now includes:</p>
 
@@ -1036,7 +1036,7 @@ WHERE (expr1 OR expr2 OR ... OR exprN) AND column IS NOT NULL
 <p>  The previous release of SQLite (<a href="releaselog/3_7_3.html">version 3.7.3</a>) has proven to be very
   robust.  The only serious issue discovered was
   <a href="http://www.sqlite.org/src/info/80ba201079">ticket 80ba201079</a> that
-  describes an incorrect query result that can occur under very 
+  describes an incorrect query result that can occur under very
   unusual circumstances.  The ticket description contains details of the
   problem.  Suffice it to say here that the problem is very obscure and
   is unlikely to effect most applications and so upgrading is optional.
@@ -1047,14 +1047,14 @@ WHERE (expr1 OR expr2 OR ... OR exprN) AND column IS NOT NULL
   Upgrading from all other releases is recommended.</p>
 
 <p>  This release adds two new interfaces (really just variations on existing
-  interfaces).  The <a href="c3ref/create_function.html">sqlite3_create_function_v2()</a> interface adds a 
-  destructor for the application-data pointer.  The new 
+  interfaces).  The <a href="c3ref/create_function.html">sqlite3_create_function_v2()</a> interface adds a
+  destructor for the application-data pointer.  The new
   <a href="c3ref/hard_heap_limit64.html">sqlite3_soft_heap_limit64()</a> interface allows the soft heap limit to
-  be set to a value greater than 2<sup>31</sup>. </p>
+  be set to a value greater than 2<sup>31</sup>.</p>
 
 <p>  The <a href="rtree.html">RTREE</a> extension has been enhanced with the ability to have an
   <a href="rtree.html#customquery">application-defined query region</a>.  This might
-  be used, for example, to locate all objects within 
+  be used, for example, to locate all objects within
   the field of view of a camera.</p>
 
 <p>  The 3.7.3 release also includes some performance enhancements, including
@@ -1066,7 +1066,7 @@ WHERE (expr1 OR expr2 OR ... OR exprN) AND column IS NOT NULL
   multiple times to
   partially reduce the size of a database file that contains many hundreds
   of unused database pages.  The original bug reports together with links
-  to the patch that fixes it can be seen 
+  to the patch that fixes it can be seen
   <a href="http://www.sqlite.org/src/info/5e10420e8d">here</a>.</p>
 
 <p>  This bug has been in the code for at least a year and possibly longer.
@@ -1076,7 +1076,7 @@ WHERE (expr1 OR expr2 OR ... OR exprN) AND column IS NOT NULL
 
 <p>  The bug is impossible to hit without using <a href="pragma.html#pragma_incremental_vacuum">incremental_vacuum</a> and is
   very difficult to hit even with incremental_vacuum.  And the kind of
-  corruption that the bug causes can usually be fixed 
+  corruption that the bug causes can usually be fixed
   simply by running <a href="lang_vacuum.html">VACUUM</a>.  Nevertheless, because the bug can result
   in database corruption, it is recommended that all SQLite users upgrade
   to version 3.7.2 or later.
@@ -1092,7 +1092,7 @@ WHERE (expr1 OR expr2 OR ... OR exprN) AND column IS NOT NULL
   application-visible effects.  The purpose was to reorganize the code
   in ways that make it easier to prove correctness.</p>
 
-<p>  The 3.7.1 release adds new experimental methods for obtained more 
+<p>  The 3.7.1 release adds new experimental methods for obtained more
   detailed memory usage information and for controlling database file
   fragmentation.  And the query planner now does a better job of
   optimizing the <a href="lang_expr.html#like">LIKE</a> and <a href="lang_expr.html#glob">GLOB</a> operators.</p>
@@ -1121,7 +1121,7 @@ WHERE (expr1 OR expr2 OR ... OR exprN) AND column IS NOT NULL
   of WAL mode.
 </blockquote><hr width="50%"><a name="2010_03_30"></a><h3>2010-03-30 - Version 3.6.23.1</h3><blockquote>
   SQLite <a href="releaselog/3_6_23_1.html">version 3.6.23.1</a> is a patch release to fix a bug in the
-  offsets() function of <a href="fts3.html">FTS3</a> at the request of the Mozilla.  
+  offsets() function of <a href="fts3.html">FTS3</a> at the request of the Mozilla.
 </blockquote><hr width="50%"><a name="2010_03_09"></a><h3>2010-03-09 - Version 3.6.23</h3><blockquote>
   SQLite <a href="releaselog/3_6_23.html">version 3.6.23</a> is a regular bimonthly release of SQLite.
   Upgrading from the prior release is purely optional.</p>
@@ -1144,7 +1144,7 @@ WHERE (expr1 OR expr2 OR ... OR exprN) AND column IS NOT NULL
   an anachronism.
 </blockquote><hr width="50%"><a name="2010_01_06"></a><h3>2010-01-06 - Version 3.6.22</h3><blockquote>
   SQLite <a href="releaselog/3_6_22.html">version 3.6.22</a> is a bug-fix release.  Two bugs have been fixed
-  that might cause incorrect query results.  
+  that might cause incorrect query results.
   <ul>
   <li>Ticket <a href="http://www.sqlite.org/src/info/31338dca7e">31338dca7e</a>
   describes a
@@ -1168,7 +1168,7 @@ WHERE (expr1 OR expr2 OR ... OR exprN) AND column IS NOT NULL
   a certain set of traces, this version uses 12% fewer CPU instructions
   than the previous release (as measured by Valgrind).  In addition, the
   <a href="fts3.html">FTS3</a> extension has been through an extensive cleanup and rework and
-  the <a href="c3ref/profile.html">sqlite3_trace()</a> interface has been modified to insert 
+  the <a href="c3ref/profile.html">sqlite3_trace()</a> interface has been modified to insert
   <a href="lang_expr.html#varparam">bound parameter</a> values into its output.
 </blockquote><hr width="50%"><a name="2009_11_04"></a><h3>2009-11-04 - Version 3.6.20</h3><blockquote>
   SQLite <a href="releaselog/3_6_20.html">version 3.6.20</a> is a general maintenance release.  The
@@ -1225,14 +1225,14 @@ WHERE (expr1 OR expr2 OR ... OR exprN) AND column IS NOT NULL
   bugs are serious and all are obscure, so upgrading is optional.</p>
 
 <p>  The SQLite core continues to have <a href="testing.html#coverage">100% branch test coverage</a>
-  and so despite the many changes in this release, the developers 
+  and so despite the many changes in this release, the developers
   believe that this version of SQLite is stable and ready for production
   use.
 </blockquote><hr width="50%"><a name="2009_08_10"></a><h3>2009-08-10 - Version 3.6.17</h3><blockquote>
   This is a monthly maintenance release with a focus of bug fixes,
   performance improvements, and increased test coverage.  This is the
   first release of SQLite since <a href="testing.html#coverage">100% branch test coverage</a>
-  was achieved on the SQLite core.  </p>
+  was achieved on the SQLite core.</p>
 
 <p>  In addition, a new interface <a href="c3ref/stricmp.html">sqlite3_strnicmp()</a> is provided for the
   convenience of extension writers.</p>
@@ -1245,7 +1245,7 @@ WHERE (expr1 OR expr2 OR ... OR exprN) AND column IS NOT NULL
   (exclusive of the VFS backend and of extensions such as FTS3 and RTREE)
   when compiled for SuSE 10.1 Linux on x86.  The SQLite developers pledge
   to maintain branch test coverage at 100% in all future releases.
-  Ongoing work will strive for 100% branch test coverage on the 
+  Ongoing work will strive for 100% branch test coverage on the
   operating-system backends and extensions as well.
 </blockquote><hr width="50%"><a name="2009_06_27"></a><h3>2009-06-27 - Version 3.6.16</h3><blockquote>
   SQLite <a href="releaselog/3_6_16.html">version 3.6.16</a> is another general maintenance release containing
@@ -1256,7 +1256,7 @@ WHERE (expr1 OR expr2 OR ... OR exprN) AND column IS NOT NULL
 </blockquote><hr width="50%"><a name="2009_06_15"></a><h3>2009-06-15 - Version 3.6.15</h3><blockquote>
   SQLite <a href="releaselog/3_6_15.html">version 3.6.15</a> is a general maintenance release containing
   performance and robustness enhancements and fixes for various obscure
-  bugs.  
+  bugs.
 </blockquote><hr width="50%"><a name="2009_05_25"></a><h3>2009-05-25 - Version 3.6.14.2</h3><blockquote>
   SQLite <a href="releaselog/3_6_14_2.html">version 3.6.14.2</a> fixes an obscure bug in the code generator
   (ticket #3879)
@@ -1272,7 +1272,7 @@ WHERE (expr1 OR expr2 OR ... OR exprN) AND column IS NOT NULL
   users of 3.6.14 and 3.5.14.1 upgrade to this release.
 </blockquote><hr width="50%"><a name="2009_05_19"></a><h3>2009-05-19 - Version 3.6.14.1</h3><blockquote>
   SQLite <a href="releaselog/3_6_14_1.html">version 3.6.14.1</a> is a patch release to <a href="releaselog/3_6_14.html">version 3.6.14</a> with
-  minimal changes that fixes three bugs.  Upgrading is only necessary 
+  minimal changes that fixes three bugs.  Upgrading is only necessary
   for users who are impacted by one or more of those bugs.
 </blockquote><hr width="50%"><a name="2009_05_07"></a><h3>2009-05-07 - Version 3.6.14</h3><blockquote>
   SQLite <a href="releaselog/3_6_14.html">version 3.6.14</a> provides new performance enhancements in
@@ -1284,7 +1284,7 @@ WHERE (expr1 OR expr2 OR ... OR exprN) AND column IS NOT NULL
   in the WHERE clause are now able to use indexing.</p>
 
 <p>  A new optional <a href="asyncvfs.html">asynchronous I/O backend</a> is available for
-  unix and windows.  The asynchronous backend gives the illusion of faster
+  Unix and Windows.  The asynchronous backend gives the illusion of faster
   response time by pushing slow write operations into a background thread.
   The tradeoff for faster response time is that more memory is required
   (to hold the content of the pending writes) and if a power failure or
@@ -1319,7 +1319,7 @@ WHERE (expr1 OR expr2 OR ... OR exprN) AND column IS NOT NULL
   This release fixes a bug that was introduced into SQLite <a href="releaselog/3_6_4.html">version 3.6.4</a>
   and that can cause database corruption in obscure cases.  This bug has
   never been seen in the wild; it was first detected by internal stress
-  tests and required substantial analysis before it could be shown to 
+  tests and required substantial analysis before it could be shown to
   potentially lead to corruption.  So we feel that SQLite versions 3.6.4,
   3.6.5, and 3.6.6 are safe to use for development work.  But upgrading
   to this patch release or later is recommended prior to deploying
@@ -1328,7 +1328,7 @@ WHERE (expr1 OR expr2 OR ... OR exprN) AND column IS NOT NULL
 <p>  We have taken the unusual step of issuing a patch release in order to
   get the fix for this bug into circulation quickly.  SQLite version 3.6.7
   will continue on its normal path of development with an anticipated
-  release in mid December.  
+  release in mid December.
 </blockquote><hr width="50%"><a name="2008_11_19"></a><h3>2008-11-19 - Version 3.6.6</h3><blockquote>
   SQLite <a href="releaselog/3_6_5.html">version 3.6.5</a> is released.  This is a quick turn-around release
   that fixes a bug in virtual tables and FTS3 that snuck into
@@ -1336,7 +1336,7 @@ WHERE (expr1 OR expr2 OR ... OR exprN) AND column IS NOT NULL
   application-defined page cache mechanism.
 </blockquote><hr width="50%"><a name="2008_11_12"></a><h3>2008-11-12 - Version 3.6.5</h3><blockquote>
   SQLite <a href="releaselog/3_6_5.html">version 3.6.5</a> is released.  There are various minor feature
-  enhancements and numerous obscure bug fixes. 
+  enhancements and numerous obscure bug fixes.
   The <a href="releaselog/3_6_5.html">change log</a> contains the details.  Upgrading is
   optional.
 </blockquote><hr width="50%"><a name="2008_11_01"></a><h3>2008-11-01 - Bloomberg Joins SQLite Consortium</h3><blockquote>
@@ -1355,13 +1355,13 @@ WHERE (expr1 OR expr2 OR ... OR exprN) AND column IS NOT NULL
   SQLite version 3.6.2 contains rewrites of the page-cache subsystem and
   the procedures for matching identifiers to table columns in SQL statements.
   These changes are designed to better modularize the code and make it more
-  maintainable and reliable moving forward.  Nearly 5000 non-comment lines 
+  maintainable and reliable moving forward.  Nearly 5000 non-comment lines
   of core code (about 11.3%) have changed
   from the previous release.  Nevertheless, there should be no
   application-visible changes, other than bug fixes.
 </blockquote><hr width="50%"><a name="2008_08_06"></a><h3>2008-08-06 - Version 3.6.1</h3><blockquote>
   SQLite version 3.6.1 is a stabilization and performance enhancement
-  release.  
+  release.
 </blockquote><hr width="50%"><a name="2008_07_16"></a><h3>2008-07-16 - Version 3.6.0 beta</h3><blockquote>
   Version 3.6.0 makes changes to the <a href="c3ref/vfs.html">VFS</a> object in order
   to make SQLite more easily portable to a wider variety of platforms.
@@ -1386,7 +1386,7 @@ WHERE (expr1 OR expr2 OR ... OR exprN) AND column IS NOT NULL
   design.  These incompatibilities will only effect programmers who
   write their own custom VFS layers (typically embedded device builders).
   The planned VFS changes will be much smaller
-  than the changes that occurred on the 
+  than the changes that occurred on the
   <a href="34to35.html">3.4.2 to 3.5.0 transaction</a> that occurred last
   September.</p>
 
@@ -1405,7 +1405,7 @@ WHERE (expr1 OR expr2 OR ... OR exprN) AND column IS NOT NULL
 
 <p>  This release of SQLite is considered stable and ready for production use.
 </blockquote><hr width="50%"><a name="2008_03_17"></a><h3>2008-03-17 - Version 3.5.7</h3><blockquote>
-  Version 3.5.7 fixes several minor and obscure bugs, especially 
+  Version 3.5.7 fixes several minor and obscure bugs, especially
   in the autoconf-generated makefile.  Upgrading is optional.
   This release of SQLite is considered stable and ready for production use.
 </blockquote><hr width="50%"><a name="2008_02_06"></a><h3>2008-02-06 - Version 3.5.6</h3><blockquote>
@@ -1437,27 +1437,27 @@ WHERE (expr1 OR expr2 OR ... OR exprN) AND column IS NOT NULL
   <a href="http://www.symbian.com/">Symbian</a> as charter members.
   As noted in the <a href="pressrelease-20071212.html">press release</a>,
   the Consortium's goal is to promote the continuing vitality and
-  independence of SQLite.  
+  independence of SQLite.
 </blockquote><hr width="50%"><a name="2007_11_27"></a><h3>2007-11-27 - Version 3.5.3</h3><blockquote>
   This is an incremental release that fixes several minor problems.
   Upgrading is optional.  If Version 3.5.2 or 3.5.1 is working fine
   for you, then there is no pressing need to change to 3.5.3.</p>
 
-<p>  The prebuilt binaries and the amalgamation found on the 
+<p>  The prebuilt binaries and the amalgamation found on the
   <a href="download.html">download</a> page include the FTS3 fulltext
   search extension module.  We are doing this on an experimental
   basis and are not promising to provide prebuilt binaries with
   FTS3 in the future.
 </blockquote><hr width="50%"><a name="2007_11_05"></a><h3>2007-11-05 - Version 3.5.2</h3><blockquote>
   This is an incremental release that fixes several minor problems,
-  adds some obscure features, and provides some performance tweaks.  
+  adds some obscure features, and provides some performance tweaks.
   Upgrading is optional.</p>
 
 <p>  The experimental compile-time option
   <a href="compile.html#omitfeatures">SQLITE_OMIT_MEMORY_ALLOCATION</a> is no longer supported.  On the other
   hand, it is now possible to compile SQLite so that it uses a static
   array for all its dynamic memory allocation needs and never calls
-  malloc.  Expect to see additional radical changes to the memory 
+  malloc.  Expect to see additional radical changes to the memory
   allocation subsystem in future releases.
 </blockquote><hr width="50%"><a name="2007_10_04"></a><h3>2007-10-04 - Version 3.5.1</h3><blockquote>
   Fix a long-standing bug that might cause database corruption if a
@@ -1470,7 +1470,7 @@ WHERE (expr1 OR expr2 OR ... OR exprN) AND column IS NOT NULL
 </blockquote><hr width="50%"><a name="2007_09_04"></a><h3>2007-09-04 - Version 3.5.0 alpha</h3><blockquote>
   The OS interface layer and the memory allocation subsystems in
   SQLite have been reimplemented.  The published API is largely unchanged
-  but the (unpublished) OS interface has been modified extensively.  
+  but the (unpublished) OS interface has been modified extensively.
   Applications that implement their own OS interface will require
   modification.  See
   <a href="34to35.html">34to35.html</a> for details.<p></p>
@@ -1480,24 +1480,24 @@ WHERE (expr1 OR expr2 OR ... OR exprN) AND column IS NOT NULL
   the user community time to test and evaluate the changes before we
   freeze the new design.
 </blockquote><hr width="50%"><a name="2007_08_13"></a><h3>2007-08-13 - Version 3.4.2</h3><blockquote>
-  While stress-testing the 
+  While stress-testing the
   <a href="c3ref/soft_heap_limit.html">soft_heap_limit</a>
   feature, a bug that could lead to
   database corruption was discovered and fixed.
-  Though the consequences of this bug are severe, the chances of hitting 
+  Though the consequences of this bug are severe, the chances of hitting
   it in a typical application are remote.  Upgrading is recommended
-  only if you use the 
+  only if you use the
   <a href="c3ref/soft_heap_limit.html">sqlite3_soft_heap_limit</a>
   interface.
 </blockquote><hr width="50%"><a name="2007_07_20"></a><h3>2007-07-20 - Version 3.4.1</h3><blockquote>
   This release fixes a bug in <a href="lang_vacuum.html">VACUUM</a> that
-  can lead to database corruption.  The bug was introduced in version 
+  can lead to database corruption.  The bug was introduced in version
   <a href="changes.html#version_3_3_14">3.3.14</a>.
   Upgrading is recommended for all users.  Also included are a slew of
   other more routine
   <a href="changes.html#version_3_4_1">enhancements and bug fixes</a>.
 </blockquote><hr width="50%"><a name="2007_06_18"></a><h3>2007-06-18 - Version 3.4.0</h3><blockquote>
-  This release fixes two separate bugs either of which 
+  This release fixes two separate bugs either of which
   can lead to database corruption.  Upgrading
   is strongly recommended.  If you must continue using an older version
   of SQLite, please at least read about how to avoid these bugs
@@ -1506,7 +1506,7 @@ WHERE (expr1 OR expr2 OR ... OR exprN) AND column IS NOT NULL
   This release also adds explicit <a href="limits.html">limits</a> on the
   sizes and quantities of things SQLite will handle.  The new limits might
   causes compatibility problems for existing applications that
-  use excessively large strings, BLOBs, tables, or SQL statements. 
+  use excessively large strings, BLOBs, tables, or SQL statements.
   The new limits can be increased at compile-time to work around any problems
   that arise.  Nevertheless, the version number of this release is
   3.4.0 instead of 3.3.18 in order to call attention to the possible
@@ -1515,7 +1515,7 @@ WHERE (expr1 OR expr2 OR ... OR exprN) AND column IS NOT NULL
   There are also new features, including
   <a href="c3ref/blob_open.html">incremental BLOB I/O</a> and
   <a href="pragma.html#pragma_incremental_vacuum">incremental vacuum</a>.
-  See the <a href="changes.html#version_3_4_0">change log</a> 
+  See the <a href="changes.html#version_3_4_0">change log</a>
   for additional information.
 </blockquote><hr width="50%"><a name="2007_04_25"></a><h3>2007-04-25 - Version 3.3.17</h3><blockquote>
   This version fixes a bug in the forwards-compatibility logic of SQLite
@@ -1525,11 +1525,11 @@ WHERE (expr1 OR expr2 OR ... OR exprN) AND column IS NOT NULL
   use, it probably does not matter.
 </blockquote><hr width="50%"><a name="2007_04_18"></a><h3>2007-04-18 - Version 3.3.16</h3><blockquote>
   Performance improvements added in 3.3.14 but mistakenly turned off
-  in 3.3.15 have been reinstated.  A bug has been fixed that prevented 
+  in 3.3.15 have been reinstated.  A bug has been fixed that prevented
   VACUUM from running if a NULL value was in a UNIQUE column.
 </blockquote><hr width="50%"><a name="2007_04_09"></a><h3>2007-04-09 - Version 3.3.15</h3><blockquote>
   An annoying bug introduced in 3.3.14 has been fixed.  There are
-  also many enhancements to the test suite.  
+  also many enhancements to the test suite.
 </blockquote><hr width="50%"><a name="2007_04_02"></a><h3>2007-04-02 - Version 3.3.14</h3><blockquote>
   This version focuses on performance improvements.  If you recompile
   the amalgamation using GCC option -O3 (the precompiled binaries
@@ -1539,7 +1539,7 @@ WHERE (expr1 OR expr2 OR ... OR exprN) AND column IS NOT NULL
   adds support for <a href="pragma.html#pragma_locking_mode">
   exclusive access mode</a>.
 </blockquote><hr width="50%"><a name="2007_02_13"></a><h3>2007-02-13 - Version 3.3.13</h3><blockquote>
-  This version fixes a subtle bug in the ORDER BY optimizer that can 
+  This version fixes a subtle bug in the ORDER BY optimizer that can
   occur when using joins.  There are also a few minor enhancements.
   Upgrading is recommended.
 </blockquote><hr width="50%"><a name="2007_01_27"></a><h3>2007-01-27 - Version 3.3.12</h3><blockquote>
@@ -1566,7 +1566,7 @@ WHERE (expr1 OR expr2 OR ... OR exprN) AND column IS NOT NULL
   shell and enhancements to the query optimizer.  Upgrading is
   recommended.
 </blockquote><hr width="50%"><a name="2006_10_09"></a><h3>2006-10-09 - Version 3.3.8</h3><blockquote>
-  Version 3.3.8 adds support for full-text search using the 
+  Version 3.3.8 adds support for full-text search using the
   FTS1 module.  There are also minor bug fixes.  Upgrade only if
   you want to try out the new full-text search capabilities or if
   you are having problems with 3.3.7.
@@ -1579,9 +1579,8 @@ WHERE (expr1 OR expr2 OR ... OR exprN) AND column IS NOT NULL
   one of the obscure bugs that have been fixed or if you want to try
   out the new features.
 </blockquote><hr width="50%"><a name="2006_06_19"></a><h3>2006-06-19 - New Book About SQLite</h3><blockquote>
-  <i><a href="http://www.apress.com/book/bookDisplay.html?bID=10130">The Definitive Guide to SQLite</a></i>,
-  a new book by
-  <a href="http://www.mikesclutter.com">Mike Owens</a>
+  <i><a href="https://link.springer.com/book/10.1007/978-1-4302-3226-1">The Definitive Guide to SQLite</a></i>,
+  a 2nd edition book by Mike Owens and Grant Allen,
   is now available from <a href="http://www.apress.com">Apress</a>.
   The books covers the latest SQLite internals as well as
   the native C interface and bindings for PHP, Python,
@@ -1595,7 +1594,7 @@ WHERE (expr1 OR expr2 OR ... OR exprN) AND column IS NOT NULL
   provides some minor new features and performance enhancements.
   Upgrade only if you are having problems or need one of the new features.
 </blockquote><hr width="50%"><a name="2006_02_11"></a><h3>2006-02-11 - Version 3.3.4</h3><blockquote>
-  This release fixes several bugs, including a 
+  This release fixes several bugs, including a
   blunder that might cause a deadlock on multithreaded systems.
   Anyone using SQLite in a multithreaded environment should probably upgrade.
 </blockquote><hr width="50%"><a name="2006_01_31"></a><h3>2006-01-31 - Version 3.3.3 stable</h3><blockquote>
@@ -1715,8 +1714,8 @@ WHERE (expr1 OR expr2 OR ... OR exprN) AND column IS NOT NULL
 <p>  Version 3.1.2 is also the first stable release of the 3.1
   series.  SQLite 3.1 features added support for correlated
   subqueries, autovacuum, autoincrement, ALTER TABLE, and
-  other enhancements.  See the 
-  <a href="http://www.sqlite.org/releasenotes310.html">release notes
+  other enhancements.  See the
+  <a href="releaselog/3_1_0.html">release notes
   for version 3.1.0</a> for a detailed description of the
   changes available in the 3.1 series.
 </blockquote><hr width="50%"><a name="2005_02_01"></a><h3>2005-02-01 - Version 3.1.1 (beta) Released</h3><blockquote>
@@ -1724,7 +1723,7 @@ WHERE (expr1 OR expr2 OR ... OR exprN) AND column IS NOT NULL
   website.  Version 3.1.1 is fully backwards compatible with the 3.0 series
   and features many new features including Autovacuum and correlated
   subqueries.  The
-  <a href="http://www.sqlite.org/releasenotes310.html">release notes</a>
+  <a href="releaselog/3_1_1.html">release notes</a>
   From version 3.1.0 apply equally to this release beta.  A stable release
   is expected within a couple of weeks.
 </blockquote><hr width="50%"><a name="2005_01_21"></a><h3>2005-01-21 - Version 3.1.0 (alpha) Released</h3><blockquote>
@@ -1732,7 +1731,7 @@ WHERE (expr1 OR expr2 OR ... OR exprN) AND column IS NOT NULL
   website.  Version 3.1.0 is fully backwards compatible with the 3.0 series
   and features many new features including Autovacuum and correlated
   subqueries.  See the
-  <a href="http://www.sqlite.org/releasenotes310.html">release notes</a>
+  <a href="releaselog/3_1_0.html">release notes</a>
   for details.</p>
 
 <p>  This is an alpha release.  A beta release is expected in about a week
@@ -1740,9 +1739,9 @@ WHERE (expr1 OR expr2 OR ... OR exprN) AND column IS NOT NULL
 </blockquote><hr width="50%"><a name="2004_11_09"></a><h3>2004-11-09 - SQLite at the 2004 International PHP Conference</h3><blockquote>
   There was a talk on the architecture of SQLite and how to optimize
   SQLite queries at the 2004 International PHP Conference in Frankfurt,
-  Germany.
-  <a href="http://www.sqlite.org/php2004/page-001.html">
-  Slides</a> from that talk are available.
+  Germany.<br>
+  Obsolete URL: http://www.sqlite.org/php2004/page-001.html <br>
+  Slides from that talk are available.
 </blockquote><hr width="50%"><a name="2004_10_11"></a><h3>2004-10-11 - Version 3.0.8</h3><blockquote>
   Version 3.0.8 of SQLite contains several code optimizations and minor
   bug fixes and adds support for DEFERRED, IMMEDIATE, and EXCLUSIVE
@@ -1753,13 +1752,13 @@ Annual Tcl/Tk Conference</h3><blockquote>
   There will be a talk on the use of SQLite in Tcl/Tk at the
   11<sup><small>th</small></sup> Tcl/Tk Conference this week in
   New Orleans.  Visit <a href="http://www.tcl-lang.org/community/tcl2004/">http://www.tcl-lang.org/community/tcl2004/</a>
-  for details.
-  <a href="http://www.sqlite.org/tclconf2004/page-001.html">
-  Slides</a> from the talk are available.
+  for details.<br>
+  Obsolete URL: http://www.sqlite.org/tclconf2004/page-001.html <br>
+  Slides from the talk are available.
 </blockquote><hr width="50%"><a name="2004_09_18"></a><h3>2004-09-18 - Version 3.0.7</h3><blockquote>
   Version 3.0 has now been in use by multiple projects for several
   months with no major difficulties.   We consider it stable and
-  ready for production use. 
+  ready for production use.
 </blockquote><hr width="50%"><a name="2004_09_02"></a><h3>2004-09-02 - Version 3.0.6 (beta)</h3><blockquote>
   Because of some important changes to sqlite3_step(),
   we have decided to
@@ -1781,7 +1780,7 @@ Annual Tcl/Tk Conference</h3><blockquote>
   a final or stable release.</p>
 
 <p>  Version 3.0 adds support for internationalization and a new
-  more compact file format. 
+  more compact file format.
   <a href="version3.html">Details.</a>
   The API and file format have been fixed since 3.0.2.  All
   regression tests pass (over 100000 tests) and the test suite
@@ -1798,7 +1797,7 @@ Annual Tcl/Tk Conference</h3><blockquote>
 </blockquote><hr width="50%"><a name="2004_06_30"></a><h3>2004-06-30 - Version 3.0.2 (beta) Released</h3><blockquote>
   The first beta release of SQLite version 3.0 is now available.
   Version 3.0 adds support for internationalization and a new
-  more compact file format. 
+  more compact file format.
   <a href="version3.html">Details.</a>
   As of this release, the API and file format are frozen.  All
   regression tests pass (over 100000 tests) and the test suite
@@ -1825,7 +1824,7 @@ Annual Tcl/Tk Conference</h3><blockquote>
   <a href="version3.html">Additional information</a>.</p>
 
 <p>  Our intent is to freeze the file format and API on 2004-07-01.
-  Users are encouraged to review and evaluate this alpha release carefully 
+  Users are encouraged to review and evaluate this alpha release carefully
   and submit any feedback prior to that date.</p>
 
 <p>  The 2.8 series of SQLite will continue to be supported with bug
@@ -1851,5 +1850,5 @@ Annual Tcl/Tk Conference</h3><blockquote>
 <p>  Plans are to continue to support SQLite version 2.8 with
   bug fixes.  But all new development will occur in version 3.0.
 </blockquote><hr width="50%">
-<p align="center"><small><i>This page last modified on  <a href="https://sqlite.org/docsrc/honeypot" id="mtimelink"  data-href="https://sqlite.org/docsrc/finfo/pages/oldnews.in?m=b255cc82f4af93bcb">2022-08-10 18:45:48</a> UTC </small></i></p>
+<p align="center"><small><i>This page last modified on  <a href="https://sqlite.org/docsrc/honeypot" id="mtimelink"  data-href="https://sqlite.org/docsrc/finfo/pages/oldnews.in?m=d8e6fb083c">2023-02-27 02:07:35</a> UTC </small></i></p>
 

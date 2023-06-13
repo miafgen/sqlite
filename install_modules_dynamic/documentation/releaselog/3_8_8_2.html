@@ -115,7 +115,7 @@ antiRobotGo();
 }
 antiRobotDefense();
 </script>
-<h2>SQLite Release 3.8.8.2 On 2015-01-30</h2><p><b>Changes in version 3.8.8 (2015-01-16):</b></p>
+<h2>SQLite Release 3.8.8.2 On 2015-01-30</h2><p><b>Prior changes from version 3.8.8 (2015-01-16):</b></p>
 <p><ol class='lessindent'>
 <p><b>New Features:</b>
 <li value='1'>Added the <a href="../pragma.html#pragma_data_version">PRAGMA data_version</a> command that can be used to determine if
@@ -166,7 +166,7 @@ antiRobotDefense();
 <li>Fix obscure crash bugs found by
     <a href="http://lcamtuf.coredump.cx/afl/">american fuzzy lop</a>.  Ticket
     <a href="https://www.sqlite.org/src/info/a59ae93ee990a55">a59ae93ee990a55</a>.
-<li>Work around a GCC optimizer bug (for gcc 4.2.1 on MacOS 10.7) that caused the 
+<li>Work around a GCC optimizer bug (for gcc 4.2.1 on MacOS 10.7) that caused the
     <a href="../rtree.html">R-Tree extension</a> to compute incorrect results when compiled with -O3.
 <p><b>Other changes:</b>
 <li>Disable the use of the strchrnul() C-library routine unless it is
@@ -175,7 +175,7 @@ antiRobotDefense();
     <a href="../lang_corefunc.html#likelihood">likelihood()</a>, <a href="../lang_corefunc.html#likely">likely()</a>, and <a href="../lang_corefunc.html#unlikely">unlikely()</a> SQL hint functions.
 
 </ol>
-<p><b>Additional changes in version 3.8.8.1 (2015-01-20):</b></p>
+<p><b>Prior changes from version 3.8.8.1 (2015-01-20):</b></p>
 <p><ol class='lessindent'>
 <li value='22'>Fix a bug in the sorting logic, present since version 3.8.4, that can cause
     output to appear in the wrong order on queries that contains an ORDER BY clause,
@@ -183,7 +183,7 @@ antiRobotDefense();
     Ticket <a href="https://www.sqlite.org/src/tktview?name=f97c4637102a3ae72b79">f97c4637102a3ae72b79</a>.
 
 </ol>
-<p><b>Additional changes in version 3.8.8.2 (2015-01-30):</b></p>
+<p><b>Changes in this specific patch release, version 3.8.8.2 (2015-01-30):</b></p>
 <p><ol class='lessindent'>
 <li value='23'>Enhance <a href="../c3ref/wal_checkpoint_v2.html">sqlite3_wal_checkpoint_v2(TRUNCATE)</a> interface so that it truncates the
     WAL file even if there is no checkpoint work to be done.
@@ -195,7 +195,7 @@ antiRobotDefense();
 </ol></p>
 
       <p>A <a href="../changes.html">complete list of SQLite releases</a>
-      in a single page and a <a href="../chronology.html">chronology</a> are both also available.  
+      in a single page and a <a href="../chronology.html">chronology</a> are both also available.
       A detailed history of every
       check-in is available at
       <a href="http://www.sqlite.org/src/timeline">

@@ -115,7 +115,7 @@ antiRobotGo();
 }
 antiRobotDefense();
 </script>
-<h2>SQLite Release 3.11.1 On 2016-03-03</h2><p><b>Changes in version 3.11.0 (2016-02-15):</b></p>
+<h2>SQLite Release 3.11.1 On 2016-03-03</h2><p><b>Prior changes from version 3.11.0 (2016-02-15):</b></p>
 <p><ol class='lessindent'>
 <p><b>General improvements:</b>
 <li value='1'>Enhanced <a href="../wal.html">WAL mode</a> so that it works efficiently with transactions that are
@@ -129,7 +129,7 @@ antiRobotDefense();
     a <a href="../queryplanner.html#covidx">covering index</a> as part of the <a href="../optoverview.html#or_opt">OR optimization</a>.
 <li>Avoid recomputing <a href="../lang_createtable.html#notnullconst">NOT NULL</a> and <a href="../lang_createtable.html#ckconst">CHECK constraints</a> on unchanged
     columns in <a href="../lang_update.html">UPDATE</a> statement.
-<li>Many micro-optimizations, resulting in a library that is 
+<li>Many micro-optimizations, resulting in a library that is
     faster than the previous release.
 <p><b>Enhancements to the <a href="../cli.html">command-line shell</a>:</b>
 <li>By default, the shell is now in "auto-explain" mode.  The output of
@@ -161,7 +161,7 @@ antiRobotDefense();
     of the seldom-used and little-known <a href="../fts3.html#f3tknzr">fts3_tokenizer()</a> function is
     disabled unless SQLite is compiled with the <a href="../compile.html#enable_fts3_tokenizer">SQLITE_ENABLE_FTS3_TOKENIZER</a>.
 </ol>
-<p><b>Additional changes in version 3.11.1 (2016-03-03):</b></p>
+<p><b>Changes in this specific patch release, version 3.11.1 (2016-03-03):</b></p>
 <p><ol class='lessindent'>
 <li value='19'>Improvements to the Makefiles and build scripts used by VisualStudio.
 <li>Fix an <a href="../fts5.html">FTS5</a> issue in which the 'optimize' command could cause index corruption.
@@ -174,7 +174,7 @@ antiRobotDefense();
 </ol></p>
 
       <p>A <a href="../changes.html">complete list of SQLite releases</a>
-      in a single page and a <a href="../chronology.html">chronology</a> are both also available.  
+      in a single page and a <a href="../chronology.html">chronology</a> are both also available.
       A detailed history of every
       check-in is available at
       <a href="http://www.sqlite.org/src/timeline">

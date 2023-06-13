@@ -119,8 +119,8 @@ antiRobotDefense();
 <li> Update the text of error messages returned by <a href="../c3ref/errcode.html">sqlite3_errmsg()</a> for some
      error codes.
 <li> Add new <a href="../bindptr.html">pointer passing interfaces</a>.
-<li> Backwards-incompatible changes to some extensions in order to take 
-     advantage of the improved security offered by the new 
+<li> Backwards-incompatible changes to some extensions in order to take
+     advantage of the improved security offered by the new
      <a href="../bindptr.html">pointer passing interfaces</a>:
      <ol type='a'>
      <li> <a href="../fts5.html#extending_fts5">Extending FTS5</a> &rarr; requires <a href="../c3ref/bind_blob.html">sqlite3_bind_pointer()</a> to find
@@ -164,20 +164,20 @@ antiRobotDefense();
 <li> Query planner enhancements:
 <ol type='a'>
   <li> When generating individual loops for each ORed term of an OR scan,
-       move any constant WHERE expressions outside of the loop, as is 
+       move any constant WHERE expressions outside of the loop, as is
        done for top-level loops.
   <li> The query planner examines the values of bound parameters to help
        determine if a partial index is usable.
-  <li> When deciding between two plans with the same estimated cost, bias 
+  <li> When deciding between two plans with the same estimated cost, bias
        the selection toward the one that does not use the sorter.
   <li> Evaluate WHERE clause constraints involving correlated subqueries
        last, in the hope that they never have be evaluated at all.
-  <li> Do not use the <a href="../optoverview.html#flattening">flattening optimization</a> for a sub-query on the RHS 
+  <li> Do not use the <a href="../optoverview.html#flattening">flattening optimization</a> for a sub-query on the RHS
        of a LEFT JOIN if that subquery reads data from a <a href="../vtab.html">virtual table</a> as
        doing so prevents the query planner from creating <a href="../optoverview.html#autoindex">automatic indexes</a>
        on the results of the sub-query, which can slow down the query.
 </ol>
-<li> Add <a href="../c3ref/c_stmtstatus_counter.html#sqlitestmtstatusreprepare">SQLITE_STMTSTATUS_REPREPARE</a>, <a href="../c3ref/c_stmtstatus_counter.html#sqlitestmtstatusrun">SQLITE_STMTSTATUS_RUN</a>, 
+<li> Add <a href="../c3ref/c_stmtstatus_counter.html#sqlitestmtstatusreprepare">SQLITE_STMTSTATUS_REPREPARE</a>, <a href="../c3ref/c_stmtstatus_counter.html#sqlitestmtstatusrun">SQLITE_STMTSTATUS_RUN</a>,
      and <a href="../c3ref/c_stmtstatus_counter.html#sqlitestmtstatusmemused">SQLITE_STMTSTATUS_MEMUSED</a> options for the
      <a href="../c3ref/stmt_status.html">sqlite3_stmt_status()</a> interface.
 <li> Provide <a href="../pragma.html#pragfunc">PRAGMA functions</a> for
@@ -199,9 +199,9 @@ antiRobotDefense();
 <li> Fix the query planner so that it knows not to use <a href="../optoverview.html#autoindex">automatic indexes</a>
      on the right table of LEFT JOIN if the WHERE clause uses the <a href="../lang_expr.html#isisnot">IS operator</a>.
      Fix for <a href="https://sqlite.org/src/info/ce68383bf6aba">ce68383bf6aba</a>.
-<li> Ensure that the query planner knows that any column of a 
-     <a href="../optoverview.html#flattening">flattened</a> LEFT JOIN can be NULL even 
-     if that column is labeled with "NOT NULL". Fix for ticket 
+<li> Ensure that the query planner knows that any column of a
+     <a href="../optoverview.html#flattening">flattened</a> LEFT JOIN can be NULL even
+     if that column is labeled with "NOT NULL". Fix for ticket
      <a href="https://sqlite.org/src/info/892fc34f173e99d8">892fc34f173e99d8</a>.
 <li> Fix rare false-positives in <a href="../pragma.html#pragma_integrity_check">PRAGMA integrity_check</a> when run on a database connection
      with <a href="../lang_attach.html">attached databases</a>. Ticket
@@ -216,7 +216,7 @@ antiRobotDefense();
 </ol></p>
 
       <p>A <a href="../changes.html">complete list of SQLite releases</a>
-      in a single page and a <a href="../chronology.html">chronology</a> are both also available.  
+      in a single page and a <a href="../chronology.html">chronology</a> are both also available.
       A detailed history of every
       check-in is available at
       <a href="http://www.sqlite.org/src/timeline">

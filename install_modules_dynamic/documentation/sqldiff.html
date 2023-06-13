@@ -190,8 +190,8 @@ altered using command-line switches:
 <dt><b>--transaction</b></dt>
 <dd><p>Wrap SQL output in a single large transaction</p></dd>
 <dt><b>--vtab</b></dt>
-<dd><p>Add support for handling <a href="fts3.html">FTS3</a>, <a href="fts5.html">FTS5</a> and <a href="rtree.html">rtree</a> virtual tables. 
-       <a href="#vtab">See below</a> for details. 
+<dd><p>Add support for handling <a href="fts3.html">FTS3</a>, <a href="fts5.html">FTS5</a> and <a href="rtree.html">rtree</a> virtual tables.
+       <a href="#sqldiff_vtab">See below</a> for details.
 </p></dd>
 </dl>
 
@@ -249,7 +249,7 @@ For example, the effect of this invocation:
 <div class="codeblock"><pre>sqldiff --changeset CHANGESET_OUT --table NilChangeset db1.sdb db2.sdb
 </pre></div>
 
-will be to produce an empty file named "CHANGESET_OUT". See  <a href="session/intro.html#limitations">session limitations</a> for details.
+will be to produce an empty file named "CHANGESET_OUT". See  <a href="sessionintro.html#limitations">session limitations</a> for details.
 </li><li><p>
 The sqldiff.exe utility does not (currently) display differences in
 <a href="lang_createtrigger.html">TRIGGERs</a> or <a href="lang_createview.html">VIEWs</a>.
@@ -265,9 +265,11 @@ named, can be used to show or detect detailed schema differences
 between a pair of databases.
 When doing this, the output should not be used directly to modify a database.
 
+<a name="sqldiff_vtab"></a>
+
 </p></li><li><p id="vtab">
 By default, differences in the schema or content of virtual tables are
-not reported on. 
+not reported on.
 
 </p><p>However, if a <a href="vtab.html">virtual table</a> implementation creates real tables (sometimes
 referred to as "shadow" tables) within the database to store its data in, then
@@ -277,10 +279,10 @@ is not <i>exactly</i> the same as the source database. For several of SQLite's
 bundled virtual tables (FTS3, FTS5, rtree and others), the surprising effects
 may include corruption of the virtual table content.
 
-</p><p> If the --vtab option is passed to sqldiff.exe, then it ignores all 
+</p><p> If the --vtab option is passed to sqldiff.exe, then it ignores all
 underlying shadow tables belonging to an FTS3, FTS5 or rtree virtual table
 and instead includes the virtual table differences directly.
 
 </p></li></ol>
-<p align="center"><small><i>This page last modified on  <a href="https://sqlite.org/docsrc/honeypot" id="mtimelink"  data-href="https://sqlite.org/docsrc/finfo/pages/sqldiff.in?m=b2cb41a9fddeff1d5">2021-09-07 19:28:01</a> UTC </small></i></p>
+<p align="center"><small><i>This page last modified on  <a href="https://sqlite.org/docsrc/honeypot" id="mtimelink"  data-href="https://sqlite.org/docsrc/finfo/pages/sqldiff.in?m=a0553bcc5b">2023-01-06 00:45:39</a> UTC </small></i></p>
 

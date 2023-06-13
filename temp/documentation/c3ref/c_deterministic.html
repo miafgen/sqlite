@@ -117,7 +117,7 @@ antiRobotDefense();
 </script>
 <!-- keywords: SQLITE_DETERMINISTIC SQLITE_DIRECTONLY SQLITE_INNOCUOUS SQLITE_SUBTYPE -->
 <div class=nosearch>
-<a href="intro.html"><h2>SQLite C Interface</h2></a>
+<a href="../c3ref/intro.html"><h2>SQLite C Interface</h2></a>
 <h2>Function Flags</h2>
 </div>
 <blockquote><pre>
@@ -151,10 +151,21 @@ The SQLITE_DIRECTONLY flag means that the function may only be invoked
 from top-level SQL, and cannot be used in VIEWs or TRIGGERs nor in
 schema structures such as <a href="../lang_createtable.html#ckconst">CHECK constraints</a>, <a href="../lang_createtable.html#dfltval">DEFAULT clauses</a>,
 <a href="../expridx.html">expression indexes</a>, <a href="../partialindex.html">partial indexes</a>, or <a href="../gencol.html">generated columns</a>.
-The SQLITE_DIRECTONLY flags is a security feature which is recommended
-for all <a href="../appfunc.html">application-defined SQL functions</a>, and especially for functions
-that have side-effects or that could potentially leak sensitive
-information.
+<p>
+The SQLITE_DIRECTONLY flag is recommended for any
+<a href="../appfunc.html">application-defined SQL function</a>
+that has side-effects or that could potentially leak sensitive information.
+This will prevent attacks in which an application is tricked
+into using a database file that has had its schema surreptiously
+modified to invoke the application-defined function in ways that are
+harmful.
+<p>
+Some people say it is good practice to set SQLITE_DIRECTONLY on all
+<a href="../appfunc.html">application-defined SQL functions</a>, regardless of whether or not they
+are security sensitive, as doing so prevents those functions from being used
+inside of the database schema, and thus ensures that the database
+can be inspected and modified using generic tools (such as the <a href="../cli.html">CLI</a>)
+that do not have access to the application-defined functions.
 </dd></p>
 
 <p><a name="sqliteinnocuous"></a>
@@ -193,7 +204,7 @@ sqlite3_value_subtype() will always return 0).
 </dd>
 </dl>
 </p><p>See also lists of
-  <a href="objlist.html">Objects</a>,
-  <a href="constlist.html">Constants</a>, and
-  <a href="funclist.html">Functions</a>.</p>
+  <a href="../c3ref/objlist.html">Objects</a>,
+  <a href="../c3ref/constlist.html">Constants</a>, and
+  <a href="../c3ref/funclist.html">Functions</a>.</p>
 

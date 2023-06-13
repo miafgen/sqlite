@@ -117,7 +117,7 @@ antiRobotDefense();
 </script>
 <!-- keywords: sqlite3_config -->
 <div class=nosearch>
-<a href="intro.html"><h2>SQLite C Interface</h2></a>
+<a href="../c3ref/intro.html"><h2>SQLite C Interface</h2></a>
 <h2>Configuring The SQLite Library</h2>
 </div>
 <blockquote><pre>
@@ -134,25 +134,28 @@ provided to support rare applications with unusual needs.</p>
 must ensure that no other SQLite interfaces are invoked by other
 threads while sqlite3_config() is running.</b></p>
 
-<p>The sqlite3_config() interface
-may only be invoked prior to library initialization using
-<a href="../c3ref/initialize.html">sqlite3_initialize()</a> or after shutdown by <a href="../c3ref/initialize.html">sqlite3_shutdown()</a>.
-If sqlite3_config() is called after <a href="../c3ref/initialize.html">sqlite3_initialize()</a> and before
-<a href="../c3ref/initialize.html">sqlite3_shutdown()</a> then it will return SQLITE_MISUSE.
-Note, however, that sqlite3_config() can be called as part of the
-implementation of an application-defined <a href="../c3ref/initialize.html">sqlite3_os_init()</a>.</p>
-
 <p>The first argument to sqlite3_config() is an integer
 <a href="../c3ref/c_config_covering_index_scan.html">configuration option</a> that determines
 what property of SQLite is to be configured.  Subsequent arguments
 vary depending on the <a href="../c3ref/c_config_covering_index_scan.html">configuration option</a>
 in the first argument.</p>
 
+<p>For most configuration options, the sqlite3_config() interface
+may only be invoked prior to library initialization using
+<a href="../c3ref/initialize.html">sqlite3_initialize()</a> or after shutdown by <a href="../c3ref/initialize.html">sqlite3_shutdown()</a>.
+The exceptional configuration options that may be invoked at any time
+are called "anytime configuration options".
+If sqlite3_config() is called after <a href="../c3ref/initialize.html">sqlite3_initialize()</a> and before
+<a href="../c3ref/initialize.html">sqlite3_shutdown()</a> with a first argument that is not an anytime
+configuration option, then the sqlite3_config() call will return SQLITE_MISUSE.
+Note, however, that sqlite3_config() can be called as part of the
+implementation of an application-defined <a href="../c3ref/initialize.html">sqlite3_os_init()</a>.</p>
+
 <p>When a configuration option is set, sqlite3_config() returns <a href="../rescode.html#ok">SQLITE_OK</a>.
 If the option is unknown or SQLite is unable to set the option
 then this routine returns a non-zero <a href="../rescode.html">error code</a>.
 </p><p>See also lists of
-  <a href="objlist.html">Objects</a>,
-  <a href="constlist.html">Constants</a>, and
-  <a href="funclist.html">Functions</a>.</p>
+  <a href="../c3ref/objlist.html">Objects</a>,
+  <a href="../c3ref/constlist.html">Constants</a>, and
+  <a href="../c3ref/funclist.html">Functions</a>.</p>
 

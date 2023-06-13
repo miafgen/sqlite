@@ -178,32 +178,31 @@ Activate the extensions using <a href="compile.html">compile-time options</a> li
 </li><li> <a href="compile.html#enable_fts5">-DSQLITE_ENABLE_FTS5</a>
 </li><li> <a href="compile.html#enable_rtree">-DSQLITE_ENABLE_RTREE</a>
 </li><li> <a href="compile.html#enable_dbstat_vtab">-DSQLITE_ENABLE_DBSTAT_VTAB</a>
-</li><li> <a href="compile.html#enable_json1">-DSQLITE_ENABLE_JSON1</a>
 </li><li> <a href="compile.html#enable_rbu">-DSQLITE_ENABLE_RBU</a>
 </li><li> <a href="compile.html#enable_session">-DSQLITE_ENABLE_SESSION</a>
 </li></ul>
 
-<p>The amalgamation contains everything you need to integrate SQLite 
-into a larger project.  Just copy the amalgamation into your source 
+<p>The amalgamation contains everything you need to integrate SQLite
+into a larger project.  Just copy the amalgamation into your source
 directory and compile it along with the other C code files in your project.
 (A <a href="howtocompile.html">more detailed discussion</a> of the compilation process is
 available.)
-You may also want to make use of the "sqlite3.h" header file that 
-defines the programming API for SQLite. 
-The sqlite3.h header file is available separately. 
+You may also want to make use of the "sqlite3.h" header file that
+defines the programming API for SQLite.
+The sqlite3.h header file is available separately.
 The sqlite3.h file is also contained within the amalgamation, in
-the first few thousand lines. So if you have a copy of 
-sqlite3.c but cannot seem to locate sqlite3.h, you can always 
+the first few thousand lines. So if you have a copy of
+sqlite3.c but cannot seem to locate sqlite3.h, you can always
 regenerate the sqlite3.h by copying and pasting from the amalgamation.</p>
 
 <p>In addition to making SQLite easier to incorporate into other
 projects, the amalgamation also makes it run faster. Many
-compilers are able to do additional optimizations on code when 
-it is contained with in a single translation unit such as it 
+compilers are able to do additional optimizations on code when
+it is contained with in a single translation unit such as it
 is in the amalgamation. We have measured performance improvements
-of between 5 and 10% when we use the amalgamation to compile 
+of between 5 and 10% when we use the amalgamation to compile
 SQLite rather than individual source files.  The downside of this
-is that the additional optimizations often take the form of 
+is that the additional optimizations often take the form of
 function inlining which tends to make the size of the resulting
 binary image larger.</p>
 
@@ -244,7 +243,7 @@ of 6 C source code files instead of just 1.
 
 <p>The amalgamation and
 the sqlite3.h header file are available on
-the <a href="download.html">download page</a> as a file 
+the <a href="download.html">download page</a> as a file
 named sqlite-amalgamation-X.zip
 where the X is replaced by the appropriate version number.</p>
 
@@ -274,7 +273,7 @@ substituting "sqlite3-all.c" for "sqlite3.c" as the make target.
 
 </p><h2 id="dependencies"><span>5.1. </span>Dependencies</h2>
 
-<p>The build process makes extensive use of the 
+<p>The build process makes extensive use of the
 <a href="http://www.tcl-lang.org/">Tcl</a> scripting language.  You will need to have a
 copy of TCL installed in order for the make targets above to work.
 Easy-to-use installers can be obtained from <a href="http://www.tcl-lang.org/">http://www.tcl-lang.org/</a>.
@@ -284,5 +283,5 @@ Many unix workstations have Tcl installed by default.
 
 <p>Additional notes on compiling SQLite can be found on the
 <a href="howtocompile.html">How To Compile SQLite</a> page.
-</p><p align="center"><small><i>This page last modified on  <a href="https://sqlite.org/docsrc/honeypot" id="mtimelink"  data-href="https://sqlite.org/docsrc/finfo/pages/amalgamation.in?m=c4ea32719181acf27">2022-04-25 03:42:01</a> UTC </small></i></p>
+</p><p align="center"><small><i>This page last modified on  <a href="https://sqlite.org/docsrc/honeypot" id="mtimelink"  data-href="https://sqlite.org/docsrc/finfo/pages/amalgamation.in?m=de0eebdc34">2023-03-12 14:42:53</a> UTC </small></i></p>
 

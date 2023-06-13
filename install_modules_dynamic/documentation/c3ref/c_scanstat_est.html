@@ -115,9 +115,9 @@ antiRobotGo();
 }
 antiRobotDefense();
 </script>
-<!-- keywords: SQLITE_SCANSTAT_EST SQLITE_SCANSTAT_EXPLAIN SQLITE_SCANSTAT_NAME SQLITE_SCANSTAT_NLOOP SQLITE_SCANSTAT_NVISIT SQLITE_SCANSTAT_SELECTID {scanstatus options} -->
+<!-- keywords: SQLITE_SCANSTAT_EST SQLITE_SCANSTAT_EXPLAIN SQLITE_SCANSTAT_NAME SQLITE_SCANSTAT_NCYCLE SQLITE_SCANSTAT_NLOOP SQLITE_SCANSTAT_NVISIT SQLITE_SCANSTAT_PARENTID SQLITE_SCANSTAT_SELECTID {scanstatus options} -->
 <div class=nosearch>
-<a href="intro.html"><h2>SQLite C Interface</h2></a>
+<a href="../c3ref/intro.html"><h2>SQLite C Interface</h2></a>
 <h2>Prepared Statement Scan Status Opcodes</h2>
 </div>
 <blockquote><pre>
@@ -127,6 +127,8 @@ antiRobotDefense();
 #define SQLITE_SCANSTAT_NAME     3
 #define SQLITE_SCANSTAT_EXPLAIN  4
 #define SQLITE_SCANSTAT_SELECTID 5
+#define SQLITE_SCANSTAT_PARENTID 6
+#define SQLITE_SCANSTAT_NCYCLE   7
 </pre></blockquote>
 <p>
 The following constants can be used for the T parameter to the
@@ -136,6 +138,10 @@ different metric for sqlite3_stmt_scanstatus() to return.</p>
 <p>When the value returned to V is a string, space to hold that string is
 managed by the prepared statement S and will be automatically freed when
 S is finalized.</p>
+
+<p>Not all values are available for all query elements. When a value is
+not available, the output variable is set to -1 if the value is numeric,
+or to NULL if it is a string (SQLITE_SCANSTAT_NAME).</p>
 
 <p><dl>
 <a name="sqlitescanstatnloop"></a>
@@ -170,15 +176,29 @@ to a zero-terminated UTF-8 string containing the <a href="../eqp.html">EXPLAIN Q
 description for the X-th loop.</p>
 
 <p><a name="sqlitescanstatselectid"></a>
- <dt>SQLITE_SCANSTAT_SELECT</dt>
+ <dt>SQLITE_SCANSTAT_SELECTID</dt>
 <dd>The "int" variable pointed to by the V parameter will be set to the
-"select-id" for the X-th loop.  The select-id identifies which query or
-subquery the loop is part of.  The main query has a select-id of zero.
-The select-id is the same value as is output in the first column
-of an <a href="../eqp.html">EXPLAIN QUERY PLAN</a> query.
+id for the X-th query plan element. The id value is unique within the
+statement. The select-id is the same value as is output in the first
+column of an <a href="../eqp.html">EXPLAIN QUERY PLAN</a> query.</p>
+
+<p><a name="sqlitescanstatparentid"></a>
+ <dt>SQLITE_SCANSTAT_PARENTID</dt>
+<dd>The "int" variable pointed to by the V parameter will be set to the
+the id of the parent of the current query element, if applicable, or
+to zero if the query element has no parent. This is the same value as
+returned in the second column of an <a href="../eqp.html">EXPLAIN QUERY PLAN</a> query.</p>
+
+<p><a name="sqlitescanstatncycle"></a>
+ <dt>SQLITE_SCANSTAT_NCYCLE</dt>
+<dd>The sqlite3_int64 output value is set to the number of cycles,
+according to the processor time-stamp counter, that elapsed while the
+query element was being processed. This value is not available for
+all query elements - if it is unavailable the output variable is
+set to -1.
 </dl>
 </p><p>See also lists of
-  <a href="objlist.html">Objects</a>,
-  <a href="constlist.html">Constants</a>, and
-  <a href="funclist.html">Functions</a>.</p>
+  <a href="../c3ref/objlist.html">Objects</a>,
+  <a href="../c3ref/constlist.html">Constants</a>, and
+  <a href="../c3ref/funclist.html">Functions</a>.</p>
 

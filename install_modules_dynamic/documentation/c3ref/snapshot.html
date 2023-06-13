@@ -117,7 +117,7 @@ antiRobotDefense();
 </script>
 <!-- keywords: snapshot sqlite3_snapshot -->
 <div class=nosearch>
-<a href="intro.html"><h2>SQLite C Interface</h2></a>
+<a href="../c3ref/intro.html"><h2>SQLite C Interface</h2></a>
 <h2>Database Snapshot</h2>
 </div>
 <blockquote><pre>
@@ -141,14 +141,14 @@ by the reader until a new read transaction is started.</p>
 version of the database file so that it is possible to later open a new read
 transaction that sees that historical version of the database rather than
 the most recent version.
-</p><p>1 Constructor: <a href="../c3ref/snapshot_get.html">sqlite3_snapshot_get()</a></p>
-<p>1 Destructor: <a href="../c3ref/snapshot_free.html">sqlite3_snapshot_free()</a></p>
-<p>3 Methods:
+</p><p>1 Constructor using this object: <a href="../c3ref/snapshot_get.html">sqlite3_snapshot_get()</a></p>
+<p>1 Destructor using this object: <a href="../c3ref/snapshot_free.html">sqlite3_snapshot_free()</a></p>
+<p>3 Methods using this object:
  <a href="../c3ref/snapshot_cmp.html">sqlite3_snapshot_cmp()</a>,
 <a href="../c3ref/snapshot_open.html">sqlite3_snapshot_open()</a>,
 <a href="../c3ref/snapshot_recover.html">sqlite3_snapshot_recover()</a></p>
 <p>See also lists of
-  <a href="objlist.html">Objects</a>,
-  <a href="constlist.html">Constants</a>, and
-  <a href="funclist.html">Functions</a>.</p>
+  <a href="../c3ref/objlist.html">Objects</a>,
+  <a href="../c3ref/constlist.html">Constants</a>, and
+  <a href="../c3ref/funclist.html">Functions</a>.</p>
 

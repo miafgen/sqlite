@@ -115,7 +115,7 @@ antiRobotGo();
 }
 antiRobotDefense();
 </script>
-<a href="intro.html"><h2>Session Module C Interface</h2></a><h2>Set a table filter on a Session Object.</h2><blockquote><pre>void sqlite3session_table_filter(
+<a href="../session/intro.html"><h2>Session Module C Interface</h2></a><h2>Set a table filter on a Session Object.</h2><blockquote><pre>void sqlite3session_table_filter(
   sqlite3_session *pSession,      /* Session object */
   int(*xFilter)(
     void *pCtx,                   /* Copy of third arg to _filter_table() */
@@ -130,7 +130,7 @@ to determine whether changes to the table's rows should be tracked or not.
 If xFilter returns 0, changes are not tracked. Note that once a table is 
 attached, xFilter will not be called again.
 </p><p>See also lists of
-  <a href="objlist.html">Objects</a>,
-  <a href="constlist.html">Constants</a>, and
-  <a href="funclist.html">Functions</a>.</p>
+  <a href="../session/objlist.html">Objects</a>,
+  <a href="../session/constlist.html">Constants</a>, and
+  <a href="../session/funclist.html">Functions</a>.</p>
 

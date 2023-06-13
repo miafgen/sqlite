@@ -1335,10 +1335,10 @@ ignored.  For example, the following CREATE TABLE statements all specify
 the same table, which will have the exact same representation on disk:
 
 </p><blockquote><pre>
-CREATE TABLE t1(a,b,c,d,PRIMARY KEY(a,c)) WITHOUT ROWID);
-CREATE TABLE t1(a,b,c,d,PRIMARY KEY(a,c,a,c)) WITHOUT ROWID);
-CREATE TABLE t1(a,b,c,d,PRIMARY KEY(a,A,a,C)) WITHOUT ROWID);
-CREATE TABLE t1(a,b,c,d,PRIMARY KEY(a,a,a,a,c)) WITHOUT ROWID);
+CREATE TABLE t1(a,b,c,d,PRIMARY KEY(a,c)) WITHOUT ROWID;
+CREATE TABLE t1(a,b,c,d,PRIMARY KEY(a,c,a,c)) WITHOUT ROWID;
+CREATE TABLE t1(a,b,c,d,PRIMARY KEY(a,A,a,C)) WITHOUT ROWID;
+CREATE TABLE t1(a,b,c,d,PRIMARY KEY(a,a,a,a,c)) WITHOUT ROWID;
 </pre></blockquote>
 
 <p>The first example above is the preferred definition of the table,
@@ -2201,5 +2201,5 @@ file, and since the wal-index is a transient structure, no further
 information about the format of the wal-index will be provided here.
 Additional details on the format of the wal-index are contained in
 the separate <a href="walformat.html#walidxfmt">WAL-index File Format</a> document.</p>
-<p align="center"><small><i>This page last modified on  <a href="https://sqlite.org/docsrc/honeypot" id="mtimelink"  data-href="https://sqlite.org/docsrc/finfo/pages/fileformat2.in?m=ba2f97fa24209ae70">2022-08-10 18:45:48</a> UTC </small></i></p>
+<p align="center"><small><i>This page last modified on  <a href="https://sqlite.org/docsrc/honeypot" id="mtimelink"  data-href="https://sqlite.org/docsrc/finfo/pages/fileformat2.in?m=6e0533c777">2023-01-25 11:14:04</a> UTC </small></i></p>
 

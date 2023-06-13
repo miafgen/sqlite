@@ -115,7 +115,7 @@ antiRobotGo();
 }
 antiRobotDefense();
 </script>
-<h2>SQLite Release 3.15.1 On 2016-11-04</h2><p><b>Changes in version 3.15.0 (2016-10-14):</b></p>
+<h2>SQLite Release 3.15.1 On 2016-11-04</h2><p><b>Prior changes from version 3.15.0 (2016-10-14):</b></p>
 <p><ol class='lessindent'>
 <li value='1'> Added support for <a href="../rowvalue.html">row values</a>.
 <li> Allow <a href="../deterministic.html">deterministic SQL functions</a> in the WHERE clause of a <a href="../partialindex.html">partial index</a>.
@@ -147,19 +147,19 @@ antiRobotDefense();
      table are initialized doing "Xfer Optimization" on "INSERT ... SELECT"
      statements.  Fix for ticket
      <a href="https://www.sqlite.org/src/info/7b3328086a5c116c">7b3328086a5c116c</a>.
-<li> Make sure the ORDER BY LIMIT optimization 
+<li> Make sure the ORDER BY LIMIT optimization
      (from check-in <a href="https://www.sqlite.org/src/info/559733b09e9630fa">559733b09e</a>)
      works with IN operators on INTEGER PRIMARY KEYs.  Fix for ticket
      <a href="https://www.sqlite.org/src/info/96c1454cbfd9509">96c1454c</a>
 </ol>
-<p><b>Additional changes in version 3.15.1 (2016-11-04):</b></p>
+<p><b>Changes in this specific patch release, version 3.15.1 (2016-11-04):</b></p>
 <p><ol class='lessindent'>
 <li value='14'> Added <a href="../c3ref/c_fcntl_begin_atomic_write.html#sqlitefcntlwin32gethandle">SQLITE_FCNTL_WIN32_GET_HANDLE</a> file control opcode.
 <li> Fix the <a href="../lang_vacuum.html">VACUUM</a> command so that it spills excess content to disk rather
      than holding everything in memory, and possible causing an out-of-memory
      error for larger database files.  This fixes an issue introduced by
      version 3.15.0.
-<li> Fix a case (present since 3.8.0 - 2013-08-26) 
+<li> Fix a case (present since 3.8.0 - 2013-08-26)
      where OR-connected terms in the ON clause of a LEFT JOIN
      might cause incorrect results.  Ticket
      <a href="https://www.sqlite.org/src/info/34a579141b2c5ac">34a579141b2c5ac</a>.
@@ -173,7 +173,7 @@ antiRobotDefense();
 </ol></p>
 
       <p>A <a href="../changes.html">complete list of SQLite releases</a>
-      in a single page and a <a href="../chronology.html">chronology</a> are both also available.  
+      in a single page and a <a href="../chronology.html">chronology</a> are both also available.
       A detailed history of every
       check-in is available at
       <a href="http://www.sqlite.org/src/timeline">

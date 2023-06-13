@@ -122,9 +122,9 @@ antiRobotDefense();
     <a href="../fileformat2.html#appid">Application ID</a> for when SQLite is used as an <a href="../appfileformat.html">application file-format</a>.
     Added the <a href="../pragma.html#pragma_application_id">PRAGMA application_id</a> command to query and set the Application ID.
 <li>Report rollback recovery in the <a href="../errlog.html">error log</a> as SQLITE_NOTICE_RECOVER_ROLLBACK.
-    Change the error log code for WAL recover from 
+    Change the error log code for WAL recover from
     SQLITE_OK to SQLITE_NOTICE_RECOVER_WAL.
-<li>Report the risky uses of <a href="../howtocorrupt.html#unlink">unlinked database files</a> and 
+<li>Report the risky uses of <a href="../howtocorrupt.html#unlink">unlinked database files</a> and
    <a href="../howtocorrupt.html#alias">database filename aliasing</a> as SQLITE_WARNING messages in the <a href="../errlog.html">error log</a>.
 <li>Added the <a href="../compile.html#trace_size_limit">SQLITE_TRACE_SIZE_LIMIT</a> compile-time option.
 <li>Increase the default value of <a href="../compile.html#max_schema_retry">SQLITE_MAX_SCHEMA_RETRY</a> to 50 and make sure
@@ -146,7 +146,7 @@ antiRobotDefense();
     </ol>
 <li>Added many new loadable extensions to the source tree, including
     amatch, closure, fuzzer, ieee754, nextchar, regexp, spellfix,
-    and wholenumber.  See header comments on each extension source file 
+    and wholenumber.  See header comments on each extension source file
     for further information about what that extension does.
 <li>Enhance <a href="../fts3.html">FTS3</a> to avoid using excess stack space when there are a huge
     number of terms on the right-hand side of the MATCH operator.  A side-effect
@@ -167,10 +167,10 @@ antiRobotDefense();
     Ticket <a href="http://www.sqlite.org/src/info/e636a050b7">e636a050b7</a>
 <li>Bug fix:
     Only consider AS names from the result set as candidates for resolving
-    identifiers in the WHERE clause if there are no other matches. In the 
+    identifiers in the WHERE clause if there are no other matches. In the
     ORDER BY clause, AS names take priority over any column names.
     Ticket <a href="http://www.sqlite.org/src/info/2500cdb9be05">2500cdb9be05</a>
-<li>Bug fix: Do not allow a virtual table to cancel the ORDER BY clause unless 
+<li>Bug fix: Do not allow a virtual table to cancel the ORDER BY clause unless
     all outer loops are guaranteed to return no more than one row result.
     Ticket <a href="http://www.sqlite.org/src/info/ba82a4a41eac1">ba82a4a41eac1</a>.
 <li>Bug fix: Do not suppress the ORDER BY clause on a virtual table query if
@@ -189,20 +189,20 @@ antiRobotDefense();
     doing an <a href="../lang_update.html">UPDATE</a> that changes the rowid.  Ticket
     <a href="http://www.sqlite.org/src/info/0eb70d77cb05bb2272">0eb70d77cb05bb2272</a>
 <li>Bug fix: Do not move WHERE clause terms inside OR expressions that are
-    contained within an ON clause of a LEFT JOIN.  Ticket 
+    contained within an ON clause of a LEFT JOIN.  Ticket
     <a href="http://www.sqlite.org/src/info/f2369304e4">f2369304e4</a>
 <li>Bug fix: Make sure an error is always reported when attempting to preform
     an operation that requires a <a href="../datatype3.html#collation">collating sequence</a> that is missing.
     Ticket <a href="http://www.sqlite.org/src/info/0fc59f908b">0fc59f908b</a>
 
-<li>SQLITE_SOURCE_ID: 
+<li>SQLITE_SOURCE_ID:
     "2013-05-20 00:56:22 118a3b35693b134d56ebd780123b7fd6f1497668"
 <li>SHA1 for sqlite3.c: 246987605d0503c700a08b9ee99a6b5d67454aab
 
 </ol></p>
 
       <p>A <a href="../changes.html">complete list of SQLite releases</a>
-      in a single page and a <a href="../chronology.html">chronology</a> are both also available.  
+      in a single page and a <a href="../chronology.html">chronology</a> are both also available.
       A detailed history of every
       check-in is available at
       <a href="http://www.sqlite.org/src/timeline">

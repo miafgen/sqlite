@@ -3,7 +3,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <link href="../sqlite.css" rel="stylesheet">
-<title>SQLite Release 3.40.0 On 2022-11-16</title>
+<title>SQLite Release 3.42.0 On 2023-05-16</title>
 <!-- path=../ -->
 </head>
 <body>
@@ -115,64 +115,60 @@ antiRobotGo();
 }
 antiRobotDefense();
 </script>
-<h2>SQLite Release 3.40.0 On 2022-11-16</h2><p><ol class='lessindent'>
-<li> Add support for compiling <a href="https://sqlite.org/wasm">SQLite to WASM</a>
-     and running it in web browsers.  NB:  The WASM build and its interfaces
-     are considered "beta" and are subject to minor changes if the need
-     arises.  We anticipate finalizing the interface for the next release.
-<li> Add the <a href="../recovery.html">recovery extension</a> that might be able to recover some content
-     from a corrupt database file.
-<li> Query planner enhancements:
+<h2>SQLite Release 3.42.0 On 2023-05-16</h2><p><ol class='lessindent'>
+<li> Add the <a href="../fts5.html#the_secure_delete_configuration_option">FTS5 secure-delete command</a>.  This option causes all forensic traces
+     to be removed from the FTS5 inverted index when content is deleted.
+<li> Enhance the <a href="../json1.html">JSON SQL functions</a> to support <a href="../json1.html#json5">JSON5 extensions</a>.
+<li> The <a href="../c3ref/c_config_covering_index_scan.html#sqliteconfiglog">SQLITE_CONFIG_LOG</a> and <a href="../c3ref/c_config_covering_index_scan.html#sqliteconfigpcachehdrsz">SQLITE_CONFIG_PCACHE_HDRSZ</a> calls to <a href="../c3ref/config.html">sqlite3_config()</a>
+     are now allowed to occur <i>after</i> <a href="../c3ref/initialize.html">sqlite3_initialize()</a>.
+<li> New <a href="../c3ref/db_config.html">sqlite3_db_config()</a> options: <a href="../c3ref/c_dbconfig_defensive.html#sqlitedbconfigstmtscanstatus">SQLITE_DBCONFIG_STMT_SCANSTATUS</a> and
+     <a href="../c3ref/c_dbconfig_defensive.html#sqlitedbconfigreversescanorder">SQLITE_DBCONFIG_REVERSE_SCANORDER</a>.
+<li> Query planner improvements:
      <ol type="a">
-     <li> Recognize <a href="../queryplanner.html#covidx">covering indexes</a> on tables with more than 63 columns where
-          columns beyond the 63rd column are used in the query and/or are
-          referenced by the index.
-     <li> Extract the values of expressions contained within <a href="../expridx.html">expression indexes</a>
-          where practical, rather than recomputing the expression.
-     <li> The NOT NULL and IS NULL operators (and their equivalents) avoid
-          loading the content of large strings and BLOB values from disk.
-     <li> Avoid materializing a view on which a full scan is performed
-          exactly once.  Use and discard the rows of the view as they are computed.
-     <li> Allow flattening of a subquery that is the right-hand operand of
-          a LEFT JOIN in an aggregate query.
+     <li> Enable the "count-of-view" optimization by default.
+     <li> Avoid computing unused columns in subqueries.
+     <li> Improvements to the <a href="../optoverview.html#pushdown">push-down optimization</a>.
      </ol>
-<li> A new typedef named <a href="../c3ref/filename.html">sqlite3_filename</a> is added and used to represent
-     the name of a database file.  Various interfaces are
-     modified to use the new typedef instead of "char*".  This interface
-     change should be fully backwards compatible, though it might cause
-     (harmless) compiler warnings when rebuilding some legacy applications.
-<li> Add the <a href="../c3ref/value_blob.html">sqlite3_value_encoding()</a> interface.
-<li> Security enhancement: <a href="../c3ref/c_dbconfig_defensive.html#sqlitedbconfigdefensive">SQLITE_DBCONFIG_DEFENSIVE</a> is augmented to prohibit
-     changing the <a href="../pragma.html#pragma_schema_version">schema_version</a>.  The schema_version
-     becomes read-only in defensive mode.
-<li> Enhancements to the <a href="../pragma.html#pragma_integrity_check">PRAGMA integrity_check</a> statement:
+<li> Enhancements to the <a href="../cli.html">CLI</a>:
      <ol type="a">
-     <li> Columns in non-STRICT tables with TEXT affinity should not contain numeric values.
-     <li> Columns in non-STRICT tables with NUMERIC affinity should not
-          contain TEXT values that could be converted into numbers.
-     <li> Verify that the rows of a <a href="../withoutrowid.html">WITHOUT ROWID</a> table are in the correct order.
+     <li> Add the --unsafe-testing command-line option.  Without this option, some
+          dot-commands (ex: ".testctrl") are now disabled because those commands
+          that are intended for testing only and can cause malfunctions misused.
+     <li> Allow commands ".log on" and ".log off", even in --safe mode.
+     <li> "--" as a command-line argument means all subsequent arguments that
+          start with "-" are interpreted as normal non-option argument.
+     <li> Magic parameters ":inf" and ":nan" bind to floating point literals
+          Infinity and NaN, respectively.
+     <li> The --utf8 command-line option omits all translation to or from
+          MBCS on the Windows console for interactive sessions, and sets
+          the console code page for UTF-8 I/O during such sessions.
+          The --utf8 option is a no-op on all other platforms.
      </ol>
-<li> Enhance the <a href="../lang_vacuum.html#vacuuminto">VACUUM INTO</a> statement so that it honors they
-     <a href="../pragma.html#pragma_synchronous">PRAGMA synchronous</a> setting.
-<li> Enhance the <a href="../c3ref/strglob.html">sqlite3_strglob()</a> and <a href="../c3ref/strlike.html">sqlite3_strlike()</a> APIs so that they are able
-     to accept NULL pointers for their string parameters and still generate a sensible
-     result.
-<li> Provide the new <a href="../compile.html#max_allocation_size">SQLITE_MAX_ALLOCATION_SIZE</a> compile-time option for limiting
-     the size of memory allocations.
-<li> Change the algorithm used by SQLite's built-in pseudo-random number generator (PRNG)
-     from RC4 to Chacha20.
-<li> Allow two or more indexes to have the same name as long as they are all in
-     separate schemas.
-<li> Miscellaneous performance optimizations result in about 1% fewer CPU cycles
-     used on typical workloads.
+<li> Add the ability for <a href="../appfunc.html">application-defined SQL functions</a> to have the same name
+     as join keywords: CROSS, FULL, INNER, LEFT, NATURAL, OUTER, or RIGHT.
+<li> Enhancements to <a href="../pragma.html#pragma_integrity_check">PRAGMA integrity_check</a>:
+     <ol type="a">
+     <li> Detect and raise an error when a NaN value is stored in a NOT NULL column.
+     <li> Improved error message output identifies the root page of a b-tree when
+          an error is found within a b-tree.
+     </ol>
+<li> Allow the <a href="../sessionintro.html">session extension</a> to be configured to capture changes from
+     tables that lack an explicit ROWID.
+<li> Added the <a href="../lang_datefunc.html#subsec">subsecond modifier</a> to the <a href="../lang_datefunc.html">date and time functions</a>.
+<li> Negative values passed into <a href="../c3ref/sleep.html">sqlite3_sleep()</a> are henceforth interpreted as 0.
+<li> The maximum recursion depth for JSON arrays and objects is lowered from 2000
+     to 1000.
+<li> Extended the <a href="../printf.html">built-in printf()</a> function so the <a href="../printf.html#comma">comma option</a> now works with
+     floating-point conversions in addition to integer conversions.
+<li> Miscellaneous bug fixes and performance optimizations
 <p><b>Hashes:</b>
-<li>SQLITE_SOURCE_ID: 2022-11-16 12:10:08 89c459e766ea7e9165d0beeb124708b955a4950d0f4792f457465d71b158d318
-<li>SHA3-256 for sqlite3.c: ab8da6bc754642989e67d581f26683dc705b068cea671970f0a7d32cfacbad19
+<li>SQLITE_SOURCE_ID: 2023-05-16 12:36:15 831d0fb2836b71c9bc51067c49fee4b8f18047814f2ff22d817d25195cf350b0
+<li>SHA3-256 for sqlite3.c: 6aa3fadf000000625353bbaa1e83af114c40c240a0aa5a2c1c2aabcfc28d4f92
 
 </ol></p>
 
       <p>A <a href="../changes.html">complete list of SQLite releases</a>
-      in a single page and a <a href="../chronology.html">chronology</a> are both also available.  
+      in a single page and a <a href="../chronology.html">chronology</a> are both also available.
       A detailed history of every
       check-in is available at
       <a href="http://www.sqlite.org/src/timeline">

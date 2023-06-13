@@ -122,7 +122,7 @@ antiRobotDefense();
 <li>Fix a bug that can lead to database corruption if autovacuum mode is
     on and a malloc() failure follows a CREATE TABLE or CREATE INDEX statement
     which itself follows a cache overflow inside a transaction.  See
-    ticket #2418. 
+    ticket #2418.
     </li>
 <li>Added explicit <a href="../limits.html">upper bounds</a> on the sizes and
     quantities of things SQLite can process.  This change might cause
@@ -131,14 +131,14 @@ antiRobotDefense();
     release is 3.4.0 instead of 3.3.18.</li>
 <li>Added support for <a href="../c3ref/blob_open.html">Incremental BLOB I/O</a>.</li>
 <li>Added the <a href="../c3ref/bind_blob.html">sqlite3_bind_zeroblob()</a> API</a>
-    and the <a href="../lang_expr.html#zeroblob">zeroblob()</a> SQL function.</li>
+    and the <a href="../lang_corefunc.html#zeroblob">zeroblob()</a> SQL function.</li>
 <li>Added support for <a href="../pragma.html#pragma_incremental_vacuum">
     Incremental Vacuum</a>.</li>
 <li>Added the SQLITE_MIXED_ENDIAN_64BIT_FLOAT compile-time option to support
     ARM7 processors with goofy endianness.</li>
 <li>Removed all instances of sprintf() and strcpy() from the core library.</li>
 <li>Added support for
-    <a href="http://www.icu-project.org/">International Components for Unicode (ICU)</a>
+    <a href="https://icu.unicode.org">International Components for Unicode (ICU)</a>
     to the full-text search extensions.
 <li>In the Windows OS driver, reacquire a SHARED lock if an attempt to
     acquire an EXCLUSIVE lock fails.  Ticket #2354</li>
@@ -164,7 +164,7 @@ antiRobotDefense();
 <li>Fix a bug in the handling of UTF16 codepoint 0xE000</li>
 <li>Consider explicit collate clauses when matching WHERE constraints
     to indices in the query optimizer.  Ticket #2391</li>
-<li>Fix the query optimizer to correctly handle constant expressions in 
+<li>Fix the query optimizer to correctly handle constant expressions in
     the ON clause of a LEFT JOIN.  Ticket #2403</li>
 <li>Fix the query optimizer to handle rowid comparisons to NULL
     correctly.  Ticket #2404</li>
@@ -174,7 +174,7 @@ antiRobotDefense();
 </ol></p>
 
       <p>A <a href="../changes.html">complete list of SQLite releases</a>
-      in a single page and a <a href="../chronology.html">chronology</a> are both also available.  
+      in a single page and a <a href="../chronology.html">chronology</a> are both also available.
       A detailed history of every
       check-in is available at
       <a href="http://www.sqlite.org/src/timeline">

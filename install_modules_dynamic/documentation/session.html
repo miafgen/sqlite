@@ -121,17 +121,17 @@ antiRobotDefense();
 
 
 
-<p>This page defines the C-language interface to the SQLite 
+<p>This page defines the C-language interface to the SQLite
    <a href="sessionintro.html">session extension</a>.
-   This is not a tutorial. These pages are designed to be precise, not easy 
+   This is not a tutorial. These pages are designed to be precise, not easy
    to read.  A tutorial is <a href="sessionintro.html">available separately</a>.
 
 <p>This page contains all C-language interface information
-in a single HTML file.  The same information is also
-available broken out into <a href="session/intro.html">lots of small pages</a>
+in a single HTML file.  The same information is also available
+broken out into <a href="../session/intro.html">some smaller pages</a>
 for easier viewing, if you prefer.</p>
 
-<p>This document is created by a script which scans comments in the source 
+<p>This document is created by a script which scans comments in the source
 code file sqlite3session.h.</p>
 
 <hr>
@@ -151,8 +151,9 @@ code file sqlite3session.h.</p>
 <h2>Constants:</h2>
 <div class='columns' style='columns: 20em auto;'>
 <ul style='padding-top:0;'>
-<li><a href='#SQLITE_CHANGESETAPPLY_INVERT'>SQLITE_CHANGESETAPPLY_INVERT</a></li>
-<li><a href='#SQLITE_CHANGESETAPPLY_INVERT'>SQLITE_CHANGESETAPPLY_NOSAVEPOINT</a></li>
+<li><a href='#SQLITE_CHANGESETAPPLY_IGNORENOOP'>SQLITE_CHANGESETAPPLY_IGNORENOOP</a></li>
+<li><a href='#SQLITE_CHANGESETAPPLY_IGNORENOOP'>SQLITE_CHANGESETAPPLY_INVERT</a></li>
+<li><a href='#SQLITE_CHANGESETAPPLY_IGNORENOOP'>SQLITE_CHANGESETAPPLY_NOSAVEPOINT</a></li>
 <li><a href='#SQLITE_CHANGESETSTART_INVERT'>SQLITE_CHANGESETSTART_INVERT</a></li>
 <li><a href='#SQLITE_CHANGESET_ABORT'>SQLITE_CHANGESET_ABORT</a></li>
 <li><a href='#SQLITE_CHANGESET_CONFLICT'>SQLITE_CHANGESET_CONFLICT</a></li>
@@ -163,6 +164,8 @@ code file sqlite3session.h.</p>
 <li><a href='#SQLITE_CHANGESET_ABORT'>SQLITE_CHANGESET_OMIT</a></li>
 <li><a href='#SQLITE_CHANGESET_ABORT'>SQLITE_CHANGESET_REPLACE</a></li>
 <li><a href='#SQLITE_SESSION_CONFIG_STRMSIZE'>SQLITE_SESSION_CONFIG_STRMSIZE</a></li>
+<li><a href='#SQLITE_SESSION_OBJCONFIG_ROWID'>SQLITE_SESSION_OBJCONFIG_ROWID</a></li>
+<li><a href='#SQLITE_SESSION_OBJCONFIG_ROWID'>SQLITE_SESSION_OBJCONFIG_SIZE</a></li>
 </ul>
 </div>
 <hr>
@@ -213,6 +216,7 @@ code file sqlite3session.h.</p>
 <li><a href='#sqlite3session_indirect'>sqlite3session_indirect</a></li>
 <li><a href='#sqlite3session_isempty'>sqlite3session_isempty</a></li>
 <li><a href='#sqlite3session_memory_used'>sqlite3session_memory_used</a></li>
+<li><a href='#sqlite3session_object_config'>sqlite3session_object_config</a></li>
 <li><a href='#sqlite3session_patchset'>sqlite3session_patchset</a></li>
 <li><a href='#sqlite3changegroup_add_strm'>sqlite3session_patchset_strm</a></li>
 <li><a href='#sqlite3session_table_filter'>sqlite3session_table_filter</a></li>
@@ -373,6 +377,7 @@ record changes to a database.
 <li><a href='#sqlite3session_diff'>sqlite3session_diff</a></li>
 <li><a href='#sqlite3session_enable'>sqlite3session_enable</a></li>
 <li><a href='#sqlite3session_indirect'>sqlite3session_indirect</a></li>
+<li><a href='#sqlite3session_object_config'>sqlite3session_object_config</a></li>
 <li><a href='#sqlite3session_patchset'>sqlite3session_patchset</a></li>
 <li><a href='#sqlite3session_table_filter'>sqlite3session_table_filter</a></li>
 </ul>
@@ -1197,7 +1202,14 @@ changeset containing zero changes.
 </pre></blockquote><p>
 This API returns the total amount of heap memory in bytes currently 
 used by the session object passed as the only argument.
-</p><hr><a name="sqlite3session_patchset"></a>
+</p><hr><a name="sqlite3session_object_config"></a>
+<h2>Configure a Session Object</h2><blockquote><pre>int sqlite3session_object_config(sqlite3_session*, int op, void *pArg);
+</pre></blockquote><p>
+This method is used to configure a session object after it has been
+created. At present the only valid values for the second parameter are
+<a href="#SQLITE_SESSION_OBJCONFIG_ROWID">SQLITE_SESSION_OBJCONFIG_SIZE</a> and <a href="#SQLITE_SESSION_OBJCONFIG_ROWID">SQLITE_SESSION_OBJCONFIG_ROWID</a>.</p>
+
+<p></p><hr><a name="sqlite3session_patchset"></a>
 <h2>Generate A Patchset From A Session Object</h2><blockquote><pre>int sqlite3session_patchset(
   sqlite3_session *pSession,      /* Session object */
   int *pnPatchset,                /* OUT: Size of buffer at *ppPatchset */
@@ -1243,9 +1255,10 @@ in tables that are not attached to the Session object, the filter is called
 to determine whether changes to the table's rows should be tracked or not. 
 If xFilter returns 0, changes are not tracked. Note that once a table is 
 attached, xFilter will not be called again.
-</p><hr><a name="SQLITE_CHANGESETAPPLY_INVERT"></a>
+</p><hr><a name="SQLITE_CHANGESETAPPLY_IGNORENOOP"></a>
 <h2>Flags for sqlite3changeset_apply_v2</h2><blockquote><pre>#define SQLITE_CHANGESETAPPLY_NOSAVEPOINT   0x0001
 #define SQLITE_CHANGESETAPPLY_INVERT        0x0002
+#define SQLITE_CHANGESETAPPLY_IGNORENOOP    0x0004
 </pre></blockquote><p>
 The following flags may passed via the 9th parameter to
 <a href="#sqlite3changeset_apply">sqlite3changeset_apply_v2</a> and <a href="#sqlite3changegroup_add_strm">sqlite3changeset_apply_v2_strm</a>:</p>
@@ -1263,7 +1276,20 @@ The following flags may passed via the 9th parameter to
 <p><dt>SQLITE_CHANGESETAPPLY_INVERT <dd>
   Invert the changeset before applying it. This is equivalent to inverting
   a changeset using sqlite3changeset_invert() before applying it. It is
-  an error to specify this flag with a patchset.
+  an error to specify this flag with a patchset.</p>
+
+<p><dt>SQLITE_CHANGESETAPPLY_IGNORENOOP <dd>
+  Do not invoke the conflict handler callback for any changes that
+  would not actually modify the database even if they were applied.
+  Specifically, this means that the conflict handler is not invoked
+  for:
+   <ul>
+   <li>a delete change if the row being deleted cannot be found, 
+   <li>an update change if the modified fields are already set to 
+       their new values in the conflicting row, or
+   <li>an insert change if all fields of the conflicting row match
+       the row being inserted.
+   </ul>
 </p><hr><a name="SQLITE_CHANGESET_ABORT"></a>
 <h2>Constants Returned By The Conflict Handler</h2><blockquote><pre>#define SQLITE_CHANGESET_OMIT       0
 #define SQLITE_CHANGESET_REPLACE    1
@@ -1354,6 +1380,38 @@ Values that may be passed as the second argument to a conflict-handler.</p>
   sqlite3changeset_conflict() API are undefined.</p>
 
 <p></dl>
+</p><hr><a name="SQLITE_SESSION_OBJCONFIG_ROWID"></a>
+<h2>Options for sqlite3session_object_config</h2><blockquote><pre>#define SQLITE_SESSION_OBJCONFIG_SIZE  1
+#define SQLITE_SESSION_OBJCONFIG_ROWID 2
+</pre></blockquote><p>
+The following values may passed as the the 2nd parameter to
+sqlite3session_object_config().</p>
+
+<p><dt>SQLITE_SESSION_OBJCONFIG_SIZE <dd>
+  This option is used to set, clear or query the flag that enables
+  the <a href="#sqlite3session_changeset_size">sqlite3session_changeset_size()</a> API. Because it imposes some
+  computational overhead, this API is disabled by default. Argument
+  pArg must point to a value of type (int). If the value is initially
+  0, then the sqlite3session_changeset_size() API is disabled. If it
+  is greater than 0, then the same API is enabled. Or, if the initial
+  value is less than zero, no change is made. In all cases the (int)
+  variable is set to 1 if the sqlite3session_changeset_size() API is
+  enabled following the current call, or 0 otherwise.</p>
+
+<p>  It is an error (SQLITE_MISUSE) to attempt to modify this setting after 
+  the first table has been attached to the session object.</p>
+
+<p><dt>SQLITE_SESSION_OBJCONFIG_ROWID <dd>
+  This option is used to set, clear or query the flag that enables
+  collection of data for tables with no explicit PRIMARY KEY.</p>
+
+<p>  Normally, tables with no explicit PRIMARY KEY are simply ignored
+  by the sessions module. However, if this flag is set, it behaves
+  as if such tables have a column "_rowid_ INTEGER PRIMARY KEY" inserted
+  as their leftmost columns.</p>
+
+<p>  It is an error (SQLITE_MISUSE) to attempt to modify this setting after 
+  the first table has been attached to the session object.
 </p><hr><a name="sqlite3changegroup_add_strm"></a>
 <h2>Streaming Versions of API functions.</h2><blockquote><pre>int sqlite3changeset_apply_strm(
   sqlite3 *db,                    /* Apply change to "main" db of this handle */
@@ -1708,7 +1766,7 @@ APIs for further details.</p>
 
 <p>The behavior of sqlite3changeset_apply_v2() and its streaming equivalent
 may be modified by passing a combination of
-<a href="#SQLITE_CHANGESETAPPLY_INVERT">supported flags</a> as the 9th parameter.</p>
+<a href="#SQLITE_CHANGESETAPPLY_IGNORENOOP">supported flags</a> as the 9th parameter.</p>
 
 <p>Note that the sqlite3changeset_apply_v2() API is still <b>experimental</b>
 and therefore subject to change.

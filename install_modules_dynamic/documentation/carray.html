@@ -144,7 +144,9 @@ source file.
 </p><p>The carray() function was first added to SQLite in version 3.14
 (2016-08-08).  The sqlite3_carray_bind() interface and the
 single-argument variant of carray() was added in SQLite version 3.34.0
-(2020-12-01).
+(2020-12-01).  The ability to bind an array of <tt>struct iovec</tt>
+objects that are interpreted as BLOBs was added in SQLite version 3.41.0
+(2023-02-21).
 
 </p><h1 id="details"><span>3. </span>Details</h1>
 
@@ -164,13 +166,25 @@ in the C-language array.  Allowed values for the third argument are:
 </li><li> 'int64'
 </li><li> 'double'
 </li><li> 'char*'
+</li><li> 'struct iovec'
 </li></ol>
 
 <p>The default datatype is 'int32'.
 
+</p><p>The 'struct iovec' type used for BLOB data is a standard Posix data
+structure, normally declared using "<tt>#include &lt;sys/uio.h&gt;</tt>".
+The format is:
+
+</p><blockquote><pre>
+struct iovec {
+  void  *iov_base; /* Starting address */
+  size_t iov_len;  /* Number of bytes to transfer */
+};
+</pre></blockquote>
+
 <a name="onearg"></a>
 
-</p><h2 id="single_argument_carray"><span>3.1. </span>Single-Argument CARRAY</h2>
+<h2 id="single_argument_carray"><span>3.1. </span>Single-Argument CARRAY</h2>
 
 <p>The single-argument form of carray() requires a special C-language
 interface named "sqlite3_carray_bind()" in order to attach values:
@@ -193,6 +207,7 @@ interface named "sqlite3_carray_bind()" in order to attach values:
   #define CARRAY_INT64   1
   #define CARRAY_DOUBLE  2
   #define CARRAY_TEXT    3
+  #define CARRAY_BLOB    4
 </pre></blockquote>
 
 <p>Higher order bits of the mFlags parameter must all be zero for now,
@@ -236,5 +251,5 @@ taken from a C-language array at address $PTR.
 
 </p><div class="codeblock"><pre>SELECT * FROM obj WHERE rowid IN carray($PTR, 10);
 </pre></div>
-<p align="center"><small><i>This page last modified on  <a href="https://sqlite.org/docsrc/honeypot" id="mtimelink"  data-href="https://sqlite.org/docsrc/finfo/pages/carray.in?m=08c42c02278a15de6">2020-11-18 14:36:04</a> UTC </small></i></p>
+<p align="center"><small><i>This page last modified on  <a href="https://sqlite.org/docsrc/honeypot" id="mtimelink"  data-href="https://sqlite.org/docsrc/finfo/pages/carray.in?m=5722621d60">2023-02-17 13:24:09</a> UTC </small></i></p>
 

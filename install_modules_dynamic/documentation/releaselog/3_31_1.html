@@ -115,7 +115,7 @@ antiRobotGo();
 }
 antiRobotDefense();
 </script>
-<h2>SQLite Release 3.31.1 On 2020-01-27</h2><p><b>Changes in version 3.31.0 (2020-01-22):</b></p>
+<h2>SQLite Release 3.31.1 On 2020-01-27</h2><p><b>Prior changes from version 3.31.0 (2020-01-22):</b></p>
 <p><ol class='lessindent'>
 <li value='1'>Add support for <a href="../gencol.html">generated columns</a>.
 <li>Add the <a href="../c3ref/hard_heap_limit64.html">sqlite3_hard_heap_limit64()</a> interface and the corresponding
@@ -156,11 +156,11 @@ antiRobotDefense();
     tables with both generated columns and descending indexes.
     Ticket <a href="https://www.sqlite.org/src/info/6484e6ce678fffab">6484e6ce678fffab</a>
 </ol>
-<p><b>Additional changes in version 3.31.1 (2020-01-27):</b></p>
+<p><b>Changes in this specific patch release, version 3.31.1 (2020-01-27):</b></p>
 <p><ol class='lessindent'>
 <li value='17'> Revert the data layout for an internal-use-only SQLite data structure.
      Applications that use SQLite should never reference internal SQLite
-     data structures, but some do anyhow, and a change to one such 
+     data structures, but some do anyhow, and a change to one such
      data structure in 3.30.0 broke a popular and widely-deployed
      application.  Reverting that change in SQLite, at least temporarily,
      gives developers of misbehaving applications time to fix their code.
@@ -174,7 +174,7 @@ antiRobotDefense();
 </ol></p>
 
       <p>A <a href="../changes.html">complete list of SQLite releases</a>
-      in a single page and a <a href="../chronology.html">chronology</a> are both also available.  
+      in a single page and a <a href="../chronology.html">chronology</a> are both also available.
       A detailed history of every
       check-in is available at
       <a href="http://www.sqlite.org/src/timeline">

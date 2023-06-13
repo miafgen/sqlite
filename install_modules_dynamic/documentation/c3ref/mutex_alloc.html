@@ -117,7 +117,7 @@ antiRobotDefense();
 </script>
 <!-- keywords: sqlite3_mutex_alloc sqlite3_mutex_enter sqlite3_mutex_free sqlite3_mutex_leave sqlite3_mutex_try -->
 <div class=nosearch>
-<a href="intro.html"><h2>SQLite C Interface</h2></a>
+<a href="../c3ref/intro.html"><h2>SQLite C Interface</h2></a>
 <h2>Mutexes</h2>
 </div>
 <blockquote><pre>
@@ -233,13 +233,13 @@ previously entered by the same thread.   The behavior
 is undefined if the mutex is not currently entered by the
 calling thread or is not currently allocated.</p>
 
-<p>If the argument to sqlite3_mutex_enter(), sqlite3_mutex_try(), or
-sqlite3_mutex_leave() is a NULL pointer, then all three routines
-behave as no-ops.</p>
+<p>If the argument to sqlite3_mutex_enter(), sqlite3_mutex_try(),
+sqlite3_mutex_leave(), or sqlite3_mutex_free() is a NULL pointer,
+then any of the four routines behaves as a no-op.</p>
 
 <p>See also: <a href="../c3ref/mutex_held.html">sqlite3_mutex_held()</a> and <a href="../c3ref/mutex_held.html">sqlite3_mutex_notheld()</a>.
 </p><p>See also lists of
-  <a href="objlist.html">Objects</a>,
-  <a href="constlist.html">Constants</a>, and
-  <a href="funclist.html">Functions</a>.</p>
+  <a href="../c3ref/objlist.html">Objects</a>,
+  <a href="../c3ref/constlist.html">Constants</a>, and
+  <a href="../c3ref/funclist.html">Functions</a>.</p>
 

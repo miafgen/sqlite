@@ -115,7 +115,7 @@ antiRobotGo();
 }
 antiRobotDefense();
 </script>
-<h2>SQLite Release 3.14.1 On 2016-08-11</h2><p><b>Changes in version 3.14 (2016-08-08):</b></p>
+<h2>SQLite Release 3.14.1 On 2016-08-11</h2><p><b>Prior changes from version 3.14 (2016-08-08):</b></p>
 <p><ol class='lessindent'>
 <div style="width:280px;float:right;padding:10px;margin:0px 10px;">
 <img src='../images/sqlitepie.jpg' width=280 height=250></img><br>
@@ -134,7 +134,7 @@ with a home-baked pie.</center>
     <a href="../rescode.html#ok_load_permanently">SQLITE_OK_LOAD_PERMANENTLY</a> return code from the extension
     entry point.
 <li>Added the <a href="../c3ref/c_dbstatus_options.html#sqlitedbstatuscacheusedshared">SQLITE_DBSTATUS_CACHE_USED_SHARED</a> option to <a href="../c3ref/db_status.html">sqlite3_db_status()</a>.
-<li>Add the 
+<li>Add the
     <a href="https://www.sqlite.org/src/artifact?ci=trunk&filename=ext/misc/vfsstat.c">vfsstat.c</a>
     loadable extension - a VFS shim that measures I/O
     together with an <a href="../vtab.html#epovtab">eponymous virtual table</a> that provides access to the measurements.
@@ -148,7 +148,7 @@ with a home-baked pie.</center>
     <a href="../vtab.html#epovtab">eponymous virtual tables</a>.
 <li>Added the "win32-none" VFS, analogous to the "unix-none" VFS, that works like
     the default "win32" VFS except that it ignores all file locks.
-<li>The query planner uses a full scan of a <a href="../partialindex.html">partial index</a> instead of a 
+<li>The query planner uses a full scan of a <a href="../partialindex.html">partial index</a> instead of a
     full scan of the main table, in cases where that makes sense.
 <li>Allow <a href="../vtab.html#tabfunc2">table-valued functions</a> to appear on the right-hand side of an <a href="../lang_expr.html#in_op">IN operator</a>.
 <li>Created the <a href="../dbhash.html">dbhash.exe</a> command-line utility.
@@ -172,7 +172,7 @@ with a home-baked pie.</center>
     for some obscure queries following the ORDER BY LIMIT optimization introduced
     in <a href="../releaselog/3_12_0.html">version 3.12.0</a>.
 </ol>
-<p><b>Additional changes in version 3.14.1 (2016-08-11):</b></p>
+<p><b>Changes in this specific patch release, version 3.14.1 (2016-08-11):</b></p>
 <p><ol class='lessindent'>
 <li value='23'>A performance enhancement to the page-cache "truncate" operation
     reduces <a href="../lang_transaction.html">COMMIT</a> time by dozens of milliseconds on systems with a
@@ -185,7 +185,7 @@ with a home-baked pie.</center>
 </ol></p>
 
       <p>A <a href="../changes.html">complete list of SQLite releases</a>
-      in a single page and a <a href="../chronology.html">chronology</a> are both also available.  
+      in a single page and a <a href="../chronology.html">chronology</a> are both also available.
       A detailed history of every
       check-in is available at
       <a href="http://www.sqlite.org/src/timeline">

@@ -115,9 +115,9 @@ antiRobotGo();
 }
 antiRobotDefense();
 </script>
-<!-- keywords: sqlite3_value_blob sqlite3_value_bytes sqlite3_value_bytes16 sqlite3_value_double sqlite3_value_encoding sqlite3_value_frombind sqlite3_value_int sqlite3_value_int64 sqlite3_value_nochange sqlite3_value_numeric_type sqlite3_value_pointer sqlite3_value_text sqlite3_value_text16 sqlite3_value_text16be sqlite3_value_text16le sqlite3_value_type -->
+<!-- keywords: sqlite3_value_blob sqlite3_value_bytes sqlite3_value_bytes16 sqlite3_value_double sqlite3_value_frombind sqlite3_value_int sqlite3_value_int64 sqlite3_value_nochange sqlite3_value_numeric_type sqlite3_value_pointer sqlite3_value_text sqlite3_value_text16 sqlite3_value_text16be sqlite3_value_text16le sqlite3_value_type -->
 <div class=nosearch>
-<a href="intro.html"><h2>SQLite C Interface</h2></a>
+<a href="../c3ref/intro.html"><h2>SQLite C Interface</h2></a>
 <h2>Obtaining SQL Values</h2>
 </div>
 <blockquote><pre>
@@ -136,7 +136,6 @@ int sqlite3_value_type(sqlite3_value*);
 int sqlite3_value_numeric_type(sqlite3_value*);
 int sqlite3_value_nochange(sqlite3_value*);
 int sqlite3_value_frombind(sqlite3_value*);
-int sqlite3_value_encoding(sqlite3_value*);
 </pre></blockquote>
 <p>
 <b>Summary:</b>
@@ -214,16 +213,6 @@ words, if the value is a string that looks like a number)
 then the conversion is performed.  Otherwise no conversion occurs.
 The <a href="../c3ref/c_blob.html">datatype</a> after conversion is returned.</p>
 
-<p>The sqlite3_value_encoding(X) interface returns one of <a href="../c3ref/c_any.html">SQLITE_UTF8</a>,
-<a href="../c3ref/c_any.html">SQLITE_UTF16BE</a>, or <a href="../c3ref/c_any.html">SQLITE_UTF16LE</a> according to the current encoding
-of the value X, assuming that X has type TEXT.  If sqlite3_value_type(X)
-returns something other than SQLITE_TEXT, then the return value from
-sqlite3_value_encoding(X) is meaningless.  Calls to
-sqlite3_value_text(X), sqlite3_value_text16(X), sqlite3_value_text16be(X),
-sqlite3_value_text16le(X), sqlite3_value_bytes(X), or
-sqlite3_value_bytes16(X) might change the encoding of the value X and
-thus change the return from subsequent calls to sqlite3_value_encoding(X).</p>
-
 <p>Within the <a href="../vtab.html#xupdate">xUpdate</a> method of a <a href="../vtab.html">virtual table</a>, the
 sqlite3_value_nochange(X) interface returns true if and only if
 the column corresponding to X is unchanged by the UPDATE operation
@@ -273,7 +262,7 @@ by invoking the <a href="../c3ref/errcode.html">sqlite3_errcode()</a> immediatel
 return value is obtained and before any
 other SQLite interface is called on the same <a href="../c3ref/sqlite3.html">database connection</a>.
 </p><p>See also lists of
-  <a href="objlist.html">Objects</a>,
-  <a href="constlist.html">Constants</a>, and
-  <a href="funclist.html">Functions</a>.</p>
+  <a href="../c3ref/objlist.html">Objects</a>,
+  <a href="../c3ref/constlist.html">Constants</a>, and
+  <a href="../c3ref/funclist.html">Functions</a>.</p>
 

@@ -184,8 +184,8 @@ And so forth.
 </p>
 
 <p>
-The R-Tree concept originated with 
-<a href="http://www.baymoon.com/~tg2/">Toni Guttman</a>: 
+The R-Tree concept originated with
+<a href="https://link.springer.com/referenceworkentry/10.1007/978-0-387-35973-1_1151">Toni Guttman</a>:
 <em>R-Trees: A Dynamic Index Structure for Spatial Searching</em>,
 Proc. 1984 ACM SIGMOD International Conference on Management of Data,
 pp. 47-57.
@@ -200,8 +200,10 @@ and Rectangles.</em> SIGMOD Conference 1990: 322-331.
 
 <p>
 The source code to the SQLite R*Tree module is included as part
-of the <a href="amalgamation.html">amalgamation</a> but is disabled by default.  To enable the
-R*Tree module, simply compile with the <a href="compile.html#enable_rtree">SQLITE_ENABLE_RTREE</a> 
+of the <a href="amalgamation.html">amalgamation</a>.  However, depending on configuration options
+and the particular version of SQLite you are using, it may or may not
+be enabled by default.  To ensure that the R*Tree module is enabled,
+simply compile with the <a href="compile.html#enable_rtree">SQLITE_ENABLE_RTREE</a> 
 C-preprocessor macro defined.  With many compilers, this is accomplished
 by adding the option "-DSQLITE_ENABLE_RTREE=1" to the compiler
 command-line.
@@ -216,7 +218,7 @@ virtual table with an odd number of columns between 3 and 11.
 The first column is always a 64-bit signed integer primary key.
 The other columns are pairs, one pair per dimension, containing the
 minimum and maximum values for that dimension, respectively.
-A 1-dimensional R*Tree thus has 3 columns.  
+A 1-dimensional R*Tree thus has 3 columns.
 A 2-dimensional R*Tree has 5 columns.
 A 3-dimensional R*Tree has 7 columns.
 A 4-dimensional R*Tree has 9 columns.
@@ -225,7 +227,7 @@ does not support R*Trees wider than 5 dimensions.
 </p>
 
 <p>
-The first column of an SQLite R*Tree is similar to an integer primary 
+The first column of an SQLite R*Tree is similar to an integer primary
 key column of a normal SQLite table. It may only store a 64-bit signed
 integer value. Inserting a NULL value into this column causes SQLite
 to automatically generate a new unique primary key value. If an attempt
@@ -236,7 +238,7 @@ into the database.
 The min/max-value pair columns are stored as 32-bit floating point values for
 "rtree" virtual tables or as 32-bit signed integers in "rtree_i32" virtual
 tables.  Unlike regular SQLite tables which can store data in a variety of
-datatypes and formats, the R*Tree rigidly enforce these storage types. 
+datatypes and formats, the R*Tree rigidly enforce these storage types.
 If any other type of value is inserted into such a column, the r-tree
 module silently converts it to the required type before writing the
 new record to the database.
@@ -265,17 +267,17 @@ store its content.  The names of these shadow tables are:
 
 
 <p>
-The shadow tables are ordinary SQLite data tables.  You can query them 
+The shadow tables are ordinary SQLite data tables.  You can query them
 directly if you like, though this unlikely to reveal anything particularly
-useful. 
-And you can <a href="lang_update.html">UPDATE</a>, <a href="lang_delete.html">DELETE</a>, <a href="lang_insert.html">INSERT</a> or even <a href="lang_droptable.html">DROP</a> 
+useful.
+And you can <a href="lang_update.html">UPDATE</a>, <a href="lang_delete.html">DELETE</a>, <a href="lang_insert.html">INSERT</a> or even <a href="lang_droptable.html">DROP</a>
 the shadow tables, though doing so will corrupt your R*Tree index.
 So it is best to simply ignore the shadow tables.  Recognize that they
 hold your R*Tree index information and let it go as that.
 </p>
 
 <p>
-As an example, consider creating a two-dimensional R*Tree index for use in 
+As an example, consider creating a two-dimensional R*Tree index for use in
 spatial queries:
 </p>
 
@@ -358,7 +360,7 @@ integer primary key efficiently, so the previous is not important.
 The big reason for using an R*Tree is so that
 you can efficiently do range queries against the coordinate
 ranges.  For example, the main office of the SQLite project is
-located at 35.37785, -80.77470. 
+located at 35.37785, -80.77470.
 To find which zipcodes might service that office, one could right:
 </p>
 
@@ -421,7 +423,7 @@ where the application wants to find every entry in the R*Tree that overlaps
 a query bounding box.  Rounding the entry bounding boxes outward might cause a
 few extra entries to appears in an overlapping query if the edge of the
 entry bounding box corresponds to an edge of the query bounding box.  But
-the overlapping query will never miss a valid table entry.  
+the overlapping query will never miss a valid table entry.
 
 </p><p>However, for a "contained-within" style query, rounding the bounding
 boxes outward might cause some entries to be excluded from the result set
@@ -450,7 +452,7 @@ this:
 </pre></div>
 
 <p>
-Then for each "id" value returned, suppose the application creates an 
+Then for each "id" value returned, suppose the application creates an
 UPDATE statement like the following and binds the "id" value returned against
 the "?1" parameter:
 
@@ -574,7 +576,7 @@ secondary tables such as "demo_data".
 Auxiliary columns are marked with a "+" symbol before the column name.
 Auxiliary columns must come after all of the coordinate boundary columns.
 An RTREE table can have no more than 100 columns total.  In other words,
-the count of columns including the integer primary key column, 
+the count of columns including the integer primary key column,
 the coordinate boundary columns, and all auxiliary columns must be 100 or less.
 The following example shows an r-tree table with auxiliary columns that
 is equivalent to the two tables "demo_index" and "demo_data" above:
@@ -627,7 +629,7 @@ are desired, declare the table using "rtree_i32" instead:
 </pre></div>
 
 <p>
-An rtree_i32 stores coordinates as 32-bit signed integers.  
+An rtree_i32 stores coordinates as 32-bit signed integers.
 Even though it stores values using integer, the rtree_i32 virtual
 table still uses floating point computations internally as part of
 the r-tree algorithm.
@@ -637,13 +639,13 @@ the r-tree algorithm.
 </p><h1 id="custom_r_tree_queries"><span>6. </span>Custom R-Tree Queries</h1>
 
 <p>By using standard SQL expressions in the WHERE clause of a SELECT query,
-a programmer can query for all R*Tree entries that 
+a programmer can query for all R*Tree entries that
 intersect with or are contained within a particular bounding-box.
 Custom R*Tree queries, using the MATCH
-operator in the WHERE clause of a SELECT, allow the programmer to query for 
-the set of R*Tree entries that intersect any arbitrary region or shape, not 
-just a box.  This capability is useful, for example, in computing the 
-subset of objects in the R*Tree that are visible from a camera positioned 
+operator in the WHERE clause of a SELECT, allow the programmer to query for
+the set of R*Tree entries that intersect any arbitrary region or shape, not
+just a box.  This capability is useful, for example, in computing the
+subset of objects in the R*Tree that are visible from a camera positioned
 in 3-D space.
 
 </p><p>Regions for custom R*Tree queries are defined by R*Tree geometry callbacks
@@ -673,7 +675,7 @@ interface that is supported for backwards compatibility.
 </p><p>A call to one of the above APIs creates a new SQL function named by the
 second parameter (zQueryFunc or zGeom).  When that SQL function appears
 on the right-hand side of the MATCH operator and the left-hand side of the
-MATCH operator is any column in the R*Tree virtual table, then the callback 
+MATCH operator is any column in the R*Tree virtual table, then the callback
 defined by the third argument (xQueryFunc or xGeom) is invoked to determine
 if a particular object or subtree overlaps the desired region.
 
@@ -698,7 +700,7 @@ is the number of coordinates in each r-tree entry, and is always the same
 for any given R*Tree.  The number of coordinates is 2 for a 1-dimensional R*Tree,
 4 for a 2-dimensional R*Tree, 6 for a 3-dimensional R*Tree, and so forth.
 The third argument, aCoord[], is an array of nCoord coordinates that defines
-a bounding box to be tested.  The last argument is a pointer into which 
+a bounding box to be tested.  The last argument is a pointer into which
 the callback result should be written.  The result is zero
 if the bounding-box defined by aCoord[] is completely outside
 the region defined by the xGeom callback and the result is non-zero if
@@ -779,7 +781,7 @@ sqlite3_rtree_query_info structure:
 
 <p>The first five fields of the sqlite3_rtree_query_info structure are identical
 to the sqlite3_rtree_geometry structure, and have exactly the same meaning.
-The sqlite3_rtree_query_info structure also contains nCoord and aCoord fields 
+The sqlite3_rtree_query_info structure also contains nCoord and aCoord fields
 which have the same meaning as the parameter of the same name in the xGeom callback.
 
 </p><p>The xQueryFunc must set the eWithin field of sqlite3_rtree_query_info to
@@ -803,7 +805,7 @@ in a priority queue sorted by rScore.
 The query proceeds by extracting the entry from the priority queue that has
 the lowest score.  If that entry is a leaf (meaning that it is an actual
 R*Tree entry and not a subtree) then that entry
-is returned as one row of the query result.  
+is returned as one row of the query result.
 If the extracted priority queue entry is a node (a subtree),
 then the next child of that node is passed to the xQueryFunc callback.
 If the node has more children then it is returned to the priority queue.
@@ -848,7 +850,7 @@ the priority queue at each level.
 The MATCH operator of a custom R*Tree query function must be a top-level
 AND-connected term of the WHERE clause, or else it will not be usable
 by the R*Tree query optimizer and the query will not be runnable.
-If the MATCH operator is connected to other terms of the WHERE clause 
+If the MATCH operator is connected to other terms of the WHERE clause
 via an OR operator, for example, the query will fail with an error.
 
 </p><p>
@@ -888,7 +890,7 @@ entry in the %_parent shadow table that identifies the parent node.
 Each entry in an R*Tree has a rowid.  The %_rowid shadow table maps entry
 rowids to the node that contains that entry.
 
-</p><p>Extra columns appended to the %_rowid table hold the 
+</p><p>Extra columns appended to the %_rowid table hold the
 content of <a href="rtree.html#auxcol">auxiliary columns</a>.  The names of these extra
 %_rowid columns are probably not the same as the
 actual auxiliary column names.
@@ -919,10 +921,10 @@ For each cell in the r-tree structure (%_node table), that:
 <li><p> for each dimension, (coord1 &lt;= coord2).
 </p></li><li><p> unless the cell is on the root node, that the cell is bounded
         by the parent cell on the parent node.
-</p></li><li><p> for leaf nodes, that there is an entry in the %_rowid 
-        table corresponding to the cell's rowid value that 
+</p></li><li><p> for leaf nodes, that there is an entry in the %_rowid
+        table corresponding to the cell's rowid value that
         points to the correct node.
-</p></li><li><p> for cells on non-leaf nodes, that there is an entry in the 
+</p></li><li><p> for cells on non-leaf nodes, that there is an entry in the
         %_parent table mapping from the cell's child node to the
         node that it resides on.
 </p></li></ol>
@@ -932,9 +934,9 @@ as there are leaf cells in the r-tree structure, and that there
 is a leaf cell that corresponds to each entry in the %_rowid table.
 </p></li><li><p>
 That there are the same number of entries in the %_parent table
-as there are non-leaf cells in the r-tree structure, and that 
-there is a non-leaf cell that corresponds to each entry in the 
+as there are non-leaf cells in the r-tree structure, and that
+there is a non-leaf cell that corresponds to each entry in the
 %_parent table.
 </p></li></ol>
-<p align="center"><small><i>This page last modified on  <a href="https://sqlite.org/docsrc/honeypot" id="mtimelink"  data-href="https://sqlite.org/docsrc/finfo/pages/rtree.in?m=10065d07f5d8bb57b">2021-09-29 16:36:36</a> UTC </small></i></p>
+<p align="center"><small><i>This page last modified on  <a href="https://sqlite.org/docsrc/honeypot" id="mtimelink"  data-href="https://sqlite.org/docsrc/finfo/pages/rtree.in?m=703d907909">2023-02-20 00:00:42</a> UTC </small></i></p>
 

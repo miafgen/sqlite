@@ -161,10 +161,10 @@ mk.innerHTML = "&#x25ba;";
 
 <h1 id="introduction"><span>1. </span>Introduction</h1>
 
-<p>The session extension provide a mechanism for recording changes
-to some or all of the <a href="rowidtable.html">rowid tables</a> in an SQLite database, and packaging
-those changes into a "changeset" or "patchset" file that can later
-be used to apply the same set of changes to another database with
+<p>The session extension provide a mechanism for conviently recording
+changes to some or all of certain tables in an SQLite database, and
+packaging those changes into a "changeset" or "patchset" file that can
+later be used to apply the same set of changes to another database with
 the same schema and compatible starting data.  A "changeset" may
 also be inverted and used to "undo" a session.
 
@@ -193,20 +193,21 @@ his work over to Alice and she can apply his changes to her database.
 SQLite database files that is similar to the unix
 <a href="https://en.wikipedia.org/wiki/Patch_(Unix)">patch</a> utility program,
 or to the "merge" capabilities of version control systems such
-as <a href="https://www.fossil-scm.org/">Fossil</a>, <a href="https://git-scm.com">Git</a>, 
+as <a href="https://www.fossil-scm.org/">Fossil</a>, <a href="https://git-scm.com">Git</a>,
 or <a href="http://www.mercurial-scm.org/">Mercurial</a>.
 
 </p><h2 id="obtaining_the_session_extension"><span>1.2. </span>Obtaining the Session Extension</h2>
 
-<p> Since <a href="releaselog/3_13_0.html">version 3.13.0</a> (2016-05-18), 
+<p> Since <a href="releaselog/3_13_0.html">version 3.13.0</a> (2016-05-18),
 the session extension has been included in the SQLite
-<a href="amalgamation.html">amalgamation</a> source distribution. By default, the session extension is 
+<a href="amalgamation.html">amalgamation</a> source distribution. By default, the session extension is
 disabled. To enable it, build with the following compiler switches:
 
 </p><div class="codeblock"><pre>-DSQLITE_ENABLE_SESSION -DSQLITE_ENABLE_PREUPDATE_HOOK
 </pre></div>
 
-<p> Or, if using the autoconf build system, pass the --enable-session option to the configure script.
+<p> Or, if using the autoconf build system,
+pass the --enable-session option to the configure script.
 
 </p><h2 id="limitations"><span>1.3. </span>Limitations</h2>
 
@@ -214,7 +215,8 @@ disabled. To enable it, build with the following compiler switches:
 
 <li><p> Prior to SQLite version 3.17.0, the session extension only worked with
         <a href="rowidtable.html">rowid tables</a>, not <a href="withoutrowid.html">WITHOUT ROWID</a> tables. As of 3.17.0, both
-        rowid and WITHOUT ROWID tables are supported.
+        rowid and WITHOUT ROWID tables are supported. However, extra steps are
+        needed to record primary keys for WITHOUT ROWID table changes.
 
 </p></li><li><p> There is no support for <a href="vtab.html">virtual tables</a>. Changes to virtual tables are
         not captured.
@@ -234,69 +236,69 @@ disabled. To enable it, build with the following compiler switches:
 <a name="changeset"></a>
 
 <h2 id="changesets_and_patchsets"><span>2.1. </span>Changesets and Patchsets</h2>
-<p> The sessions module revolves around creating and manipulating 
-changesets. A changeset is a blob of data that encodes a series of 
-changes to a database. Each change in a changeset is one of the 
+<p> The sessions module revolves around creating and manipulating
+changesets. A changeset is a blob of data that encodes a series of
+changes to a database. Each change in a changeset is one of the
 following:
 
 </p><ul>
-  <li> <p>An <b>INSERT</b>. An INSERT change contains a single row to add to 
+  <li> <p>An <b>INSERT</b>. An INSERT change contains a single row to add to
        a database table. The payload of the INSERT change consists of the
        values for each field of the new row.
 
   </p></li><li> <p>A <b>DELETE</b>. A DELETE change represents a row, identified by
        its primary key values, to remove from a database table. The payload
-       of a DELETE change consists of the values for all fields of the 
+       of a DELETE change consists of the values for all fields of the
        deleted row.
 
   </p></li><li> <p>An <b>UPDATE</b>. An UPDATE change represents the modification of
-       one or more non-PRIMARY KEY fields of a single row within a database 
+       one or more non-PRIMARY KEY fields of a single row within a database
        table, identified by its PRIMARY KEY fields. The payload for an UPDATE
        change consists of:
    </p><ul>
-     <li> The PRIMARY KEY values identifying the modified row, 
+     <li> The PRIMARY KEY values identifying the modified row,
      </li><li> The new values for each modified field of the row, and
      </li><li> The original values for each modified field of the row.
    </li></ul>
        <p> An UPDATE change does not contain any information regarding
        non-PRIMARY KEY fields that are not modified by the change. It is not
-       possible for an UPDATE change to specify modifications to PRIMARY 
-       KEY fields. 
+       possible for an UPDATE change to specify modifications to PRIMARY
+       KEY fields.
 </p></li></ul>
 
-<p> A single changeset may contain changes that apply to more than one 
+<p> A single changeset may contain changes that apply to more than one
 database table. For each table that the changeset includes at least one change
 for, it also encodes the following data:
 
 </p><ul>
-  <li> The name of the database table, 
+  <li> The name of the database table,
   </li><li> The number of columns the table has, and
   </li><li> Which of those columns are PRIMARY KEY columns.
 </li></ul>
 
-<p> Changesets may only be applied to databases that contain tables 
+<p> Changesets may only be applied to databases that contain tables
 matching the above three criteria as stored in the changeset.
 
 </p><p> A patchset is similar to a changeset. It is slightly more compact than
 a changeset, but provides more limited conflict detection and resolution
-options (see the next section for details). The differences between a 
+options (see the next section for details). The differences between a
 patchset and a changeset are that:
 
 </p><ul>
-  <li><p> For a <b>DELETE</b> change, the payload consists of the PRIMARY KEY 
+  <li><p> For a <b>DELETE</b> change, the payload consists of the PRIMARY KEY
           fields only. The original values of other fields are not stored as
           part of a patchset.
 
-  </p></li><li><p> For an <b>UPDATE</b> change, the payload consists of the PRIMARY KEY 
+  </p></li><li><p> For an <b>UPDATE</b> change, the payload consists of the PRIMARY KEY
           fields and the new values of modified fields only. The original
           values of modified fields are not stored as part of a patchset.
 </p></li></ul>
 
 <h2 id="conflicts"><span>2.2. </span>Conflicts</h2>
 
-<p> When a changeset or patchset is applied to a database, an attempt is 
+<p> When a changeset or patchset is applied to a database, an attempt is
 made to insert a new row for each INSERT change, remove a row for each
-DELETE change and modify a row for each UPDATE change. If the target 
+DELETE change and modify a row for each UPDATE change. If the target
 database is in the same state as the original database that the changeset
 was recorded on, this is a simple matter. However, if the contents of the
 target database is not in exactly this state, conflicts can occur when
@@ -309,7 +311,7 @@ occur:
   <li> The target database may already contain a row with the same PRIMARY
        KEY values as specified by the INSERT change.
 
-  </li><li> Some other database constraint, for example a UNIQUE or CHECK 
+  </li><li> Some other database constraint, for example a UNIQUE or CHECK
        constraint, may be violated when the new row is inserted.
 </li></ul>
 
@@ -317,7 +319,7 @@ occur:
 detected:
 
 </p><ul>
-  <li> The target database may contain no row with the specified PRIMARY 
+  <li> The target database may contain no row with the specified PRIMARY
        KEY values to delete.
 
   </li><li> The target database may contain a row with the specified PRIMARY
@@ -330,7 +332,7 @@ detected:
 detected:
 
 </p><ul>
-  <li> The target database may contain no row with the specified PRIMARY 
+  <li> The target database may contain no row with the specified PRIMARY
        KEY values to modify.
 
   </li><li> The target database may contain a row with the specified PRIMARY
@@ -338,7 +340,7 @@ detected:
        by the change may not match the original values stored within the
        changeset. This type of conflict is not detected when using a patchset.
 
-  </li><li> Some other database constraint, for example a UNIQUE or CHECK 
+  </li><li> Some other database constraint, for example a UNIQUE or CHECK
        constraint, may be violated when the row is updated.
 </li></ul>
 
@@ -350,11 +352,11 @@ the <a href="session/sqlite3changeset_apply.html">sqlite3changeset_apply()</a> A
 
 </p><h2 id="changeset_construction"><span>2.3. </span>Changeset Construction</h2>
 
-<p> After a session object has been configured, it begins monitoring for 
+<p> After a session object has been configured, it begins monitoring for
 changes to its configured tables. However, it does not record an entire
 change each time a row within the database is modified. Instead, it records
-just the PRIMARY KEY fields for each inserted row, and just the PRIMARY KEY 
-and all original row values for any updated or deleted rows. If a row is 
+just the PRIMARY KEY fields for each inserted row, and just the PRIMARY KEY
+and all original row values for any updated or deleted rows. If a row is
 modified more than once by a single session, no new information is recorded.
 
 </p><p> The other information required to create a changeset or patchset is
@@ -362,9 +364,9 @@ read from the database file when <a href="session/sqlite3session_changeset.html"
 <a href="session/sqlite3session_patchset.html">sqlite3session_patchset()</a> is called. Specifically,
 
 </p><ul>
-  <li> <p>For each primary key recorded as a result of an INSERT operation, 
+  <li> <p>For each primary key recorded as a result of an INSERT operation,
        the sessions module checks if there is a row with a matching primary
-       key still in the table. If so, an INSERT change is added to the 
+       key still in the table. If so, an INSERT change is added to the
        changeset.
 
   </p></li><li> <p>For each primary key recorded as a result of an UPDATE or DELETE
@@ -372,12 +374,12 @@ read from the database file when <a href="session/sqlite3session_changeset.html"
        primary key within the table. If one can be found, but one or more
        of the non-PRIMARY KEY fields does not match the original recorded
        value, an UPDATE is added to the changeset. Or, if there is no row
-       at all with the specified primary key, a DELETE is added to the 
+       at all with the specified primary key, a DELETE is added to the
        changeset. If the row does exist but none of the non-PRIMARY KEY
        fields have been modified, no change is added to the changeset.
 </p></li></ul>
 
-<p> One implication of the above is that if a change is made and then 
+<p> One implication of the above is that if a change is made and then
 unmade within a single session (for example if a row is inserted and then
 deleted again), the sessions module does not report any change at all. Or
 if a row is updated multiple times within the same session, all updates
@@ -394,18 +396,18 @@ are coalesced into a single update within any changeset or patchset blob.
 changeset while executing SQL commands. In summary:
 
 </p><ol>
-  <li> <p>A session object (type sqlite3_session*) is created by making a 
+  <li> <p>A session object (type sqlite3_session*) is created by making a
           call to the <a href="session/sqlite3session_create.html">sqlite3session_create()</a> API function.
 
-       </p><p>A single session object monitors changes made to a single database 
-          (i.e. "main", "temp" or an attached database) via a single 
+       </p><p>A single session object monitors changes made to a single database
+          (i.e. "main", "temp" or an attached database) via a single
           sqlite3* database handle.
 
   </p></li><li> <p>The session object is configured with a set of tables to monitor
           changes on.
 
-       </p><p> By default a session object does not monitor changes on any 
-           database table. Before it does so it must be configured. There 
+       </p><p> By default a session object does not monitor changes on any
+           database table. Before it does so it must be configured. There
            are three ways to configure the set of tables to monitor changes
            on:
        </p><ul>
@@ -430,13 +432,13 @@ changeset while executing SQL commands. In summary:
            to <a href="session/sqlite3session_changeset.html">sqlite3session_changeset()</a> (or, if using patchsets, a call to
            the <a href="session/sqlite3session_patchset.html">sqlite3session_patchset()</a> function).
 
-  </p></li><li> <p> The session object is deleted using a call to the 
+  </p></li><li> <p> The session object is deleted using a call to the
            <a href="session/sqlite3session_delete.html">sqlite3session_delete()</a> API function.
 
        </p><p> It is not necessary to delete a session object after extracting
            a changeset or patchset from it. It can be left attached to the
            database handle and will continue monitoring for changes on the
-           configured tables as before. However, if 
+           configured tables as before. However, if
            <a href="session/sqlite3session_changeset.html">sqlite3session_changeset()</a> or <a href="session/sqlite3session_patchset.html">sqlite3session_patchset()</a> is
            called a second time on a session object, the changeset or patchset
            will contain <em>all</em> changes that have taken place on the connection
@@ -447,7 +449,7 @@ changeset while executing SQL commands. In summary:
 </p></li></ol>
 
 <div class="codeblock"><pre><i>/*
-** Argument zSql points to a buffer containing an SQL script to execute 
+** Argument zSql points to a buffer containing an SQL script to execute
 ** against the database handle passed as the first argument. As well as
 ** executing the SQL script, this function collects a changeset recording
 ** all changes made to the "main" database file. Assuming no error occurs,
@@ -496,7 +498,7 @@ int sql_exec_changeset(
 Usually, a single call to <a href="session/sqlite3changeset_apply.html">sqlite3changeset_apply()</a>, as depicted in the
 example code below, suffices.
 
-</p><p> In cases where it is complicated, the complications in applying a 
+</p><p> In cases where it is complicated, the complications in applying a
 changeset lie in conflict resolution. Refer to the API documentation linked
 above for details.
 
@@ -514,7 +516,7 @@ static int xConflict(void *pCtx, int eConflict, sqlite3_changset_iter *pIter){
 ** Return SQLITE_OK if successful, or an SQLite error code if an error
 ** occurs.
 **
-** If parameter bIgnoreConflicts is true, then any conflicting changes 
+** If parameter bIgnoreConflicts is true, then any conflicting changes
 ** within the changeset are simply ignored. Or, if bIgnoreConflicts is
 ** false, then this call fails with an SQLTIE_ABORT error if a changeset
 ** conflict is encountered.
@@ -526,9 +528,9 @@ int apply_changeset(
   void *pChangeset              <i>/* Pointer to changeset blob */</i>
 ){
   return sqlite3changeset_apply(
-      db, 
-      nChangeset, pChangeset, 
-      0, xConflict, 
+      db,
+      nChangeset, pChangeset,
+      0, xConflict,
       (void*)bIgnoreConflicts
   );
 }
@@ -536,7 +538,7 @@ int apply_changeset(
 
 <h2 id="inspecting_the_contents_of_a_changeset"><span>3.3. </span>Inspecting the Contents of a Changeset</h2>
 
-<p> The example code below demonstrates the techniques used to iterate 
+<p> The example code below demonstrates the techniques used to iterate
 through and extract the data related to all changes in a changeset. To
 summarize:
 
@@ -546,7 +548,7 @@ summarize:
           changeset. Initially, the iterator points to no element at all.
 
   </p></li><li><p> The first call to <a href="session/sqlite3changeset_next.html">sqlite3changeset_next()</a> on the iterator moves
-          it to point to the first change  in the changeset (or to EOF, if 
+          it to point to the first change  in the changeset (or to EOF, if
           the changeset is completely empty). sqlite3changeset_next() returns
           SQLITE_ROW if it moves the iterator to point to a valid entry,
           SQLITE_DONE if it moves the iterator to EOF, or an SQLite error
@@ -554,7 +556,7 @@ summarize:
 
   </p></li><li><p> If the iterator points to a valid entry, the <a href="session/sqlite3changeset_op.html">sqlite3changeset_op()</a>
           API may be used to determine the type of change (INSERT, UPDATE or
-          DELETE) that the iterator points to. Additionally, the same API 
+          DELETE) that the iterator points to. Additionally, the same API
           can be used to obtain the name of the table the change applies to
           and its expected number of columns and primary key columns.
 
@@ -566,7 +568,7 @@ summarize:
           <a href="session/sqlite3changeset_old.html">sqlite3changeset_old()</a> API may be used to obtain the old.* values
           within the change payload.
 
-  </p></li><li><p> An iterator is deleted using a call to the 
+  </p></li><li><p> An iterator is deleted using a call to the
           <a href="session/sqlite3changeset_finalize.html">sqlite3changeset_finalize()</a> API. If an error occured while
           iterating, an SQLite error code is returned (even if the same error
           code has already been returned by sqlite3changeset_next()). Or,
@@ -637,7 +639,7 @@ in the previous section. However, the following additional functionality is
 available for the use and manipulation of changeset and patchset blobs:
 
 </p><ul>
-  <li> <p>Two or more changeset/patchsets may be combined using the 
+  <li> <p>Two or more changeset/patchsets may be combined using the
        <a href="session/sqlite3changeset_concat.html">sqlite3changeset_concat()</a> or <a href="session/changegroup.html">sqlite3_changegroup</a> interfaces.
 
   </p></li><li> <p>A changeset may be "inverted" using the <a href="session/sqlite3changeset_invert.html">sqlite3changeset_invert()</a>
@@ -645,5 +647,5 @@ available for the use and manipulation of changeset and patchset blobs:
        original. If changeset C<sup>+</sup> is the inverse of changeset C, then
        applying C and then C<sup>+</sup> to a database should leave
        the database unchanged.
-</p></li></ul><p align="center"><small><i>This page last modified on  <a href="https://sqlite.org/docsrc/honeypot" id="mtimelink"  data-href="https://sqlite.org/docsrc/finfo/pages/sessionintro.in?m=007ada577d1408286">2018-02-28 22:21:53</a> UTC </small></i></p>
+</p></li></ul><p align="center"><small><i>This page last modified on  <a href="https://sqlite.org/docsrc/honeypot" id="mtimelink"  data-href="https://sqlite.org/docsrc/finfo/pages/sessionintro.in?m=682990e565">2023-01-07 01:13:01</a> UTC </small></i></p>
 

@@ -115,7 +115,7 @@ antiRobotGo();
 }
 antiRobotDefense();
 </script>
-<h2>SQLite Release 3.9.2 On 2015-11-02</h2><p><b>Changes in version 3.9.0 (2015-10-14):</b></p>
+<h2>SQLite Release 3.9.2 On 2015-11-02</h2><p><b>Prior changes from version 3.9.0 (2015-10-14):</b></p>
 <p><ol class='lessindent'>
 <p><b>Policy Changes:</b>
 <li value='1'>The <a href="../versionnumbers.html">version numbering conventions</a> for SQLite are revised to use the
@@ -140,7 +140,7 @@ antiRobotDefense();
 <li>The query planner is now able to use <a href="../partialindex.html">partial indexes</a> that contain
     AND-connected terms in the WHERE clause.
 <li>The sqlite3_analyzer.exe utility is updated to report the depth of
-    each btree and to show the average fanout for indexes and 
+    each btree and to show the average fanout for indexes and
     WITHOUT ROWID tables.
 <li>Enhanced the <a href="../dbstat.html">dbstat virtual table</a> so that it can be used as a
     <a href="../vtab.html#tabfunc2">table-valued function</a> where the argument is the schema to be
@@ -149,9 +149,9 @@ antiRobotDefense();
 <li>The <a href="../c3ref/aggregate_count.html">sqlite3_memory_alarm()</a> interface, which has been deprecated and
     undocumented for 8 years, is changed into a no-op.
 <p><b>Important fixes:</b>
-<li>Fixed a critical bug in the 
+<li>Fixed a critical bug in the
     <a href="https://www.sqlite.org/see/doc/trunk/www/readme.wiki">SQLite Encryption Extension</a> that
-    could cause the database to become unreadable and unrecoverable if a <a href="../lang_vacuum.html">VACUUM</a> command 
+    could cause the database to become unreadable and unrecoverable if a <a href="../lang_vacuum.html">VACUUM</a> command
     changed the size of the encryption nonce.
 <li>Added a memory barrier in the implementation of
     <a href="../c3ref/initialize.html">sqlite3_initialize()</a> to help ensure that it is thread-safe.
@@ -162,7 +162,7 @@ antiRobotDefense();
     <a href="https://www.sqlite.org/src/info/c2a19d81652f40568c">c2a19d81652f40568c</a>.
 
 </ol>
-<p><b>Additional changes in version 3.9.1 (2015-10-16):</b></p>
+<p><b>Prior changes from version 3.9.1 (2015-10-16):</b></p>
 <p><ol class='lessindent'>
 <li value='18'>Fix <a href="../json1.html">the json1 extension</a> so that it does <u>not</u> recognize ASCII form-feed as a
     whitespace character, in order to comply with RFC-7159.  Fix for ticket
@@ -171,9 +171,9 @@ antiRobotDefense();
     appeared after the 3.9.0 release.
 
 </ol>
-<p><b>Additional changes in version 3.9.2 (2015-11-02):</b></p>
+<p><b>Changes in this specific patch release, version 3.9.2 (2015-11-02):</b></p>
 <p><ol class='lessindent'>
-<li value='20'>Fix the schema parser so that it interprets certain 
+<li value='20'>Fix the schema parser so that it interprets certain
     (obscure and ill-formed)
     CREATE TABLE statements the same as legacy.  Fix for ticket
     <a href="https://www.sqlite.org/src/info/ac661962a2aeab3c331">ac661962a2aeab3c331</a>
@@ -188,7 +188,7 @@ antiRobotDefense();
 </ol></p>
 
       <p>A <a href="../changes.html">complete list of SQLite releases</a>
-      in a single page and a <a href="../chronology.html">chronology</a> are both also available.  
+      in a single page and a <a href="../chronology.html">chronology</a> are both also available.
       A detailed history of every
       check-in is available at
       <a href="http://www.sqlite.org/src/timeline">

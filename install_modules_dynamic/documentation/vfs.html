@@ -248,7 +248,7 @@ options) include:
 The various unix VFSes differ only in the way they handle file locking -
 they share most of their implementation in common with one another and
 are all located in the same SQLite source file:  
-<a href="http://www.sqlite.org/src/doc/trunk/src/os_unix.c">os_unix.c</a>.
+<a href="https://www.sqlite.org/src/doc/trunk/src/os_unix.c">os_unix.c</a>.
 Note that except for "unix" and "unix-excl", the various unix VFSes all
 use incompatible locking implementations.  If two processes are accessing
 the same SQLite database using different unix VFSes, they may
@@ -343,7 +343,7 @@ We call a wrapper VFS a "shim".
 <p>
 A simple example of a shim is the "vfstrace" VFS.  This is a VFS
 (implemented in the 
-<a href="http://www.sqlite.org/src/doc/trunk/src/test_vfstrace.c">test_vfstrace.c</a>
+<a href="https://www.sqlite.org/src/doc/trunk/src/test_vfstrace.c">test_vfstrace.c</a>
 source file) that writes a message associated with each VFS method call
 into a log file, then passes control off to another VFS to do the actual
 work.
@@ -358,7 +358,7 @@ SQLite source tree:
 
 <ul>
 <li><p>
-<a href="http://www.sqlite.org/src/file/ext/misc/appendvfs.c">appendvfs.c</a> -
+<a href="https://www.sqlite.org/src/file/ext/misc/appendvfs.c">appendvfs.c</a> -
 This VFS allows an SQLite database to be appended to the end of some
 other file.  This can be used, for example, to append an SQLite database
 onto the end of an executable such that, when run, it can easily
@@ -367,7 +367,7 @@ VFS if launched with the --append option, and its .archive command
 will use it given the --append flag.
 
 </p></li><li><p>
-<a href="http://www.sqlite.org/src/doc/trunk/src/test_demovfs.c">test_demovfs.c</a> - 
+<a href="https://www.sqlite.org/src/doc/trunk/src/test_demovfs.c">test_demovfs.c</a> - 
 This file implements a very simple VFS named "demo" that uses POSIX 
 functions such as
 open(), read(), write(), fsync(), close(), fsync(), sleep(), time(),
@@ -378,7 +378,7 @@ so that it can be used as a learning aid or as template for building
 other VFSes or for porting SQLite to new operating systems.
 
 </p></li><li><p>
-<a href="http://www.sqlite.org/src/doc/trunk/src/test_quota.c">test_quota.c</a> - 
+<a href="https://www.sqlite.org/src/doc/trunk/src/test_quota.c">test_quota.c</a> - 
 This file implements a shim called "quota" that enforces cumulative
 file size limits on a collection of database files.  An auxiliary
 interface is used to define "quota groups".  A quota group is a
@@ -392,7 +392,7 @@ that would have exceeded the quota to fail with an
 resource limits on application databases in Firefox.
 
 </p></li><li><p>
-<a href="http://www.sqlite.org/src/doc/trunk/src/test_multiplex.c">test_multiplex.c</a> - 
+<a href="https://www.sqlite.org/src/doc/trunk/src/test_multiplex.c">test_multiplex.c</a> - 
 This file implements a shim that allows database files to exceed the
 maximum file size of the underlying filesystem.  This shim presents
 an interface to the upper six layers of SQLite that makes it look like
@@ -402,7 +402,7 @@ This shim has been used, for example, to allow databases to grow
 larger than 2 gibibytes on FAT16 filesystems.
 
 </p></li><li><p>
-<a href="http://www.sqlite.org/src/doc/trunk/src/test_onefile.c">test_onefile.c</a> - 
+<a href="https://www.sqlite.org/src/doc/trunk/src/test_onefile.c">test_onefile.c</a> - 
 This file implements a demonstration VFS named "fs" that shows how SQLite 
 can be used on an embedded device that lacks a filesystem.  Content is
 written directly to the underlying media.  A VFS derived from this
@@ -411,7 +411,7 @@ flash memory to make SQLite behave as the filesystem for the flash memory
 on the device.
 
 </p></li><li><p>
-<a href="http://www.sqlite.org/src/doc/trunk/src/test_journal.c">test_journal.c</a> - 
+<a href="https://www.sqlite.org/src/doc/trunk/src/test_journal.c">test_journal.c</a> - 
 This file implements a shim used during SQLite testing that verifies that
 the database and rollback journal are written in the correct order and
 are "synced" at appropriate times in order to guarantee that the database
@@ -424,7 +424,7 @@ assurance that SQLite databases will not be damaged by unexpected
 power failures or device resets.
 
 </p></li><li><p>
-<a href="http://www.sqlite.org/src/doc/trunk/src/test_vfs.c">test_vfs.c</a> - 
+<a href="https://www.sqlite.org/src/doc/trunk/src/test_vfs.c">test_vfs.c</a> - 
 This file implements a shim that can be used to simulate filesystem faults.
 This shim is used during testing to verify that SQLite responses sanely
 to hardware malfunctions or to other error conditions such as running out
@@ -489,5 +489,5 @@ those objects are not registered directly with SQLite.  Instead, the
 <a href="c3ref/vfs.html">sqlite3_vfs</a> and the <a href="c3ref/file.html">sqlite3_file</a> object points to an instance
 of the <a href="c3ref/io_methods.html">sqlite3_io_methods</a> object.
 </p>
-<p align="center"><small><i>This page last modified on  <a href="https://sqlite.org/docsrc/honeypot" id="mtimelink"  data-href="https://sqlite.org/docsrc/finfo/pages/vfs.in?m=05ae7aae3e">2022-04-18 02:55:50</a> UTC </small></i></p>
+
 

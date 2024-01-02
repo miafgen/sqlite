@@ -249,7 +249,7 @@ There are 15 scalar functions and operators:
 
 </ol>
 
-<p>There are two aggregate SQL functions:
+<p>There are two <a href="lang_aggfunc.html">aggregate SQL functions</a>:
 
 </p><ol>
 <li value='17'>
@@ -257,7 +257,7 @@ There are 15 scalar functions and operators:
 </li>
 
 <li value='18'>
-<a href='#jgroupobject'>json_group_object</a>(name,<i>value</i>)
+<a href='#jgroupobject'>json_group_object</a>(<i>label</i>,<i>value</i>)
 </li>
 
 
@@ -311,7 +311,7 @@ and BLOBs.  It is not possible to add a sixth "JSON" type.
 SQLite does not (currently) support a binary encoding
 of JSON.  Experiments have been unable to find a binary encoding
 that is smaller or faster than a plain text encoding.
-(The present implementation parses JSON text at over 1 GB/s.)
+(The present implementation parses JSON text at over 250 MB/s.)
 All JSON functions currently throw an error if any of their
 arguments are BLOBs because BLOBs are reserved
 for a future enhancement in which BLOBs will store the binary encoding
@@ -784,6 +784,12 @@ operand is an integer value N, then it is interpreted as the JSON path '$[N]'.
 <li><span class='jex'>'{"a":2,"c":[4,5,{"f":7}]}' -> '$.c[2].f'</span>
 <span class='jans'>&rarr; '7'</span></li>
 
+<li><span class='jex'>'{"a":2,"c":[4,5,{"f":7}]}' ->> '$.c[2].f'</span>
+<span class='jans'>&rarr; 7</span></li>
+
+<li><span class='jex'>'{"a":2,"c":[4,5,{"f":7}]}' -> 'c' -> 2 ->> 'f'</span>
+<span class='jans'>&rarr; 7</span></li>
+
 <li><span class='jex'>'{"a":2,"c":[4,5],"f":7}' -> '$.c[#-1]'</span>
 <span class='jans'>&rarr; '5'</span></li>
 
@@ -1103,6 +1109,9 @@ argument X is not well-formed JSON or is JSON that includes
 <li><span class='jex'>json_valid('{"x":35')</span>
 <span class='jans'>&rarr; 0</span></li>
 
+<li><span class='jex'>json_valid(NULL)</span>
+<span class='jans'>&rarr; NULL</span></li>
+
 </ul>
 
 
@@ -1291,5 +1300,5 @@ SELECT DISTINCT json_extract(big.json,'$.id')
  WHERE json_tree.key='uuid'
    AND json_tree.value='6fa5181e-5721-11e5-a04e-57f3d7b32808';
 </pre></blockquote>
-<p align="center"><small><i>This page last modified on  <a href="https://sqlite.org/docsrc/honeypot" id="mtimelink"  data-href="https://sqlite.org/docsrc/finfo/pages/json1.in?m=3494398b57">2023-05-12 17:36:51</a> UTC </small></i></p>
+<p align="center"><small><i>This page last modified on  <a href="https://sqlite.org/docsrc/honeypot" id="mtimelink"  data-href="https://sqlite.org/docsrc/finfo/pages/json1.in?m=c5142f6962">2023-10-24 18:03:24</a> UTC </small></i></p>
 

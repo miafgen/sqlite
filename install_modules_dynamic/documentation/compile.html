@@ -977,7 +977,26 @@ the available settings:</p>
   When defined, this C-preprocessor macro activates extra code that
   attempts to detect misuse of the SQLite API, such as passing in NULL
   pointers to required parameters or using objects after they have been
-  destroyed.
+  destroyed.  When this option is enabled and an illegal API usage
+  is detected, the interface will typically return SQLITE_MISUSE.
+  <p>
+  The SQLITE_ENABLE_API_ARMOR option does not guarantee that all 
+  illegal API usages will be detected.  Even when
+  SQLITE_ENABLE_API_ARMOR is enabled, passing incorrect values
+  into the C-language APIs can cause a process crash due to segmentation
+  fault or null-pointer deference or other reasons.  The
+  SQLITE_ENABLE_API_ARMOR compile-time option is intended as an aid
+  for application testing and debugging option.  Applications
+  should not depend SQLITE_ENABLE_API_ARMOR for safety.
+  SQLITE_ENABLE_API_ARMORE is appropriate as a second line of
+  defense against application bugs, but it should not be the only
+  defense.  If any SQLite interface returns SQLITE_MISUSE, that
+  indicates that the application is using SQLite contrary to
+  the spec and that the application contains a bug.  The SQLITE_MISUSE
+  return provides the application with the opportunity to respond
+  gracefully to that bug, rather than simply crashing the process,
+  but nothing more.  Applications should not make use of nor depend
+  upon SQLITE_MISUSE for routine processing.
 </p></blockquote><a name="enable_atomic_write"></a>
 <p><b>SQLITE_ENABLE_ATOMIC_WRITE</b></p><blockquote><p>
   If this C-preprocessor macro is defined and if the
@@ -1054,8 +1073,8 @@ the available settings:</p>
   automatically if <a href="compile.html#debug">SQLITE_DEBUG</a> is enabled.
 </p></blockquote><a name="enable_fts3"></a>
 <p><b>SQLITE_ENABLE_FTS3</b></p><blockquote><p>
-  When this option is defined in the <a href="amalgamation.html">amalgamation</a>, version 3
-  of the full-text search engine is added to the build automatically.
+  When this option is defined in the <a href="amalgamation.html">amalgamation</a>, versions 3 and 4
+  of the full-text search engine are added to the build automatically.
 </p></blockquote><a name="enable_fts3_parenthesis"></a>
 <p><b>SQLITE_ENABLE_FTS3_PARENTHESIS</b></p><blockquote><p>
   This option modifies the query pattern parser in FTS3 such that it
@@ -1080,7 +1099,7 @@ the available settings:</p>
 </p></blockquote><a name="enable_fts4"></a>
 <p><b>SQLITE_ENABLE_FTS4</b></p><blockquote><p>
   When this option is defined in the <a href="amalgamation.html">amalgamation</a>, versions 3 and 4
-  of the full-text search engine is added to the build automatically.
+  of the full-text search engine are added to the build automatically.
 </p></blockquote><a name="enable_fts5"></a>
 <p><b>SQLITE_ENABLE_FTS5</b></p><blockquote><p>
   When this option is defined in the <a href="amalgamation.html">amalgamation</a>, versions 5
@@ -1299,7 +1318,7 @@ the available settings:</p>
   in doing off-line analysis of the behavior of an application, and especially
   for performance analysis.  In order for the SQLITE_ENABLE_SQLLOG option to
   be useful, some extra code is required.  The
-  <a href="http://www.sqlite.org/src/doc/trunk/src/test_sqllog.c">"test_sqllog.c"</a>
+  <a href="https://www.sqlite.org/src/doc/trunk/src/test_sqllog.c">"test_sqllog.c"</a>
   source code
   file in the SQLite source tree is a working example of the required extra
   code.  On unix and windows systems, a developer can append the text of the
@@ -1398,6 +1417,17 @@ the available settings:</p>
   This option causes SQLite to issue extra <a href="c3ref/c_fcntl_begin_atomic_write.html#sqlitefcntltrace">SQLITE_FCNTL_TRACE</a> file controls
   to provide supplementary information to the VFS.  The "vfslog.c" extension
   makes use of this to provide enhanced logs of VFS activity.
+</p></blockquote><a name="use_seh"></a>
+<p><b>SQLITE_USE_SEH</b></p><blockquote><p>
+  This option enabled Structured Exception Handling (SEH) on Windows builds.
+  SEH is a Windows-specific technique for catching exceptions raised while
+  accessing a memory-mapped file.  SEH is used to intercept errors that might
+  occur while accessing the memory-mapped <a href="walformat.html#shm">shm file</a> that are part of
+  <a href="wal.html">WAL mode</a> processing.  If the operating system raised errors while SQLite
+  is trying to access the shm file, this option causes those errors to be
+  caught and dealt with by SQLite, rather than aborting the whole process.
+  <p>
+  This option only works when compiling on Windows using MSVC.
 </p></blockquote><a name="have_zlib"></a>
 <p><b>SQLITE_HAVE_ZLIB</b></p><blockquote><p>
   This option causes some extensions to link against the
@@ -2037,5 +2067,5 @@ macros is included for completeness.</p>
   This macro may not be used in combination with any of <a href="compile.html#apicall">SQLITE_APICALL</a>,
   <a href="compile.html#callback">SQLITE_CALLBACK</a>, <a href="compile.html#cdecl">SQLITE_CDECL</a> or <a href="compile.html#sysapi">SQLITE_SYSAPI</a>.
 </p></blockquote>
-<p align="center"><small><i>This page last modified on  <a href="https://sqlite.org/docsrc/honeypot" id="mtimelink"  data-href="https://sqlite.org/docsrc/finfo/pages/compile.in?m=63f22fc456">2023-03-06 12:28:27</a> UTC </small></i></p>
+
 

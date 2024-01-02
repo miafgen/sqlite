@@ -227,7 +227,7 @@ triggers; and so forth.</p>
 <p>When the <a href="../c3ref/blob_write.html">sqlite3_blob_write()</a> API is used to update a blob column,
 the pre-update hook is invoked with SQLITE_DELETE. This is because the
 in this case the new values are not available. In this case, when a
-callback made with op==SQLITE_DELETE is actuall a write using the
+callback made with op==SQLITE_DELETE is actually a write using the
 sqlite3_blob_write() API, the <a href="../c3ref/preupdate_blobwrite.html">sqlite3_preupdate_blobwrite()</a> returns
 the index of the column being written. In other cases, where the
 pre-update hook is being invoked for some other reason, including a

@@ -1139,7 +1139,7 @@ proc wapp-default {} {
   # When running using the built-in webserver in Wapp (in other words,
   # when not running as CGI) any filename that contains a "." loads
   # directly from the filesystem.
-  if {[wapp-param WAPP_MODE]!="cgi"]
+  if {[wapp-param WAPP_MODE]!="cgi"
    && [string match *.* [wapp-param PATH_INFO]]
   } {
     set altfile [file dir [wapp-param SCRIPT_FILENAME]]/../[wapp-param PATH_INFO]

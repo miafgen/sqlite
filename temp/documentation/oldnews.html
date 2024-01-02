@@ -341,7 +341,7 @@ of changes.
    a UNIQUE index to be created on a column that was not unique.  Once
    the index was created, no new non-unique entries could be inserted, but
    preexisting non-unique entries would remain.  See ticket
-   <a href="http://www.sqlite.org/src/info/9a6daf340df99ba93c">9a6daf340df99ba93c</a>
+   <a href="https://www.sqlite.org/src/info/9a6daf340df99ba93c">9a6daf340df99ba93c</a>
    for further information.  In addition to fixing this bug, the
    <a href="pragma.html#pragma_integrity_check">PRAGMA integrity_check</a> command has been enhanced to detect
    non-uniqueness in UNIQUE indices, so that if this bug did introduce
@@ -356,7 +356,7 @@ of changes.
 <p><p>Version 3.8.6 uses 25% fewer CPU cycles than version 3.8.0 from
    approximately one year ago, according to <a href="http://valgrind.org/">valgrind</a>
    and the
-   <a href="http://www.sqlite.org/src/artifact/d29c8048beb7e">test/speedtest1.c</a>
+   <a href="https://www.sqlite.org/src/artifact/d29c8048beb7e">test/speedtest1.c</a>
    test program.
    On the other hand,
    the compiled binary for version 3.8.6 is about 5% larger than 3.8.0.
@@ -383,10 +383,10 @@ of changes.
 <p>The optimizations added in <a href="releaselog/3_8_4.html">version 3.8.4</a> caused some queries that involve
    subqueries in the FROM clause, DISTINCT, and ORDER BY clauses, to give an incorrect
    result.  See
-   <a href="http://www.sqlite.org/src/info/98825a79ce145686392d8074032ae54863aa21a3">ticket 98825a79ce145</a>
+   <a href="https://www.sqlite.org/src/info/98825a79ce145686392d8074032ae54863aa21a3">ticket 98825a79ce145</a>
    for details.
    This release adds a
-   <a href="http://www.sqlite.org/src/fdiff?sbs=1&v1=7d539cedb1c&v2=ebad891b7494d&smhdr">one-character change</a>
+   <a href="https://www.sqlite.org/src/fdiff?sbs=1&v1=7d539cedb1c&v2=ebad891b7494d&smhdr">one-character change</a>
    to a single line of code to fix the problem.
 </blockquote><hr width="50%"><a name="2014_03_26"></a><h3>2014-03-26 - Release 3.8.4.2</h3><blockquote>
 <p>The code changes that resulted in the performance improvements
@@ -394,7 +394,7 @@ of changes.
    result in a read past the end of a buffer while searching a database
    that is corrupted in a particular way.  <a href="releaselog/3_8_4_2.html">Version 3.8.4.2</a> fixes that
    problem using a
-   <a href="http://www.sqlite.org/src/fdiff?v1=e45e3f9daf38c5be&v2=714df4e1c82f629d&sbs=1">one-line patch</a>.</p>
+   <a href="https://www.sqlite.org/src/fdiff?v1=e45e3f9daf38c5be&v2=714df4e1c82f629d&sbs=1">one-line patch</a>.</p>
 
 <p><p>We are not aware of any problems in <a href="releaselog/3_8_4.html">version 3.8.4</a>
    when working with well-formed database files.  The problem fixed by this
@@ -442,7 +442,7 @@ WHERE (expr1 OR expr2 OR ... OR exprN) AND column IS NOT NULL
    term is never true, and so the query would return no rows.</p>
 
 <p><p>The trouble ticket for this bug is
-   &#91;<a href="http://www.sqlite.org/src/info/4c86b126f2">4c86b126f2</a>&#93;.
+   &#91;<a href="https://www.sqlite.org/src/info/4c86b126f2">4c86b126f2</a>&#93;.
    It is recommended that all users upgrade to avoid this problem.
 </blockquote><hr width="50%"><a name="2014_02_03"></a><h3>2014-02-03 - Release 3.8.3</h3><blockquote>
   <p>SQLite <a href="releaselog/3_8_3.html">version 3.8.3</a> is a regularly scheduled maintenance release.
@@ -496,7 +496,7 @@ WHERE (expr1 OR expr2 OR ... OR exprN) AND column IS NOT NULL
   <p>SQLite <a href="releaselog/3_8_1.html">version 3.8.1</a> is a regularly scheduled maintenance release.
   Upgrading from the previous release is optional, though you should upgrade
   if you are using <a href="partialindex.html">partial indices</a> as there was a
-  <a href="http://www.sqlite.org/src/info/a5c8ed66ca">bug</a> related to partial
+  <a href="https://www.sqlite.org/src/info/a5c8ed66ca">bug</a> related to partial
   indices in the previous release that could result in an incorrect answer
   for count(*) queries.</p>
 
@@ -574,7 +574,7 @@ WHERE (expr1 OR expr2 OR ... OR exprN) AND column IS NOT NULL
   SQLite <a href="releaselog/3_7_16_2.html">version 3.7.16.2</a> fixes a long-standing flaw in the Windows
   OS interface that
   can result in database corruption under a rare race condition.
-  See <a href="http://www.sqlite.org/src/info/7ff3120e4f">http://www.sqlite.org/src/info/7ff3120e4f</a> for a full description
+  See <a href="https://www.sqlite.org/src/info/7ff3120e4f">https://www.sqlite.org/src/info/7ff3120e4f</a> for a full description
   of the problem.</p>
 
 <p>  As far as we know, this bug has never been seen in the wild.  The
@@ -597,7 +597,7 @@ WHERE (expr1 OR expr2 OR ... OR exprN) AND column IS NOT NULL
   query optimizer was being a little overzealous in optimizing out some
   ORDER BY clauses, which resulted in sorting being omitted on occasions
   where sorting is required to get the correct answer.  See
-  ticket <a href="http://www.sqlite.org/src/info/a179fe7465">a179fe7465</a> for
+  ticket <a href="https://www.sqlite.org/src/info/a179fe7465">a179fe7465</a> for
   details.</p>
 
 <p>  In addition to the ORDER BY fix, several other patches to fix obscure
@@ -610,7 +610,7 @@ WHERE (expr1 OR expr2 OR ... OR exprN) AND column IS NOT NULL
   can be see on the <a href="releaselog/3_7_16.html">change log</a>.</p>
 
 <p>  There was one important bug fix
-  (see <a href="http://www.sqlite.org/src/info/fc7bd6358f">Ticket fc7bd6358f</a>)
+  (see <a href="https://www.sqlite.org/src/info/fc7bd6358f">Ticket fc7bd6358f</a>)
   that addresses an incorrect query result that could have occurred in
   a three-way join where the join constraints compared INTEGER columns
   to TEXT columns.  This issue had been in the code for time out of mind
@@ -733,7 +733,7 @@ WHERE (expr1 OR expr2 OR ... OR exprN) AND column IS NOT NULL
   2 or 3 month interval.
 </blockquote><hr width="50%"><a name="2012_05_22"></a><h3>2012-05-22 - Patch Release 3.7.12.1</h3><blockquote>
   SQLite <a href="releaselog/3_7_12_1.html">version 3.7.12.1</a> is a patch release for <a href="releaselog/3_7_12.html">version 3.7.12</a> that
-  fixes a <a href="http://www.sqlite.org/src/info/c2ad16f997ee9c">bug</a> that was
+  fixes a <a href="https://www.sqlite.org/src/info/c2ad16f997ee9c">bug</a> that was
   introduced in version 3.7.12 and that can
   cause a segfault for certain obscure nested aggregate queries.
   There are very few changes in 3.7.12.1, and upgrading is only needed for
@@ -745,7 +745,7 @@ WHERE (expr1 OR expr2 OR ... OR exprN) AND column IS NOT NULL
 </blockquote><hr width="50%"><a name="2012_03_20"></a><h3>2012-03-20 - Version 3.7.11</h3><blockquote>
   SQLite <a href="releaselog/3_7_11.html">version 3.7.11</a> is a regularly scheduled maintenance release
   which was rushed out early due to a
-  <a href="http://www.sqlite.org/src/info/b7c8682cc1">bug in the query optimizer</a>
+  <a href="https://www.sqlite.org/src/info/b7c8682cc1">bug in the query optimizer</a>
   introduced in the previous release.  The bug is obscure - it changes
   a LEFT JOIN into an INNER JOIN in some cases when there is a 3-way join
   and OR terms in the WHERE clause.  But it was considered serious enough to
@@ -800,7 +800,7 @@ WHERE (expr1 OR expr2 OR ... OR exprN) AND column IS NOT NULL
   more easily control their memory usage.</p>
 
 <p>  There have been several obscure bug fixes.  One noteworthy bug,
-  ticket <a href="http://www.sqlite.org/src/info/ff5be73dee">ff5be73dee</a>,
+  ticket <a href="https://www.sqlite.org/src/info/ff5be73dee">ff5be73dee</a>,
   could in theory result in a corrupt database file if a power loss
   occurred at just the wrong moment on an unusually cantankerous disk
   drive.  But that is mostly a theoretical concern and is very unlikely
@@ -865,7 +865,7 @@ WHERE (expr1 OR expr2 OR ... OR exprN) AND column IS NOT NULL
   problems detected.  Version 3.7.8 is recommended for all new development.
 </blockquote><hr width="50%"><a name="2011_06_28"></a><h3>2011-06-28 - Version 3.7.7.1</h3><blockquote>
   SQLite <a href="releaselog/3_7_7_1.html">version 3.7.7.1</a> adds a one-line bug fix to 3.7.7 to fix
-  <a href="http://www.sqlite.org/src/info/25ee812710">a problem</a>
+  <a href="https://www.sqlite.org/src/info/25ee812710">a problem</a>
   causing <a href="pragma.html#pragma_case_sensitive_like">PRAGMA case_sensitive_like</a> statements compiled using the legacy
   <a href="c3ref/prepare.html">sqlite3_prepare()</a> interface to fail with an <a href="rescode.html#schema">SQLITE_SCHEMA</a> error. Because
   <a href="c3ref/exec.html">sqlite3_exec()</a> uses sqlite3_prepare() internally, the problem also affects
@@ -911,7 +911,7 @@ WHERE (expr1 OR expr2 OR ... OR exprN) AND column IS NOT NULL
   stable release.
 </blockquote><hr width="50%"><a name="2011_05_19"></a><h3>2011-05-19 - Version 3.7.6.3</h3><blockquote>
   SQLite <a href="releaselog/3_7_6_3.html">version 3.7.6.3</a> is a patch release that fixes a
-  <a href="http://www.sqlite.org/src/info/2d1a5c67df">single bug</a>
+  <a href="https://www.sqlite.org/src/info/2d1a5c67df">single bug</a>
   associated with <a href="wal.html">WAL mode</a>.  The bug has been in SQLite ever since WAL
   was added, but the problem is very obscure and so nobody has noticed
   before now.  Nevertheless, all users are encouraged to upgrade to
@@ -976,7 +976,7 @@ WHERE (expr1 OR expr2 OR ... OR exprN) AND column IS NOT NULL
 </blockquote><hr width="50%"><a name="2011_02_01"></a><h3>2011-02-01 - Version 3.7.5</h3><blockquote>
   SQLite <a href="releaselog/3_7_5.html">version 3.7.5</a> is a regularly scheduled bi-monthly maintenance
   release of SQLite.  Due to the discovery and fix of
-  <a href="http://www.sqlite.org/src/tktview?name=5d863f876e">an obscure bug</a>
+  <a href="https://www.sqlite.org/src/tktview?name=5d863f876e">an obscure bug</a>
   that could cause database corruption, upgrading from all prior
   releases of SQLite is recommended.  This bug was found during code
   review and has not been observed in the wild.</p>
@@ -1035,7 +1035,7 @@ WHERE (expr1 OR expr2 OR ... OR exprN) AND column IS NOT NULL
 
 <p>  The previous release of SQLite (<a href="releaselog/3_7_3.html">version 3.7.3</a>) has proven to be very
   robust.  The only serious issue discovered was
-  <a href="http://www.sqlite.org/src/info/80ba201079">ticket 80ba201079</a> that
+  <a href="https://www.sqlite.org/src/info/80ba201079">ticket 80ba201079</a> that
   describes an incorrect query result that can occur under very
   unusual circumstances.  The ticket description contains details of the
   problem.  Suffice it to say here that the problem is very obscure and
@@ -1067,7 +1067,7 @@ WHERE (expr1 OR expr2 OR ... OR exprN) AND column IS NOT NULL
   partially reduce the size of a database file that contains many hundreds
   of unused database pages.  The original bug reports together with links
   to the patch that fixes it can be seen
-  <a href="http://www.sqlite.org/src/info/5e10420e8d">here</a>.</p>
+  <a href="https://www.sqlite.org/src/info/5e10420e8d">here</a>.</p>
 
 <p>  This bug has been in the code for at least a year and possibly longer.
   The bug has nothing to do with the versions 3.7.1 or 3.7.0 or any other
@@ -1146,12 +1146,12 @@ WHERE (expr1 OR expr2 OR ... OR exprN) AND column IS NOT NULL
   SQLite <a href="releaselog/3_6_22.html">version 3.6.22</a> is a bug-fix release.  Two bugs have been fixed
   that might cause incorrect query results.
   <ul>
-  <li>Ticket <a href="http://www.sqlite.org/src/info/31338dca7e">31338dca7e</a>
+  <li>Ticket <a href="https://www.sqlite.org/src/info/31338dca7e">31338dca7e</a>
   describes a
   problem with queries that have a WHERE clause of the form (x AND y) OR z
   where x and z come from one table of a join and y comes from a different
   table.
-  <li> Ticket <a href="http://www.sqlite.org/src/info/eb5548a849">eb5548a849</a>
+  <li> Ticket <a href="https://www.sqlite.org/src/info/eb5548a849">eb5548a849</a>
   describes
   a problem where the use of the CAST operator in the WHERE clause can lead
   to incorrect results if the column being cast to a new datatype is also
@@ -1661,8 +1661,8 @@ WHERE (expr1 OR expr2 OR ... OR exprN) AND column IS NOT NULL
   <a href="changes.html#version_3_2_3">change log</a> for additional
   information.
 </blockquote><hr width="50%"><a name="2005_08_02"></a><h3>2005-08-02 - 2005 Open Source Award for SQLite</h3><blockquote>
-  SQLite and its primary author D. Richard Hipp have been honored with
-  a <a href="http://osdir.com/Article6677.phtml">2005 Open Source Award</a>
+  SQLite and its primary author D. Richard Hipp have been honored with a
+  <a href="https://developers.google.com/open-source/osa#2005-google-oreilly-open-source-award-winners">2005 Open Source Award</a>
   from Google and O'Reilly.<br clear="right">
 </blockquote><hr width="50%"><a name="2005_06_13"></a><h3>2005-06-13 - Version 3.2.2</h3><blockquote>
   This release includes numerous minor bug fixes, speed improvements,
@@ -1740,7 +1740,7 @@ WHERE (expr1 OR expr2 OR ... OR exprN) AND column IS NOT NULL
   There was a talk on the architecture of SQLite and how to optimize
   SQLite queries at the 2004 International PHP Conference in Frankfurt,
   Germany.<br>
-  Obsolete URL: http://www.sqlite.org/php2004/page-001.html <br>
+  Obsolete URL: https://www.sqlite.org/php2004/page-001.html <br>
   Slides from that talk are available.
 </blockquote><hr width="50%"><a name="2004_10_11"></a><h3>2004-10-11 - Version 3.0.8</h3><blockquote>
   Version 3.0.8 of SQLite contains several code optimizations and minor
@@ -1753,7 +1753,7 @@ Annual Tcl/Tk Conference</h3><blockquote>
   11<sup><small>th</small></sup> Tcl/Tk Conference this week in
   New Orleans.  Visit <a href="http://www.tcl-lang.org/community/tcl2004/">http://www.tcl-lang.org/community/tcl2004/</a>
   for details.<br>
-  Obsolete URL: http://www.sqlite.org/tclconf2004/page-001.html <br>
+  Obsolete URL: https://www.sqlite.org/tclconf2004/page-001.html <br>
   Slides from the talk are available.
 </blockquote><hr width="50%"><a name="2004_09_18"></a><h3>2004-09-18 - Version 3.0.7</h3><blockquote>
   Version 3.0 has now been in use by multiple projects for several
@@ -1850,5 +1850,5 @@ Annual Tcl/Tk Conference</h3><blockquote>
 <p>  Plans are to continue to support SQLite version 2.8 with
   bug fixes.  But all new development will occur in version 3.0.
 </blockquote><hr width="50%">
-<p align="center"><small><i>This page last modified on  <a href="https://sqlite.org/docsrc/honeypot" id="mtimelink"  data-href="https://sqlite.org/docsrc/finfo/pages/oldnews.in?m=d8e6fb083c">2023-02-27 02:07:35</a> UTC </small></i></p>
+<p align="center"><small><i>This page last modified on  <a href="https://sqlite.org/docsrc/honeypot" id="mtimelink"  data-href="https://sqlite.org/docsrc/finfo/pages/oldnews.in?m=8f0737bda1">2023-11-01 03:41:06</a> UTC </small></i></p>
 

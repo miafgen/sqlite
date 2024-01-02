@@ -170,7 +170,7 @@ Table Of Contents
 <div class="fancy-toc2"><a href="#the_safe_command_line_option">23.1. The --safe command-line option</a></div>
 <div class="fancy-toc3"><a href="#bypassing_safe_restrictions_for_specific_commands">23.1.1. Bypassing --safe restrictions for specific commands</a></div>
 <div class="fancy-toc2"><a href="#the_unsafe_testing_command_line_option">23.2. The --unsafe-testing command-line option</a></div>
-<div class="fancy-toc2"><a href="#the_utf8_command_line_option">23.3. The --utf8 command-line option</a></div>
+<div class="fancy-toc2"><a href="#the_no_utf8_command_line_option">23.3. The --no-utf8 command-line option</a></div>
 <div class="fancy-toc1"><a href="#compiling_the_sqlite3_program_from_sources">24. Compiling the sqlite3 program from sources</a></div>
 <div class="fancy-toc2"><a href="#_do_it_yourself_builds_">24.1.  Do-It-Yourself Builds </a></div>
 </div>
@@ -322,7 +322,6 @@ The list of available dot-commands follows:
 .auth ON|OFF             Show authorizer callbacks
 .backup ?DB? FILE        Backup DB (default "main") to FILE
 .bail on|off             Stop after hitting an error.  Default OFF
-.binary on|off           Turn binary output on or off.  Default OFF
 .cd DIRECTORY            Change the working directory to DIRECTORY
 .changes on|off          Show number of rows changed by SQL
 .check GLOB              Fail if output since .testcase does not match
@@ -947,7 +946,7 @@ the content of a single table column into a file.  For example:
 <p>Note that the readfile(X) and writefile(X,Y) functions are extension
 functions and are not built into the core SQLite library.  These routines
 are available as a <a href="loadext.html">loadable extension</a> in the
-<a href="http://www.sqlite.org/src/artifact?ci=trunk&filename=ext/misc/fileio.c">ext/misc/fileio.c</a>
+<a href="https://www.sqlite.org/src/artifact?ci=trunk&filename=ext/misc/fileio.c">ext/misc/fileio.c</a>
 source file in the <a href="download.html#srctree">SQLite source code repositories</a>.
 
 <a name="editfunc"></a>
@@ -1035,7 +1034,7 @@ except in ascii mode.
 
 </p><p>To import data with arbitrary delimiters and no quoting,
 first set ascii mode (".mode&nbsp;ascii"), then set the field
-and record delimiters using the ".separators" command. This
+and record delimiters using the ".separator" command. This
 will suppress dequoting. Upon ".import", the data will be split
 into fields and records according to the delimiters so specified.
 
@@ -1320,7 +1319,7 @@ filename.  To override this choice, simply add the name of the extension
 as a second argument to the ".load" command.
 
 </p><p>Source code for several useful extensions can be found in the
-<a href="http://www.sqlite.org/src/tree?name=ext/misc&ci=trunk">ext/misc</a>
+<a href="https://www.sqlite.org/src/tree?name=ext/misc&ci=trunk">ext/misc</a>
 subdirectory of the SQLite source tree.  You can use these extensions
 as-is, or as a basis for creating your own custom extensions to address
 your own particular needs.
@@ -1715,7 +1714,7 @@ indexes.
 
 <p>The functionality described in this section may be integrated into other
 applications or tools using the
-<a href="http://www.sqlite.org/src/dir?ci=trunk&name=ext/expert">
+<a href="https://www.sqlite.org/src/dir?ci=trunk&name=ext/expert">
 SQLite expert extension</a> code.
 
 </p><p>A database schema which incorporate SQL custom functions made available
@@ -1873,7 +1872,7 @@ OPTIONS include:
    -stats               print memory stats before each finalize
    -table               set output mode to 'table'
    -tabs                set output mode to 'tabs'
-   -utf8                setup interactive console code page for UTF-8
+   -no-utf8             do not setup for console I/O using UTF-8
    -version             show SQLite version
    -vfs NAME            use NAME as the default VFS
    -zip                 open the file as a ZIP Archive
@@ -1957,24 +1956,27 @@ Misbehavior which requires use of the --unsafe-testing option to be induced
 will generally not be considered a bug for that reason alone. CLI behavior
 with --unsafe-testing is not supported or defined.
 
-</p><h2 id="the_utf8_command_line_option"><span>23.3. </span>The --utf8 command-line option</h2>
+</p><h2 id="the_no_utf8_command_line_option"><span>23.3. </span>The --no-utf8 command-line option</h2>
 
-<p>On the Windows platform, during an interactive console session only,
-this option has several effects:
+<p>On the Windows platform, when the console is used for input or output,
+its input or output code page, or both are normally set for UTF-8 I/O
+during the session, then restored afterward.
+This allows copy and paste to transfer UTF-8
+content properly and screen output to render properly.</p>
 
-</p><ul>
-<li>The console code page is set for UTF-8 I/O during the session.</li>
-<li>Translations from/to MBCS for console I/O are not done.</li>
-<li>Console screen Copy and Paste deal in UTF-8 content. </li>
-<li>The original console settings are restored at termination.</li>
-</ul>
+<p>This console UTF-8 I/O is not done if the CLI is invoked
+with the --no-utf8 option or if the operating system
+does not support UTF-8 console I/O. In either case,
+I/O is translated between the CLI's internal UTF-8
+encoding and the MBCS encoding in effect for the console.</p>
 
-<p>On non-Windows platforms, the option has no effect and does not
-appear in the option help displayed by "sqlite3 -help".
+<p>In all cases, non-console text I/O is UTF-8 encoded.</p>
+
+<p>On non-Windows platforms, this option is ignored and invisible.</p>
 
 <a name="compiling"></a>
 
-</p><h1 id="compiling_the_sqlite3_program_from_sources"><span>24. </span>Compiling the sqlite3 program from sources</h1>
+<h1 id="compiling_the_sqlite3_program_from_sources"><span>24. </span>Compiling the sqlite3 program from sources</h1>
 
 <p>
 To compile the command-line shell on unix systems and on Windows with MinGW,
@@ -2044,5 +2046,5 @@ provide a full-featured command-line shell:
 </li><li> <a href="compile.html#enable_fts4">-DSQLITE_ENABLE_FTS4</a>
 </li><li> <a href="compile.html#enable_fts5">-DSQLITE_ENABLE_FTS5</a>
 </li></ul>
-
+<p align="center"><small><i>This page last modified on  <a href="https://sqlite.org/docsrc/honeypot" id="mtimelink"  data-href="https://sqlite.org/docsrc/finfo/pages/cli.in?m=dc2787fc7d">2023-10-26 19:49:47</a> UTC </small></i></p>
 

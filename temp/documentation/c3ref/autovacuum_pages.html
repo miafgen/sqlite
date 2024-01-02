@@ -159,7 +159,7 @@ is overwritten by another invocation of sqlite3_autovacuum_pages().</p>
 Each call to the sqlite3_autovacuum_pages() interface overrides all
 previous invocations for that database connection.  If the callback
 argument (C) to sqlite3_autovacuum_pages(D,C,P,X) is a NULL pointer,
-then the autovacuum steps callback is cancelled.  The return value
+then the autovacuum steps callback is canceled.  The return value
 from sqlite3_autovacuum_pages() is normally SQLITE_OK, but might
 be some other error code if something goes wrong.  The current
 implementation will only return SQLITE_OK or SQLITE_MISUSE, but other

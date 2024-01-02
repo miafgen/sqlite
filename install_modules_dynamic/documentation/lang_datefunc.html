@@ -126,6 +126,7 @@ Date And Time Functions
 Table Of Contents
 </a>
 <div id="toc_sub"><div class="fancy-toc1"><a href="#overview">1. Overview</a></div>
+<div class="fancy-toc2"><a href="#timediff_">1.1. Timediff()</a></div>
 <div class="fancy-toc1"><a href="#time_values">2. Time Values</a></div>
 <div class="fancy-toc1"><a href="#modifiers">3. Modifiers</a></div>
 <div class="fancy-toc1"><a href="#examples">4. Examples</a></div>
@@ -153,7 +154,7 @@ mk.innerHTML = "&#x25ba;";
 <h1 id="overview"><span>1. </span>Overview</h1>
 
 <p>
-SQLite supports six date and time functions as follows:
+SQLite supports seven <a href="lang_corefunc.html">scalar</a> date and time functions as follows:
 </p>
 
 <p>
@@ -164,12 +165,14 @@ SQLite supports six date and time functions as follows:
 <li> <b>julianday(</b><i>time-value, modifier, modifier, ...</i><b>)</b> </li>
 <li> <b>unixepoch(</b><i>time-value, modifier, modifier, ...</i><b>)</b> </li>
 <li> <b>strftime(</b><i>format, time-value, modifier, modifier, ...</i><b>)</b> </li>
+<li> <b>timediff(</b><i>time-value, time-value</i><b>)</b> </li>
 </ol>
 
 <p>
-All six date and time functions take an optional time value as an argument, followed
+The first six date and time functions take an optional time value as an argument, followed
 by zero or more modifiers.
 The strftime() function also takes a format string as its first argument.
+The timediff() function takes exactly two arguments which are both time values.
 </p>
 
 <p>
@@ -182,7 +185,11 @@ Date and time values can be stored as
 </li></ul>
 
 <p>
-All of the date time functions access time-values in any of the above time formats.
+All of the date time functions access time-values as either ISO-8601 strings or
+Julian day numbers.  They also access unix timestamps with optional arguments
+(the 'auto' and 'unixepoch' modifiers described below).  Since the timediff()
+function does not accept any optional argument, it can only use ISO-8601 and
+Julian day number time values.
 
 <a name="dttm"></a>
 
@@ -230,15 +237,25 @@ The following is a complete list of valid strftime() substitutions:
 <table border="0" cellpadding="0" cellspacing="0">
 <tr><td></td><td width="10"></td><td></td></tr>
 
-<tr><td> %d </td><td></td><td> day of month: 00
+<tr><td> %d </td><td></td><td> day of month: 00-31
+</td></tr><tr><td> %e </td><td></td><td> day of month without leading zero: 0-31
 </td></tr><tr><td> %f </td><td></td><td> fractional seconds: SS.SSS
-</td></tr><tr><td> %H </td><td></td><td> hour: 00-24 
+</td></tr><tr><td> %F </td><td></td><td> ISO 8601 date: YYYY-MM-DD
+</td></tr><tr><td> %H </td><td></td><td> hour: 00-24
+</td></tr><tr><td> %I </td><td></td><td> hour for 12-hour clock: 01-12
 </td></tr><tr><td> %j </td><td></td><td> day of year: 001-366
 </td></tr><tr><td> %J </td><td></td><td> Julian day number (fractional)
+</td></tr><tr><td> %k </td><td></td><td> hour without leading zero: 0-24
+</td></tr><tr><td> %l </td><td></td><td> %I without leading zero: 1-12
 </td></tr><tr><td> %m </td><td></td><td> month: 01-12
 </td></tr><tr><td> %M </td><td></td><td> minute: 00-59
+</td></tr><tr><td> %p </td><td></td><td> "AM" or "PM" depending on the hour
+</td></tr><tr><td> %P </td><td></td><td> "am" or "pm" depending on the hour
+</td></tr><tr><td> %R </td><td></td><td> ISO 8601 time: HH:MM
 </td></tr><tr><td> %s </td><td></td><td> seconds since 1970-01-01
 </td></tr><tr><td> %S </td><td></td><td> seconds: 00-59
+</td></tr><tr><td> %T </td><td></td><td> ISO 8601 time: HH:MM:SS
+</td></tr><tr><td> %u </td><td></td><td> day of week 1-7 with Monday==1
 </td></tr><tr><td> %w </td><td></td><td> day of week 0-6 with Sunday==0
 </td></tr><tr><td> %W </td><td></td><td> week of year: 00-53
 </td></tr><tr><td> %Y </td><td></td><td> year: 0000-9999
@@ -247,16 +264,16 @@ The following is a complete list of valid strftime() substitutions:
 </blockquote>
 
 <p>
-All other date and time functions can be expressed
+Other date and time functions can be expressed
 in terms of strftime():
 </p>
 
 <blockquote>
 <table border="0" cellpadding="0" cellspacing="0">
 <tr><td><b>Function</b></td><td width="30"></td><td><b>Equivalent (or nearly) strftime()</b>
-</td></tr><tr><td>   date(...)      </td><td></td><td>  strftime('%Y-%m-%d', ...)
-</td></tr><tr><td>   time(...)      </td><td></td><td>  strftime('%H:%M:%S', ...)
-</td></tr><tr><td>   datetime(...)  </td><td></td><td>  strftime('%Y-%m-%d %H:%M:%S', ...)
+</td></tr><tr><td>   date(...)      </td><td></td><td>  strftime('%F', ...)
+</td></tr><tr><td>   time(...)      </td><td></td><td>  strftime('%T', ...)
+</td></tr><tr><td>   datetime(...)  </td><td></td><td>  strftime('%F %T', ...)
 </td></tr><tr><td>   julianday(...) </td><td></td><td>  <nobr>strftime('%J', ...) -- (numeric return)</nobr>
 </td></tr><tr><td>   unixepoch(...) </td><td></td><td>  <nobr>strftime('%s', ...) -- (numeric return)</nobr>
 </td></tr></table>
@@ -276,6 +293,54 @@ functions return real and integer values respectively, and do not
 incur the format conversion costs or inexactitude resulting from use
 of the '%J' or '%s' format specifiers with the strftime() function.
 </p>
+
+<a name="tmdif"></a>
+
+<h2 id="timediff_"><span>1.1. </span>Timediff()</h2>
+
+<p>
+The timediff(A,B) routine returns a string that describes the amount
+of time that must be added to B in order to reach time A.  The format of
+the timediff() result is designed to be human-readable.  The format is:
+</p><blockquote>
+(+|-)YYYY-MM-DD HH:MM:SS.SSS
+</blockquote>
+<p>
+This time difference string is also an allowed modifier for the other
+date/time functions.  The following invariant holds for time values A
+and B:
+</p><blockquote>
+datetime(A) = datetime(B, timediff(A,B))
+</blockquote>
+
+<p>
+The length of months and years vary.  February is shorter than March.
+Leap years are longer than non-leap years.  The output from timediff()
+takes this all into account.  The timediff() function is intended to provide
+a human-friendly description of the time span.  If you want to know the
+number of days or seconds between two dates, A and B, then you can always do
+one of these:
+</p><blockquote>
+SELECT julianday(B) - julianday(A);<br>
+SELECT unixepoch(B) - unixepoch(A);
+</blockquote>
+
+<p>
+The timediff(A,B) might return the same result even for values A and B
+that span a different number of days - depending on the starting date.
+For example, both of the following two timediff() calls return the
+same result ("+0000-01-00 00:00:00.000") even though the first timespan
+is 28 days and the seconds is 31 days:
+</p><blockquote>
+SELECT timediff('2023-02-15','2023-03-15');<br>
+SELECT timediff('2023-03-15','2023-04-15');
+</blockquote>
+<p>
+Summary:  If you want a human-friendly time span, use timediff().  If you
+what a precise time difference (in days or seconds) use the difference
+between two julianday() or unixepoch() calls.
+</p>
+
 
 <h1 id="time_values"><span>2. </span>Time Values</h1>
 
@@ -343,43 +408,53 @@ represent the Julian day number.
 </p>
 
 <p>
-The time-value (and all modifiers) may be omitted, in which case a time
+In all functions other than timediff(),
+the time-value (and all modifiers) may be omitted, in which case a time
 value of 'now' is assumed.
 
 <a name="dtmods"></a>
 
 </p><h1 id="modifiers"><span>3. </span>Modifiers</h1>
 
-<p>The time value can be followed by zero or more modifiers that 
+<p>For all date/time functions other than timediff(),
+the time value argument can be followed by zero or more modifiers that 
 alter date and/or time. Each modifier
 is a transformation that is applied to the time value to its left.
 Modifiers are applied from left to right; order is important.
 The available modifiers are as follows.</p>
 
 <ol>
-<li> NNN days
-</li><li> NNN hours
-</li><li> NNN minutes
-</li><li> NNN.NNNN seconds
-</li><li> NNN months
-</li><li> NNN years
-</li><li> start of month
-</li><li> start of year
-</li><li> start of day
-</li><li> weekday N
-</li><li> unixepoch
-</li><li> julianday
-</li><li> auto
-</li><li> localtime
-</li><li> utc
-</li><li> subsec
-</li><li> subsecond
+<li value="1"> NNN days
+</li><li value="2"> NNN hours
+</li><li value="3"> NNN minutes
+</li><li value="4"> NNN seconds
+</li><li value="5"> NNN months
+</li><li value="6"> NNN years
+</li><li value="7"> &plusmn;HH:MM
+</li><li value="8"> &plusmn;HH:MM:SS
+</li><li value="9"> &plusmn;HH:MM:SS.SSS
+</li><li value="10"> &plusmn;YYYY-MM-DD
+</li><li value="11"> &plusmn;YYYY-MM-DD HH:MM
+</li><li value="12"> &plusmn;YYYY-MM-DD HH:MM:SS
+</li><li value="13"> &plusmn;YYYY-MM-DD HH:MM:SS.SSS
+</li><li value="14"> start of month
+</li><li value="15"> start of year
+</li><li value="16"> start of day
+</li><li value="17"> weekday N
+</li><li value="18"> unixepoch
+</li><li value="19"> julianday
+</li><li value="20"> auto
+</li><li value="21"> localtime
+</li><li value="22"> utc
+</li><li value="23"> subsec
+</li><li value="24"> subsecond
 </li></ol>
 
-<p>The first six modifiers (1 through 6) 
-simply add the specified amount of time to the date and time 
-specified by the arguments to the left.
-The 's' character at the end of the modifier names is optional.
+<p>The first thirteen modifiers (1 through 13) 
+add the specified amount of time to the date and time 
+specified by the arguments to its left.
+The 's' character at the end of the modifier names in 1 through 6 is optional.
+The NNN value can be any floating point number, with an optional '+' or '-' prefix.
 Note that "&plusmn;NNN months" works by rendering the original date into
 the YYYY-MM-DD format, adding the &plusmn;NNN to the MM month value, then
 normalizing the result.  Thus, for example, the date 2001-03-31 modified
@@ -388,7 +463,19 @@ so the date is normalized to 2001-05-01.  A similar effect occurs when
 the original date is February 29 of a leapyear and the modifier is
 &plusmn;N years where N is not a multiple of four.</p>
 
-<p>The "start of" modifiers (7 through 9) shift the date backwards 
+<a name="tmshf"></a>
+
+<p>The time shift modifiers (7 through 13) move the time value by the
+number of years, months, days, hours, minutes, and/or seconds specified.
+An initial "+" or "-" is required for formats 10 through 13 but is optional
+for formats 7, 8, and 9.  The changes are applies from left to right.
+First the year is shifted by YYYY, then the month by MM, and then day
+by DD, and so forth.  The normalization and rounding due to differing month
+lengths and leap years is applied after each step.  The
+timediff(A,B) function returns a time shift in format 13 that shifts
+the time value B into A.</p>
+
+<p>The "start of" modifiers (14 through 16) shift the date backwards 
 to the beginning of the subject month, year or day.</p>
 
 <p>The "weekday" modifier advances the date forward, if necessary,
@@ -397,7 +484,7 @@ and so forth.
 If the date is already on the desired weekday, the "weekday" modifier
 leaves the date unchanged.  </p>
 
-<p>The "unixepoch" modifier (11) only works if it immediately follows 
+<p>The "unixepoch" modifier (18) only works if it immediately follows 
 a time value in the DDDDDDDDDD format. 
 This modifier causes the DDDDDDDDDD to be interpreted not 
 as a Julian day number as it normally would be, but as
@@ -450,7 +537,7 @@ months of 1970.
 
 <a name="localtime"></a>
 
-</p><p>The "localtime" modifier (14) assumes the time value to its left is in
+</p><p>The "localtime" modifier (21) assumes the time value to its left is in
 Universal Coordinated Time (UTC) and adjusts that time
 value so that it is in localtime.  If "localtime"
 follows a time that is not UTC, then the behavior is undefined.
@@ -481,7 +568,7 @@ seconds and fractional seconds since 1970-01-01.
 The "subsecond" and "subsec" modifiers have the special property
 that they can occur as the first argument to date/time functions
 (or as the first argument after the format string for strftime()).
-When this occurs, the time value that is normally in the first
+When this happens, the time value that is normally in the first
 argument is understood to be "now".  For example, a short cut to
 get the current time in seconds since 1970 with millisecond
 precision is to say:
@@ -548,7 +635,14 @@ for the current year.
 millisecond precision:</p>
 
 <blockquote>
-  SELECT (julianday('now') - 2440587.5)*86400.0;
+  SELECT (julianday('now') - 2440587.5)*86400.0;<br>
+  SELECT unixepoch('now','subsec');
+</blockquote>
+
+<p>Compute how old Abraham Lincoln would be if he were still alive today:</p>
+
+<blockquote>
+  SELECT timediff('now','1809-02-12');
 </blockquote>
 
 <h1 id="caveats_and_bugs"><span>5. </span>Caveats And Bugs</h1>
@@ -580,5 +674,5 @@ getting results correct back to 1986, when the rules were also changed.</p>
 <a href="http://en.wikipedia.org/wiki/Gregorian_calendar">Gregorian calendar</a>
 system.  They also assume that every
 day is exactly 86400 seconds in duration; no leap seconds are incorporated.</p>
-<p align="center"><small><i>This page last modified on  <a href="https://sqlite.org/docsrc/honeypot" id="mtimelink"  data-href="https://sqlite.org/docsrc/finfo/pages/lang_datefunc.in?m=76613d01dc">2023-05-04 20:20:12</a> UTC </small></i></p>
+<p align="center"><small><i>This page last modified on  <a href="https://sqlite.org/docsrc/honeypot" id="mtimelink"  data-href="https://sqlite.org/docsrc/finfo/pages/lang_datefunc.in?m=5409636a72">2023-10-26 01:12:18</a> UTC </small></i></p>
 

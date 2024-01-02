@@ -129,7 +129,7 @@ antiRobotDefense();
     run.
 <li>Added a new
     <a href="../loadext.html">loadable extension</a> source code file to the source tree:
-    <a href="http://www.sqlite.org/src/finfo?name=ext/misc/fileio.c">fileio.c</a>
+    <a href="https://www.sqlite.org/src/finfo?name=ext/misc/fileio.c">fileio.c</a>
 <li>Add extension functions <a href="../cli.html#fileio">readfile(X) and writefile(X,Y)</a>
     (using code copy/pasted from fileio.c in the previous bullet) to the
     <a href="../cli.html">command-line shell</a>.
@@ -151,26 +151,26 @@ antiRobotDefense();
 <li>Fix a bug in <a href="../lang_createindex.html">CREATE UNIQUE INDEX</a>, introduced when <a href="../withoutrowid.html">WITHOUT ROWID</a>
     support added in version 3.8.2, that allows a non-unique NOT NULL column to be
     given a UNIQUE index.
-    Ticket <a href="http://www.sqlite.org/src/info/9a6daf340df99ba93c">9a6daf340df99ba93c</a>
+    Ticket <a href="https://www.sqlite.org/src/info/9a6daf340df99ba93c">9a6daf340df99ba93c</a>
 <li>Fix a bug in <a href="../rtree.html">R-Tree extension</a>, introduced in the previous release,
     that can cause an
     incorrect results for queries that use the rowid of the R-Tree on the
     left-hand side of an <a href="../lang_expr.html#in_op">IN operator</a>.
-    Ticket <a href="http://www.sqlite.org/src/info/d2889096e7bdeac6">d2889096e7bdeac6</a>.
+    Ticket <a href="https://www.sqlite.org/src/info/d2889096e7bdeac6">d2889096e7bdeac6</a>.
 <li>Fix the <a href="../c3ref/stmt_busy.html">sqlite3_stmt_busy()</a> interface so that it gives the correct answer
     for <a href="../lang_transaction.html">ROLLBACK</a> statements that have been stepped but never reset.
 <li>Fix a bug in that would cause a null pointer to be dereferenced
     if a column with a DEFAULT that is an aggregate function tried to usee its
     DEFAULT.
-    Ticket <a href="http://www.sqlite.org/src/info/3a88d85f36704eebe1">3a88d85f36704eebe1</a>
+    Ticket <a href="https://www.sqlite.org/src/info/3a88d85f36704eebe1">3a88d85f36704eebe1</a>
 <li>CSV output from the <a href="../cli.html">command-line shell</a> now always uses CRNL for the
     row separator and avoids inserting CR in front of NLs contained in
     data.
 <li>Fix a <a href="../datatype3.html#affinity">column affinity</a> problem with the <a href="../lang_expr.html#in_op">IN operator</a>.
-    Ticket <a href="http://www.sqlite.org/src/info/9a8b09f8e6">9a8b09f8e6</a>.
+    Ticket <a href="https://www.sqlite.org/src/info/9a8b09f8e6">9a8b09f8e6</a>.
 <li>Fix the <a href="../lang_analyze.html">ANALYZE</a> command so that it adds correct samples for
     <a href="../withoutrowid.html">WITHOUT ROWID</a> tables in the <a href="../fileformat2.html#stat4tab">sqlite_stat4</a> table.
-    Ticket <a href="http://www.sqlite.org/src/info/b2fa5424e6fcb15">b2fa5424e6fcb15</a>.
+    Ticket <a href="https://www.sqlite.org/src/info/b2fa5424e6fcb15">b2fa5424e6fcb15</a>.
 
 <li>SQLITE_SOURCE_ID: "2014-08-15 11:46:33 9491ba7d738528f168657adb43a198238abde19e"
 <li>SHA1 for sqlite3.c: 72c64f05cd9babb9c0f9b3c82536d83be7804b1c
@@ -181,7 +181,7 @@ antiRobotDefense();
       in a single page and a <a href="../chronology.html">chronology</a> are both also available.
       A detailed history of every
       check-in is available at
-      <a href="http://www.sqlite.org/src/timeline">
+      <a href="https://www.sqlite.org/src/timeline">
       SQLite version control site</a>.</p>
     
 

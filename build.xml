@@ -5,7 +5,7 @@
 	<property name="install.folder" value="install_modules_dynamic" />
 	<property name="compile.folder" value="dist" />
 		
-	<target name="clean" depends="clean-fetch, clean-install, clean-compile, clean-readme" />
+	<target name="clean" depends="clean-fetch, clean-install, clean-compile, clean-readme" />	
 	<target name="build" depends="clean, fetch, install, compile, readme" />
 	
 	<target name="clean-fetch">
@@ -46,13 +46,15 @@
 		
 		<!-- DLLs (32bit) -->
 		<mkdir dir="${fetch.folder}/dll-win32" />		
-		<get src="https://www.sqlite.org/${sqliteorg.year}/sqlite-dll-win32-x86-${sqliteorg.version}.zip" dest="${fetch.folder}/dll-win32/dll-win32.zip" />
+		<get src="https://www.sqlite.org/${sqliteorg.year}/sqlite-dll-win-x86-${sqliteorg.version}.zip" dest="${fetch.folder}/dll-win32/dll-win32.zip" />
 				
 		<!-- DLLs (64bit) -->
 		<mkdir dir="${fetch.folder}/dll-win64" />		
-		<get src="https://www.sqlite.org/${sqliteorg.year}/sqlite-dll-win64-x64-${sqliteorg.version}.zip" dest="${fetch.folder}/dll-win64/dll-win64.zip" />
+		<get src="https://www.sqlite.org/${sqliteorg.year}/sqlite-dll-win-x64-${sqliteorg.version}.zip" dest="${fetch.folder}/dll-win64/dll-win64.zip" />
 		
 		<!-- Tools (32bit) -->
+		<!-- *** IS NOT AVAILABLE ANYMORE *** -->
+		<!--
 		<mkdir dir="${fetch.folder}/tools-win32" />		
 		<get src="https://www.sqlite.org/${sqliteorg.year}/sqlite-tools-win32-x86-${sqliteorg.version}.zip" dest="${fetch.folder}/tools-win32/tools-win32.zip" />		
 		<unzip src="${fetch.folder}/tools-win32/tools-win32.zip" dest="${fetch.folder}/tools-win32" />
@@ -61,11 +63,17 @@
 		</move>
 		<delete file="${fetch.folder}/tools-win32/tools-win32.zip" />
 		<delete dir="${fetch.folder}/tools-win32/sqlite-tools-win32-x86-${sqliteorg.version}" />
+		-->
 		
-		<!-- ==== Downloading stuff from github.com/nalgeon ==== -->
-		<!-- Tools (32bit) -->
+		<!-- Tools (64bit) -->
+		<!--
 		<mkdir dir="${fetch.folder}/tools-win64" />
 		<get src="https://github.com/nalgeon/sqlite/releases/download/${nalgeon.version}/sqlite3.exe" dest="${fetch.folder}/tools-win64/sqlite3_64bit.exe" />
+		-->
+		<mkdir dir="${fetch.folder}/tools" />		
+		<get src="https://www.sqlite.org/${sqliteorg.year}/sqlite-tools-win-x64-${sqliteorg.version}.zip" dest="${fetch.folder}/tools/tools.zip" />		
+		<unzip src="${fetch.folder}/tools/tools.zip" dest="${fetch.folder}/tools" />
+		<delete file="${fetch.folder}/tools/tools.zip" />		
 		
 		<!-- ==== Downloading stuff from github.com/xerial ==== -->
 		<!-- JDBC driver -->

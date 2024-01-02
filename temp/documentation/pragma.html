@@ -159,8 +159,8 @@ built-in PRAGMA statements.</p>
 <hr /><a name="syntax"></a>
 <h2>PRAGMA command syntax</h2>
 <p><b><a href="syntax/pragma-stmt.html">pragma-stmt:</a></b>
-<button id='x2cdb322f' onclick='hideorshow("x2cdb322f","x877848b3")'>hide</button></p>
- <div id='x877848b3' class='imgcontainer'>
+<button id='xd117fae3' onclick='hideorshow("xd117fae3","xa21fab4a")'>hide</button></p>
+ <div id='xa21fab4a' class='imgcontainer'>
  <div style="max-width:824px"><svg xmlns='http://www.w3.org/2000/svg' class="pikchr" viewBox="0 0 824.352 99.576">
 <circle cx="5" cy="17" r="3.6"  style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);" />
 <polygon points="32,17 20,21 20,12" style="fill:rgb(0,0,0)"/>
@@ -214,8 +214,8 @@ built-in PRAGMA statements.</p>
 </svg>
 </div>
 <p><b><a href="syntax/pragma-value.html">pragma-value:</a></b>
-<button id='xdf32955c' onclick='hideorshow("xdf32955c","x7296037a")'>hide</button></p>
- <div id='x7296037a' class='imgcontainer'>
+<button id='xc2c54c29' onclick='hideorshow("xc2c54c29","xdbeedbf8")'>hide</button></p>
+ <div id='xdbeedbf8' class='imgcontainer'>
  <div style="max-width:264px"><svg xmlns='http://www.w3.org/2000/svg' class="pikchr" viewBox="0 0 264.499 110.16">
 <circle cx="5" cy="17" r="3.6"  style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);" />
 <polygon points="63,17 51,21 51,12" style="fill:rgb(0,0,0)"/>
@@ -242,8 +242,8 @@ built-in PRAGMA statements.</p>
 </svg>
 </div>
 <p><b><a href="syntax/signed-number.html">signed-number:</a></b>
-<button id='xdcea8f15' onclick='hideorshow("xdcea8f15","x7b4223e1")'>show</button></p>
- <div id='x7b4223e1' style='display:none;' class='imgcontainer'>
+<button id='x8e288662' onclick='hideorshow("x8e288662","x58b8c58c")'>show</button></p>
+ <div id='x58b8c58c' style='display:none;' class='imgcontainer'>
  <div style="max-width:292px"><svg xmlns='http://www.w3.org/2000/svg' class="pikchr" viewBox="0 0 292.013 99.576">
 <circle cx="5" cy="17" r="3.6"  style="fill:none;stroke-width:2.16;stroke:rgb(0,0,0);" />
 <polygon points="50,44 39,48 39,40" style="fill:rgb(0,0,0)"/>
@@ -378,7 +378,7 @@ cannot use this feature.
 <li><a href='pragma.html#pragma_busy_timeout'>busy_timeout</a></li>
 <li><a href='pragma.html#pragma_cache_size'>cache_size</a></li>
 <li><a href='pragma.html#pragma_cache_spill'>cache_spill</a></li>
-<li><a href='pragma.html#pragma_case_sensitive_like'>case_sensitive_like</a></li>
+<li><a href='pragma.html#pragma_case_sensitive_like'><s>case_sensitive_like&sup1;</s></a></li>
 <li><a href='pragma.html#pragma_cell_size_check'>cell_size_check</a></li>
 <li><a href='pragma.html#pragma_checkpoint_fullfsync'>checkpoint_fullfsync</a></li>
 <li><a href='pragma.html#pragma_collation_list'>collation_list</a></li>
@@ -499,7 +499,7 @@ for use in application programs.</ol></p>
        <a href="http://www.darwinsys.com/file/">file(1)</a> can determine the specific
        file type rather than just reporting "SQLite3 Database".  A list of
        assigned application IDs can be seen by consulting the
-       <a href="http://www.sqlite.org/src/artifact?ci=trunk&filename=magic.txt">magic.txt</a> file in the SQLite source repository.
+       <a href="https://www.sqlite.org/src/artifact?ci=trunk&filename=magic.txt">magic.txt</a> file in the SQLite source repository.
 
 <p>   See also the <a href="pragma.html#pragma_user_version">user_version pragma</a>.
 <a name="pragma_auto_vacuum"></a>
@@ -671,6 +671,28 @@ for use in application programs.</ol></p>
     only changes the behavior of the SQL <a href="lang_expr.html#like">LIKE</a> operator.  It does not
     change the behavior of the <a href="c3ref/strlike.html">sqlite3_strlike()</a> C-language interface,
     which is always case insensitive.</p>
+
+    <p><b>WARNING:</b> If a database uses the LIKE operator anywhere in
+    the schema, such as in a <a href="lang_createtable.html#ckconst">CHECK constraint</a> or in an
+    <a href="expridx.html">expression index</a> or in the WHERE clause of a <a href="partialindex.html">partial index</a>, then
+    changing the definition of the LIKE operator using this PRAGMA can
+    cause the database to appear to be corrupt.  <a href="pragma.html#pragma_integrity_check">PRAGMA integrity_check</a>
+    will report errors.  The database is not really corrupt in that
+    changing the behavior of LIKE back to the way
+    it was when the schema was defined and the database was populated
+    will clear the problem.   If the use of LIKE occurs only in indexes,
+    then the problem can be cleared by running <a href="lang_reindex.html">REINDEX</a>.  Nevertheless, 
+    the use of the case_sensitive_like pragma is discouraged.</p>
+
+    
+    <p style='background-color: #ffd0d0;'>
+    <b>This pragma is deprecated</b> and exists
+    for backwards compatibility only.  New applications
+    should avoid using this pragma.  Older applications should discontinue
+    use of this pragma at the earliest opportunity.  This pragma may be omitted
+    from the build when SQLite is compiled using <a href="compile.html#omit_deprecated">SQLITE_OMIT_DEPRECATED</a>.
+    </p>
+  
 <a name="pragma_cell_size_check"></a>
 <h _id=pragma_cell_size_check style="display:none"> PRAGMA cell_size_check</h><hr>
     <p><b>PRAGMA cell_size_check
@@ -2256,5 +2278,5 @@ PRAGMA <b>main.</b>locking_mode=EXCLUSIVE;
     a <a href="howtocorrupt.html#cfgerr">corrupt database file</a>.</span>
 
 <hr>
-<p align="center"><small><i>This page last modified on  <a href="https://sqlite.org/docsrc/honeypot" id="mtimelink"  data-href="https://sqlite.org/docsrc/finfo/pages/pragma.in?m=87e8125487">2023-02-16 21:36:11</a> UTC </small></i></p>
+<p align="center"><small><i>This page last modified on  <a href="https://sqlite.org/docsrc/honeypot" id="mtimelink"  data-href="https://sqlite.org/docsrc/finfo/pages/pragma.in?m=402bc96491">2023-10-16 15:24:42</a> UTC </small></i></p>
 

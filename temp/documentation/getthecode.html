@@ -189,9 +189,42 @@ version to see the "Check-in Information Page".
 Then click on either the "Tarball" link or the
 "ZIP archive" link to download the complete source tree.
 
+</p><h1 id="verifying_that_the_code_is_unmodified"><span>4. </span>Verifying That The Code Is Unmodified</h1>
+
+<p>
+The "<tt>manifest</tt>" file at the root directory of the source tree
+contains either a SHA3-256 hash or a SHA1 hash for every source file
+in the repository. The name of the version of the entire source tree
+is just the SHA3-256 hash of the "<tt>manifest</tt>" file itself, possibly with
+the last line of that file omitted if the last line begins with 
+"# Remove this line". The "<tt>manifest.uuid</tt>" file should contain
+the SHA3-256 hash of the "<tt>manifest</tt>" file. If all of the above hash 
+comparisons are correct, then you can be confident that your source
+tree is authentic and unadulterated. Details on the format of
+manifest files are available on the 
+<a href="https://fossil-scm.org/home/doc/trunk/www/fileformat.wiki#manifest">
+Fossil website</a>.
+
+</p><p>
+The process of checking source code authenticity is automated by the makefile:
+
+</p><div class="codeblock"><pre>make verify-source
+</pre></div>
+
+<p>
+Or on windows:
+
+</p><div class="codeblock"><pre>nmake /f Makefile.msc verify-source
+</pre></div>
+
+<p>
+Using the makefile to verify source integrity is good for detecting
+accidental changes to the source tree, but malicious changes could
+be hidden by also modifying the makefiles.
+
 <a name="clone"></a>
 
-</p><h1 id="cloning_the_complete_development_history"><span>4. </span>Cloning The Complete Development History</h1>
+</p><h1 id="cloning_the_complete_development_history"><span>5. </span>Cloning The Complete Development History</h1>
 
 <p>To clone the entire history of SQLite, first go to the
 <a href="https://www.fossil-scm.org/download.html">https://www.fossil-scm.org/download.html</a> page and grab a precompiled binary
@@ -237,5 +270,5 @@ such as "version-3.8.8".  Every time you run "fossil update" it will
 automatically reach out to the original repository at
 https://www.sqlite.org/src to obtain new check-ins that might have been
 made by others since your previous update.
-</p><p align="center"><small><i>This page last modified on  <a href="https://sqlite.org/docsrc/honeypot" id="mtimelink"  data-href="https://sqlite.org/docsrc/finfo/pages/getthecode.in?m=911345504d">2022-04-18 02:55:50</a> UTC </small></i></p>
+</p>
 

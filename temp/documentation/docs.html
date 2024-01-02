@@ -190,7 +190,6 @@ antiRobotDefense();
   cursor: pointer;
 }
 .sh_mark {
-  float: left;
   width: 1em;
 }
 .sh_link {
@@ -385,26 +384,27 @@ if( !location.origin || !location.origin.match || !location.origin.match(/http/)
 <span class='desktoponly'>&rarr; 
   The DBSTAT virtual table reports on the sizes and geometries of tables
   storing content in an SQLite database, and is the basis for the
-  [sqlite3_analyzer] utility program.
+  <a href="sqlanalyze.html">sqlite3_analyzer</a> utility program.
 </span>
 <li><a class='sh_link' href='csv.html'>Csv Virtual Table</a>
 <span class='desktoponly'>&rarr; 
   The CSV virtual table allows SQLite to directly read and query
-  [https://www.ietf.org/rfc/rfc4180.txt|RFC 4180] formatted files.
+  <a href="https://www.ietf.org/rfc/rfc4180.txt">RFC 4180</a> formatted files.
 </span>
 <li><a class='sh_link' href='carray.html'>Carray</a>
 <span class='desktoponly'>&rarr; 
-  CARRAY is a [table-valued function] that allows C-language arrays to
-  be used in SQL queries.
+  CARRAY is a <a href="vtab.html#tabfunc2">table-valued function</a>
+  that allows C-language arrays to be used in SQL queries.
 </span>
 <li><a class='sh_link' href='series.html'>generate_series</a>
 <span class='desktoponly'>&rarr; 
-  A description of the generate_series() [table-valued function].
+  A description of the generate_series()
+  <a href="vtab.html#tabfunc2">table-valued function</a>.
 </span>
 <li><a class='sh_link' href='spellfix1.html'>Spellfix1</a>
 <span class='desktoponly'>&rarr; 
   The spellfix1 extension is an experiment in doing spelling correction
-  for [full-text search].
+  for <a href="fts3.html">full-text search</a>.
 </span>
 </ul>
 <li><a onclick='showhide(5)'><span class='sh_mark' id='sh_mark_5'>&#x25ba;</span> Features</a>
@@ -422,8 +422,8 @@ if( !location.origin || !location.origin.match || !location.origin.match(/http/)
 </span>
 <li><a class='sh_link' href='backup.html'>Backup API</a>
 <span class='desktoponly'>&rarr; 
-  The [sqlite3_backup_init | online-backup interface] can be used to
-  copy content from a disk file into an in-memory database or vice
+  The <a href="c3ref/backup_finish.html">online-backup interface</a> can be
+  used to copy content from a disk file into an in-memory database or vice
   versa and it can make a hot backup of a live database.  This application
   note gives examples of how.
 </span>
@@ -489,8 +489,8 @@ if( !location.origin || !location.origin.match || !location.origin.match(/http/)
 <li><a class='sh_link' href='unlock_notify.html'>Unlock Notify</a>
 <span class='desktoponly'>&rarr; 
   The "unlock notify" feature can be used in conjunction with
-  [shared cache mode] to more efficiently manage resource conflict (database
-  table locks).
+  <a href="sharedcache.html">shared cache mode</a> to more efficiently
+  manage resource conflict (database table locks).
 </span>
 <li><a class='sh_link' href='uri.html'>URI Filenames</a>
 <span class='desktoponly'>&rarr; 
@@ -522,7 +522,7 @@ if( !location.origin || !location.origin.match || !location.origin.match(/http/)
 <span class='desktoponly'>&rarr; 
   This stand-alone program reads an SQLite database and outputs a file
   showing the space used by each table and index and other statistics.
-  Built using the [dbstat virtual table].
+  Built using the <a href="dbstat.html">dbstat virtual table</a>.
 </span>
 <li><a class='sh_link' href='rbu.html'>RBU</a>
 <span class='desktoponly'>&rarr; 
@@ -545,7 +545,7 @@ if( !location.origin || !location.origin.match || !location.origin.match(/http/)
   The Fossil Version Control System is a distributed VCS designed specifically
   to support SQLite development.  Fossil uses SQLite as for storage.
 </span>
-<li><a class='sh_link' href='http://www.sqlite.org/sqlar/'>SQLite Archiver (sqlar.exe)</a>
+<li><a class='sh_link' href='https://www.sqlite.org/sqlar/'>SQLite Archiver (sqlar.exe)</a>
 <span class='desktoponly'>&rarr; 
   A ZIP-like archive program that uses SQLite for storage.
 </span>
@@ -712,7 +712,8 @@ if( !location.origin || !location.origin.match || !location.origin.match(/http/)
   This page describes the asynchronous IO extension developed alongside
   SQLite. Using asynchronous IO can cause SQLite to appear more responsive
   by delegating database writes to a background thread.  <i>NB:  This
-  extension is deprecated.  [WAL mode] is recommended as a replacement.</i>
+  extension is deprecated. <a href="wal.html">WAL mode</a> is recommended
+  as a replacement.</i>
 </span>
 <li><a class='sh_link' href='c_interface.html'>Version 2 C/C++ API</a>
 <span class='desktoponly'>&rarr; 

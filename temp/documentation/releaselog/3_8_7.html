@@ -122,7 +122,7 @@ antiRobotDefense();
     The cumulative performance increase since <a href="../releaselog/3_8_0.html">version 3.8.0</a> is 61%.
     (Measured using
     <a href="http://valgrind.org/docs/manual/cg-manual.html">cachegrind</a> on the
-    <a href="http://www.sqlite.org/src/artifact/83f6b3318f7ee">speedtest1.c</a> workload on
+    <a href="https://www.sqlite.org/src/artifact/83f6b3318f7ee">speedtest1.c</a> workload on
     Ubuntu 13.10 x64 with gcc 4.8.1 and -Os. Your performance may vary.)
 <li>The sorter can use auxiliary helper threads to increase real-time response.
     This feature is off by default and may be
@@ -147,21 +147,21 @@ antiRobotDefense();
     <a href="../pragma.html#pragma_threads">PRAGMA threads</a> command for configuring the number of available worker threads.
 <li>The <a href="../spellfix1.html">spellfix1</a> extension allows the application to optionally specify the rowid for
     each INSERT.
-<li>Added the <a href="http://www.sqlite.org/src/doc/trunk/ext/userauth/user-auth.txt">User Authentication</a>
+<li>Added the <a href="https://www.sqlite.org/src/doc/trunk/ext/userauth/user-auth.txt">User Authentication</a>
     extension.
 <p><b>Bug Fixes:</b>
 <li>Fix a bug in the <a href="../partialindex.html">partial index</a> implementation that might result in an incorrect
     answer if a partial index is used in a subquery or in a <a href="../lang_createview.html">view</a>.
-    Ticket <a href="http://www.sqlite.org/src/info/98d973b8f5">98d973b8f5</a>.
+    Ticket <a href="https://www.sqlite.org/src/info/98d973b8f5">98d973b8f5</a>.
 <li>Fix a query planner bug that might cause a table to be scanned in the wrong direction
     (thus reversing the order of output) when a DESC index is used to implement the ORDER BY
     clause on a query that has an identical GROUP BY clause.
-    Ticket <a href="http://www.sqlite.org/src/info/ba7cbfaedc7e6">ba7cbfaedc7e6</a>.
+    Ticket <a href="https://www.sqlite.org/src/info/ba7cbfaedc7e6">ba7cbfaedc7e6</a>.
 <li>Fix a bug in <a href="../c3ref/profile.html">sqlite3_trace()</a> that was causing it to sometimes fail to print
     an SQL statement if that statement needed to be re-prepared.
-    Ticket <a href="http://www.sqlite.org/src/info/11d5aa455e0d98f3c1e6a08">11d5aa455e0d98f3c1e6a08</a>
+    Ticket <a href="https://www.sqlite.org/src/info/11d5aa455e0d98f3c1e6a08">11d5aa455e0d98f3c1e6a08</a>
 <li>Fix a faulty assert() statement.
-    Ticket <a href="http://www.sqlite.org/src/info/369d57fb8e5ccdff06f1">369d57fb8e5ccdff06f1</a>
+    Ticket <a href="https://www.sqlite.org/src/info/369d57fb8e5ccdff06f1">369d57fb8e5ccdff06f1</a>
 <p><b>Test, Debug, and Analysis Changes:</b>
 <li>Show ASCII-art abstract syntax tree diagrams using the ".selecttrace"
     and ".wheretrace" commands in the
@@ -183,7 +183,7 @@ antiRobotDefense();
       in a single page and a <a href="../chronology.html">chronology</a> are both also available.
       A detailed history of every
       check-in is available at
-      <a href="http://www.sqlite.org/src/timeline">
+      <a href="https://www.sqlite.org/src/timeline">
       SQLite version control site</a>.</p>
     
 

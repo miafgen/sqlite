@@ -84,40 +84,39 @@ Section "Base (Required)" sec1
 	
 SectionEnd
 
-SectionGroup "SQLite tools" groupa
-	Section "SQLite tools (32bit)" sec2
-		
-		SetOutPath "$INSTDIR"
+Section "SQLite tools" sec3
+	
+	SetOutPath "$INSTDIR"
 
-		;== Copy ==
-		File "${DYNAMIC}\tools-win32\*.*"	
-		
-		;== Create shortcuts ==
-		;Start menu
-		CreateShortCut "$SMPROGRAMS\SQLite\SQLite 32bit.lnk" "$INSTDIR\sqlite3.exe" "" "$INSTDIR\sqlite_ico.ico"
-		CreateShortCut "$SMPROGRAMS\SQLite\Diff.lnk" "$INSTDIR\sqldiff.exe" "" "$INSTDIR\sqlite_ico.ico"
-		CreateShortCut "$SMPROGRAMS\SQLite\Analyzer.lnk" "$INSTDIR\sqlite3_analyzer.exe" "" "$INSTDIR\sqlite_ico.ico"
+	;== Copy ==
+	File "${DYNAMIC}\tools\*.*"	
+	
+	;== Create shortcuts ==
+	;Start menu
+	CreateShortCut "$SMPROGRAMS\SQLite\SQLite.lnk" "$INSTDIR\sqlite3.exe" "" "$INSTDIR\sqlite_ico.ico"
+	CreateShortCut "$SMPROGRAMS\SQLite\Diff.lnk" "$INSTDIR\sqldiff.exe" "" "$INSTDIR\sqlite_ico.ico"
+	CreateShortCut "$SMPROGRAMS\SQLite\Analyzer.lnk" "$INSTDIR\sqlite3_analyzer.exe" "" "$INSTDIR\sqlite_ico.ico"
 
-		;Desktop
-		CreateShortCut "$DESKTOP\SQLite 32bit.lnk" "$INSTDIR\sqlite3.exe" "" "$INSTDIR\sqlite_ico.ico"
-		CreateShortCut "$DESKTOP\SQLite Diff.lnk" "$INSTDIR\sqldiff.exe" "" "$INSTDIR\sqlite_ico.ico"
-		CreateShortCut "$DESKTOP\SQLite Analyzer.lnk" "$INSTDIR\sqlite3_analyzer.exe" "" "$INSTDIR\sqlite_ico.ico"
-	SectionEnd
-	Section "SQLite tools (64bit)" sec3
-		
-		SetOutPath "$INSTDIR"
+	;Desktop
+	CreateShortCut "$DESKTOP\SQLite.lnk" "$INSTDIR\sqlite3.exe" "" "$INSTDIR\sqlite_ico.ico"
+	CreateShortCut "$DESKTOP\SQLite Diff.lnk" "$INSTDIR\sqldiff.exe" "" "$INSTDIR\sqlite_ico.ico"
+	CreateShortCut "$DESKTOP\SQLite Analyzer.lnk" "$INSTDIR\sqlite3_analyzer.exe" "" "$INSTDIR\sqlite_ico.ico"
+SectionEnd
+;Section "SQLite tools (64bit)" sec3
+;	
+;	SetOutPath "$INSTDIR"
+;
+;	;== Copy ==
+;	File "${DYNAMIC}\tools-win64\*.*"	
+	
+;	;== Create shortcuts ==
+;	;Start menu
+;	CreateShortCut "$SMPROGRAMS\SQLite\SQLite 64bit.lnk" "$INSTDIR\sqlite3_64bit.exe" "" "$INSTDIR\sqlite_ico.ico"
 
-		;== Copy ==
-		File "${DYNAMIC}\tools-win64\*.*"	
-		
-		;== Create shortcuts ==
-		;Start menu
-		CreateShortCut "$SMPROGRAMS\SQLite\SQLite 64bit.lnk" "$INSTDIR\sqlite3_64bit.exe" "" "$INSTDIR\sqlite_ico.ico"
+;	;Desktop
+;	CreateShortCut "$DESKTOP\SQLite 64bit.lnk" "$INSTDIR\sqlite3_64bit.exe" "" "$INSTDIR\sqlite_ico.ico"	
+;SectionEnd
 
-		;Desktop
-		CreateShortCut "$DESKTOP\SQLite 64bit.lnk" "$INSTDIR\sqlite3_64bit.exe" "" "$INSTDIR\sqlite_ico.ico"	
-	SectionEnd
-SectionGroupEnd
 
 Section "Add to path" sec4
 	;== Select context ==	  
@@ -184,8 +183,7 @@ SectionEnd
 Section "Uninstall"
 
 	;== Remove desktop shortcuts ==
-	Delete "$DESKTOP\SQLite 32bit.lnk"
-	Delete "$DESKTOP\SQLite 64bit.lnk"
+	Delete "$DESKTOP\SQLite.lnk"	
 	Delete "$DESKTOP\SQLite Analyzer.lnk"
 	Delete "$DESKTOP\SQLite Diff.lnk"
   

@@ -122,13 +122,136 @@ antiRobotDefense();
 <p>
 This page provides a high-level summary of changes to SQLite.
 For more detail, see the Fossil checkin logs at
-<a href="http://www.sqlite.org/src/timeline">
-http://www.sqlite.org/src/timeline</a> and
-<a href="http://www.sqlite.org/src/timeline?t=release">
-http://www.sqlite.org/src/timeline?t=release</a>.
+<a href="https://www.sqlite.org/src/timeline">
+https://www.sqlite.org/src/timeline</a> and
+<a href="https://www.sqlite.org/src/timeline?t=release">
+https://www.sqlite.org/src/timeline?t=release</a>.
 See the <a href="chronology.html">chronology</a> a succinct listing of releases.
 </p>
 
+<a name="version_3_44_0"></a>
+<h3>2023-11-01 (3.44.0)</h3><p><ol class='lessindent'>
+<li> <a href="lang_aggfunc.html">Aggregate functions</a> can now include an ORDER BY clause after their last
+     parameter.  The arguments to the function are processed in the order
+     specified.  This can be important for functions like
+     <a href="lang_aggfunc.html#group_concat">string_agg()</a> and <a href="json1.html#jgrouparray">json_group_array()</a>.
+<li> Add support for the <a href="lang_corefunc.html#concat">concat()</a> and <a href="lang_corefunc.html#concat_ws">concat_ws()</a> scalar SQL functions,
+     compatible with PostgreSQL, SQLServer, and MySQL.
+<li> Add support for the <a href="lang_aggfunc.html#group_concat">string_agg()</a> aggregate SQL function, compatible
+     with PostgreSQL and SQLServer.
+<li> New conversion letters on the <a href="lang_datefunc.html#strftm">strftime() SQL function</a>: %e %F %I %k %l %p %P %R %T %u
+<li> Add new C-language APIs:  <a href="c3ref/get_clientdata.html">sqlite3_get_clientdata()</a> and <a href="c3ref/get_clientdata.html">sqlite3_set_clientdata()</a>.
+<li> Many errors associated with CREATE TABLE are now raised when the CREATE TABLE statement
+     itself is run, rather than being deferred until the first time the table is actually
+     used.
+<li> The <a href="pragma.html#pragma_integrity_check">PRAGMA integrity_check</a> command now verifies the consistency of the
+     content in various built-in <a href="vtab.html">virtual tables</a> using the new <a href="vtab.html#xintegrity">xIntegrity method</a>.
+     This works for the <a href="fts3.html">FTS3</a>, <a href="fts3.html#fts4">FTS4</a>, <a href="fts5.html">FTS5</a>, <a href="rtree.html">RTREE</a>, and <a href="geopoly.html">GEOPOLY</a> extensions.
+<li> The <a href="c3ref/c_dbconfig_defensive.html#sqlitedbconfigdefensive">SQLITE_DBCONFIG_DEFENSIVE</a> setting now prevents <a href="pragma.html#pragma_writable_schema">PRAGMA writable_schema</a>
+     from being turned on.  Previously writable_schema could be turned on, but would
+     not actually allow the schema to be writable.  Now it simply cannot be turned on.
+<li> Tag the built-in <a href="fts3.html">FTS3</a>, <a href="fts3.html#fts4">FTS4</a>, <a href="fts5.html">FTS5</a>, <a href="rtree.html">RTREE</a>, and <a href="geopoly.html">GEOPOLY</a> virtual tables as
+     <a href="c3ref/c_vtab_constraint_support.html#sqlitevtabinnocuous">SQLITE_VTAB_INNOCUOUS</a> so that they can be used inside of triggers in
+     high-security deployments.
+<li> The <a href="pragma.html#pragma_case_sensitive_like">PRAGMA case_sensitive_like</a> statement is deprecated, as its use when the
+     schema contains LIKE operators can lead to reports of database corruption
+     by <a href="pragma.html#pragma_integrity_check">PRAGMA integrity_check</a>.
+<li> <a href="compile.html#use_seh">SQLITE_USE_SEH</a> (Structured Exception Handling) is now enabled by default whenever
+     SQLite is built using the Microsoft C compiler.  It can be disabled using
+     -DSQLITE_USE_SEH=0
+<li> Query planner optimizations:
+     <ol type="a">
+     <li> In partial index scans, if the WHERE clause implies a constant value for a table
+          column, replace occurrences of that table column with the constant. This
+          increases the likelihood of the partial index being a covering index.
+     <li> Disable the view-scan optimization (added in <a href="#version_3_42_0">version 3.42.0</a> - item 1c) 
+          as it was causing multiple performance regressions. In its place, reduce
+          the estimated row count for DISTINCT subqueries by a factor of 8.
+     </ol>
+<li> SQLite now performs run-time detection of whether or not the underlying hardware
+     supports "long double" with precision greater than "double" and uses appropriate
+     floating-point routines depending on what it discovered.
+<li> The <a href="cli.html">CLI</a> for Windows now defaults to using UTF-8 for both input
+     and output on platforms that support it.  The --no-utf8 option is available
+     to disable UTF8 support.
+<p><b>Hashes:</b>
+<li>SQLITE_SOURCE_ID: 2023-11-01 11:23:50 17129ba1ff7f0daf37100ee82d507aef7827cf38de1866e2633096ae6ad8130
+<li>SHA3-256 for sqlite3.c: d9e6530096136067644b1cb2057b3b0fa51070df99ec61971f73c9ba6aa9a36e
+
+</ol></p>
+<a name="version_3_43_2"></a>
+<h3>2023-10-10 (3.43.2)</h3><p><ol class='lessindent'>
+<li> Fix a couple of obscure UAF errors and an obscure memory leak.
+<li> Omit the use of the sprintf() function from the standard library
+     in the <a href="cli.html">CLI</a>, as this now generates warnings on some platforms.
+<li> Avoid conversion of a double into unsigned long long integer, as
+     some platforms do not do such conversions correctly.
+<p><b>Hashes:</b>
+<li>SQLITE_SOURCE_ID: 2023-10-10 12:14:04 4310099cce5a487035fa535dd3002c59ac7f1d1bec68d7cf317fd3e769484790
+<li>SHA3-256 for sqlite3.c: e17a3dc69330bd109256fb5a6e2b3ce8fbec48892a800389eb7c0f8856703161
+
+</ol></p>
+<a name="version_3_43_1"></a>
+<h3>2023-09-11 (3.43.1)</h3><p><ol class='lessindent'>
+<li> Fix a regression in the way that the <a href="lang_aggfunc.html#sumunc">sum()</a>, <a href="lang_aggfunc.html#avg">avg()</a>, and <a href="lang_aggfunc.html#sumunc">total()</a>
+     aggregate functions handle infinities.
+<li> Fix a bug in the <a href="json1.html#jarraylen">json_array_length()</a> function that occurs when the
+     argument comes directly from <a href="json1.html#jrm">json_remove()</a>.
+<li> Fix the omit-unused-subquery-columns optimization (introduced in
+     in version 3.42.0) so that it works correctly if the subquery is a
+     compound where one arm is DISTINCT and the other is not.
+<li> Other minor fixes.
+<p><b>Hashes:</b>
+<li>SQLITE_SOURCE_ID: 2023-09-11 12:01:27 2d3a40c05c49e1a49264912b1a05bc2143ac0e7c3df588276ce80a4cbc9bd1b0
+<li>SHA3-256 for sqlite3.c: 391af0a4755e31ae8b29776a4a060b678823ffe4c4db558567567c688a578589
+
+</ol></p>
+<a name="version_3_43_0"></a>
+<h3>2023-08-24 (3.43.0)</h3><p><ol class='lessindent'>
+<li> Add support for <a href="fts5.html#clssdeltab">Contentless-Delete FTS5 Indexes</a>.  This is a variety
+     of <a href="fts5.html">FTS5</a> full-text search index that omits storing the content that is being indexed
+     while also allowing records to be deleted.
+<li> Enhancements to the <a href="lang_datefunc.html">date and time functions</a>:
+  <ol type="a">
+  <li> Added new <a href="lang_datefunc.html#tmshf">time shift modifiers</a> of the form <tt>&plusmn;YYYY-MM-DD HH:MM:SS.SSS</tt>.
+  <li> Added the <a href="lang_datefunc.html#tmdif">timediff() SQL function</a>.
+  </ol>
+<li> Added the <a href="lang_corefunc.html#octet_length">octet_length(X)</a> SQL function.
+<li> Added the <a href="c3ref/stmt_explain.html">sqlite3_stmt_explain()</a> API.
+<li> Query planner enhancements:
+  <ol type="a">
+  <li> Generalize the LEFT JOIN strength reduction optimization so that it works
+       for RIGHT and FULL JOINs as well.  Rename it to
+       <a href="optoverview.html#leftjoinreduction">OUTER JOIN strength reduction</a>.
+  <li> Enhance the theorem prover in the <a href="optoverview.html#leftjoinreduction">OUTER JOIN strength reduction</a> optimization
+       so that it returns fewer false-negatives.
+  </ol>
+<li> Enhancements to the <a href="floatingpoint.html#decext">decimal extension</a>:
+  <ol type="a">
+  <li> New function decimal_pow2(N) returns the N-th power of 2 for integer N
+       between -20000 and +20000.
+  <li> New function decimal_exp(X) works like decimal(X) except that it returns
+       the result in exponential notation - with a "e+NN" at the end.
+  <li> If X is a floating-point value, then the decimal(X) function now does a full
+       expansion of that value into its exact decimal equivalent.
+  </ol>
+<li> Performance enhancements to <a href="json1.html">JSON processing</a> results in a 2x performance
+     improvement for some kinds of processing on large JSON strings.
+<li> New makefile target "verify-source" checks to ensure that there are no
+     unintentional changes in the source tree.  (Works for 
+     <a href="getthecode.html">canonical source code</a> only - 
+     not for <a href="amalgamation.html#amalgtarball">precompiled amalgamation tarballs</a>.)
+<li> Added the <a href="compile.html#use_seh">SQLITE_USE_SEH</a> compile-time option that enables Structured
+     Exception Handling on Windows while working with the memory-mapped
+     <a href="walformat.html#shm">shm file</a> that is part of <a href="wal.html">WAL mode</a> processing.  This option is enabled
+     by default when building on Windows using Makefile.msc.
+<li> The <a href="vfs.html">VFS</a> for unix now assumes that the nanosleep() system call is
+     available unless compiled with -DHAVE_NANOSLEEP=0.
+<p><b>Hashes:</b>
+<li>SQLITE_SOURCE_ID: 2023-08-24 12:36:59 0f80b798b3f4b81a7bb4233c58294edd0f1156f36b6ecf5ab8e83631d468778c
+<li>SHA3-256 for sqlite3.c: a6fc5379891d77b69a7d324cd24a437307af66cfdc3fef5dfceec3c82c8d4078
+
+</ol></p>
 <a name="version_3_42_0"></a>
 <h3>2023-05-16 (3.42.0)</h3><p><ol class='lessindent'>
 <li> Add the <a href="fts5.html#the_secure_delete_configuration_option">FTS5 secure-delete command</a>.  This option causes all forensic traces
@@ -148,7 +271,7 @@ See the <a href="chronology.html">chronology</a> a succinct listing of releases.
      <ol type="a">
      <li> Add the --unsafe-testing command-line option.  Without this option, some
           dot-commands (ex: ".testctrl") are now disabled because those commands
-          that are intended for testing only and can cause malfunctions misused.
+          that are intended for testing only and can cause malfunctions if misused.
      <li> Allow commands ".log on" and ".log off", even in --safe mode.
      <li> "--" as a command-line argument means all subsequent arguments that
           start with "-" are interpreted as normal non-option argument.
@@ -1401,7 +1524,7 @@ Ticket <a href="https://www.sqlite.org/src/info/bb4bdb9f7f654b0bb9">bb4bdb9f7f65
 </ol>
 <li>Enhancements to the <a href="sessionintro.html">session</a> extension:
 <ol type="a">
-  <li>Added the <a href="session/c_changesetapply_ignorenoop.html">SQLITE_CHANGESETAPPLY_INVERT</a> flag
+  <li>Added the <a href="session/c_changesetapply_fknoaction.html">SQLITE_CHANGESETAPPLY_INVERT</a> flag
   <li>Added the <a href="session/sqlite3changeset_start.html">sqlite3changeset_start_v2()</a> interface and the
       <a href="session/c_changesetstart_invert.html">SQLITE_CHANGESETSTART_INVERT</a> flag.
   <li>Added the
@@ -2899,7 +3022,7 @@ with a home-baked pie.</center>
     fast as <a href="#version_3_3_9">version 3.3.9</a>.
     (Measured using
     <a href="http://valgrind.org/docs/manual/cg-manual.html">cachegrind</a> on the
-    <a href="http://www.sqlite.org/src/artifact/83f6b3318f7ee">speedtest1.c</a> workload on
+    <a href="https://www.sqlite.org/src/artifact/83f6b3318f7ee">speedtest1.c</a> workload on
     Ubuntu 14.04 x64 with gcc 4.8.2 and -Os. Your performance may vary.)
 <li>Added the <a href="c3ref/result_blob.html">sqlite3_result_zeroblob64()</a> and <a href="c3ref/bind_blob.html">sqlite3_bind_zeroblob64()</a>
     interfaces.
@@ -3119,12 +3242,12 @@ with a home-baked pie.</center>
     if the ROLLBACK modifies the schema.
 <li>Bug fix: Make sure that NULL results from OP_Column are fully and completely NULL and
     do not have the MEM_Ephem bit set.
-    Ticket <a href="http://www.sqlite.org/src/info/094d39a4c95ee4">094d39a4c95ee4</a>.
+    Ticket <a href="https://www.sqlite.org/src/info/094d39a4c95ee4">094d39a4c95ee4</a>.
 <li>Bug fix:  The %c format in sqlite3_mprintf() is able to handle precisions greater than 70.
 <li>Bug fix:  Do not automatically remove the DISTINCT keyword from a SELECT that forms
     the right-hand side of an IN operator since it is necessary if the SELECT also
     contains a LIMIT.
-    Ticket <a href="http://www.sqlite.org/src/info/db87229497">db87229497</a>.
+    Ticket <a href="https://www.sqlite.org/src/info/db87229497">db87229497</a>.
 
 <li>SQLITE_SOURCE_ID: "2014-11-18 20:57:56 2ab564bf9655b7c7b97ab85cafc8a48329b27f93"
 <li>SHA1 for sqlite3.c: b2a68d5783f48dba6a8cb50d8bf69b238c5ec53a
@@ -3153,7 +3276,7 @@ with a home-baked pie.</center>
     The cumulative performance increase since <a href="#version_3_8_0">version 3.8.0</a> is 61%.
     (Measured using
     <a href="http://valgrind.org/docs/manual/cg-manual.html">cachegrind</a> on the
-    <a href="http://www.sqlite.org/src/artifact/83f6b3318f7ee">speedtest1.c</a> workload on
+    <a href="https://www.sqlite.org/src/artifact/83f6b3318f7ee">speedtest1.c</a> workload on
     Ubuntu 13.10 x64 with gcc 4.8.1 and -Os. Your performance may vary.)
 <li>The sorter can use auxiliary helper threads to increase real-time response.
     This feature is off by default and may be
@@ -3178,21 +3301,21 @@ with a home-baked pie.</center>
     <a href="pragma.html#pragma_threads">PRAGMA threads</a> command for configuring the number of available worker threads.
 <li>The <a href="spellfix1.html">spellfix1</a> extension allows the application to optionally specify the rowid for
     each INSERT.
-<li>Added the <a href="http://www.sqlite.org/src/doc/trunk/ext/userauth/user-auth.txt">User Authentication</a>
+<li>Added the <a href="https://www.sqlite.org/src/doc/trunk/ext/userauth/user-auth.txt">User Authentication</a>
     extension.
 <p><b>Bug Fixes:</b>
 <li>Fix a bug in the <a href="partialindex.html">partial index</a> implementation that might result in an incorrect
     answer if a partial index is used in a subquery or in a <a href="lang_createview.html">view</a>.
-    Ticket <a href="http://www.sqlite.org/src/info/98d973b8f5">98d973b8f5</a>.
+    Ticket <a href="https://www.sqlite.org/src/info/98d973b8f5">98d973b8f5</a>.
 <li>Fix a query planner bug that might cause a table to be scanned in the wrong direction
     (thus reversing the order of output) when a DESC index is used to implement the ORDER BY
     clause on a query that has an identical GROUP BY clause.
-    Ticket <a href="http://www.sqlite.org/src/info/ba7cbfaedc7e6">ba7cbfaedc7e6</a>.
+    Ticket <a href="https://www.sqlite.org/src/info/ba7cbfaedc7e6">ba7cbfaedc7e6</a>.
 <li>Fix a bug in <a href="c3ref/profile.html">sqlite3_trace()</a> that was causing it to sometimes fail to print
     an SQL statement if that statement needed to be re-prepared.
-    Ticket <a href="http://www.sqlite.org/src/info/11d5aa455e0d98f3c1e6a08">11d5aa455e0d98f3c1e6a08</a>
+    Ticket <a href="https://www.sqlite.org/src/info/11d5aa455e0d98f3c1e6a08">11d5aa455e0d98f3c1e6a08</a>
 <li>Fix a faulty assert() statement.
-    Ticket <a href="http://www.sqlite.org/src/info/369d57fb8e5ccdff06f1">369d57fb8e5ccdff06f1</a>
+    Ticket <a href="https://www.sqlite.org/src/info/369d57fb8e5ccdff06f1">369d57fb8e5ccdff06f1</a>
 <p><b>Test, Debug, and Analysis Changes:</b>
 <li>Show ASCII-art abstract syntax tree diagrams using the ".selecttrace"
     and ".wheretrace" commands in the
@@ -3224,7 +3347,7 @@ with a home-baked pie.</center>
     run.
 <li>Added a new
     <a href="loadext.html">loadable extension</a> source code file to the source tree:
-    <a href="http://www.sqlite.org/src/finfo?name=ext/misc/fileio.c">fileio.c</a>
+    <a href="https://www.sqlite.org/src/finfo?name=ext/misc/fileio.c">fileio.c</a>
 <li>Add extension functions <a href="cli.html#fileio">readfile(X) and writefile(X,Y)</a>
     (using code copy/pasted from fileio.c in the previous bullet) to the
     <a href="cli.html">command-line shell</a>.
@@ -3246,26 +3369,26 @@ with a home-baked pie.</center>
 <li>Fix a bug in <a href="lang_createindex.html">CREATE UNIQUE INDEX</a>, introduced when <a href="withoutrowid.html">WITHOUT ROWID</a>
     support added in version 3.8.2, that allows a non-unique NOT NULL column to be
     given a UNIQUE index.
-    Ticket <a href="http://www.sqlite.org/src/info/9a6daf340df99ba93c">9a6daf340df99ba93c</a>
+    Ticket <a href="https://www.sqlite.org/src/info/9a6daf340df99ba93c">9a6daf340df99ba93c</a>
 <li>Fix a bug in <a href="rtree.html">R-Tree extension</a>, introduced in the previous release,
     that can cause an
     incorrect results for queries that use the rowid of the R-Tree on the
     left-hand side of an <a href="lang_expr.html#in_op">IN operator</a>.
-    Ticket <a href="http://www.sqlite.org/src/info/d2889096e7bdeac6">d2889096e7bdeac6</a>.
+    Ticket <a href="https://www.sqlite.org/src/info/d2889096e7bdeac6">d2889096e7bdeac6</a>.
 <li>Fix the <a href="c3ref/stmt_busy.html">sqlite3_stmt_busy()</a> interface so that it gives the correct answer
     for <a href="lang_transaction.html">ROLLBACK</a> statements that have been stepped but never reset.
 <li>Fix a bug in that would cause a null pointer to be dereferenced
     if a column with a DEFAULT that is an aggregate function tried to usee its
     DEFAULT.
-    Ticket <a href="http://www.sqlite.org/src/info/3a88d85f36704eebe1">3a88d85f36704eebe1</a>
+    Ticket <a href="https://www.sqlite.org/src/info/3a88d85f36704eebe1">3a88d85f36704eebe1</a>
 <li>CSV output from the <a href="cli.html">command-line shell</a> now always uses CRNL for the
     row separator and avoids inserting CR in front of NLs contained in
     data.
 <li>Fix a <a href="datatype3.html#affinity">column affinity</a> problem with the <a href="lang_expr.html#in_op">IN operator</a>.
-    Ticket <a href="http://www.sqlite.org/src/info/9a8b09f8e6">9a8b09f8e6</a>.
+    Ticket <a href="https://www.sqlite.org/src/info/9a8b09f8e6">9a8b09f8e6</a>.
 <li>Fix the <a href="lang_analyze.html">ANALYZE</a> command so that it adds correct samples for
     <a href="withoutrowid.html">WITHOUT ROWID</a> tables in the <a href="fileformat2.html#stat4tab">sqlite_stat4</a> table.
-    Ticket <a href="http://www.sqlite.org/src/info/b2fa5424e6fcb15">b2fa5424e6fcb15</a>.
+    Ticket <a href="https://www.sqlite.org/src/info/b2fa5424e6fcb15">b2fa5424e6fcb15</a>.
 
 <li>SQLITE_SOURCE_ID: "2014-08-15 11:46:33 9491ba7d738528f168657adb43a198238abde19e"
 <li>SHA1 for sqlite3.c: 72c64f05cd9babb9c0f9b3c82536d83be7804b1c
@@ -3292,29 +3415,29 @@ with a home-baked pie.</center>
 <li>Added the <a href="c3ref/c_testctrl_always.html">SQLITE_TESTCTRL_BYTEORDER</a> test control.
 <p><b>Bug Fixes:</b>
 <li>OFFSET clause ignored on queries without a FROM clause.
-    Ticket <a href="http://www.sqlite.org/src/info/07d6a0453d">07d6a0453d</a>
+    Ticket <a href="https://www.sqlite.org/src/info/07d6a0453d">07d6a0453d</a>
 <li>Assertion fault on queries involving expressions of the form
-    "x IN (?)".  Ticket <a href="http://www.sqlite.org/src/info/e39d032577">e39d032577</a>.
+    "x IN (?)".  Ticket <a href="https://www.sqlite.org/src/info/e39d032577">e39d032577</a>.
 <li>Incorrect column datatype reported.
-    Ticket <a href="http://www.sqlite.org/src/info/a8a0d2996a">a8a0d2996a</a>
+    Ticket <a href="https://www.sqlite.org/src/info/a8a0d2996a">a8a0d2996a</a>
 <li>Duplicate row returned on a query against a table with more than
     16 indices, each on a separate column, and all used via OR-connected constraints.
-    Ticket <a href="http://www.sqlite.org/src/info/10fb063b11">10fb063b11</a>
+    Ticket <a href="https://www.sqlite.org/src/info/10fb063b11">10fb063b11</a>
 <li>Partial index causes assertion fault on UPDATE OR REPLACE.
-    Ticket <a href="http://www.sqlite.org/src/info/2ea3e9fe63">2ea3e9fe63</a>
+    Ticket <a href="https://www.sqlite.org/src/info/2ea3e9fe63">2ea3e9fe63</a>
 <li>Crash when calling undocumented SQL function sqlite_rename_parent()
     with NULL parameters.
-    Ticket <a href="http://www.sqlite.org/src/info/264b970c4379fd">264b970c43</a>
+    Ticket <a href="https://www.sqlite.org/src/info/264b970c4379fd">264b970c43</a>
 <li>ORDER BY ignored if the query has an identical GROUP BY.
-    Ticket <a href="http://www.sqlite.org/src/info/b75a9ca6b0499">b75a9ca6b0</a>
+    Ticket <a href="https://www.sqlite.org/src/info/b75a9ca6b0499">b75a9ca6b0</a>
 <li>The group_concat(x,'') SQL function returns NULL instead of an empty string
     when all inputs are empty strings.
-    Ticket <a href="http://www.sqlite.org/src/info/55746f9e65f85">55746f9e65</a>
+    Ticket <a href="https://www.sqlite.org/src/info/55746f9e65f85">55746f9e65</a>
 <li>Fix a bug in the VDBE code generator that caused crashes when
     doing an INSERT INTO ... SELECT statement where the number of columns
     being inserted is larger than the number of columns in the destination
     table.
-    Ticket <a href="http://www.sqlite.org/src/info/e9654505cfda9">e9654505cfd</a>
+    Ticket <a href="https://www.sqlite.org/src/info/e9654505cfda9">e9654505cfd</a>
 <li>Fix a problem in CSV import in the <a href="cli.html">command-line shell</a>
     where if the leftmost field of the first row
     in the CSV file was both zero bytes in size and unquoted no data would
@@ -3333,10 +3456,10 @@ with a home-baked pie.</center>
 <a name="version_3_8_4_3"></a>
 <h3>2014-04-03 (3.8.4.3)</h3><p><ol class='lessindent'>
 <li>Add a
-    <a href="http://www.sqlite.org/src/fdiff?sbs=1&v1=7d539cedb1c&v2=ebad891b7494d&smhdr">one-character fix</a>
+    <a href="https://www.sqlite.org/src/fdiff?sbs=1&v1=7d539cedb1c&v2=ebad891b7494d&smhdr">one-character fix</a>
     for a problem that might cause incorrect query results on a query that mixes
     DISTINCT, GROUP BY in a subquery, and ORDER BY.
-    <a href="http://www.sqlite.org/src/info/98825a79ce1456863">Ticket 98825a79ce14</a>.
+    <a href="https://www.sqlite.org/src/info/98825a79ce1456863">Ticket 98825a79ce14</a>.
 <li>SQLITE_SOURCE_ID: "2014-04-03 16:53:12 a611fa96c4a848614efe899130359c9f6fb889c3"
 <li>SHA1 for sqlite3.c: 310a1faeb9332a3cd8d1f53b4a2e055abf537bdc
 
@@ -3376,23 +3499,23 @@ with a home-baked pie.</center>
     rather than an "out of memory" error when called with zero arguments.
 <li>Bug fix: DISTINCT now recognizes that a <a href="lang_corefunc.html#zeroblob">zeroblob</a> and a blob of all
     0x00 bytes are the same thing.
-    <a href="http://www.sqlite.org/src/info/fccbde530a">Ticket &#91;fccbde530a&#93;</a>
+    <a href="https://www.sqlite.org/src/info/fccbde530a">Ticket &#91;fccbde530a&#93;</a>
 <li>Bug fix: Compute the correct answer for queries that contain an IS NOT NULL
     term in the WHERE clause and also contain an OR term in the WHERE clause and
     are compiled with <a href="compile.html#enable_stat4">SQLITE_ENABLE_STAT4</a>.
-    <a href="http://www.sqlite.org/src/info/4c86b126f2">Ticket &#91;4c86b126f2&#93;</a>
+    <a href="https://www.sqlite.org/src/info/4c86b126f2">Ticket &#91;4c86b126f2&#93;</a>
 <li>Bug fix: Make sure "rowid" columns are correctly resolved in joins between
     normal tables and WITHOUT ROWID tables.
-    <a href="http://www.sqlite.org/src/info/c34d0557f7">Ticket &#91;c34d0557f7&#93;</a>
+    <a href="https://www.sqlite.org/src/info/c34d0557f7">Ticket &#91;c34d0557f7&#93;</a>
 <li>Bug fix: Make sure the same temporary registers are not used in concurrent
     co-routines used to implement compound SELECT statements containing ORDER
     BY clauses, as such use can lead to incorrect answers.
-    <a href="http://www.sqlite.org/src/info/8c63ff0eca">Ticket &#91;8c63ff0eca&#93;</a>
+    <a href="https://www.sqlite.org/src/info/8c63ff0eca">Ticket &#91;8c63ff0eca&#93;</a>
 <li>Bug fix: Ensure that "ORDER BY random()" clauses do not get optimized out.
-    <a href="http://www.sqlite.org/src/info/65bdeb9739">Ticket &#91;65bdeb9739&#93;</a>
+    <a href="https://www.sqlite.org/src/info/65bdeb9739">Ticket &#91;65bdeb9739&#93;</a>
 <li>Bug fix: Repair a name-resolution error that can occur in sub-select statements
     contained within a TRIGGER.
-    <a href="http://www.sqlite.org/src/info/4ef7e3cfca">Ticket &#91;4ef7e3cfca&#93;</a>
+    <a href="https://www.sqlite.org/src/info/4ef7e3cfca">Ticket &#91;4ef7e3cfca&#93;</a>
 <li>Bug fix: Fix column default values expressions of the form
     "DEFAULT(-(-9223372036854775808))" so that they work correctly, initializing
     the column to a floating point value approximately equal to
@@ -3403,7 +3526,7 @@ with a home-baked pie.</center>
 </ol></p>
 <a name="version_3_8_3_1"></a>
 <h3>2014-02-11 (3.8.3.1)</h3><p><ol class='lessindent'>
-<li>Fix a bug (ticket <a href="http://www.sqlite.org/src/info/4c86b126f2">4c86b126f2</a>)
+<li>Fix a bug (ticket <a href="https://www.sqlite.org/src/info/4c86b126f2">4c86b126f2</a>)
     that causes rows to go missing on some queries with OR clauses and
     IS NOT NULL operators in the WHERE clause, when the <a href="compile.html#enable_stat3">SQLITE_ENABLE_STAT3</a>
     or <a href="compile.html#enable_stat4">SQLITE_ENABLE_STAT4</a> compile-time options are used.
@@ -3514,7 +3637,7 @@ with a home-baked pie.</center>
 <li>Added the <a href="pragma.html#pragma_stats">PRAGMA stats</a> statement.
 <li><b>Bug fix:</b> Return the correct answer for "SELECT count(*) FROM table" even if
     there is a <a href="partialindex.html">partial index</a> on the table. Ticket
-    <a href="http://www.sqlite.org/src/info/a5c8ed66ca">a5c8ed66ca</a>.
+    <a href="https://www.sqlite.org/src/info/a5c8ed66ca">a5c8ed66ca</a>.
 
 <li>SQLITE_SOURCE_ID:
     "2013-10-17 12:57:35 c78be6d786c19073b3a6730dfe3fb1be54f5657a"
@@ -3647,18 +3770,18 @@ with a UNIQUE or PRIMARY KEY constraint with more than four columns.
     in <a href="sharedcache.html">shared cache mode</a> when one
     <a href="c3ref/sqlite3.html">database connection</a> is closed while another is in the middle of a write
     transaction.
-    Ticket <a href="http://www.sqlite.org/src/info/e636a050b7">e636a050b7</a>
+    Ticket <a href="https://www.sqlite.org/src/info/e636a050b7">e636a050b7</a>
 <li>Bug fix:
     Only consider AS names from the result set as candidates for resolving
     identifiers in the WHERE clause if there are no other matches. In the
     ORDER BY clause, AS names take priority over any column names.
-    Ticket <a href="http://www.sqlite.org/src/info/2500cdb9be05">2500cdb9be05</a>
+    Ticket <a href="https://www.sqlite.org/src/info/2500cdb9be05">2500cdb9be05</a>
 <li>Bug fix: Do not allow a virtual table to cancel the ORDER BY clause unless
     all outer loops are guaranteed to return no more than one row result.
-    Ticket <a href="http://www.sqlite.org/src/info/ba82a4a41eac1">ba82a4a41eac1</a>.
+    Ticket <a href="https://www.sqlite.org/src/info/ba82a4a41eac1">ba82a4a41eac1</a>.
 <li>Bug fix: Do not suppress the ORDER BY clause on a virtual table query if
     an IN constraint is used.
-    Ticket <a href="http://www.sqlite.org/src/info/f69b96e3076e">f69b96e3076e</a>.
+    Ticket <a href="https://www.sqlite.org/src/info/f69b96e3076e">f69b96e3076e</a>.
 <li>Bug fix: The <a href="cli.html">command-line shell</a> gives an exit code of 0 when terminated
     using the ".quit" command.
 <li>Bug fix: Make sure <a href="pragma.html#syntax">PRAGMA</a> statements appear in <a href="c3ref/profile.html">sqlite3_trace()</a> output.
@@ -3666,17 +3789,17 @@ with a UNIQUE or PRIMARY KEY constraint with more than four columns.
     with a <a href="lang_expr.html#collateop">COLLATE operator</a>, make sure that the sorting occurs
     according to the specified collation and that the comparisons associate with
     the compound query use the native collation.  Ticket
-    <a href="http://www.sqlite.org/src/info/6709574d2a8d8">6709574d2a8d8</a>.
+    <a href="https://www.sqlite.org/src/info/6709574d2a8d8">6709574d2a8d8</a>.
 <li>Bug fix: Makes sure the <a href="c3ref/set_authorizer.html">authorizer</a> callback gets
     a valid pointer to the string "ROWID" for the column-name parameter when
     doing an <a href="lang_update.html">UPDATE</a> that changes the rowid.  Ticket
-    <a href="http://www.sqlite.org/src/info/0eb70d77cb05bb2272">0eb70d77cb05bb2272</a>
+    <a href="https://www.sqlite.org/src/info/0eb70d77cb05bb2272">0eb70d77cb05bb2272</a>
 <li>Bug fix: Do not move WHERE clause terms inside OR expressions that are
     contained within an ON clause of a LEFT JOIN.  Ticket
-    <a href="http://www.sqlite.org/src/info/f2369304e4">f2369304e4</a>
+    <a href="https://www.sqlite.org/src/info/f2369304e4">f2369304e4</a>
 <li>Bug fix: Make sure an error is always reported when attempting to preform
     an operation that requires a <a href="datatype3.html#collation">collating sequence</a> that is missing.
-    Ticket <a href="http://www.sqlite.org/src/info/0fc59f908b">0fc59f908b</a>
+    Ticket <a href="https://www.sqlite.org/src/info/0fc59f908b">0fc59f908b</a>
 
 <li>SQLITE_SOURCE_ID:
     "2013-05-20 00:56:22 118a3b35693b134d56ebd780123b7fd6f1497668"
@@ -3689,7 +3812,7 @@ with a UNIQUE or PRIMARY KEY constraint with more than four columns.
     on windows if two or more processes try to access the same database file at the
     same time and immediately after third process crashed in the middle of committing
     to that same file.  See ticket
-    <a href="http://www.sqlite.org/src/info/7ff3120e4f">7ff3120e4f</a> for further
+    <a href="https://www.sqlite.org/src/info/7ff3120e4f">7ff3120e4f</a> for further
     information.
 
 <li>SQLITE_SOURCE_ID:
@@ -3702,16 +3825,16 @@ with a UNIQUE or PRIMARY KEY constraint with more than four columns.
 <li>Fix for a bug in the ORDER BY optimizer that was introduced in
     <a href="#version_3_7_15">version 3.7.15</a> which would sometimes optimize out the sorting step
     when in fact the sort was required.
-    Ticket <a href="http://www.sqlite.org/src/info/a179fe7465">a179fe7465</a>
+    Ticket <a href="https://www.sqlite.org/src/info/a179fe7465">a179fe7465</a>
 <li>Fix a long-standing bug in the <a href="lang_expr.html#castexpr">CAST expression</a> that would recognize UTF16
     characters as digits even if their most-significant-byte was not zero.
-    Ticket <a href="http://www.sqlite.org/src/info/689137afb6da41">689137afb6da41</a>.
+    Ticket <a href="https://www.sqlite.org/src/info/689137afb6da41">689137afb6da41</a>.
 <li>Fix a bug in the NEAR operator of <a href="fts3.html">FTS3</a> when applied to subfields.
-    Ticket <a href="http://www.sqlite.org/src/info/38b1ae018f">38b1ae018f</a>.
+    Ticket <a href="https://www.sqlite.org/src/info/38b1ae018f">38b1ae018f</a>.
 <li>Fix a long-standing bug in the storage engine that would (very rarely)
     cause a spurious report of an SQLITE_CORRUPT error but which was otherwise
     harmless.
-    Ticket <a href="http://www.sqlite.org/src/info/6bfb98dfc0c">6bfb98dfc0c</a>.
+    Ticket <a href="https://www.sqlite.org/src/info/6bfb98dfc0c">6bfb98dfc0c</a>.
 <li>The SQLITE_OMIT_MERGE_SORT option has been removed.  The merge sorter is
     now a required component of SQLite.
 <li>Fixed lots of spelling errors in the source-code comments
@@ -3764,7 +3887,7 @@ with a UNIQUE or PRIMARY KEY constraint with more than four columns.
 <li>Bug fix: repair a long-standing problem that could cause incorrect query
     results in a 3-way or larger join that compared INTEGER fields against TEXT
     fields in two or more places.
-    Ticket <a href="http://www.sqlite.org/src/info/fc7bd6358f">fc7bd6358f</a>
+    Ticket <a href="https://www.sqlite.org/src/info/fc7bd6358f">fc7bd6358f</a>
 <li>Bug fix: Issue an error message if the 16-bit reference counter on a
     view overflows due to an overly complex query.
 <li>Bug fix: Avoid leaking memory on LIMIT and OFFSET clauses in deeply
@@ -3782,7 +3905,7 @@ with a UNIQUE or PRIMARY KEY constraint with more than four columns.
 <li>Fix a bug, introduced in <a href="#version_3_7_15">version 3.7.15</a>, that causes an ORDER BY clause
     to be optimized out of a three-way join when the ORDER BY is actually
     required.	
-    Ticket <a href="http://www.sqlite.org/src/info/598f5f7596b055">598f5f7596b055</a>
+    Ticket <a href="https://www.sqlite.org/src/info/598f5f7596b055">598f5f7596b055</a>
 
 <li>SQLITE_SOURCE_ID:
     "2013-01-09 11:53:05 c0e09560d26f0a6456be9dd3447f5311eb4f238f"
@@ -3794,7 +3917,7 @@ with a UNIQUE or PRIMARY KEY constraint with more than four columns.
 <li>Fix a bug, introduced in <a href="#version_3_7_15">version 3.7.15</a>, that causes a segfault if
     the AS name of a result column of a SELECT statement is used as a logical
     term in the WHERE clause.  Ticket
-    <a href="http://www.sqlite.org/src/info/a7b7803e8d1e869">a7b7803e8d1e869</a>.
+    <a href="https://www.sqlite.org/src/info/a7b7803e8d1e869">a7b7803e8d1e869</a>.
 
 <li>SQLITE_SOURCE_ID:
     "2012-12-19 20:39:10 6b85b767d0ff7975146156a99ad673f2c1a23318"
@@ -3849,7 +3972,7 @@ with a UNIQUE or PRIMARY KEY constraint with more than four columns.
 <a name="version_3_7_14_1"></a>
 <h3>2012-10-04 (3.7.14.1)</h3><p><ol class='lessindent'>
 <li>Fix a bug (ticket
-<a href="http://www.sqlite.org/src/tktview/d02e1406a58ea02d">&#91;d02e1406a58ea02d]&#93;</a>)
+<a href="https://www.sqlite.org/src/tktview/d02e1406a58ea02d">&#91;d02e1406a58ea02d]&#93;</a>)
 that causes a segfault on a LEFT JOIN that includes an OR in the ON clause.
 <li>Work around a bug in the optimizer in the VisualStudio-2012 compiler that
 causes invalid code to be generated when compiling SQLite on ARM.
@@ -3920,7 +4043,7 @@ TCL implementations of SQL functions.
 <a name="version_3_7_12_1"></a>
 <h3>2012-05-22 (3.7.12.1)</h3><p><ol class='lessindent'>
 <li>Fix a bug
-    <a href="http://www.sqlite.org/src/info/c2ad16f997ee9c">(ticket c2ad16f997)</a>
+    <a href="https://www.sqlite.org/src/info/c2ad16f997ee9c">(ticket c2ad16f997)</a>
     in the 3.7.12 release that can cause a segfault for certain
     obscure nested aggregate queries.
 <li>Fix various other minor test script problems.
@@ -3961,10 +4084,10 @@ TCL implementations of SQL functions.
 <li>Bug fix: Do not discard the DISTINCT as superfluous unless a subset of
     the result set is subject to a UNIQUE constraint <em>and</em> it none
     of the columns in that subset can be NULL.
-    Ticket <a href="http://www.sqlite.org/src/info/385a5b56b9">385a5b56b9</a>.
+    Ticket <a href="https://www.sqlite.org/src/info/385a5b56b9">385a5b56b9</a>.
 <li>Bug fix: Do not optimize away an ORDER BY clause that has the same terms
     as a UNIQUE index unless those terms are also NOT NULL.
-    Ticket <a href="http://www.sqlite.org/src/info/2a5629202f">2a5629202f</a>.
+    Ticket <a href="https://www.sqlite.org/src/info/2a5629202f">2a5629202f</a>.
 <li>SQLITE_SOURCE_ID:
     "2012-05-14 01:41:23 8654aa9540fe9fd210899d83d17f3f407096c004"
 <li>SHA1 for sqlite3.c: 57e2104a0f7b3f528e7f6b7a8e553e2357ccd2e1
@@ -3992,7 +4115,7 @@ TCL implementations of SQL functions.
 <li>Pending statements no longer block <a href="lang_transaction.html">ROLLBACK</a>.  Instead, the pending
     statement will return SQLITE_ABORT upon next access after the ROLLBACK.
 <li>Improvements to the handling of CSV inputs in the <a href="cli.html">command-line shell</a>
-<li>Fix a <a href="http://www.sqlite.org/src/info/b7c8682cc1">bug</a> introduced
+<li>Fix a <a href="https://www.sqlite.org/src/info/b7c8682cc1">bug</a> introduced
     in <a href="#version_3_7_10">version 3.7.10</a> that might cause a LEFT JOIN
     to be incorrectly converted into an INNER JOIN if the WHERE clause
     indexable terms connected by OR.
@@ -4057,14 +4180,14 @@ TCL implementations of SQL functions.
     Add an additional xSync when restarting a WAL in order to prevent an
     exceedingly unlikely but theoretically possible
     database corruption following power-loss.
-    Ticket <a href="http://www.sqlite.org/src/info/ff5be73dee">ff5be73dee</a>.
+    Ticket <a href="https://www.sqlite.org/src/info/ff5be73dee">ff5be73dee</a>.
 <li><b>Bug fix:</b>
     Change the VDBE so that all registers are initialized to Invalid
     instead of NULL.
-    Ticket <a href="http://www.sqlite.org/src/info/7bbfb7d442">7bbfb7d442</a>
+    Ticket <a href="https://www.sqlite.org/src/info/7bbfb7d442">7bbfb7d442</a>
 <li><b>Bug fix:</b>
     Fix problems that can result from 32-bit integer overflow.
-    Ticket <a href="http://www.sqlite.org/src/info/ac0ff496b7e2">ac00f496b7e2</a>
+    Ticket <a href="https://www.sqlite.org/src/info/ac0ff496b7e2">ac00f496b7e2</a>
 <li>SQLITE_SOURCE_ID:
     "2012-01-16 13:28:40 ebd01a8deffb5024a5d7494eef800d2366d97204"
 <li>SHA1 for sqlite3.c: 6497cbbaad47220bd41e2e4216c54706e7ae95d4
@@ -4138,7 +4261,7 @@ TCL implementations of SQL functions.
 </ol></p>
 <a name="version_3_7_7_1"></a>
 <h3>2011-06-28 (3.7.7.1)</h3><p><ol class='lessindent'>
-<li> Fix <a href="http://www.sqlite.org/src/info/25ee812710">a bug</a> causing
+<li> Fix <a href="https://www.sqlite.org/src/info/25ee812710">a bug</a> causing
      <a href="pragma.html#pragma_case_sensitive_like">PRAGMA case_sensitive_like</a> statements compiled using sqlite3_prepare()
      to fail with an <a href="rescode.html#schema">SQLITE_SCHEMA</a> error.
 <li> SQLITE_SOURCE_ID:
@@ -4236,7 +4359,7 @@ TCL implementations of SQL functions.
 <li> Updates to <a href="c3ref/stmt_readonly.html">sqlite3_stmt_readonly()</a> so that its result is well-defined
      for all prepared statements and so that it works with <a href="lang_vacuum.html">VACUUM</a>.
 <li> Added the "-heap" option to the <a href="cli.html">command-line shell</a>
-<li> Fix <a href="http://www.sqlite.org/src/info/5d863f876e">a bug</a> involving
+<li> Fix <a href="https://www.sqlite.org/src/info/5d863f876e">a bug</a> involving
      frequent changes in and out of WAL mode and
      VACUUM that could (in theory) cause database corruption.
 <li> Enhance the <a href="c3ref/profile.html">sqlite3_trace()</a> mechanism so that nested SQL statements
@@ -4273,7 +4396,7 @@ TCL implementations of SQL functions.
 <li> Added the test_multiplex.c module which provides
      an example VFS that provides multiplexing (sharding)
      of a DB, splitting it over multiple files of fixed size.
-<li> A <a href="http://www.sqlite.org/src/info/80ba201079">very obscure bug</a>
+<li> A <a href="https://www.sqlite.org/src/info/80ba201079">very obscure bug</a>
      associated with the <a href="optoverview.html#or_opt">or optimization</a> was fixed.
 
 </ol></p>
@@ -4308,7 +4431,7 @@ TCL implementations of SQL functions.
 </ol></p>
 <a name="version_3_7_2"></a>
 <h3>2010-08-24 (3.7.2)</h3><p><ol class='lessindent'>
-<li> Fix an <a href="http://www.sqlite.org/src/info/5e10420e8d">
+<li> Fix an <a href="https://www.sqlite.org/src/info/5e10420e8d">
      old and very obscure bug</a> that can lead to corruption of the
      database <a href="fileformat2.html#freelist">free-page list</a> when <a href="pragma.html#pragma_incremental_vacuum">incremental_vacuum</a> is used.
 
@@ -4337,7 +4460,7 @@ TCL implementations of SQL functions.
 <h3>2010-08-04 (3.7.0.1)</h3><p><ol class='lessindent'>
 <li> Fix a potential database corruption bug that can occur if version 3.7.0
      and version 3.6.23.1 alternately write to the same database file.
-     <a href="http://www.sqlite.org/src/info/51ae9cad317a1">
+     <a href="https://www.sqlite.org/src/info/51ae9cad317a1">
      Ticket &#91;51ae9cad317a1&#93;</a>
 <li> Fix a performance regression related to the query planner enhancements
      of version 3.7.0.
@@ -4432,7 +4555,7 @@ when any range constraint changes under <a href="compile.html#enable_stat2">SQLI
 <a name="version_3_6_16_1"></a>
 <h3>2009-10-30 (3.6.16.1)</h3><p><ol class='lessindent'>
 <li>A small patch to version 3.6.16 to fix
-<a href="http://www.sqlite.org/src/info/6b00e0a34c">the OP_If bug</a>.
+<a href="https://www.sqlite.org/src/info/6b00e0a34c">the OP_If bug</a>.
 
 </ol></p>
 <a name="version_3_6_19"></a>
@@ -4468,7 +4591,7 @@ when any range constraint changes under <a href="compile.html#enable_stat2">SQLI
     C-Preprocessor macro <a href="c3ref/c_source_id.html">SQLITE_SOURCE_ID</a>,
     C/C++ interface <a href="c3ref/libversion.html">sqlite3_sourceid()</a>, and SQL function <a href="lang_corefunc.html#sqlite_source_id">sqlite_source_id()</a>.
 <li>Obscure bug fix on triggers
-(<a href="http://www.sqlite.org/src/info/efc02f9779">&#91;efc02f9779&#93;</a>).
+(<a href="https://www.sqlite.org/src/info/efc02f9779">&#91;efc02f9779&#93;</a>).
 
 </ol></p>
 <a name="version_3_6_17"></a>
@@ -4667,9 +4790,9 @@ when any range constraint changes under <a href="compile.html#enable_stat2">SQLI
 <li>Added the TRUNCATE option to <a href="pragma.html#pragma_journal_mode">PRAGMA journal_mode</a></li>
 <li>Performance enhancements to tree balancing logic in the B-Tree layer.</li>
 <li>Added the
-  <a href="http://www.sqlite.org/src/finfo?name=tool/genfkey.c">
+  <a href="https://www.sqlite.org/src/finfo?name=tool/genfkey.c">
   source code</a> and
-  <a href="http://www.sqlite.org/src/finfo?name=tool/genfkey.README">
+  <a href="https://www.sqlite.org/src/finfo?name=tool/genfkey.README">
   documentation</a> for the <b>genfkey</b> program for automatically generating
   triggers to enforce foreign key constraints.</li>
 <li>Added the <a href="compile.html#omit_truncate_optimization">SQLITE_OMIT_TRUNCATE_OPTIMIZATION</a> compile-time option.</li>
@@ -4871,7 +4994,7 @@ be played back to recreate the database.</li>
 <a name="version_3_5_3"></a>
 <h3>2007-11-27 (3.5.3)</h3><p><ol class='lessindent'>
 <li>Move website and documentation files out of the source tree into
-a <a href="http://www.sqlite.org/docsrc/">separate CM system</a>.
+a <a href="https://www.sqlite.org/docsrc/">separate CM system</a>.
 <li>Fix a long-standing bug in INSERT INTO ... SELECT ... statements
 where the SELECT is compound.
 <li>Fix a long-standing bug in RAISE(IGNORE) as used in BEFORE triggers.
@@ -5927,7 +6050,7 @@ the database.</li>
 <li>Add the ability to read both little-endian and big-endian databases.
     So a database created under SunOS or Mac OS X can be read and written
     under Linux or Windows and vice versa.</li>
-<li>Convert to the new website: http://www.sqlite.org/</li>
+<li>Convert to the new website: https://www.sqlite.org/</li>
 <li>Allow transactions to span Linux Threads</li>
 <li>Bug fix in the processing of the ORDER BY clause for GROUP BY queries</li>
 

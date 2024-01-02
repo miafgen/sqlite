@@ -238,7 +238,7 @@ is determined by the 2-byte integer located at an offset of
 <p>Pages are numbered beginning with 1.  The maximum page number is
 4294967294 (2<sup><small>32</small></sup> - 2).  The minimum size
 SQLite database is a single 512-byte page.
-The maximum size database would be 2147483646 pages at 65536 bytes per
+The maximum size database would be 4294967294 pages at 65536 bytes per
 page or 281,474,976,579,584 bytes (about 281 terabytes).  Usually SQLite will
 hit the maximum file size limit of the underlying filesystem or disk
 hardware long before it hits its own internal size limit.</p>
@@ -574,7 +574,7 @@ The application ID is intended for database files used as an
 such as <a href="http://www.darwinsys.com/file/">file(1)</a> to determine the specific
 file type rather than just reporting "SQLite3 Database".  A list of
 assigned application IDs can be seen by consulting the
-<a href="http://www.sqlite.org/src/artifact?ci=trunk&filename=magic.txt">magic.txt</a>
+<a href="https://www.sqlite.org/src/artifact?ci=trunk&filename=magic.txt">magic.txt</a>
 file in the SQLite source repository.</p>
 
 <a name="validfor"></a>
@@ -2201,5 +2201,5 @@ file, and since the wal-index is a transient structure, no further
 information about the format of the wal-index will be provided here.
 Additional details on the format of the wal-index are contained in
 the separate <a href="walformat.html#walidxfmt">WAL-index File Format</a> document.</p>
-<p align="center"><small><i>This page last modified on  <a href="https://sqlite.org/docsrc/honeypot" id="mtimelink"  data-href="https://sqlite.org/docsrc/finfo/pages/fileformat2.in?m=6e0533c777">2023-01-25 11:14:04</a> UTC </small></i></p>
+
 

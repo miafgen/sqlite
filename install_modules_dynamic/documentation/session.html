@@ -151,9 +151,10 @@ code file sqlite3session.h.</p>
 <h2>Constants:</h2>
 <div class='columns' style='columns: 20em auto;'>
 <ul style='padding-top:0;'>
-<li><a href='#SQLITE_CHANGESETAPPLY_IGNORENOOP'>SQLITE_CHANGESETAPPLY_IGNORENOOP</a></li>
-<li><a href='#SQLITE_CHANGESETAPPLY_IGNORENOOP'>SQLITE_CHANGESETAPPLY_INVERT</a></li>
-<li><a href='#SQLITE_CHANGESETAPPLY_IGNORENOOP'>SQLITE_CHANGESETAPPLY_NOSAVEPOINT</a></li>
+<li><a href='#SQLITE_CHANGESETAPPLY_FKNOACTION'>SQLITE_CHANGESETAPPLY_FKNOACTION</a></li>
+<li><a href='#SQLITE_CHANGESETAPPLY_FKNOACTION'>SQLITE_CHANGESETAPPLY_IGNORENOOP</a></li>
+<li><a href='#SQLITE_CHANGESETAPPLY_FKNOACTION'>SQLITE_CHANGESETAPPLY_INVERT</a></li>
+<li><a href='#SQLITE_CHANGESETAPPLY_FKNOACTION'>SQLITE_CHANGESETAPPLY_NOSAVEPOINT</a></li>
 <li><a href='#SQLITE_CHANGESETSTART_INVERT'>SQLITE_CHANGESETSTART_INVERT</a></li>
 <li><a href='#SQLITE_CHANGESET_ABORT'>SQLITE_CHANGESET_ABORT</a></li>
 <li><a href='#SQLITE_CHANGESET_CONFLICT'>SQLITE_CHANGESET_CONFLICT</a></li>
@@ -179,6 +180,7 @@ code file sqlite3session.h.</p>
 <li><a href='#sqlite3changegroup_new'>sqlite3changegroup_new</a></li>
 <li><a href='#sqlite3changegroup_output'>sqlite3changegroup_output</a></li>
 <li><a href='#sqlite3changegroup_add_strm'>sqlite3changegroup_output_strm</a></li>
+<li><a href='#sqlite3changegroup_schema'>sqlite3changegroup_schema</a></li>
 <li><a href='#sqlite3changeset_apply'>sqlite3changeset_apply</a></li>
 <li><a href='#sqlite3changegroup_add_strm'>sqlite3changeset_apply_strm</a></li>
 <li><a href='#sqlite3changeset_apply'>sqlite3changeset_apply_v2</a></li>
@@ -199,6 +201,7 @@ code file sqlite3session.h.</p>
 <li><a href='#sqlite3changegroup_add_strm'>sqlite3changeset_start_strm</a></li>
 <li><a href='#sqlite3changeset_start'>sqlite3changeset_start_v2</a></li>
 <li><a href='#sqlite3changegroup_add_strm'>sqlite3changeset_start_v2_strm</a></li>
+<li><a href='#sqlite3changeset_upgrade'>sqlite3changeset_upgrade</a></li>
 <li><a href='#sqlite3rebaser_configure'>sqlite3rebaser_configure<small><i>(exp)</i></small></a></li>
 <li><a href='#sqlite3rebaser_create'>sqlite3rebaser_create<small><i>(exp)</i></small></a></li>
 <li><a href='#sqlite3rebaser_delete'>sqlite3rebaser_delete<small><i>(exp)</i></small></a></li>
@@ -450,13 +453,18 @@ changegroup depends on the type of each change, as follows:</p>
 <p>If the new changeset contains changes to a table that is already present
 in the changegroup, then the number of columns and the position of the
 primary key columns for the table must be consistent. If this is not the
-case, this function fails with SQLITE_SCHEMA. If the input changeset
-appears to be corrupt and the corruption is detected, SQLITE_CORRUPT is
-returned. Or, if an out-of-memory condition occurs during processing, this
-function returns SQLITE_NOMEM. In all cases, if an error occurs the state
-of the final contents of the changegroup is undefined.</p>
+case, this function fails with SQLITE_SCHEMA. Except, if the changegroup
+object has been configured with a database schema using the
+sqlite3changegroup_schema() API, then it is possible to combine changesets
+with different numbers of columns for a single table, provided that
+they are otherwise compatible.</p>
 
-<p>If no error occurs, SQLITE_OK is returned.
+<p>If the input changeset appears to be corrupt and the corruption is
+detected, SQLITE_CORRUPT is returned. Or, if an out-of-memory condition
+occurs during processing, this function returns SQLITE_NOMEM. </p>
+
+<p>In all cases, if an error occurs the state of the final contents of the
+changegroup is undefined. If no error occurs, SQLITE_OK is returned.
 </p><hr><a name="sqlite3changegroup_delete"></a>
 <h2>Delete A Changegroup Object</h2><blockquote><pre>void sqlite3changegroup_delete(sqlite3_changegroup*);
 </pre></blockquote><p></p><hr><a name="sqlite3changegroup_new"></a>
@@ -520,6 +528,34 @@ is returned and the output variables are set to the size of and a
 pointer to the output buffer, respectively. In this case it is the
 responsibility of the caller to eventually free the buffer using a
 call to sqlite3_free().
+</p><hr><a name="sqlite3changegroup_schema"></a>
+<h2>Add a Schema to a Changegroup</h2><blockquote><pre>int sqlite3changegroup_schema(sqlite3_changegroup*, sqlite3*, const char *zDb);
+</pre></blockquote><p>
+This method may be used to optionally enforce the rule that the changesets
+added to the changegroup handle must match the schema of database zDb
+("main", "temp", or the name of an attached database). If
+sqlite3changegroup_add() is called to add a changeset that is not compatible
+with the configured schema, SQLITE_SCHEMA is returned and the changegroup
+object is left in an undefined state.</p>
+
+<p>A changeset schema is considered compatible with the database schema in
+the same way as for sqlite3changeset_apply(). Specifically, for each
+table in the changeset, there exists a database table with:</p>
+
+<p><ul>
+  <li> The name identified by the changeset, and
+  <li> at least as many columns as recorded in the changeset, and
+  <li> the primary key columns in the same position as recorded in 
+       the changeset.
+</ul></p>
+
+<p>The output of the changegroup object always has the same schema as the
+database nominated using this function. In cases where changesets passed
+to sqlite3changegroup_add() have fewer columns than the corresponding table
+in the database schema, these are filled in using the default column
+values from the database schema. This makes it possible to combined 
+changesets that have different numbers of columns for a single table
+within a changegroup, provided that they are otherwise compatible.
 </p><hr><a name="sqlite3changeset_concat"></a>
 <h2>Concatenate Two Changeset Objects</h2><blockquote><pre>int sqlite3changeset_concat(
   int nA,                         /* Number of bytes in buffer pA */
@@ -788,7 +824,14 @@ in the table.</p>
 entry, SQLITE_MISUSE is returned and the output variables zeroed. Otherwise,
 SQLITE_OK is returned and the output variables populated as described
 above.
-</p><hr><a name="sqlite3rebaser_configure"></a>
+</p><hr><a name="sqlite3changeset_upgrade"></a>
+<h2>Upgrade the Schema of a Changeset/Patchset</h2><blockquote><pre>int sqlite3changeset_upgrade(
+  sqlite3 *db,
+  const char *zDb,
+  int nIn, const void *pIn,       /* Input changeset */
+  int *pnOut, void **ppOut        /* OUT: Inverse of input */
+);
+</pre></blockquote><p></p><hr><a name="sqlite3rebaser_configure"></a>
 <h2>Configure a changeset rebaser object.</h2><blockquote><pre>int sqlite3rebaser_configure(
   sqlite3_rebaser*, 
   int nRebase, const void *pRebase
@@ -1255,10 +1298,11 @@ in tables that are not attached to the Session object, the filter is called
 to determine whether changes to the table's rows should be tracked or not. 
 If xFilter returns 0, changes are not tracked. Note that once a table is 
 attached, xFilter will not be called again.
-</p><hr><a name="SQLITE_CHANGESETAPPLY_IGNORENOOP"></a>
+</p><hr><a name="SQLITE_CHANGESETAPPLY_FKNOACTION"></a>
 <h2>Flags for sqlite3changeset_apply_v2</h2><blockquote><pre>#define SQLITE_CHANGESETAPPLY_NOSAVEPOINT   0x0001
 #define SQLITE_CHANGESETAPPLY_INVERT        0x0002
 #define SQLITE_CHANGESETAPPLY_IGNORENOOP    0x0004
+#define SQLITE_CHANGESETAPPLY_FKNOACTION    0x0008
 </pre></blockquote><p>
 The following flags may passed via the 9th parameter to
 <a href="#sqlite3changeset_apply">sqlite3changeset_apply_v2</a> and <a href="#sqlite3changegroup_add_strm">sqlite3changeset_apply_v2_strm</a>:</p>
@@ -1289,7 +1333,13 @@ The following flags may passed via the 9th parameter to
        their new values in the conflicting row, or
    <li>an insert change if all fields of the conflicting row match
        the row being inserted.
-   </ul>
+   </ul></p>
+
+<p><dt>SQLITE_CHANGESETAPPLY_FKNOACTION <dd>
+  If this flag it set, then all foreign key constraints in the target
+  database behave as if they were declared with "ON UPDATE NO ACTION ON
+  DELETE NO ACTION", even if they are actually CASCADE, RESTRICT, SET NULL
+  or SET DEFAULT.
 </p><hr><a name="SQLITE_CHANGESET_ABORT"></a>
 <h2>Constants Returned By The Conflict Handler</h2><blockquote><pre>#define SQLITE_CHANGESET_OMIT       0
 #define SQLITE_CHANGESET_REPLACE    1
@@ -1766,7 +1816,7 @@ APIs for further details.</p>
 
 <p>The behavior of sqlite3changeset_apply_v2() and its streaming equivalent
 may be modified by passing a combination of
-<a href="#SQLITE_CHANGESETAPPLY_IGNORENOOP">supported flags</a> as the 9th parameter.</p>
+<a href="#SQLITE_CHANGESETAPPLY_FKNOACTION">supported flags</a> as the 9th parameter.</p>
 
 <p>Note that the sqlite3changeset_apply_v2() API is still <b>experimental</b>
 and therefore subject to change.

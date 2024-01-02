@@ -245,8 +245,14 @@ The built-in printf() implementation uses extra code space
 The floating-point to text conversion subfunction for the built-in printf()
 is limited in precision to 16 significant digits or 26 significant digits
 if the "!" alternate-form-2 flag is used.
-Every IEEE-754 double can be represented exactly as a decimal floating-point
-value, but some doubles require more than 16 or 26 significant digits.
+Every IEEE-754 double can be represented <i>exactly</i> as a decimal
+value, but for many doubles the exact decimal representation requires
+more than 16 or 26 significant digits.
+The SQLite printf() function only renders the first 16 or 26 significant digits
+because that can be done efficient and because 16 decimal digits it is sufficient
+to distinguish every possible double value.  Use the <a href="floatingpoint.html#decext">decimal extension</a> to get
+the exact decimal equivalent of double value for the rare cases where that is
+required.
 
 </p></li><li><p>
 The order of the buffer pointer and buffer size parameters in the built-in
@@ -554,5 +560,5 @@ routine. This is because there was no snprintf() routine in the
 standard C library
 when Hipp was first implementing his version, and he chose a different order
 than the designers of the standard C library.
-</p><p align="center"><small><i>This page last modified on  <a href="https://sqlite.org/docsrc/honeypot" id="mtimelink"  data-href="https://sqlite.org/docsrc/finfo/pages/printf.in?m=541f47c7e3">2023-05-04 17:35:51</a> UTC </small></i></p>
+</p><p align="center"><small><i>This page last modified on  <a href="https://sqlite.org/docsrc/honeypot" id="mtimelink"  data-href="https://sqlite.org/docsrc/finfo/pages/printf.in?m=4880d4e1ee">2023-06-29 23:18:37</a> UTC </small></i></p>
 

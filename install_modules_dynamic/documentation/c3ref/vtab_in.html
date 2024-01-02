@@ -134,7 +134,7 @@ undefined and probably harmful.</p>
 communicated to the xBestIndex method as a
 <a href="../c3ref/c_index_constraint_eq.html">SQLITE_INDEX_CONSTRAINT_EQ</a> constraint.  If xBestIndex wants to use
 this constraint, it must set the corresponding
-aConstraintUsage[].argvIndex to a postive integer.  Then, under
+aConstraintUsage[].argvIndex to a positive integer.  Then, under
 the usual mode of handling IN operators, SQLite generates <a href="../opcode.html">bytecode</a>
 that invokes the <a href="../vtab.html#xfilter">xFilter() method</a> once for each value
 on the right-hand side of the IN operator.  Thus the virtual table

@@ -396,9 +396,43 @@ be added.
 <tbody>
 
 <tr><td valign='top'>
+<a href='https://nvd.nist.gov/vuln/detail/CVE-2023-32697'>CVE-2023-32697</a>
+</td>
+<td valign='top'>Not a bug in SQLite</td>
+<td valign='top'>This is a bug in the SQLite JDBC library, which is a wrapper library that
+  provides access to SQLite from Java.  SQLite JDBC is created and maintained
+  independently from SQLite.  Despite the use of "SQLite" in the name, the
+  SQLite JDBC library is not affiliated with the SQLite project in any way.
+  The vulnerability identified by this CVE is in the separate SQLite JDBC
+  wrapper library and does not affect SQLite itself.</td>
+</tr>
+
+<tr><td valign='top'>
+<a href='https://nvd.nist.gov/vuln/detail/CVE-2023-39939'>CVE-2023-39939</a>
+</td>
+<td valign='top'>Not a bug in SQLite</td>
+<td valign='top'>This is not a bug in SQLite.  This is an 
+  <a href="https://en.wikipedia.org/wiki/SQL_injection">SQL injection bug</a> in an application
+  (LuxCal Web Calendar) that can uses SQLite.
+  Even though this CVE is not about SQLite, "SQLite" is
+  mentioned in the description and so we list it here.</td>
+</tr>
+
+<tr><td valign='top'>
+<a href='https://nvd.nist.gov/vuln/detail/CVE-2023-39543'>CVE-2023-39543</a>
+</td>
+<td valign='top'>Not a bug in SQLite</td>
+<td valign='top'>This is not a bug in SQLite.  This is a
+  <a href="https://developer.mozilla.org/en-US/docs/Glossary/Cross-site_scripting">XSS vulnerability</a>
+  in a separate application (LuxCal Web Calendar) that optionally uses
+  SQLite.  The bug is in the application, not in SQLite.  However "SQLite" is
+  mentioned in the description and so we list it here.</td>
+</tr>
+
+<tr><td valign='top'>
 <a href='https://nvd.nist.gov/vuln/detail/CVE-2022-46908'>CVE-2022-46908</a>
 </td>
-<td valign='top'>Bug not in the SQLite library</td>
+<td valign='top'>Not a bug in the core SQLite library</td>
 <td valign='top'>This is a bug in the --safe command-line option of the <a href="cli.html">command-line shell</a>
   program that is available for accessing SQLite database files.  The bug does
   not exist in the SQLite library.  Nor is it an issue for the <a href="cli.html">CLI</a> as long as
@@ -409,7 +443,7 @@ be added.
 <tr><td valign='top'>
 <a href='https://nvd.nist.gov/vuln/detail/CVE-2022-38627'>CVE-2022-38627</a>
 </td>
-<td valign='top'>Not a bug</td>
+<td valign='top'>Not a bug in SQLite</td>
 <td valign='top'>This is not a bug in SQLite.  This is an 
   <a href="https://en.wikipedia.org/wiki/SQL_injection">SQL injection bug</a> in a specific
   PHP application.  In other words, the bug is in the PHP application code, not
@@ -432,7 +466,7 @@ be added.
 <tr><td valign='top'>
 <a href='https://nvd.nist.gov/vuln/detail/CVE-2022-24854'>CVE-2022-24854</a>
 </td>
-<td valign='top'>Not a bug</td>
+<td valign='top'>Not a bug in SQLite</td>
 <td valign='top'>This CVE describes a bug in an application that uses SQLite, not in SQLite itself.
   SQLite is doing everything correctly.  The application grants users the ability to
   run SQL statements, using SQLite, that can leak or change information that those users
@@ -443,7 +477,7 @@ be added.
 <tr><td valign='top'>
 <a href='https://nvd.nist.gov/vuln/detail/CVE-2022-21227'>CVE-2022-21227</a>
 </td>
-<td valign='top'>Not a bug</td>
+<td valign='top'>Not a bug in SQLite</td>
 <td valign='top'>This CVE describes a bug in a third-party packages that provides a binding
   for SQLite to Node.js.  The bug reported is in the third-party Node.js binding,
   not in SQLite itself.  Do not be confused by the use of the word "SQLite" in the
@@ -453,7 +487,7 @@ be added.
 <tr><td valign='top'>
 <a href='https://nvd.nist.gov/vuln/detail/CVE-2021-45346'>CVE-2021-45346</a>
 </td>
-<td valign='top'>Not a bug</td>
+<td valign='top'>Not a bug in SQLite</td>
 <td valign='top'>This CVE is misinformation.  See the discussion around
   <a href="https://sqlite.org/forum/forumpost/53de8864ba114bf6">SQLite forum post 53de8864ba114bf</a>.</td>
 </tr>
@@ -461,7 +495,7 @@ be added.
 <tr><td valign='top'>
 <a href='https://nvd.nist.gov/vuln/detail/CVE-2021-42169'>CVE-2021-42169</a>
 </td>
-<td valign='top'>Not a bug</td>
+<td valign='top'>Not a bug in SQLite</td>
 <td valign='top'>This CVE has nothing whatsoever to do with SQLite.  It is about a bug in
   application that happens to use SQLite.  Since SQLite is mentioned in the 
   CVE description, the CVE is included here to emphasize that
@@ -471,9 +505,9 @@ be added.
 <tr><td valign='top'>
 <a href='https://nvd.nist.gov/vuln/detail/CVE-2021-36690'>CVE-2021-36690</a>
 </td>
-<td valign='top'>Bug not in the SQLite library</td>
+<td valign='top'>Not a bug in the core SQLite library</td>
 <td valign='top'>This bug is not in the SQLite core library, but rather in an
-  <a href="http://www.sqlite.org/src/dir?ci=trunk&name=ext/expert">
+  <a href="https://www.sqlite.org/src/dir?ci=trunk&name=ext/expert">
   experimental extension</a> that is used to implement the
   <a href="cli.html#expert">.expert command</a> in the <a href="cli.html">CLI</a>.  The code that contains the bug
   does not appear in <a href="amalgamation.html">standard SQLite builds</a>, though it
@@ -490,7 +524,7 @@ be added.
 <tr><td valign='top'>
 <a href='https://nvd.nist.gov/vuln/detail/CVE-2021-28305'>CVE-2021-28305</a>
 </td>
-<td valign='top'>Not a bug</td>
+<td valign='top'>Not a bug in SQLite</td>
 <td valign='top'>This is not a bug in SQLite.  The bug is in a third-party application that
   uses SQLite.  SQLite is mentioned by name in the CVE description,
   however, so we have included the CVE in the list.</td>
@@ -499,7 +533,7 @@ be added.
 <tr><td valign='top'>
 <a href='https://nvd.nist.gov/vuln/detail/CVE-2021-23404'>CVE-2021-23404</a>
 </td>
-<td valign='top'>Not a bug</td>
+<td valign='top'>Not a bug in SQLite</td>
 <td valign='top'>This is not a bug in SQLite.  The bug is in a third-party application that
   uses SQLite and includes "sqlite" in its name.  This CVE is included on the
   list because it mentions SQLite even though the bug has nothing to do
@@ -721,5 +755,5 @@ be added.
 
 </tbody>
 </table>
-<p align="center"><small><i>This page last modified on  <a href="https://sqlite.org/docsrc/honeypot" id="mtimelink"  data-href="https://sqlite.org/docsrc/finfo/pages/cves.in?m=c1c00c0e5b">2023-02-27 02:07:35</a> UTC </small></i></p>
+
 

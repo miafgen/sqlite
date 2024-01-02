@@ -148,6 +148,7 @@ Other Documentation Indexes:
 <li> <a href="datatype3.html#expraff">Affinity Of Expressions</a> </li>
 <li> <a href="testing.html#aflfuzz">AFL</a> </li>
 <li> <a href="lang_aggfunc.html">Aggregate Functions</a> </li>
+<li> <a href="lang_aggfunc.html">aggregate SQL functions</a> </li>
 <li> <a href="windowfunctions.html#aggwinfunc">aggregate window functions</a> </li>
 <li> <a href="syntax/aggregate-function-invocation.html">aggregate-function-invocation</a> </li>
 <li> <a href="syntax/aggregate-function-invocation.html">aggregate-function-invocation syntax diagram</a> </li>
@@ -363,6 +364,8 @@ Other Documentation Indexes:
 <li> <a href="fts3.html#*fts4compression">compressed FTS4 content</a> </li>
 <li> <a href="lang_with.html#mandelbrot">compute the Mandelbrot set</a> </li>
 <li> <a href="gencol.html">computed columns</a> </li>
+<li> <a href="lang_corefunc.html#concat">concat() SQL function</a> </li>
+<li> <a href="lang_corefunc.html#concat_ws">concat_ws() SQL function</a> </li>
 <li> <a href="tclsqlite.html#config">config method</a> </li>
 <li> <a href="spellfix1.html#configeditdist">configurable edit distances</a> </li>
 <li> <a href="c3ref/c_config_covering_index_scan.html">configuration option</a> </li>
@@ -374,6 +377,7 @@ Other Documentation Indexes:
 <li> <a href="cli.html#dotconn">.connection</a> </li>
 <li> <a href="optoverview.html#constprop">constant-propagation optimization</a> </li>
 <li> <a href="fts3.html#_contentless_fts4_tables_">contentless fts4 tables</a> </li>
+<li> <a href="fts5.html#clssdeltab">contentless-delete</a> </li>
 <li> <a href="tclsqlite.html#copy">copy method</a> </li>
 <li> <a href="copyright.html">copyright</a> </li>
 <li> <a href="lang_corefunc.html">Core Functions</a> </li>
@@ -468,6 +472,7 @@ Other Documentation Indexes:
 <li> <a href="syntax/delete-stmt.html">delete-stmt syntax diagram</a> </li>
 <li> <a href="syntax/delete-stmt-limited.html">delete-stmt-limited</a> </li>
 <li> <a href="syntax/delete-stmt-limited.html">delete-stmt-limited syntax diagram</a> </li>
+<li> <a href="fts5.html#the_deletemerge_configuration_option">deletemerge</a> </li>
 <li> <a href="howtocorrupt.html#delhotjrnl">deleting a hot journal</a> </li>
 <li> <a href="c3ref/experimental.html">deprecated</a> </li>
 <li> <a href="lang_createindex.html#descidx">DESC</a> </li>
@@ -686,6 +691,7 @@ Other Documentation Indexes:
 <li> <a href="compile.html#untestable">-DSQLITE_UNTESTABLE</a> </li>
 <li> <a href="compile.html#use_alloca">-DSQLITE_USE_ALLOCA</a> </li>
 <li> <a href="compile.html#use_fcntl_trace">-DSQLITE_USE_FCNTL_TRACE</a> </li>
+<li> <a href="compile.html#use_seh">-DSQLITE_USE_SEH</a> </li>
 <li> <a href="compile.html#use_uri">-DSQLITE_USE_URI</a> </li>
 <li> <a href="compile.html#win32_heap_create">-DSQLITE_WIN32_HEAP_CREATE</a> </li>
 <li> <a href="compile.html#win32_malloc">-DSQLITE_WIN32_MALLOC</a> </li>
@@ -808,11 +814,13 @@ Other Documentation Indexes:
 <li> <a href="fts5.html#the_columnsize_option">FTS5 columnsize option</a> </li>
 <li> <a href="fts5.html#external_content_and_contentless_tables">FTS5 content option</a> </li>
 <li> <a href="fts5.html#contentless_tables">FTS5 contentless tables</a> </li>
+<li> <a href="fts5.html#contentless_delete_tables">FTS5 contentless-delete tables</a> </li>
 <li> <a href="fts5.html#fts5_table_creation_and_initialization">FTS5 CREATE TABLE Options</a> </li>
 <li> <a href="fts5.html#custom_auxiliary_functions">FTS5 custom auxiliary functions</a> </li>
 <li> <a href="fts5.html#the_delete_command">FTS5 delete command</a> </li>
 <li> <a href="fts5.html#the_delete_all_command">FTS5 delete-all command</a> </li>
 <li> <a href="fts5.html#the_detail_option">FTS5 detail option</a> </li>
+<li> <a href="fts5.html#external_content_table_pitfalls">FTS5 external content pitfalls</a> </li>
 <li> <a href="fts5.html#external_content_tables">FTS5 external content tables</a> </li>
 <li> <a href="fts5.html#the_highlight_function">FTS5 highlight</a> </li>
 <li> <a href="fts5.html#carrotq">FTS5 initial token</a> </li>
@@ -844,7 +852,10 @@ Other Documentation Indexes:
 <li> <a href="cli.html#fullschema">.fullschema</a> </li>
 <li> <a href="c3ref/create_function.html">function creation routines</a> </li>
 <li> <a href="tclsqlite.html#function">function method</a> </li>
+<li> <a href="syntax/function-arguments.html">function-arguments</a> </li>
+<li> <a href="syntax/function-arguments.html">function-arguments syntax diagram</a> </li>
 <li> <a href="pragma.html#pragma_function_list">function_list pragma</a> </li>
+<li> <a href="lang_expr.html#*funcinexpr">functions within expressions</a> </li>
 <li> <a href="testing.html#fuzztesting">fuzz testing</a> </li>
 <li> <a href="testing.html#fuzzcheck">fuzzcheck</a> </li>
 <li> <a href="lang_altertable.html#otheralter">generalized ALTER TABLE procedure</a> </li>
@@ -904,6 +915,7 @@ Other Documentation Indexes:
 <li> <a href="useovernet.html">how to corrupt a database</a> </li>
 <li> <a href="lockingv3.html#how_to_corrupt">How To Corrupt Your Database Files</a> </li>
 <li> <a href="lang_vacuum.html#howvacuumworks">how vacuum works</a> </li>
+<li> <a href="floatingpoint.html#fpapprox">IEEE 754 floating point values are approximations</a> </li>
 <li> <a href="floatingpoint.html#ieee754ext">ieee754 extension</a> </li>
 <li> <a href="floatingpoint.html#ieee754">ieee754() function</a> </li>
 <li> <a href="floatingpoint.html#ieee754m">ieee754_exponent() function</a> </li>
@@ -1126,8 +1138,10 @@ Other Documentation Indexes:
 <li> <a href="syntax/numeric-literal.html">numeric-literal</a> </li>
 <li> <a href="syntax/numeric-literal.html">numeric-literal syntax diagram</a> </li>
 <li> <a href="lang_naming.html">object resolution</a> </li>
+<li> <a href="lang_corefunc.html#octet_length">octet_length() SQL function</a> </li>
 <li> <a href="lang_select.html#limitoffset">OFFSET</a> </li>
 <li> <a href="optoverview.html#omitnoopjoin">omit-left-join optimization</a> </li>
+<li> <a href="optoverview.html#omitnoopjoin">omit-outer-join optimization</a> </li>
 <li> <a href="compile.html#omitfeatures">omitfeatures</a> </li>
 <li> <a href="lang_conflict.html">ON CONFLICT</a> </li>
 <li> <a href="lang_conflict.html">ON CONFLICT clause</a> </li>
@@ -1148,12 +1162,15 @@ Other Documentation Indexes:
 <li> <a href="optoverview.html#or_opt">or optimization</a> </li>
 <li> <a href="queryplanner.html#or_in_where">or-connected-terms</a> </li>
 <li> <a href="lang_select.html#orderby">order by</a> </li>
+<li> <a href="lang_aggfunc.html#aggorderby">ORDER BY clause in aggregate functions</a> </li>
 <li> <a href="vtab.html#obc">orderByConsumed</a> </li>
 <li> <a href="syntax/ordering-term.html">ordering-term</a> </li>
 <li> <a href="syntax/ordering-term.html">ordering-term syntax diagram</a> </li>
 <li> <a href="lang_with.html#ordinarycte">ordinary common table expressions</a> </li>
 <li> <a href="vfs.html">OS backend</a> </li>
 <li> <a href="testing.html#ossfuzz">OSS Fuzz</a> </li>
+<li> <a href="optoverview.html#leftjoinreduction">OUTER JOIN strength reduction</a> </li>
+<li> <a href="optoverview.html#leftjoinreduction">OUTER JOIN strength reduction optimization</a> </li>
 <li> <a href="cli.html#dotoutput">.output</a> </li>
 <li> <a href="cli.html#dotmode">output mode</a> </li>
 <li> <a href="syntax/over-clause.html">over-clause</a> </li>
@@ -1271,6 +1288,7 @@ Other Documentation Indexes:
 <li> <a href="syntax/pragma-value.html">pragma-value</a> </li>
 <li> <a href="syntax/pragma-value.html">pragma-value syntax diagram</a> </li>
 <li> <a href="pragma.html#pragma_pragma_list">pragma_list pragma</a> </li>
+<li> <a href="amalgamation.html#amalgtarball">precompiled amalgamation tarballs</a> </li>
 <li> <a href="fts3.html#termprefix">prefix queries</a> </li>
 <li> <a href="fts3.html#termprefix">prefix query</a> </li>
 <li> <a href="c3ref/stmt.html">prepared statement</a> </li>
@@ -1396,6 +1414,7 @@ Other Documentation Indexes:
 <li> <a href="howtocorrupt.html#svptbug">SAVEPOINT bug</a> </li>
 <li> <a href="syntax/savepoint-stmt.html">savepoint-stmt</a> </li>
 <li> <a href="syntax/savepoint-stmt.html">savepoint-stmt syntax diagram</a> </li>
+<li> <a href="lang_corefunc.html">Scalar Functions</a> </li>
 <li> <a href="c3ref/c_scanstat_complex.html">scan status flags</a> </li>
 <li> <a href="c3ref/c_scanstat_est.html">scanstatus options</a> </li>
 <li> <a href="cli.html#dschema">.schema</a> </li>
@@ -1617,6 +1636,7 @@ Other Documentation Indexes:
 <li> <a href="c3ref/free_table.html">sqlite3_free_table</a> </li>
 <li> <a href="c3ref/get_autocommit.html">sqlite3_get_autocommit</a> </li>
 <li> <a href="c3ref/get_auxdata.html">sqlite3_get_auxdata</a> </li>
+<li> <a href="c3ref/get_clientdata.html">sqlite3_get_clientdata</a> </li>
 <li> <a href="c3ref/free_table.html">sqlite3_get_table</a> </li>
 <li> <a href="c3ref/aggregate_count.html">sqlite3_global_recover</a> </li>
 <li> <a href="c3ref/hard_heap_limit64.html">sqlite3_hard_heap_limit64</a> </li>
@@ -1653,6 +1673,7 @@ Other Documentation Indexes:
 <li> <a href="vtab.html#xeof">sqlite3_module.xEof</a> </li>
 <li> <a href="vtab.html#xfilter">sqlite3_module.xFilter</a> </li>
 <li> <a href="vtab.html#xfindfunction">sqlite3_module.xFindFunction</a> </li>
+<li> <a href="vtab.html#xintegrity">sqlite3_module.xIntegrity</a> </li>
 <li> <a href="vtab.html#xnext">sqlite3_module.xNext</a> </li>
 <li> <a href="vtab.html#xopen">sqlite3_module.xOpen</a> </li>
 <li> <a href="vtab.html#xrename">sqlite3_module.xRename</a> </li>
@@ -1732,6 +1753,7 @@ Other Documentation Indexes:
 <li> <a href="session/session.html">sqlite3_session</a> </li>
 <li> <a href="c3ref/set_authorizer.html">sqlite3_set_authorizer</a> </li>
 <li> <a href="c3ref/get_auxdata.html">sqlite3_set_auxdata</a> </li>
+<li> <a href="c3ref/get_clientdata.html">sqlite3_set_clientdata</a> </li>
 <li> <a href="c3ref/set_last_insert_rowid.html">sqlite3_set_last_insert_rowid</a> </li>
 <li> <a href="c3ref/initialize.html">sqlite3_shutdown</a> </li>
 <li> <a href="c3ref/sleep.html">sqlite3_sleep</a> </li>
@@ -1751,6 +1773,7 @@ Other Documentation Indexes:
 <li> <a href="c3ref/step.html">sqlite3_step</a> </li>
 <li> <a href="c3ref/stmt.html">sqlite3_stmt</a> </li>
 <li> <a href="c3ref/stmt_busy.html">sqlite3_stmt_busy</a> </li>
+<li> <a href="c3ref/stmt_explain.html">sqlite3_stmt_explain</a> </li>
 <li> <a href="c3ref/stmt_isexplain.html">sqlite3_stmt_isexplain</a> </li>
 <li> <a href="c3ref/stmt_readonly.html">sqlite3_stmt_readonly</a> </li>
 <li> <a href="c3ref/stmt_scanstatus.html">sqlite3_stmt_scanstatus</a> </li>
@@ -1846,6 +1869,7 @@ Other Documentation Indexes:
 <li> <a href="session/sqlite3changegroup_new.html">sqlite3changegroup_new</a> </li>
 <li> <a href="session/sqlite3changegroup_output.html">sqlite3changegroup_output</a> </li>
 <li> <a href="session/sqlite3changegroup_add_strm.html">sqlite3changegroup_output_strm</a> </li>
+<li> <a href="session/sqlite3changegroup_schema.html">sqlite3changegroup_schema</a> </li>
 <li> <a href="session/sqlite3changeset_apply.html">sqlite3changeset_apply</a> </li>
 <li> <a href="session/sqlite3changegroup_add_strm.html">sqlite3changeset_apply_strm</a> </li>
 <li> <a href="session/sqlite3changeset_apply.html">sqlite3changeset_apply_v2</a> </li>
@@ -1866,6 +1890,7 @@ Other Documentation Indexes:
 <li> <a href="session/sqlite3changegroup_add_strm.html">sqlite3changeset_start_strm</a> </li>
 <li> <a href="session/sqlite3changeset_start.html">sqlite3changeset_start_v2</a> </li>
 <li> <a href="session/sqlite3changegroup_add_strm.html">sqlite3changeset_start_v2_strm</a> </li>
+<li> <a href="session/sqlite3changeset_upgrade.html">sqlite3changeset_upgrade</a> </li>
 <li> <a href="session/sqlite3rebaser_configure.html">sqlite3rebaser_configure</a> </li>
 <li> <a href="session/sqlite3rebaser_create.html">sqlite3rebaser_create</a> </li>
 <li> <a href="session/sqlite3rebaser_delete.html">sqlite3rebaser_delete</a> </li>
@@ -1927,9 +1952,10 @@ Other Documentation Indexes:
 <li> <a href="session/c_changeset_conflict.html">SQLITE_CHANGESET_NOTFOUND</a> </li>
 <li> <a href="session/c_changeset_abort.html">SQLITE_CHANGESET_OMIT</a> </li>
 <li> <a href="session/c_changeset_abort.html">SQLITE_CHANGESET_REPLACE</a> </li>
-<li> <a href="session/c_changesetapply_ignorenoop.html">SQLITE_CHANGESETAPPLY_IGNORENOOP</a> </li>
-<li> <a href="session/c_changesetapply_ignorenoop.html">SQLITE_CHANGESETAPPLY_INVERT</a> </li>
-<li> <a href="session/c_changesetapply_ignorenoop.html">SQLITE_CHANGESETAPPLY_NOSAVEPOINT</a> </li>
+<li> <a href="session/c_changesetapply_fknoaction.html">SQLITE_CHANGESETAPPLY_FKNOACTION</a> </li>
+<li> <a href="session/c_changesetapply_fknoaction.html">SQLITE_CHANGESETAPPLY_IGNORENOOP</a> </li>
+<li> <a href="session/c_changesetapply_fknoaction.html">SQLITE_CHANGESETAPPLY_INVERT</a> </li>
+<li> <a href="session/c_changesetapply_fknoaction.html">SQLITE_CHANGESETAPPLY_NOSAVEPOINT</a> </li>
 <li> <a href="session/c_changesetstart_invert.html">SQLITE_CHANGESETSTART_INVERT</a> </li>
 <li> <a href="c3ref/c_checkpoint_full.html">SQLITE_CHECKPOINT_FULL</a> </li>
 <li> <a href="c3ref/c_checkpoint_full.html">SQLITE_CHECKPOINT_PASSIVE</a> </li>
@@ -2232,6 +2258,7 @@ Other Documentation Indexes:
 <li> <a href="c3ref/c_abort_rollback.html">SQLITE_IOERR_FSTAT</a> </li>
 <li> <a href="c3ref/c_abort_rollback.html">SQLITE_IOERR_FSYNC</a> </li>
 <li> <a href="c3ref/c_abort_rollback.html">SQLITE_IOERR_GETTEMPPATH</a> </li>
+<li> <a href="c3ref/c_abort_rollback.html">SQLITE_IOERR_IN_PAGE</a> </li>
 <li> <a href="c3ref/c_abort_rollback.html">SQLITE_IOERR_LOCK</a> </li>
 <li> <a href="c3ref/c_abort_rollback.html">SQLITE_IOERR_MMAP</a> </li>
 <li> <a href="c3ref/c_abort_rollback.html">SQLITE_IOERR_NOMEM</a> </li>
@@ -2510,6 +2537,7 @@ Other Documentation Indexes:
 <li> <a href="c3ref/c_testctrl_always.html">SQLITE_TESTCTRL_EXTRA_SCHEMA_CHECKS</a> </li>
 <li> <a href="c3ref/c_testctrl_always.html">SQLITE_TESTCTRL_FAULT_INSTALL</a> </li>
 <li> <a href="c3ref/c_testctrl_always.html">SQLITE_TESTCTRL_FIRST</a> </li>
+<li> <a href="c3ref/c_testctrl_always.html">SQLITE_TESTCTRL_FK_NO_ACTION</a> </li>
 <li> <a href="c3ref/c_testctrl_always.html">SQLITE_TESTCTRL_IMPOSTER</a> </li>
 <li> <a href="c3ref/c_testctrl_always.html">SQLITE_TESTCTRL_INTERNAL_FUNCTIONS</a> </li>
 <li> <a href="c3ref/c_testctrl_always.html">SQLITE_TESTCTRL_ISINIT</a> </li>
@@ -2533,6 +2561,7 @@ Other Documentation Indexes:
 <li> <a href="c3ref/c_testctrl_always.html">SQLITE_TESTCTRL_SORTER_MMAP</a> </li>
 <li> <a href="c3ref/c_testctrl_always.html">SQLITE_TESTCTRL_TRACEFLAGS</a> </li>
 <li> <a href="c3ref/c_testctrl_always.html">SQLITE_TESTCTRL_TUNE</a> </li>
+<li> <a href="c3ref/c_testctrl_always.html">SQLITE_TESTCTRL_USELONGDOUBLE</a> </li>
 <li> <a href="c3ref/c_testctrl_always.html">SQLITE_TESTCTRL_VDBE_COVERAGE</a> </li>
 <li> <a href="c3ref/c_blob.html">SQLITE_TEXT</a> </li>
 <li> <a href="compile.html#threadsafe">SQLITE_THREADSAFE</a> </li>
@@ -2554,6 +2583,7 @@ Other Documentation Indexes:
 <li> <a href="c3ref/c_alter_table.html">SQLITE_UPDATE</a> </li>
 <li> <a href="compile.html#use_alloca">SQLITE_USE_ALLOCA</a> </li>
 <li> <a href="compile.html#use_fcntl_trace">SQLITE_USE_FCNTL_TRACE</a> </li>
+<li> <a href="compile.html#use_seh">SQLITE_USE_SEH</a> </li>
 <li> <a href="compile.html#use_uri">SQLITE_USE_URI</a> </li>
 <li> <a href="c3ref/c_any.html">SQLITE_UTF16</a> </li>
 <li> <a href="c3ref/c_any.html">SQLITE_UTF16_ALIGNED</a> </li>
@@ -2579,6 +2609,7 @@ Other Documentation Indexes:
 <li> <a href="howtocorrupt.html#stalefd">stale file descriptor</a> </li>
 <li> <a href="uri.html#coreqp">standard query parameters</a> </li>
 <li> <a href="tempfiles.html#stmtjrnl">statement journal</a> </li>
+<li> <a href="loadext.html#statext">statically linked extensions</a> </li>
 <li> <a href="pragma.html#pragma_stats">stats pragma</a> </li>
 <li> <a href="tclsqlite.html#status">status method</a> </li>
 <li> <a href="c3ref/c_status_malloc_count.html">status parameters</a> </li>
@@ -2589,6 +2620,8 @@ Other Documentation Indexes:
 <li> <a href="stricttables.html">STRICT</a> </li>
 <li> <a href="stricttables.html">STRICT table</a> </li>
 <li> <a href="stricttables.html">strict type checking</a> </li>
+<li> <a href="lang_aggfunc.html#group_concat">string_agg</a> </li>
+<li> <a href="lang_aggfunc.html#group_concat">string_agg() aggregate function</a> </li>
 <li> <a href="opcode.html#subprog">subprograms</a> </li>
 <li> <a href="lang_expr.html#subq">Subqueries</a> </li>
 <li> <a href="optoverview.html#coroutines">subquery co-routines</a> </li>
@@ -2702,8 +2735,11 @@ Other Documentation Indexes:
 <li> <a href="threadsafe.html">threading mode</a> </li>
 <li> <a href="pragma.html#pragma_threads">threads pragma</a> </li>
 <li> <a href="testing.html#harnesses">three test harnesses</a> </li>
+<li> <a href="lang_datefunc.html#tmshf">time shift modifiers</a> </li>
 <li> <a href="lang_datefunc.html#dttm">time()</a> </li>
 <li> <a href="lang_datefunc.html#dttm">time() SQL function</a> </li>
+<li> <a href="lang_datefunc.html#tmdif">timediff()</a> </li>
+<li> <a href="lang_datefunc.html#tmdif">timediff() SQL function</a> </li>
 <li> <a href="tclsqlite.html#timeout">timeout method</a> </li>
 <li> <a href="fts3.html#tokenizer">tokenizer</a> </li>
 <li> <a href="psow.html#tornpage">torn page</a> </li>
@@ -2947,6 +2983,13 @@ Other Documentation Indexes:
 <li> <a href="releaselog/3_41_1.html">Version 3.41.1</a> </li>
 <li> <a href="releaselog/3_41_2.html">Version 3.41.2</a> </li>
 <li> <a href="releaselog/3_42_0.html">Version 3.42.0</a> </li>
+<li> <a href="releaselog/3_43_0.html">Version 3.43.0</a> </li>
+<li> <a href="releaselog/3_43_0.html">Version 3.43.0.0</a> </li>
+<li> <a href="releaselog/3_43_1.html">Version 3.43.1</a> </li>
+<li> <a href="releaselog/3_43_1.html">Version 3.43.1.0</a> </li>
+<li> <a href="releaselog/3_43_2.html">Version 3.43.2</a> </li>
+<li> <a href="releaselog/3_43_2.html">Version 3.43.2.0</a> </li>
+<li> <a href="releaselog/3_44_0.html">Version 3.44.0</a> </li>
 <li> <a href="releaselog/3_5_0.html">Version 3.5.0</a> </li>
 <li> <a href="releaselog/3_5_1.html">Version 3.5.1</a> </li>
 <li> <a href="releaselog/3_5_2.html">Version 3.5.2</a> </li>
@@ -3119,6 +3162,8 @@ Other Documentation Indexes:
 <li> <a href="vtab.html#xeof">xEof</a> </li>
 <li> <a href="vtab.html#xfilter">xFilter</a> </li>
 <li> <a href="vtab.html#xfindfunction">xFindFunction</a> </li>
+<li> <a href="vtab.html#xintegrity">xIntegrity</a> </li>
+<li> <a href="vtab.html#xintegrity">xIntegrity method</a> </li>
 <li> <a href="vtab.html#xnext">xNext</a> </li>
 <li> <a href="rtree.html#xquery">xQueryFunc R*Tree callback</a> </li>
 <li> <a href="vtab.html#xsavepoint">xRelease</a> </li>

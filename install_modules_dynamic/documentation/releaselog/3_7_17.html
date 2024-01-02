@@ -164,18 +164,18 @@ antiRobotDefense();
     in <a href="../sharedcache.html">shared cache mode</a> when one
     <a href="../c3ref/sqlite3.html">database connection</a> is closed while another is in the middle of a write
     transaction.
-    Ticket <a href="http://www.sqlite.org/src/info/e636a050b7">e636a050b7</a>
+    Ticket <a href="https://www.sqlite.org/src/info/e636a050b7">e636a050b7</a>
 <li>Bug fix:
     Only consider AS names from the result set as candidates for resolving
     identifiers in the WHERE clause if there are no other matches. In the
     ORDER BY clause, AS names take priority over any column names.
-    Ticket <a href="http://www.sqlite.org/src/info/2500cdb9be05">2500cdb9be05</a>
+    Ticket <a href="https://www.sqlite.org/src/info/2500cdb9be05">2500cdb9be05</a>
 <li>Bug fix: Do not allow a virtual table to cancel the ORDER BY clause unless
     all outer loops are guaranteed to return no more than one row result.
-    Ticket <a href="http://www.sqlite.org/src/info/ba82a4a41eac1">ba82a4a41eac1</a>.
+    Ticket <a href="https://www.sqlite.org/src/info/ba82a4a41eac1">ba82a4a41eac1</a>.
 <li>Bug fix: Do not suppress the ORDER BY clause on a virtual table query if
     an IN constraint is used.
-    Ticket <a href="http://www.sqlite.org/src/info/f69b96e3076e">f69b96e3076e</a>.
+    Ticket <a href="https://www.sqlite.org/src/info/f69b96e3076e">f69b96e3076e</a>.
 <li>Bug fix: The <a href="../cli.html">command-line shell</a> gives an exit code of 0 when terminated
     using the ".quit" command.
 <li>Bug fix: Make sure <a href="../pragma.html#syntax">PRAGMA</a> statements appear in <a href="../c3ref/profile.html">sqlite3_trace()</a> output.
@@ -183,17 +183,17 @@ antiRobotDefense();
     with a <a href="../lang_expr.html#collateop">COLLATE operator</a>, make sure that the sorting occurs
     according to the specified collation and that the comparisons associate with
     the compound query use the native collation.  Ticket
-    <a href="http://www.sqlite.org/src/info/6709574d2a8d8">6709574d2a8d8</a>.
+    <a href="https://www.sqlite.org/src/info/6709574d2a8d8">6709574d2a8d8</a>.
 <li>Bug fix: Makes sure the <a href="../c3ref/set_authorizer.html">authorizer</a> callback gets
     a valid pointer to the string "ROWID" for the column-name parameter when
     doing an <a href="../lang_update.html">UPDATE</a> that changes the rowid.  Ticket
-    <a href="http://www.sqlite.org/src/info/0eb70d77cb05bb2272">0eb70d77cb05bb2272</a>
+    <a href="https://www.sqlite.org/src/info/0eb70d77cb05bb2272">0eb70d77cb05bb2272</a>
 <li>Bug fix: Do not move WHERE clause terms inside OR expressions that are
     contained within an ON clause of a LEFT JOIN.  Ticket
-    <a href="http://www.sqlite.org/src/info/f2369304e4">f2369304e4</a>
+    <a href="https://www.sqlite.org/src/info/f2369304e4">f2369304e4</a>
 <li>Bug fix: Make sure an error is always reported when attempting to preform
     an operation that requires a <a href="../datatype3.html#collation">collating sequence</a> that is missing.
-    Ticket <a href="http://www.sqlite.org/src/info/0fc59f908b">0fc59f908b</a>
+    Ticket <a href="https://www.sqlite.org/src/info/0fc59f908b">0fc59f908b</a>
 
 <li>SQLITE_SOURCE_ID:
     "2013-05-20 00:56:22 118a3b35693b134d56ebd780123b7fd6f1497668"
@@ -205,7 +205,7 @@ antiRobotDefense();
       in a single page and a <a href="../chronology.html">chronology</a> are both also available.
       A detailed history of every
       check-in is available at
-      <a href="http://www.sqlite.org/src/timeline">
+      <a href="https://www.sqlite.org/src/timeline">
       SQLite version control site</a>.</p>
     
 

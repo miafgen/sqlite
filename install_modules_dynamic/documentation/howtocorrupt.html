@@ -155,9 +155,9 @@ Table Of Contents
 <div class="fancy-toc2"><a href="#_corruption_following_switches_between_rollback_and_wal_modes">8.2.  Corruption following switches between rollback and WAL modes</a></div>
 <div class="fancy-toc2"><a href="#_i_o_error_while_obtaining_a_lock_leads_to_corruption">8.3.  I/O error while obtaining a lock leads to corruption</a></div>
 <div class="fancy-toc2"><a href="#_database_pages_leak_from_the_free_page_list">8.4.  Database pages leak from the free page list</a></div>
-<div class="fancy-toc2"><a href="#_corruption_following_alternating_writes_from_3_6_and_3_7_">8.5.  Corruption following alternating writes from 3.6 and 3.7.</a></div>
-<div class="fancy-toc2"><a href="#_race_condition_in_recovery_on_windows_system_">8.6.  Race condition in recovery on windows system.</a></div>
-<div class="fancy-toc2"><a href="#_boundary_value_error_in_the_secondary_journals_used_by_nested_transactions_">8.7.  Boundary value error in the secondary journals used by nested transactions.</a></div>
+<div class="fancy-toc2"><a href="#_corruption_following_alternating_writes_from_3_6_and_3_7">8.5.  Corruption following alternating writes from 3.6 and 3.7</a></div>
+<div class="fancy-toc2"><a href="#_race_condition_in_recovery_on_windows_systems">8.6.  Race condition in recovery on Windows systems</a></div>
+<div class="fancy-toc2"><a href="#_boundary_value_error_in_the_secondary_journals_used_by_nested_transactions">8.7.  Boundary value error in the secondary journals used by nested transactions</a></div>
 </div>
 </div>
 <script>
@@ -739,11 +739,11 @@ pages missing from the free list.</p>
 
 <p>This problem was fixed on 2010-08-23 for SQLite version 3.7.2.</p>
 
-<h2 id="_corruption_following_alternating_writes_from_3_6_and_3_7_"><span>8.5. </span> Corruption following alternating writes from 3.6 and 3.7.</h2>
+<h2 id="_corruption_following_alternating_writes_from_3_6_and_3_7"><span>8.5. </span> Corruption following alternating writes from 3.6 and 3.7</h2>
 
 <p>SQLite version 3.7.0 introduced a number of new enhancements to
 the SQLite database file format (such as but not limited to <a href="wal.html">WAL</a>).
-The 3.7.0 release was a shake-out release for these new features. 
+The 3.7.0 release was a shake-out release for these new features.
 We expected to find problems and were not disappointed.</p>
 
 <p>If a database were originally created using SQLite version 3.7.0,
@@ -753,7 +753,7 @@ file could go corrupt.</p>
 
 <p>This problem was fixed on 2010-08-04 for SQLite version 3.7.1.</p>
 
-<h2 id="_race_condition_in_recovery_on_windows_system_"><span>8.6. </span> Race condition in recovery on windows system.</h2>
+<h2 id="_race_condition_in_recovery_on_windows_systems"><span>8.6. </span> Race condition in recovery on Windows systems</h2>
 
 <p>SQLite version 3.7.16.2 fixes a subtle race condition in the locking
 logic on Windows systems.  When a database file is in need
@@ -772,7 +772,7 @@ on Windows systems only and did not affect the posix OS interface.</p>
 
 <a name="svptbug"></a>
 
-<h2 id="_boundary_value_error_in_the_secondary_journals_used_by_nested_transactions_"><span>8.7. </span> Boundary value error in the secondary journals used by nested transactions.</h2>
+<h2 id="_boundary_value_error_in_the_secondary_journals_used_by_nested_transactions"><span>8.7. </span> Boundary value error in the secondary journals used by nested transactions</h2>
 
 <p>When a nested transaction is started using <a href="lang_savepoint.html">SAVEPOINT</a>, SQLite uses
 a secondary rollback journal to track the changes for the nested
@@ -809,5 +809,5 @@ customized state-of-the-art fuzzer.
 
 </p><p>This problem was <a href="https://www.sqlite.org/src/info/73c2b50211d3ae26">fixed</a>
 in <a href="releaselog/3_37_2.html">version 3.37.2</a> (2022-01-06).
-</p><p align="center"><small><i>This page last modified on  <a href="https://sqlite.org/docsrc/honeypot" id="mtimelink"  data-href="https://sqlite.org/docsrc/finfo/pages/howtocorrupt.in?m=015e9d7d1a">2022-04-18 02:55:50</a> UTC </small></i></p>
+</p>
 

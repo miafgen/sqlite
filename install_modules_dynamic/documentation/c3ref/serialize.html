@@ -155,6 +155,13 @@ The size of the database is written into *P even if the
 SQLITE_SERIALIZE_NOCOPY bit is set but no contiguous copy
 of the database exists.</p>
 
+<p>After the call, if the SQLITE_SERIALIZE_NOCOPY bit had been set,
+the returned buffer content will remain accessible and unchanged
+until either the next write operation on the connection or when
+the connection is closed, and applications must not modify the
+buffer. If the bit had been clear, the returned buffer will not
+be accessed by SQLite after the call.</p>
+
 <p>A call to sqlite3_serialize(D,S,P,F) might return NULL even if the
 SQLITE_SERIALIZE_NOCOPY bit is omitted from argument F if a memory
 allocation error occurs.</p>

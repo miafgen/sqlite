@@ -301,7 +301,7 @@ manipulate zip archives.
 </p><p>To insert a symbolic link, the user must also supply a "mode" value.
 For example, to add a symbolic link from "link.txt" to "m.txt":
 
-</p><div class="codeblock"><pre>INSERT INTO temp.zip(name, mode, data) VALUES('link.txt', 'lrwxrw-rw-', 'abcdefghi');
+</p><div class="codeblock"><pre>INSERT INTO temp.zip(name, mode, data) VALUES('link.txt', 'lrwxrw-rw-', 'm.txt');
 </pre></div>
 
 <p>The following rules and caveats apply to the values specified as part of
@@ -450,5 +450,5 @@ SELECT zipfile(name, mode, mtime, data, NULL) ...
 )
 SELECT zipfile(name, data) FROM contents;
 </pre></div>
-<p align="center"><small><i>This page last modified on  <a href="https://sqlite.org/docsrc/honeypot" id="mtimelink"  data-href="https://sqlite.org/docsrc/finfo/pages/zipfile.in?m=515b8b11ec">2022-01-08 05:02:57</a> UTC </small></i></p>
+<p align="center"><small><i>This page last modified on  <a href="https://sqlite.org/docsrc/honeypot" id="mtimelink"  data-href="https://sqlite.org/docsrc/finfo/pages/zipfile.in?m=5408af61ff">2023-06-07 13:17:51</a> UTC </small></i></p>
 

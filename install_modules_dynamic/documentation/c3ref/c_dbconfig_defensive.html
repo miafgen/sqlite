@@ -278,7 +278,7 @@ until after the database connection closes.
 database handle, SQLite checks if this will mean that there are now no
 connections at all to the database. If so, it performs a checkpoint
 operation before closing the connection. This option may be used to
-override this behaviour. The first parameter passed to this operation
+override this behavior. The first parameter passed to this operation
 is an integer - positive to disable checkpoints-on-close, or zero (the
 default) to enable them, and negative to leave the setting unchanged.
 The second parameter is a pointer to an integer
@@ -441,7 +441,7 @@ ability to generate new database files that are compatible with  version
 the <a href="../lang_vacuum.html">VACUUM</a> command will fail with an obscure error when attempting to
 process a table with generated columns and a descending index.  This is
 not considered a bug since SQLite versions 3.3.0 and earlier do not support
-either generated columns or decending indexes.
+either generated columns or descending indexes.
 </dd></p>
 
 <p><a name="sqlitedbconfigstmtscanstatus"></a>
